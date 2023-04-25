@@ -1,0 +1,1 @@
+<path fill="currentColor" d="M14 6a4 4 0 0 1 0 8H6a4 4 0 0 1 0-8h8Zm-8 6a2 2 0 1 0 0-4a2 2 0 0 0 0 4Z"/>

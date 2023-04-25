@@ -1,0 +1,1 @@
+<path fill="currentColor" d="M2 6a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6Zm2-1a1 1 0 0 0-1 1v1h2V5H4Zm-1 9a1 1 0 0 0 1 1h1v-2H3v1Zm2-3.5H3V12h2v-1.5ZM5 8H3v1.5h2V8Zm9 7V5H6v10h8Zm1-2v2h1a1 1 0 0 0 1-1v-1h-2Zm2-1v-1.5h-2V12h2Zm0-2.5V8h-2v1.5h2ZM17 7V6a1 1 0 0 0-1-1h-1v2h2Z"/>
