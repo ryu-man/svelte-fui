@@ -1,0 +1,35 @@
+{
+	"useTabs": true,
+	"singleQuote": true,
+	"trailingComma": "none",
+	"printWidth": 144,
+	"tabWidth": 1,
+	"plugins": [
+		"prettier-plugin-svelte",
+		"@trivago/prettier-plugin-sort-imports",
+		"prettier-plugin-tailwindcss"
+	],
+	"pluginSearchDirs": false,
+	"overrides": [
+		{
+			"files": "*.svelte",
+			"options": {
+				"parser": "svelte"
+			}
+		}
+	],
+	"order": "smacss",
+	"importOrder": [
+		"^svelte$",
+		"^svelte/(.*)$",
+		"^fluent-svelte$",
+		"^fluent-svelte/(.*)$",
+		"^<THIRD_PARTY_MODULES>/(.*)$",
+		"^\\$(.*)$",
+		"^\\$(.*)/(.*)$",
+		"^[./]"
+	],
+	"importOrderSeparation": false,
+	"importOrderSortSpecifiers": true,
+	"importOrderGroupNamespaceSpecifiers": false
+}
