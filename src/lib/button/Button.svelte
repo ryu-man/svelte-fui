@@ -53,10 +53,10 @@
 		--min-height: calc(theme(lineHeight.base-300) + 5px * 2 + 2px);
 		--icon-size: var(--min-height);
 
-		background-color: var(--fds-colorNeutralBackground1);
-		border-color: var(--fds-colorNeutralStroke1);
+		background-color: var(--fui-colorNeutralBackground1);
+		border-color: var(--fui-colorNeutralStroke1);
 		border-style: solid;
-		color: var(--fds-colorNeutralForeground1);
+		color: var(--fui-colorNeutralForeground1);
 
 		min-height: var(--min-height);
 		min-width: 96px;
@@ -71,9 +71,9 @@
 		transition-property: all;
 
 		&:hover {
-			background-color: var(--fds-colorNeutralBackground1Hover);
-			border-color: var(--fds-colorNeutralStroke1Hover);
-			color: var(--fds-colorNeutralForeground1Hover);
+			background-color: var(--fui-colorNeutralBackground1Hover);
+			border-color: var(--fui-colorNeutralStroke1Hover);
+			color: var(--fui-colorNeutralForeground1Hover);
 			cursor: pointer;
 			/* backgroundColor: tokens.colorNeutralBackground1Hover,
 				borderColor: tokens.colorNeutralStroke1Hover,
@@ -90,9 +90,9 @@
 		}
 
 		&:hover:active {
-			background-color: var(--fds-colorNeutralBackground1Pressed);
-			border-color: var(--fds-colorNeutralStroke1Pressed);
-			color: var(--fds-colorNeutralForeground1Pressed);
+			background-color: var(--fui-colorNeutralBackground1Pressed);
+			border-color: var(--fui-colorNeutralStroke1Pressed);
+			color: var(--fui-colorNeutralForeground1Pressed);
 
 			/* ':hover:active': {
 				backgroundColor: tokens.colorNeutralBackground1Pressed,
@@ -111,7 +111,7 @@
 		}
 
 		&:focus-visible {
-			box-shadow: var(--fds-focus-stroke);
+			box-shadow: var(--fui-focus-stroke);
 		}
 	}
 
@@ -127,32 +127,32 @@
 	}
 
 	.fds-button.primary {
-		background-color: var(--fds-colorBrandBackground);
+		background-color: var(--fui-colorBrandBackground);
 		border-color: transparent;
-		color: var(--fds-colorNeutralForegroundOnBrand);
+		color: var(--fui-colorNeutralForegroundOnBrand);
 
 		&:hover {
-			background-color: var(--fds-colorBrandBackgroundHover);
+			background-color: var(--fui-colorBrandBackgroundHover);
 			border-color: transparent;
-			color: var(--fds-colorNeutralForegroundOnBrand);
+			color: var(--fui-colorNeutralForegroundOnBrand);
 		}
 
 		&:hover:active {
-			background-color: var(--fds-colorBrandBackgroundPressed);
+			background-color: var(--fui-colorBrandBackgroundPressed);
 			border-color: transparent;
-			color: var(--fds-colorNeutralForegroundOnBrand);
+			color: var(--fui-colorNeutralForegroundOnBrand);
 		}
 	}
 
 	.fds-button.subtle {
-		background-color: var(--fds-colorSubtleBackground);
+		background-color: var(--fui-colorSubtleBackground);
 		border-color: transparent;
-		color: var(--fds-colorNeutralForeground2);
+		color: var(--fui-colorNeutralForeground2);
 
 		&:hover {
-			background-color: var(--fds-colorSubtleBackgroundHover);
+			background-color: var(--fui-colorSubtleBackgroundHover);
 			border-color: transparent;
-			color: var(--fds-colorNeutralForeground2Hover);
+			color: var(--fui-colorNeutralForeground2Hover);
 
 			/* [`& .${buttonClassNames.icon}`]: {
         color: tokens.colorNeutralForeground2BrandHover,
@@ -160,9 +160,9 @@
 		}
 
 		&:hover:active {
-			background-color: var(--fds-colorSubtleBackgroundPressed);
+			background-color: var(--fui-colorSubtleBackgroundPressed);
 			border-color: transparent;
-			color: var(--fds-colorNeutralForeground2Pressed);
+			color: var(--fui-colorNeutralForeground2Pressed);
 
 			/* [`& .${buttonClassNames.icon}`]: {
         color: tokens.colorNeutralForeground2BrandPressed,
@@ -171,14 +171,14 @@
 	}
 
 	.fds-button.transparent {
-		background-color: var(--fds-colorTransparentBackground);
+		background-color: var(--fui-colorTransparentBackground);
 		border-color: transparent;
-		color: var(--fds-colorNeutralForeground2);
+		color: var(--fui-colorNeutralForeground2);
 
 		&:hover {
-			background-color: var(--fds-colorTransparentBackgroundHover);
+			background-color: var(--fui-colorTransparentBackgroundHover);
 			border-color: transparent;
-			color: var(--fds-colorNeutralForeground2BrandHover);
+			color: var(--fui-colorNeutralForeground2BrandHover);
 
 			/* [`& .${buttonClassNames.icon}`]: {
         color: tokens.colorNeutralForeground2BrandHover,
@@ -186,9 +186,9 @@
 		}
 
 		&:hover:active {
-			background-color: var(--fds-colorTransparentBackgroundPressed);
+			background-color: var(--fui-colorTransparentBackgroundPressed);
 			border-color: transparent;
-			color: var(--fds-colorNeutralForeground2BrandPressed);
+			color: var(--fui-colorNeutralForeground2BrandPressed);
 
 			/* [`& .${buttonClassNames.icon}`]: {
         color: tokens.colorNeutralForeground2BrandPressed,
@@ -208,16 +208,16 @@
 	}
 
 	.fds-button:disabled {
-		background-color: var(--fds-colorNeutralBackgroundDisabled);
-		border-color: var(--fds-colorNeutralStrokeDisabled);
-		color: var(--fds-colorNeutralForegroundDisabled);
+		background-color: var(--fui-colorNeutralBackgroundDisabled);
+		border-color: var(--fui-colorNeutralStrokeDisabled);
+		color: var(--fui-colorNeutralForegroundDisabled);
 
 		cursor: not-allowed;
 
 		&:hover {
-			background-color: var(--fds-colorNeutralBackgroundDisabled);
-			border-color: var(--fds-colorNeutralStrokeDisabled);
-			color: var(--fds-colorNeutralForegroundDisabled);
+			background-color: var(--fui-colorNeutralBackgroundDisabled);
+			border-color: var(--fui-colorNeutralStrokeDisabled);
+			color: var(--fui-colorNeutralForegroundDisabled);
 
 			cursor: not-allowed;
 			/* [`& .${iconFilledClassName}`]: {
@@ -229,9 +229,9 @@
 		}
 
 		&:hover:active {
-			background-color: var(--fds-colorNeutralBackgroundDisabled);
-			border-color: var(--fds-colorNeutralStrokeDisabled);
-			color: var(--fds-colorNeutralForegroundDisabled);
+			background-color: var(--fui-colorNeutralBackgroundDisabled);
+			border-color: var(--fui-colorNeutralStrokeDisabled);
+			color: var(--fui-colorNeutralForegroundDisabled);
 
 			cursor: not-allowed;
 

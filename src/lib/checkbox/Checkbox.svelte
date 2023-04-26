@@ -64,7 +64,7 @@
 		--indicator-size-md: 16px;
 		--indicator-size-lg: 20px;
 
-		color: var(--fds-colorNeutralForeground3);
+		color: var(--fui-colorNeutralForeground3);
 		/* ...createFocusOutlineStyle({ style: {}, selector: 'focus-within' }); */
 
 		&:focus-within {
@@ -73,77 +73,77 @@
 		/* unchecked */
 		&[data-checked='false']:not(.disabled) {
 			&:hover {
-				color: var(--fds-colorNeutralForeground2);
+				color: var(--fui-colorNeutralForeground2);
 
 				& > .fui-checkbox-indicator {
-					border-color: var(--fds-colorNeutralStrokeAccessibleHover);
+					border-color: var(--fui-colorNeutralStrokeAccessibleHover);
 				}
 			}
 		}
 
 		&:active {
-			color: var(--fds-colorNeutralForeground1);
+			color: var(--fui-colorNeutralForeground1);
 
 			& > .fui-checkbox-indicator {
-				border-color: var(--fds-colorNeutralStrokeAccessiblePressed);
+				border-color: var(--fui-colorNeutralStrokeAccessiblePressed);
 			}
 		}
 
 		/* checked */
 		&[data-checked='true']:not(.disabled) {
-			color: var(--fds-colorNeutralForeground1);
+			color: var(--fui-colorNeutralForeground1);
 
 			& > .fui-checkbox-indicator {
-				background-color: var(--fds-colorCompoundBrandBackground);
-				color: var(--fds-colorNeutralForegroundInverted);
-				border-color: var(--fds-colorCompoundBrandBackground);
+				background-color: var(--fui-colorCompoundBrandBackground);
+				color: var(--fui-colorNeutralForegroundInverted);
+				border-color: var(--fui-colorCompoundBrandBackground);
 			}
 
 			&:hover {
 				& > .fui-checkbox-indicator {
-					background-color: var(--fds-colorCompoundBrandBackgroundHover);
-					border-color: var(--fds-colorCompoundBrandBackgroundHover);
+					background-color: var(--fui-colorCompoundBrandBackgroundHover);
+					border-color: var(--fui-colorCompoundBrandBackgroundHover);
 				}
 			}
 
 			&:active {
 				& > .fui-checkbox-indicator {
-					background-color: var(--fds-colorCompoundBrandBackgroundPressed);
-					border-color: var(--fds-colorCompoundBrandBackgroundPressed);
+					background-color: var(--fui-colorCompoundBrandBackgroundPressed);
+					border-color: var(--fui-colorCompoundBrandBackgroundPressed);
 				}
 			}
 		}
 
 		&.mixed {
-			color: var(--fds-colorNeutralForeground1);
+			color: var(--fui-colorNeutralForeground1);
 
 			& > .fui-checkbox-indicator {
-				border-color: var(--fds-colorCompoundBrandStroke);
-				color: var(--fds-colorCompoundBrandForeground1);
+				border-color: var(--fui-colorCompoundBrandStroke);
+				color: var(--fui-colorCompoundBrandForeground1);
 			}
 
 			&:hover {
 				& > .fui-checkbox-indicator {
-					border-color: var(--fds-colorCompoundBrandStrokeHover);
-					color: var(--fds-colorCompoundBrandForeground1Hover);
+					border-color: var(--fui-colorCompoundBrandStrokeHover);
+					color: var(--fui-colorCompoundBrandForeground1Hover);
 				}
 			}
 
 			&:active {
 				& > .fui-checkbox-indicator {
-					border-color: var(--fds-colorCompoundBrandStrokePressed);
-					color: var(--fds-colorCompoundBrandForeground1Pressed);
+					border-color: var(--fui-colorCompoundBrandStrokePressed);
+					color: var(--fui-colorCompoundBrandForeground1Pressed);
 				}
 			}
 		}
 
 		&.disabled {
 			@apply cursor-default pointer-events-none;
-			color: var(--fds-colorNeutralForegroundDisabled);
+			color: var(--fui-colorNeutralForegroundDisabled);
 
 			& > .fui-checkbox-indicator {
-				border-color: var(--fds-colorNeutralStrokeDisabled);
-				color: var(--fds-colorNeutralForegroundDisabled);
+				border-color: var(--fui-colorNeutralStrokeDisabled);
+				color: var(--fui-colorNeutralForegroundDisabled);
 			}
 
 			@media (forced-colors: active) {

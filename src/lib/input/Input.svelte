@@ -104,13 +104,13 @@
 		position: relative;
 		box-sizing: border-box;
 		min-height: var(--field-height-medium);
-		/* font-family: var(--fds-fontFamilyBase);
-		font-size: var(--fds-fontSizeBase300);
-		font-weight: var(--fds-fontWeightRegular);
-		line-height: var(--fds-lineHeightBase300); */
-		background-color: var(--fds-colorNeutralBackground1);
-		border: 1px solid var(--fds-colorNeutralStroke1);
-		border-bottom-color: var(--fds-colorNeutralStrokeAccessible);
+		/* font-family: var(--fui-fontFamilyBase);
+		font-size: var(--fui-fontSizeBase300);
+		font-weight: var(--fui-fontWeightRegular);
+		line-height: var(--fui-lineHeightBase300); */
+		background-color: var(--fui-colorNeutralBackground1);
+		border: 1px solid var(--fui-colorNeutralStroke1);
+		border-bottom-color: var(--fui-colorNeutralStrokeAccessible);
 		gap: theme(spacing.xxs);
 		border-radius: theme(borderRadius.md);
 		padding: 0 theme(spacing.mNudge);
@@ -144,21 +144,21 @@
 		&.outlineInteractive {
 			:hover {
 				/* ...shorthands.borderColor(tokens.colorNeutralStroke1Hover); */
-				border-color: var(--fds-colorNeutralStroke1Hover);
-				border-bottom-color: var(--fds-colorNeutralStrokeAccessibleHover);
+				border-color: var(--fui-colorNeutralStroke1Hover);
+				border-bottom-color: var(--fui-colorNeutralStrokeAccessibleHover);
 			}
 			/* DO NOT add a space between the selectors! It changes the behavior of make-styles. */
 			:active,
 			:focus-within {
 				/* ...shorthands.borderColor(tokens.colorNeutralStroke1Pressed); */
-				border-color: var(--fds-colorNeutralStroke1Pressed);
-				border-bottom-color: var(--fds-colorNeutralStrokeAccessiblePressed);
+				border-color: var(--fui-colorNeutralStroke1Pressed);
+				border-bottom-color: var(--fui-colorNeutralStrokeAccessiblePressed);
 			}
 		}
 
 		&.underline {
 			/* background-color: tokens.colorTransparentBackground; */
-			background-color: var(--fds-colorTransparentBackground);
+			background-color: var(--fui-colorTransparentBackground);
 			/*corners look strange if rounded*/
 			border-radius: 0;
 			/* ...shorthands.borderRadius(0);  */
@@ -177,13 +177,13 @@
 		&.underlineInteractive {
 			&:hover {
 				/* border-bottom-color: tokens.colorNeutralStrokeAccessibleHover; */
-				border-bottom-color: var(--fds-colorNeutralStrokeAccessibleHover);
+				border-bottom-color: var(--fui-colorNeutralStrokeAccessibleHover);
 			}
 			/* DO NOT add a space between the selectors! It changes the behavior of make-styles. */
 			&:active,
 			&:focus-within {
 				/* border-bottom-color: tokens.colorNeutralStrokeAccessiblePressed; */
-				border-bottom-color: var(--fds-colorNeutralStrokeAccessiblePressed);
+				border-bottom-color: var(--fui-colorNeutralStrokeAccessiblePressed);
 			}
 			&::after {
 				/* remove rounded corners from focus underline*/
@@ -193,7 +193,7 @@
 		}
 		&.filled {
 			/* ...shorthands.borderColor(tokens.colorTransparentStroke); */
-			border-color: var(--fds-colorTransparentStroke);
+			border-color: var(--fui-colorTransparentStroke);
 		}
 		&.filledInteractive {
 			/* DO NOT add a space between the selectors! It changes the behavior of make-styles. */
@@ -201,36 +201,36 @@
 			&:focus-within {
 				/* also handles pressed border color (:active) */
 				/* ...shorthands.borderColor(tokens.colorTransparentStrokeInteractive); */
-				border-color: var(--fds-colorTransparentStrokeInteractive);
+				border-color: var(--fui-colorTransparentStrokeInteractive);
 			}
 		}
 		&.invalid {
 			&:not(:focus-within),
 			&:hover:not(:focus-within) {
 				/* ...shorthands.borderColor(tokens.colorPaletteRedBorder2); */
-				border-color: var(--fds-colorPaletteRedBorder2);
+				border-color: var(--fui-colorPaletteRedBorder2);
 			}
 		}
 		&.filled-darker {
-			background-color: var(--fds-colorNeutralBackground3);
+			background-color: var(--fui-colorNeutralBackground3);
 		}
 		&.filled-lighter {
-			background-color: var(--fds-colorNeutralBackground1);
+			background-color: var(--fui-colorNeutralBackground1);
 		}
 		&.filled-darker-shadow {
 			@apply shadow-2;
-			background-color: var(--fds-colorNeutralBackground3);
+			background-color: var(--fui-colorNeutralBackground3);
 			/* box-shadow: tokens.shadow2; */
 		}
 		&.filled-lighter-shadow {
 			@apply shadow-2;
-			background-color: var(--fds-colorNeutralBackground1);
+			background-color: var(--fui-colorNeutralBackground1);
 			/* box-shadow: tokens.shadow2; */
 		}
 		&.disabled {
 			cursor: not-allowed;
-			background-color: var(--fds-colorTransparentBackground);
-			border-color: var(--fds-colorNeutralStrokeDisabled);
+			background-color: var(--fui-colorTransparentBackground);
+			border-color: var(--fui-colorNeutralStrokeDisabled);
 			/* ...shorthands.borderColor(tokens.colorNeutralStrokeDisabled); */
 
 			@media (forced-colors: active) {
@@ -272,14 +272,14 @@
 		By default borderBottom will cause little "horns" on the ends. The clipPath trims them off.
 		(This could be done without trimming using `background: linear-gradient(...)`, but using
 		borderBottom makes it easier for people to override the color if needed.) */
-		border-bottom: 2px solid var(--fds-colorCompoundBrandStroke);
+		border-bottom: 2px solid var(--fui-colorCompoundBrandStroke);
 		clip-path: inset(calc(100% - 2px) 0px 0px);
 
 		/* Animation for focus OUT */
 		transform: scaleX(0);
 		transition-property: transform;
-		/* transition-duration: var(--fds-durationUltraFast);
-		transition-delay: var(--fds-curveAccelerateMid); */
+		/* transition-duration: var(--fui-durationUltraFast);
+		transition-delay: var(--fui-curveAccelerateMid); */
 
 		@media screen and (prefers-reduced-motion: reduce) {
 			transition-duration: 0.01ms;
@@ -288,15 +288,15 @@
 	}
 
 	.fui-input:focus-within:active::after {
-		border-bottom-color: var(--fds-colorCompoundBrandStrokePressed);
+		border-bottom-color: var(--fui-colorCompoundBrandStrokePressed);
 	}
 
 	.fui-input:focus-within::after {
 		@apply duration-normal ease-decelerate-mid;
 		transform: scaleX(1);
 		transition-property: transform;
-		/* transition-duration: var(--fds-durationNormal); */
-		/* transition-delay: var(--fds-curveDecelerateMid); */
+		/* transition-duration: var(--fui-durationNormal); */
+		/* transition-delay: var(--fui-curveDecelerateMid); */
 		transition-delay: theme('transitionTimingFunction.decelerate-mid');
 	}
 	.fui-input:focus-within {
@@ -310,7 +310,7 @@
 		min-width: 0px;
 		border-style: none;
 		padding: 0 theme(spacing.xxs);
-		color: var(--fds-colorNeutralForeground1);
+		color: var(--fui-colorNeutralForeground1);
 		background-color: transparent;
 		outline-style: none;
 		font-family: inherit;

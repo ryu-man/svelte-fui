@@ -32,10 +32,10 @@
 		top: 0px;
 		left: 0px;
 
-		background-color: var(--fds-colorNeutralBackground1);
+		background-color: var(--fui-colorNeutralBackground1);
 		min-width: 160px;
 		max-height: 80vh;
-		outline: 1px solid var(--fds-colorTransparentStroke);
+		outline: 1px solid var(--fui-colorTransparentStroke);
 		padding: theme(spacing.xs);
 		margin: 0;
 		row-gap: theme(spacing.xxs);

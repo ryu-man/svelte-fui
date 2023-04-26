@@ -288,228 +288,228 @@
 		/** Color ***********************************************************/
 
 		&.neutral {
-			color: var(--fds-colorNeutralForeground3);
-			background-color: var(--fds-colorNeutralBackground6);
+			color: var(--fui-colorNeutralForeground3);
+			background-color: var(--fui-colorNeutralBackground6);
 			/* The ::before element is the ring when active */
 			&::before {
-				color: var(--fds-colorBrandStroke1);
+				color: var(--fui-colorBrandStroke1);
 			}
 		}
 		&.brand {
-			color: var(--fds-colorNeutralForegroundStaticInverted);
-			background-color: var(--fds-colorBrandBackgroundStatic);
+			color: var(--fui-colorNeutralForegroundStaticInverted);
+			background-color: var(--fui-colorBrandBackgroundStatic);
 			&::before {
-				color: var(--fds-colorBrandStroke1);
+				color: var(--fui-colorBrandStroke1);
 			}
 		}
 		&.dark-red {
-			color: var(--fds-colorPaletteDarkRedForeground2);
-			background-color: var(--fds-colorPaletteDarkRedBackground2);
+			color: var(--fui-colorPaletteDarkRedForeground2);
+			background-color: var(--fui-colorPaletteDarkRedBackground2);
 			&::before {
-				color: var(--fds-colorPaletteDarkRedBorderActive);
+				color: var(--fui-colorPaletteDarkRedBorderActive);
 			}
 		}
 		&.cranberry {
-			color: var(--fds-colorPaletteCranberryForeground2);
-			background-color: var(--fds-colorPaletteCranberryBackground2);
+			color: var(--fui-colorPaletteCranberryForeground2);
+			background-color: var(--fui-colorPaletteCranberryBackground2);
 			&::before {
-				color: var(--fds-colorPaletteCranberryBorderActive);
+				color: var(--fui-colorPaletteCranberryBorderActive);
 			}
 		}
 		&.red {
-			color: var(--fds-colorPaletteRedForeground2);
-			background-color: var(--fds-colorPaletteRedBackground2);
+			color: var(--fui-colorPaletteRedForeground2);
+			background-color: var(--fui-colorPaletteRedBackground2);
 			&::before {
-				color: var(--fds-colorPaletteRedBorderActive);
+				color: var(--fui-colorPaletteRedBorderActive);
 			}
 		}
 		&.pumpkin {
-			color: var(--fds-colorPalettePumpkinForeground2);
-			background-color: var(--fds-colorPalettePumpkinBackground2);
+			color: var(--fui-colorPalettePumpkinForeground2);
+			background-color: var(--fui-colorPalettePumpkinBackground2);
 			&::before {
-				color: var(--fds-colorPalettePumpkinBorderActive);
+				color: var(--fui-colorPalettePumpkinBorderActive);
 			}
 		}
 		&.peach {
-			color: var(--fds-colorPalettePeachForeground2);
-			background-color: var(--fds-colorPalettePeachBackground2);
+			color: var(--fui-colorPalettePeachForeground2);
+			background-color: var(--fui-colorPalettePeachBackground2);
 			&::before {
-				color: var(--fds-colorPalettePeachBorderActive);
+				color: var(--fui-colorPalettePeachBorderActive);
 			}
 		}
 		&.marigold {
-			color: var(--fds-colorPaletteMarigoldForeground2);
-			background-color: var(--fds-colorPaletteMarigoldBackground2);
+			color: var(--fui-colorPaletteMarigoldForeground2);
+			background-color: var(--fui-colorPaletteMarigoldBackground2);
 			&::before {
-				color: var(--fds-colorPaletteMarigoldBorderActive);
+				color: var(--fui-colorPaletteMarigoldBorderActive);
 			}
 		}
 		&.gold {
-			color: var(--fds-colorPaletteGoldForeground2);
-			background-color: var(--fds-colorPaletteGoldBackground2);
+			color: var(--fui-colorPaletteGoldForeground2);
+			background-color: var(--fui-colorPaletteGoldBackground2);
 			&::before {
-				color: var(--fds-colorPaletteGoldBorderActive);
+				color: var(--fui-colorPaletteGoldBorderActive);
 			}
 		}
 		&.brass {
-			color: var(--fds-colorPaletteBrassForeground2);
-			background-color: var(--fds-colorPaletteBrassBackground2);
+			color: var(--fui-colorPaletteBrassForeground2);
+			background-color: var(--fui-colorPaletteBrassBackground2);
 			&::before {
-				color: var(--fds-colorPaletteBrassBorderActive);
+				color: var(--fui-colorPaletteBrassBorderActive);
 			}
 		}
 		&.brown {
-			color: var(--fds-colorPaletteBrownForeground2);
-			background-color: var(--fds-colorPaletteBrownBackground2);
+			color: var(--fui-colorPaletteBrownForeground2);
+			background-color: var(--fui-colorPaletteBrownBackground2);
 			&::before {
-				color: var(--fds-colorPaletteBrownBorderActive);
+				color: var(--fui-colorPaletteBrownBorderActive);
 			}
 		}
 		&.forest {
-			color: var(--fds-colorPaletteForestForeground2);
-			background-color: var(--fds-colorPaletteForestBackground2);
+			color: var(--fui-colorPaletteForestForeground2);
+			background-color: var(--fui-colorPaletteForestBackground2);
 			&::before {
-				color: var(--fds-colorPaletteForestBorderActive);
+				color: var(--fui-colorPaletteForestBorderActive);
 			}
 		}
 		&.seafoam {
-			color: var(--fds-colorPaletteSeafoamForeground2);
-			background-color: var(--fds-colorPaletteSeafoamBackground2);
+			color: var(--fui-colorPaletteSeafoamForeground2);
+			background-color: var(--fui-colorPaletteSeafoamBackground2);
 			&::before {
-				color: var(--fds-colorPaletteSeafoamBorderActive);
+				color: var(--fui-colorPaletteSeafoamBorderActive);
 			}
 		}
 		&.dark-green {
-			color: var(--fds-colorPaletteDarkGreenForeground2);
-			background-color: var(--fds-colorPaletteDarkGreenBackground2);
+			color: var(--fui-colorPaletteDarkGreenForeground2);
+			background-color: var(--fui-colorPaletteDarkGreenBackground2);
 			&::before {
-				color: var(--fds-colorPaletteDarkGreenBorderActive);
+				color: var(--fui-colorPaletteDarkGreenBorderActive);
 			}
 		}
 		&.light-teal {
-			color: var(--fds-colorPaletteLightTealForeground2);
-			background-color: var(--fds-colorPaletteLightTealBackground2);
+			color: var(--fui-colorPaletteLightTealForeground2);
+			background-color: var(--fui-colorPaletteLightTealBackground2);
 			&::before {
-				color: var(--fds-colorPaletteLightTealBorderActive);
+				color: var(--fui-colorPaletteLightTealBorderActive);
 			}
 		}
 		&.teal {
-			color: var(--fds-colorPaletteTealForeground2);
-			background-color: var(--fds-colorPaletteTealBackground2);
+			color: var(--fui-colorPaletteTealForeground2);
+			background-color: var(--fui-colorPaletteTealBackground2);
 			&::before {
-				color: var(--fds-colorPaletteTealBorderActive);
+				color: var(--fui-colorPaletteTealBorderActive);
 			}
 		}
 		&.steel {
-			color: var(--fds-colorPaletteSteelForeground2);
-			background-color: var(--fds-colorPaletteSteelBackground2);
+			color: var(--fui-colorPaletteSteelForeground2);
+			background-color: var(--fui-colorPaletteSteelBackground2);
 			&::before {
-				color: var(--fds-colorPaletteSteelBorderActive);
+				color: var(--fui-colorPaletteSteelBorderActive);
 			}
 		}
 		&.blue {
-			color: var(--fds-colorPaletteBlueForeground2);
-			background-color: var(--fds-colorPaletteBlueBackground2);
+			color: var(--fui-colorPaletteBlueForeground2);
+			background-color: var(--fui-colorPaletteBlueBackground2);
 			&::before {
-				color: var(--fds-colorPaletteBlueBorderActive);
+				color: var(--fui-colorPaletteBlueBorderActive);
 			}
 		}
 		&.royal-blue {
-			color: var(--fds-colorPaletteRoyalBlueForeground2);
-			background-color: var(--fds-colorPaletteRoyalBlueBackground2);
+			color: var(--fui-colorPaletteRoyalBlueForeground2);
+			background-color: var(--fui-colorPaletteRoyalBlueBackground2);
 			&::before {
-				color: var(--fds-colorPaletteRoyalBlueBorderActive);
+				color: var(--fui-colorPaletteRoyalBlueBorderActive);
 			}
 		}
 		&.cornflower {
-			color: var(--fds-colorPaletteCornflowerForeground2);
-			background-color: var(--fds-colorPaletteCornflowerBackground2);
+			color: var(--fui-colorPaletteCornflowerForeground2);
+			background-color: var(--fui-colorPaletteCornflowerBackground2);
 			&::before {
-				color: var(--fds-colorPaletteCornflowerBorderActive);
+				color: var(--fui-colorPaletteCornflowerBorderActive);
 			}
 		}
 		&.navy {
-			color: var(--fds-colorPaletteNavyForeground2);
-			background-color: var(--fds-colorPaletteNavyBackground2);
+			color: var(--fui-colorPaletteNavyForeground2);
+			background-color: var(--fui-colorPaletteNavyBackground2);
 			&::before {
-				color: var(--fds-colorPaletteNavyBorderActive);
+				color: var(--fui-colorPaletteNavyBorderActive);
 			}
 		}
 		&.lavender {
-			color: var(--fds-colorPaletteLavenderForeground2);
-			background-color: var(--fds-colorPaletteLavenderBackground2);
+			color: var(--fui-colorPaletteLavenderForeground2);
+			background-color: var(--fui-colorPaletteLavenderBackground2);
 			&::before {
-				color: var(--fds-colorPaletteLavenderBorderActive);
+				color: var(--fui-colorPaletteLavenderBorderActive);
 			}
 		}
 		&.purple {
-			color: var(--fds-colorPalettePurpleForeground2);
-			background-color: var(--fds-colorPalettePurpleBackground2);
+			color: var(--fui-colorPalettePurpleForeground2);
+			background-color: var(--fui-colorPalettePurpleBackground2);
 			&::before {
-				color: var(--fds-colorPalettePurpleBorderActive);
+				color: var(--fui-colorPalettePurpleBorderActive);
 			}
 		}
 		&.grape {
-			color: var(--fds-colorPaletteGrapeForeground2);
-			background-color: var(--fds-colorPaletteGrapeBackground2);
+			color: var(--fui-colorPaletteGrapeForeground2);
+			background-color: var(--fui-colorPaletteGrapeBackground2);
 			&::before {
-				color: var(--fds-colorPaletteGrapeBorderActive);
+				color: var(--fui-colorPaletteGrapeBorderActive);
 			}
 		}
 		&.lilac {
-			color: var(--fds-colorPaletteLilacForeground2);
-			background-color: var(--fds-colorPaletteLilacBackground2);
+			color: var(--fui-colorPaletteLilacForeground2);
+			background-color: var(--fui-colorPaletteLilacBackground2);
 			&::before {
-				color: var(--fds-colorPaletteLilacBorderActive);
+				color: var(--fui-colorPaletteLilacBorderActive);
 			}
 		}
 		&.pink {
-			color: var(--fds-colorPalettePinkForeground2);
-			background-color: var(--fds-colorPalettePinkBackground2);
+			color: var(--fui-colorPalettePinkForeground2);
+			background-color: var(--fui-colorPalettePinkBackground2);
 			&::before {
-				color: var(--fds-colorPalettePinkBorderActive);
+				color: var(--fui-colorPalettePinkBorderActive);
 			}
 		}
 		&.magenta {
-			color: var(--fds-colorPaletteMagentaForeground2);
-			background-color: var(--fds-colorPaletteMagentaBackground2);
+			color: var(--fui-colorPaletteMagentaForeground2);
+			background-color: var(--fui-colorPaletteMagentaBackground2);
 			&::before {
-				color: var(--fds-colorPaletteMagentaBorderActive);
+				color: var(--fui-colorPaletteMagentaBorderActive);
 			}
 		}
 		&.plum {
-			color: var(--fds-colorPalettePlumForeground2);
-			background-color: var(--fds-colorPalettePlumBackground2);
+			color: var(--fui-colorPalettePlumForeground2);
+			background-color: var(--fui-colorPalettePlumBackground2);
 			&::before {
-				color: var(--fds-colorPalettePlumBorderActive);
+				color: var(--fui-colorPalettePlumBorderActive);
 			}
 		}
 		&.beige {
-			color: var(--fds-colorPaletteBeigeForeground2);
-			background-color: var(--fds-colorPaletteBeigeBackground2);
+			color: var(--fui-colorPaletteBeigeForeground2);
+			background-color: var(--fui-colorPaletteBeigeBackground2);
 			&::before {
-				color: var(--fds-colorPaletteBeigeBorderActive);
+				color: var(--fui-colorPaletteBeigeBorderActive);
 			}
 		}
 		&.mink {
-			color: var(--fds-colorPaletteMinkForeground2);
-			background-color: var(--fds-colorPaletteMinkBackground2);
+			color: var(--fui-colorPaletteMinkForeground2);
+			background-color: var(--fui-colorPaletteMinkBackground2);
 			&::before {
-				color: var(--fds-colorPaletteMinkBorderActive);
+				color: var(--fui-colorPaletteMinkBorderActive);
 			}
 		}
 		&.platinum {
-			color: var(--fds-colorPalettePlatinumForeground2);
-			background-color: var(--fds-colorPalettePlatinumBackground2);
+			color: var(--fui-colorPalettePlatinumForeground2);
+			background-color: var(--fui-colorPalettePlatinumBackground2);
 			&::before {
-				color: var(--fds-colorPalettePlatinumBorderActive);
+				color: var(--fui-colorPalettePlatinumBorderActive);
 			}
 		}
 		&.anchor {
-			color: var(--fds-colorPaletteAnchorForeground2);
-			background-color: var(--fds-colorPaletteAnchorBackground2);
+			color: var(--fui-colorPaletteAnchorForeground2);
+			background-color: var(--fui-colorPaletteAnchorBackground2);
 			&::before {
-				color: var(--fds-colorPaletteAnchorBorderActive);
+				color: var(--fui-colorPaletteAnchorBorderActive);
 			}
 		}
 
@@ -612,10 +612,10 @@
 
 		&.badge {
 			@apply absolute bottom-0 right-0;
-			box-shadow: 0 0 0 theme(borderWidth.thin) var(--fds-colorNeutralBackground1);
+			box-shadow: 0 0 0 theme(borderWidth.thin) var(--fui-colorNeutralBackground1);
 		}
 		&.badge-lg {
-			box-shadow: 0 0 0 theme(borderWidth.thick) var(--fds-colorNeutralBackground1);
+			box-shadow: 0 0 0 theme(borderWidth.thick) var(--fui-colorNeutralBackground1);
 		}
 	}
 
@@ -629,7 +629,7 @@
 	.fui-avatar > :global(.fui-avatar-initials) {
 		@apply absolute left-0 top-0 box-border flex h-full w-full select-none items-center justify-center text-center;
 		line-height: 1;
-		border: theme(borderWidth.thin) solid var(--fds-colorTransparentStroke);
+		border: theme(borderWidth.thin) solid var(--fui-colorTransparentStroke);
 		vertical-align: center;
 		border-radius: inherit;
 	}
@@ -637,7 +637,7 @@
 	.fui-avatar > :global(.fui-avatar-icon) {
 		@apply absolute left-0 top-0 box-border flex h-full w-full select-none items-center justify-center text-center;
 		line-height: 1;
-		border: theme(borderWidth.thin) solid var(--fds-colorTransparentStroke);
+		border: theme(borderWidth.thin) solid var(--fui-colorTransparentStroke);
 		vertical-align: center;
 		border-radius: inherit;
 	}
