@@ -59,15 +59,15 @@
 
 		--fui-icon-size: 16px;
 
-		color: var(--fds-colorNeutralForeground1);
+		color: var(--fui-colorNeutralForeground1);
 		column-gap: theme(spacing.xs);
 		padding: theme(spacing.sNudge) theme(spacing.s);
 
 		&:hover {
-			background-color: var(--fds-colorNeutralBackground1Hover);
+			background-color: var(--fui-colorNeutralBackground1Hover);
 		}
 		&:active {
-			background-color: var(--fds-colorNeutralBackground1Pressed);
+			background-color: var(--fui-colorNeutralBackground1Pressed);
 		}
 
 		&.active {
@@ -76,7 +76,7 @@
 			&::after {
 				@apply pointer-events-none absolute z-[1] rounded-md;
 				content: '';
-				border: 2px solid var(--fds-colorStrokeFocus2);
+				border: 2px solid var(--fui-colorStrokeFocus2);
 				top: -2px;
 				bottom: -2px;
 				left: -2px;
@@ -87,14 +87,14 @@
 		&.disabled {
 			@apply pointer-events-none;
 
-			color: var(--fds-colorNeutralForegroundDisabled);
+			color: var(--fui-colorNeutralForegroundDisabled);
 
 			&:hover {
-				background-color: var(--fds-colorTransparentBackground);
+				background-color: var(--fui-colorTransparentBackground);
 			}
 
 			&:active {
-				background-color: var(--fds-colorTransparentBackground);
+				background-color: var(--fui-colorTransparentBackground);
 			}
 
 			@media (forced-colors: active) {
@@ -121,7 +121,7 @@
 
 		.multiselectCheck {
 			@apply box-border flex items-center justify-center rounded-sm fill-current;
-			border: theme(borderWidth.thin) solid var(--fds-colorNeutralStrokeAccessible);
+			border: theme(borderWidth.thin) solid var(--fui-colorNeutralStrokeAccessible);
 
 			font-size: 12px;
 			height: 16px;
@@ -130,13 +130,13 @@
 		}
 
 		.selectedMultiselectCheck {
-			background-color: var(--fds-colorCompoundBrandBackground);
-			color: var(--fds-colorNeutralForegroundInverted);
-			border-color: var(--fds-colorCompoundBrandBackground);
+			background-color: var(--fui-colorCompoundBrandBackground);
+			color: var(--fui-colorNeutralForegroundInverted);
+			border-color: var(--fui-colorCompoundBrandBackground);
 		}
 
 		.checkDisabled {
-			color: var(--fds-colorNeutralForegroundDisabled);
+			color: var(--fui-colorNeutralForegroundDisabled);
 
 			@media (forced-colors: active) {
 				color: GrayText;

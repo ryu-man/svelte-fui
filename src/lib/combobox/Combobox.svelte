@@ -104,7 +104,7 @@
 
 		@apply relative box-border items-center justify-between rounded-md;
 
-		background-color: var(--fds-colorNeutralBackground1);
+		background-color: var(--fui-colorNeutralBackground1);
 
 		column-gap: theme(spacing.xxs);
 		display: inline-grid;
@@ -128,7 +128,7 @@
 			height: max(2px, theme(borderRadius.md));
 			border-bottom-left-radius: theme(borderRadius.md);
 			border-bottom-right-radius: theme(borderRadius.md);
-			border-bottom: theme(borderWidth.thick) solid var(--fds-colorCompoundBrandStroke);
+			border-bottom: theme(borderWidth.thick) solid var(--fui-colorCompoundBrandStroke);
 			/* ...shorthands.borderBottom(tokens.strokeWidthThick, 'solid', tokens.colorCompoundBrandStroke); */
 			clip-path: inset(calc(100% - 2px) 0 0 0);
 			transform: scaleX(0);
@@ -153,7 +153,7 @@
 		}
 
 		&:focus-within:active::after {
-			border-bottom-color: var(--fds-colorCompoundBrandStrokePressed);
+			border-bottom-color: var(--fui-colorCompoundBrandStrokePressed);
 		}
 
 		/* size variants */
@@ -171,20 +171,20 @@
 		/* appearance variants */
 		&.outline {
 			@apply outline-none;
-			background-color: var(--fds-colorNeutralBackground1);
-			border: theme(borderWidth.thin) solid var(--fds-colorNeutralStroke1);
-			border-bottom-color: var(--fds-colorNeutralStrokeAccessible);
+			background-color: var(--fui-colorNeutralBackground1);
+			border: theme(borderWidth.thin) solid var(--fui-colorNeutralStroke1);
+			border-bottom-color: var(--fui-colorNeutralStrokeAccessible);
 
 			/* outlineInteractive */
 			&:not(.disabled) {
 				&:hover {
-					border-color: var(--fds-colorNeutralStroke1Hover);
-					border-bottom-color: var(--fds-colorNeutralStrokeAccessible);
+					border-color: var(--fui-colorNeutralStroke1Hover);
+					border-bottom-color: var(--fui-colorNeutralStrokeAccessible);
 				}
 
 				&:active {
-					border-color: var(--fds-colorNeutralStroke1Pressed);
-					border-bottom-color: var(--fds-colorNeutralStrokeAccessible);
+					border-color: var(--fui-colorNeutralStroke1Pressed);
+					border-bottom-color: var(--fui-colorNeutralStrokeAccessible);
 				}
 			}
 		}
@@ -194,30 +194,30 @@
 
 		&.underline {
 			@apply rounded-none;
-			background-color: var(--fds-colorTransparentBackground);
-			border-bottom: theme(borderWidth.thin) solid var(--fds-colorNeutralStrokeAccessible);
+			background-color: var(--fui-colorTransparentBackground);
+			border-bottom: theme(borderWidth.thin) solid var(--fui-colorNeutralStrokeAccessible);
 		}
 
 		&.filled-lighter {
-			background-color: var(--fds-colorNeutralBackground1);
-			border: theme(borderWidth.thin) solid var(--fds-colorTransparentStroke);
+			background-color: var(--fui-colorNeutralBackground1);
+			border: theme(borderWidth.thin) solid var(--fui-colorTransparentStroke);
 		}
 
 		&.filled-darker {
-			background-color: var(--fds-colorNeutralBackground3);
-			border: theme(borderWidth.thin) solid var(--fds-colorTransparentStroke);
+			background-color: var(--fui-colorNeutralBackground3);
+			border: theme(borderWidth.thin) solid var(--fui-colorTransparentStroke);
 		}
 		&.invalid {
 			&:not(:focus-within),
 			&:hover:not(:focus-within) {
-				border-color: var(--fds-colorPaletteRedBorder2);
+				border-color: var(--fui-colorPaletteRedBorder2);
 			}
 
 			/* invalidUnderline */
 			&.underline {
 				&:not(:focus-within),
 				&:hover:not(:focus-within) {
-					border-bottom-color: var(--fds-colorPaletteRedBorder2);
+					border-bottom-color: var(--fui-colorPaletteRedBorder2);
 				}
 			}
 		}
@@ -226,8 +226,8 @@
 
 		&.disabled {
 			@apply cursor-not-allowed;
-			background-color: var(--fds-colorTransparentBackground);
-			border-color: var(--fds-colorNeutralStrokeDisabled);
+			background-color: var(--fui-colorTransparentBackground);
+			border-color: var(--fui-colorNeutralStrokeDisabled);
 
 			@media (forced-colors: active) {
 				border-color: GrayText;
@@ -238,15 +238,15 @@
 	input {
 		@apply rounded-none font-base;
 
-		background-color: var(--fds-colorTransparentBackground);
-		color: var(--fds-colorNeutralForeground1);
+		background-color: var(--fui-colorTransparentBackground);
+		color: var(--fui-colorNeutralForeground1);
 
 		&:focus {
 			@apply outline-none;
 		}
 
 		&::placeholder {
-			color: var(--fds-colorNeutralForeground4);
+			color: var(--fui-colorNeutralForeground4);
 			opacity: 1;
 		}
 
@@ -270,12 +270,12 @@
 			padding: 0 0 0 calc(theme(spacing.m) + theme(spacing.sNudge));
 		}
 		&:disabled {
-			color: var(--fds-colorNeutralForegroundDisabled);
-			background-color: var(--fds-colorTransparentBackground);
+			color: var(--fui-colorNeutralForegroundDisabled);
+			background-color: var(--fui-colorTransparentBackground);
 			cursor: not-allowed;
 
 			&::placeholder {
-				color: var(--fds-colorNeutralForegroundDisabled);
+				color: var(--fui-colorNeutralForegroundDisabled);
 			}
 		}
 	}
@@ -283,7 +283,7 @@
 	.fui-combobox :global(.fui-icon) {
 		@apply box-border block cursor-pointer text-base-500;
 
-		color: var(--fds-colorNeutralStrokeAccessible);
+		color: var(--fui-colorNeutralStrokeAccessible);
 
 		/* the SVG must have display: block for accurate positioning
 		otherwise an extra inline space is inserted after the svg element */
@@ -308,7 +308,7 @@
 		}
 
 		&.disabled {
-			color: var(--fds-colorNeutralForegroundDisabled);
+			color: var(--fui-colorNeutralForegroundDisabled);
 			cursor: not-allowed;
 		}
 	}
