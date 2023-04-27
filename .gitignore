@@ -2,6 +2,7 @@
 node_modules
 /build
 /dist
+/storybook-static
 /.svelte-kit
 /package
 .env
