@@ -10,11 +10,11 @@
   "svelteStrictMode": false,
   "bracketSameLine": true,
   "svelteIndentScriptAndStyle": true,
-	"plugins": [
-		"prettier-plugin-svelte",
-		"@trivago/prettier-plugin-sort-imports",
-		"prettier-plugin-tailwindcss"
-	],
+  "plugins": [
+    "prettier-plugin-svelte",
+    "@trivago/prettier-plugin-sort-imports",
+    "prettier-plugin-tailwindcss"
+  ],
   "pluginSearchDirs": false,
   "overrides": [
     {
