@@ -2,7 +2,7 @@
 	import { Meta, Story } from '@storybook/addon-svelte-csf';
 	import type { ArgTypes } from '@storybook/svelte';
 	import { App, Button, Card, CardFooter, CardHeader, CardPreview, Icon } from 'svelte-fluentui';
-	import { MoreHorizontalFilled, OpenRegular, ShareRegular } from 'svelte-fluentui/icons';
+	import { ArrowReplyRegular, MoreHorizontalFilled, OpenRegular, ShareRegular } from 'svelte-fluentui/icons';
 
 	const argDefaults = {
 		disabled: false,
@@ -70,11 +70,17 @@
 				<CardPreview
 					src="https://raw.githubusercontent.com/microsoft/fluentui/master/packages/react-components/react-card/stories/assets/doc_template.png"
 					alt="Preview of a Word document: About Us - Overview"
-				/>
+				>
+					<img
+						class="logo"
+						src="https://raw.githubusercontent.com/microsoft/fluentui/master/packages/react-components/react-card/stories/assets/word_logo.svg"
+						alt="Microsoft Word document"
+					/>
+				</CardPreview>
 				<CardFooter>
-					<Button appearance="primary">
-						<Icon src={OpenRegular} />
-						Open
+					<Button>
+						<Icon src={ArrowReplyRegular} />
+						Reply
 					</Button>
 					<Button>
 						<Icon src={ShareRegular} />

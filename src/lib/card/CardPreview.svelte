@@ -18,13 +18,13 @@
 	.fui-card-preview {
 		position: relative;
 
-		:global(> :not(.fui-card-preview-logo)) {
+		:global(> :not(.logo)) {
 			display: block;
 			height: 100%;
 			width: 100%;
 		}
 
-		:global(.fui-card-preview-logo) {
+		:global(.logo) {
 			@apply absolute;
 			bottom: 12px;
 			left: 12px;
