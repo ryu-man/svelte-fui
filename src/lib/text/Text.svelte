@@ -11,9 +11,11 @@
 	export let truncate = false;
 	export let weight: 'meduim' | 'regular' | 'semibold' | 'bold' = 'regular';
 	export let wrap = false;
+	let klass = '';
+	export { klass as class };
 </script>
 
-<svelte:element this={as} class={classnames('fui-text', { size, align, block, italic, strikethrough, truncate, weight, wrap }, font)}>
+<svelte:element this={as} class={classnames('fui-text', { size, align, block, italic, strikethrough, truncate, weight, wrap }, font, klass)}>
 	<slot />
 </svelte:element>
 
