@@ -1,6 +1,7 @@
 <script lang="ts">
 	import ThemeBrandWeb from './ThemeBrandWeb.svelte';
 	import { setFluentAppContext } from './context'
+	import './app.css'
 
 	export let scheme: 'light' | 'dark' | 'auto' = 'auto';
 
