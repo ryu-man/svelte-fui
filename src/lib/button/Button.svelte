@@ -3,8 +3,7 @@
 	import { classnames, createEventForwarder } from '$lib/internal';
 
 	export let shape: 'rounded' | 'circular' | 'square' = 'rounded';
-	export let appearance: 'subtle' | 'outline' | 'secondary' | 'primary' | 'transparent' | undefined =
-		'secondary';
+	export let appearance: 'subtle' | 'outline' | 'secondary' | 'primary' | 'transparent' | undefined = 'secondary';
 	export let size: 'sm' | 'md' | 'lg' = 'md';
 
 	/** @restProps {button | a} */
@@ -17,6 +16,8 @@
 	/** Controls whether the button is intended for user interaction, and styles it accordingly. */
 	export let disabled = false;
 
+	export let icon: boolean = false;
+
 	/** Specifies a custom class name for the button. */
 	let klass = '';
 	export { klass as class };
@@ -25,6 +26,14 @@
 	export let element: HTMLElement = null;
 
 	const forwardEvents = createEventForwarder(get_current_component());
+
+	let hover = false;
+	function onMouseEnterHandler() {
+		hover = true;
+	}
+	function onMouseLeaveHandler() {
+		hover = false;
+	}
 </script>
 
 <svelte:element
@@ -33,7 +42,7 @@
 	bind:this={element}
 	role={href && !disabled ? 'button' : undefined}
 	href={href && !disabled ? href : undefined}
-	class={classnames('fds-button', appearance, shape, size, klass)}
+	class={classnames('fds-button', appearance, shape, size, { icon: !!icon }, klass)}
 	{disabled}
 	{...$$restProps}
 	on:click
@@ -42,16 +51,18 @@
 	on:mouseleave
 	on:mousedown
 	on:mouseup
+	on:mouseenter={onMouseEnterHandler}
+	on:mouseleave={onMouseLeaveHandler}
 >
-	<slot />
+	<slot {hover} />
 </svelte:element>
 
 <style lang="postcss">
 	.fds-button {
-		@apply m-0 inline-flex select-none items-center justify-center overflow-hidden rounded-md border-thin py-[5px] px-m align-middle font-base text-base-300 font-semibold leading-base-300 no-underline outline-none;
+		@apply m-0 box-border flex select-none items-center justify-center overflow-hidden rounded-md border-thin px-m py-[5px] align-middle font-base text-base-300 font-semibold leading-base-300 no-underline outline-none;
 
-		--min-height: calc(theme(lineHeight.base-300) + 5px * 2 + 2px);
-		--icon-size: var(--min-height);
+		--min-height: calc(theme(lineHeight.base-300) + 5px * 2 + theme(borderWidth.thin) * 2);
+		--fui-icon-size: theme(lineHeight.base-300);
 
 		background-color: var(--fui-colorNeutralBackground1);
 		border-color: var(--fui-colorNeutralStroke1);
@@ -66,6 +77,8 @@
 		text-decoration: none;
 		outline: none;
 		cursor: default;
+
+		gap: theme(spacing.sNudge);
 
 		transition-duration: 0.1s;
 		transition-property: all;
@@ -113,6 +126,40 @@
 		&:focus-visible {
 			box-shadow: var(--fui-focus-stroke);
 		}
+
+		&.icon {
+			@apply inline-flex h-xl w-xl items-center justify-center text-base-500;
+			--fui-icon-spacing: theme(spacing.sNudge);
+		}
+
+		&.sm {
+			@apply min-w-[64px] rounded-[3px] px-s py-[3px] text-base-200 font-regular leading-base-200;
+
+			--min-height: calc(theme(lineHeight.base-200) + 3px * 2 + theme(borderWidth.thin) * 2);
+			--fui-icon-size: calc(theme(lineHeight.base-200) + theme(borderWidth.thin) * 2);
+
+			&.icon {
+				@apply min-h-[24px] min-w-[24px] p-[1px];
+			}
+		}
+		&.md {
+			/* defined in base styles */
+
+			&.icon {
+				@apply min-h-[32px] min-w-[32px] p-[5px];
+			}
+		}
+
+		&.lg {
+			@apply min-w-[96px] rounded-md px-m py-[8px] text-base-400 font-semibold leading-base-400;
+
+			--min-height: calc(theme(lineHeight.base-400) + 8px * 2 + theme(borderWidth.thin) * 2);
+			--fui-icon-size: theme(lineHeight.base-400);
+
+			&.icon {
+				@apply min-h-[40px] min-w-[40px] p-[7px];
+			}
+		}
 	}
 
 	@media screen and (prefers-reduced-motion: reduce) {
@@ -124,6 +171,19 @@
 	.fds-button :global(.fds-icon) {
 		width: var(--height);
 		height: var(--height);
+	}
+
+	.fds-button.outline {
+		background-color: var(--fui-colorTransparentBackground);
+
+		&:hover {
+			background-color: var(--fui-colorTransparentBackground);
+		}
+
+		,
+		&:hover:active {
+			background-color: var(--fui-colorTransparentBackground);
+		}
 	}
 
 	.fds-button.primary {
