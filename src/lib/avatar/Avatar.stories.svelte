@@ -1,7 +1,7 @@
 <script>
 	import { Meta, Story } from '@storybook/addon-svelte-csf';
-	import { Avatar, App } from 'svelte-fluentui';
-	import { PersonRegular } from 'svelte-fluentui/icons'
+	import { Avatar, App } from 'svelte-fui';
+	import { PersonRegular } from 'svelte-fui/icons'
 </script>
 
 <Meta title="Components/Avatar" component={Avatar} />

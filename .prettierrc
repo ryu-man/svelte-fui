@@ -22,8 +22,8 @@
 	"importOrder": [
 		"^svelte$",
 		"^svelte/(.*)$",
-		"^fluent-svelte$",
-		"^fluent-svelte/(.*)$",
+		"^svelte-fui$",
+		"^svelte-fui/(.*)$",
 		"^<THIRD_PARTY_MODULES>/(.*)$",
 		"^\\$(.*)$",
 		"^\\$(.*)/(.*)$",

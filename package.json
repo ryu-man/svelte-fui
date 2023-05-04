@@ -1,5 +1,5 @@
 {
-  "name": "svelte-fluentui",
+  "name": "svelte-fui",
   "version": "0.0.1",
   "scripts": {
     "dev": "vite dev",
@@ -49,8 +49,10 @@
     "eslint": "^8.38.0",
     "eslint-config-prettier": "^8.8.0",
     "eslint-plugin-storybook": "^0.6.11",
+    "eslint-plugin-svelte": "^2.27.2",
     "eslint-plugin-svelte3": "^4.0.0",
     "focus-trap": "^7.4.0",
+    "nanoid": "^4.0.2",
     "postcss": "^8.4.23",
     "postcss-extend": "^1.0.5",
     "postcss-extend-rule": "^4.0.0",

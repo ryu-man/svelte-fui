@@ -1,7 +1,7 @@
 <script>
 	import { Meta, Story } from '@storybook/addon-svelte-csf';
-	import { Icon, App } from 'svelte-fluentui';
-	import { AccessibilityCheckmarkFilled } from 'svelte-fluentui/icons'
+	import { Icon, App } from 'svelte-fui';
+	import { AccessibilityCheckmarkFilled } from 'svelte-fui/icons'
 </script>
 
 <Meta title="Components/Icon" component={Icon} />

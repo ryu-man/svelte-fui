@@ -1,8 +1,8 @@
 <script lang="ts">
 	import { createEventDispatcher } from 'svelte';
-	import { Icon } from 'svelte-fluentui';
-	import { CheckmarkRegular } from 'svelte-fluentui/icons';
-	import { classnames } from 'svelte-fluentui/internal';
+	import { Icon } from 'svelte-fui';
+	import { CheckmarkRegular } from 'svelte-fui/icons';
+	import { classnames } from 'svelte-fui/internal';
 	import { getComboboxContext } from './context';
 
 	const dispatch = createEventDispatcher();

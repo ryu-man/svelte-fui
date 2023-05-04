@@ -1,0 +1,11 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    img {
+        width: unset;
+        height: unset;
+        max-width: initial;
+    }
+}

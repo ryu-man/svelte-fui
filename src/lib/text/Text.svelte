@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { classnames } from 'svelte-fluentui/internal';
+	import { classnames } from 'svelte-fui/internal';
 
 	export let as: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'p' | 'pre' | 'span' = 'span';
 	export let align: 'center' | 'start' | 'justify' | 'end' = 'start';
@@ -11,9 +11,11 @@
 	export let truncate = false;
 	export let weight: 'meduim' | 'regular' | 'semibold' | 'bold' = 'regular';
 	export let wrap = false;
+	let klass = '';
+	export { klass as class };
 </script>
 
-<svelte:element this={as} class={classnames('fui-text', { size, align, block, italic, strikethrough, truncate, weight, wrap }, font)}>
+<svelte:element this={as} class={classnames('fui-text', { size, align, block, italic, strikethrough, truncate, weight, wrap }, font, klass)}>
 	<slot />
 </svelte:element>
 

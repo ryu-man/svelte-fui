@@ -1,7 +1,7 @@
 <script>
 	import { Meta, Story } from '@storybook/addon-svelte-csf';
-	import { Input, App, Icon } from 'svelte-fluentui';
-	import { MicRegular, PersonRegular } from 'svelte-fluentui/icons';
+	import { Input, App, Icon } from 'svelte-fui';
+	import { MicRegular, PersonRegular } from 'svelte-fui/icons';
 </script>
 
 <Meta title="Components/Input" component={Input} />

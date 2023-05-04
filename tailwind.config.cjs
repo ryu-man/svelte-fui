@@ -2,6 +2,8 @@ const { anchor, beige, berry, black, blackAlpha, blue, brass, bronze, brown, bur
 
 const { brandOffice, brandTeams, brandWeb } = require('./colors_brand.cjs')
 
+const { colorsTheme } = require('./colors_theme.cjs')
+
 const { fontFamilies, fontSizes, fontWeights, lineHeights } = require('./fonts.cjs')
 
 const { spacings } = require('./spacing.cjs')
@@ -121,7 +123,9 @@ module.exports = {
         // 
         ...brandOffice,
         ...brandTeams,
-        ...brandWeb
+        ...brandWeb,
+
+        ...colorsTheme
       },
       transitionDuration: durations,
       transitionDelay: timingFunctions,
