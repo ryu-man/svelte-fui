@@ -1,6 +1,6 @@
 <script>
 	import { Meta, Story } from '@storybook/addon-svelte-csf';
-	import { Input, App, Combobox, ComboboxListbox, Option } from 'svelte-fluentui';
+	import { Input, App, Combobox, ComboboxListbox, Option } from 'svelte-fui';
 	import { setComboboxContext } from './context';
 
 	const { selectedId$, selectedValue$ } = setComboboxContext({

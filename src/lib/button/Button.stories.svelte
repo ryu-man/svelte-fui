@@ -1,8 +1,8 @@
 <script lang="ts">
 	import { Meta, Story } from '@storybook/addon-svelte-csf';
 	import type { ArgTypes } from '@storybook/svelte';
-	import { App, Button, Icon } from 'svelte-fluentui';
-	import { CalendarMonthFilled, CalendarMonthRegular } from 'svelte-fluentui/icons';
+	import { App, Button, Icon } from 'svelte-fui';
+	import { CalendarMonthFilled, CalendarMonthRegular } from 'svelte-fui/icons';
 
 	const defaultValues = {
 		size: 'md',

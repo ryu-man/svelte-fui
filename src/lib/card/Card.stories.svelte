@@ -1,8 +1,8 @@
 <script lang="ts">
 	import { Meta, Story } from '@storybook/addon-svelte-csf';
 	import type { ArgTypes } from '@storybook/svelte';
-	import { App, Button, Card, CardFooter, CardHeader, CardPreview, Icon } from 'svelte-fluentui';
-	import { ArrowReplyRegular, MoreHorizontalFilled, OpenRegular, ShareRegular } from 'svelte-fluentui/icons';
+	import { App, Button, Card, CardFooter, CardHeader, CardPreview, Icon } from 'svelte-fui';
+	import { ArrowReplyRegular, MoreHorizontalFilled, OpenRegular, ShareRegular } from 'svelte-fui/icons';
 
 	const argDefaults = {
 		disabled: false,

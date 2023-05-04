@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { Meta, Story } from '@storybook/addon-svelte-csf';
 	import type { ArgTypes } from '@storybook/svelte';
-	import { App, Label } from 'svelte-fluentui';
+	import { App, Label } from 'svelte-fui';
 
 	const argDefaults = {
 		disabled: false,

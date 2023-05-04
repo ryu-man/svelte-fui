@@ -1,6 +1,6 @@
 <script>
 	import { Meta, Story } from '@storybook/addon-svelte-csf';
-	import { Input, App, Combobox, Option } from 'svelte-fluentui';
+	import { Input, App, Combobox, Option } from 'svelte-fui';
 </script>
 
 <Meta title="Components/Combobox" component={Combobox} />

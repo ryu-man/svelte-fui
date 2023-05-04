@@ -1,5 +1,5 @@
 {
-  "name": "svelte-fluentui",
+  "name": "svelte-fui",
   "version": "0.0.1",
   "scripts": {
     "dev": "vite dev",

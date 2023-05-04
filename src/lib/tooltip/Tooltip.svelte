@@ -2,7 +2,7 @@
 	import { nanoid } from 'nanoid';
 	import { createEventDispatcher } from 'svelte';
 	import { fly } from 'svelte/transition';
-	import { classnames } from 'svelte-fluentui/internal';
+	import { classnames } from 'svelte-fui/internal';
 
 	type Relationship = 'label' | 'description' | 'inaccessible' | undefined;
 	type Position =

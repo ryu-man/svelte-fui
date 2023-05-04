@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { classnames } from 'svelte-fluentui/internal';
+	import { classnames } from 'svelte-fui/internal';
 
 	export let as: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'p' | 'pre' | 'span' = 'span';
 	export let align: 'center' | 'start' | 'justify' | 'end' = 'start';

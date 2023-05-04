@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { classnames } from 'svelte-fluentui/internal';
+	import { classnames } from 'svelte-fui/internal';
 
 	export let style = '';
 	let klass = '';

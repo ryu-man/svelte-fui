@@ -1,7 +1,7 @@
 <script lang="ts">
 	import type { ComponentType } from 'svelte';
-	import { Icon } from 'svelte-fluentui';
-	import { classnames } from 'svelte-fluentui/internal';
+	import { Icon } from 'svelte-fui';
+	import { classnames } from 'svelte-fui/internal';
 
 	export let id: string | undefined = undefined;
 	export let ariaLabel: string | undefined = undefined;

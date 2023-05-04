@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { fly } from 'svelte/transition';
-	import { classnames } from 'svelte-fluentui/internal';
+	import { classnames } from 'svelte-fui/internal';
 
 	export let top = '0px';
 	export let left = '0px';

@@ -1,8 +1,8 @@
 <script lang="ts">
 	import { Meta, Story } from '@storybook/addon-svelte-csf';
 	import type { ArgTypes } from '@storybook/svelte';
-	import { App, Icon, Text } from 'svelte-fluentui';
-	import { Divider } from 'svelte-fluentui/divider';
+	import { App, Icon, Text } from 'svelte-fui';
+	import { Divider } from 'svelte-fui/divider';
 
 	const defaultValues = {
 		appearance: 'default',

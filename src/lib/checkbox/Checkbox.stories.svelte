@@ -1,7 +1,7 @@
 <script>
 	import { Meta, Story } from '@storybook/addon-svelte-csf';
-	import { Checkbox, App, Icon } from 'svelte-fluentui';
-	import { MicRegular, PersonRegular } from 'svelte-fluentui/icons';
+	import { Checkbox, App, Icon } from 'svelte-fui';
+	import { MicRegular, PersonRegular } from 'svelte-fui/icons';
 </script>
 
 <Meta title="Components/Checkbox" component={Checkbox} />

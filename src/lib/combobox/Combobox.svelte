@@ -1,8 +1,8 @@
 <script lang="ts">
 	import Portal from 'svelte-portal';
-	import { Icon, Input, getFluentAppContext } from 'svelte-fluentui';
-	import { ChevronDownRegular } from 'svelte-fluentui/icons';
-	import { classnames } from 'svelte-fluentui/internal';
+	import { Icon, Input, getFluentAppContext } from 'svelte-fui';
+	import { ChevronDownRegular } from 'svelte-fui/icons';
+	import { classnames } from 'svelte-fui/internal';
 	import ComboboxListbox from './ComboboxListbox.svelte';
 	import { setComboboxContext } from './context';
 
