@@ -1,6 +1,6 @@
-const plugin = require('tailwindcss/plugin')
+import plugin from 'tailwindcss/plugin'
 
-exports.typography = plugin(function ({ addComponents, theme }) {
+export const typography = plugin(function ({ addComponents, theme }) {
     //  body
     addComponents({
         '.body-1': {

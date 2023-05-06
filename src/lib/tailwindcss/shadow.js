@@ -1,4 +1,4 @@
-exports.shadow = {
+export const shadow = {
     '2': 'var(--shadow2)',
     '4': 'var(--shadow4)',
     '8': 'var(--shadow8)',
@@ -7,7 +7,7 @@ exports.shadow = {
     '64': 'var(--shadow64)',
 }
 
-exports.shadowBrand = {
+export const shadowBrand = {
     '2Brand': 'var(--shadow2Brand)',
     '4Brand': 'var(--shadow4Brand)',
     '8Brand': 'var(--shadow8Brand)',

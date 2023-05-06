@@ -1,5 +1,5 @@
 /* Names of colors used in shared color palette alias tokens for status. */
-exports.statusSharedColorNames = [
+export const statusSharedColorNames = [
     'red',
     'green',
     'darkOrange',

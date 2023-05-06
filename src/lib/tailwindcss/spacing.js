@@ -1,6 +1,6 @@
 
 // Intentionally not exported! Use horizontalSpacings and verticalSpacings instead.
-exports.spacings = {
+export const spacings = {
     none: '0',
     xxs: '2px',
     xs: '4px',

@@ -1,4 +1,4 @@
-exports.brandWeb = {
+export const brandWeb = {
     'brand-web-10': `#061724`,
     'brand-web-20': `#082338`,
     'brand-web-30': `#0a2e4a`,
@@ -17,7 +17,7 @@ exports.brandWeb = {
     'brand-web-160': `#ebf3fc`,
 };
 
-exports.brandTeams = {
+export const brandTeams = {
     'brand-teams-10': `#2b2b40`,
     'brand-teams-20': `#2f2f4a`,
     'brand-teams-30': `#333357`,
@@ -36,7 +36,7 @@ exports.brandTeams = {
     'brand-teams-160': `#e8ebfa`,
 };
 
-exports.brandOffice = {
+export const brandOffice = {
     'brand-office-10': `#29130b`,
     'brand-office-20': `#4d2415`,
     'brand-office-30': `#792000`,
