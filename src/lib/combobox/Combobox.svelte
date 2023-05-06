@@ -1,5 +1,5 @@
 <script lang="ts">
-	import Portal from 'svelte-portal';
+	import Portal from 'svelte-portal/src/Portal.svelte';
 	import { Icon, Input, getFluentAppContext } from 'svelte-fui';
 	import { ChevronDownRegular } from 'svelte-fui/icons';
 	import { classnames } from 'svelte-fui/internal';
