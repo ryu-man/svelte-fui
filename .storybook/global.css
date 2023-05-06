@@ -1,4 +1,5 @@
-html, body.sb-show-main, #storybook-root {
+html,
+body.sb-show-main {
     width: 100%;
     height: 100%;
     margin: 0;
@@ -7,9 +8,15 @@ html, body.sb-show-main, #storybook-root {
 }
 
 #storybook-root {
+    width: 100%;
+    height: 100%;
     padding: 0 16vw;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+}
+
+#storybook-root[hidden=true] {
+    display: none;
 }
