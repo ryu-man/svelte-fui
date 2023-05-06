@@ -1,4 +1,4 @@
-exports.durations = {
+export const durations = {
     'ultra-fast': '50ms',
     'faster': '100ms',
     'fast': '150ms',

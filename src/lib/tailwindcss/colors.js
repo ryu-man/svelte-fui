@@ -1,4 +1,4 @@
-exports.grey = {
+export const grey = {
     'grey-2': '#050505',
     'grey-4': '#0a0a0a',
     'grey-6': '#0f0f0f',
@@ -50,7 +50,7 @@ exports.grey = {
     'grey-98': '#fafafa',
 };
 
-exports.whiteAlpha = {
+export const whiteAlpha = {
     'white-alpha-5': 'rgba(255, 255, 255, 0.05)',
     'white-alpha-10': 'rgba(255, 255, 255, 0.1)',
     'white-alpha-20': 'rgba(255, 255, 255, 0.2)',
@@ -63,7 +63,7 @@ exports.whiteAlpha = {
     'white-alpha-90': 'rgba(255, 255, 255, 0.9)',
 };
 
-exports.blackAlpha = {
+export const blackAlpha = {
     'black-alpha-5': 'rgba(0, 0, 0, 0.05)',
     'black-alpha-10': 'rgba(0, 0, 0, 0.1)',
     'black-alpha-20': 'rgba(0, 0, 0, 0.2)',
@@ -76,7 +76,7 @@ exports.blackAlpha = {
     'black-alpha-90': 'rgba(0, 0, 0, 0.9)',
 };
 
-exports.grey10Alpha = {
+export const grey10Alpha = {
     'grey-10-alpha-5': 'rgba(26, 26, 26, 0.05)',
     'grey-10-alpha-10': 'rgba(26, 26, 26, 0.1)',
     'grey-10-alpha-20': 'rgba(26, 26, 26, 0.2)',
@@ -89,7 +89,7 @@ exports.grey10Alpha = {
     'grey-10-alpha-90': 'rgba(26, 26, 26, 0.9)',
 };
 
-exports.grey12Alpha = {
+export const grey12Alpha = {
     'grey-12-alpha-5': 'rgba(31, 31, 31, 0.05)',
     'grey-12-alpha-10': 'rgba(31, 31, 31, 0.1)',
     'grey-12-alpha-20': 'rgba(31, 31, 31, 0.2)',
@@ -102,7 +102,7 @@ exports.grey12Alpha = {
     'grey-12-alpha-90': 'rgba(31, 31, 31, 0.9)',
 };
 
-exports.grey14Alpha = {
+export const grey14Alpha = {
     'grey-14-alpha-5': 'rgba(36, 36, 36, 0.05)',
     'grey-14-alpha-10': 'rgba(36, 36, 36, 0.1)',
     'grey-14-alpha-20': 'rgba(36, 36, 36, 0.2)',
@@ -115,27 +115,27 @@ exports.grey14Alpha = {
     'grey-14-alpha-90': 'rgba(36, 36, 36, 0.9)',
 };
 
-exports.white = '#ffffff';
+export const white = '#ffffff';
 
-exports.black = '#000000';
+export const black = '#000000';
 
-exports.hcHyperlink = '#ffff00';
+export const hcHyperlink = '#ffff00';
 
-exports.hcHighlight = '#1aebff';
+export const hcHighlight = '#1aebff';
 
-exports.hcDisabled = '#3ff23f';
+export const hcDisabled = '#3ff23f';
 
-exports.hcCanvas = '#000000';
+export const hcCanvas = '#000000';
 
-exports.hcCanvasText = '#ffffff';
+export const hcCanvasText = '#ffffff';
 
-exports.hcHighlightText = '#000000';
+export const hcHighlightText = '#000000';
 
-exports.hcButtonText = '#000000';
+export const hcButtonText = '#000000';
 
-exports.hcButtonFace = '#ffffff';
+export const hcButtonFace = '#ffffff';
 
-exports.darkRed = {
+export const darkRed = {
     'dark-red-shade50': '#130204',
     'dark-red-shade40': '#230308',
     'dark-red-shade30': '#420610',
@@ -150,7 +150,7 @@ exports.darkRed = {
     'dark-red-tint60': '#f9f0f2',
 };
 
-exports.burgundy = {
+export const burgundy = {
     'burgundy-shade50': '#1a0607',
     'burgundy-shade40': '#310b0d',
     'burgundy-shade30': '#5c1519',
@@ -165,7 +165,7 @@ exports.burgundy = {
     'burgundy-tint60': '#fbf4f4',
 };
 
-exports.cranberry = {
+export const cranberry = {
     'cranberry-shade50': '#200205',
     'cranberry-shade40': '#3b0509',
     'cranberry-shade30': '#6e0811',
@@ -180,7 +180,7 @@ exports.cranberry = {
     'cranberry-tint60': '#fdf3f4',
 };
 
-exports.red = {
+export const red = {
     'red-shade50': '#210809',
     'red-shade40': '#3f1011',
     'red-shade30': '#751d1f',
@@ -195,7 +195,7 @@ exports.red = {
     'red-tint60': '#fdf6f6',
 };
 
-exports.darkOrange = {
+export const darkOrange = {
     'dark-orange-shade50': '#230900',
     'dark-orange-shade40': '#411200',
     'dark-orange-shade30': '#7a2101',
@@ -210,7 +210,7 @@ exports.darkOrange = {
     'dark-orange-tint60': '#fdf6f3',
 };
 
-exports.bronze = {
+export const bronze = {
     'bronze-shade50': '#1b0a01',
     'bronze-shade40': '#321303',
     'bronze-shade30': '#5e2405',
@@ -225,7 +225,7 @@ exports.bronze = {
     'bronze-tint60': '#fbf5f2',
 };
 
-exports.pumpkin = {
+export const pumpkin = {
     'pumpkin-shade50': '#200d03',
     'pumpkin-shade40': '#3d1805',
     'pumpkin-shade30': '#712d09',
@@ -240,7 +240,7 @@ exports.pumpkin = {
     'pumpkin-tint60': '#fdf7f4',
 };
 
-exports.orange = {
+export const orange = {
     'orange-shade50': '#271002',
     'orange-shade40': '#4a1e04',
     'orange-shade30': '#8a3707',
@@ -255,7 +255,7 @@ exports.orange = {
     'orange-tint60': '#fff9f5',
 };
 
-exports.peach = {
+export const peach = {
     'peach-shade50': '#291600',
     'peach-shade40': '#4d2a00',
     'peach-shade30': '#8f4e00',
@@ -270,7 +270,7 @@ exports.peach = {
     'peach-tint60': '#fffaf5',
 };
 
-exports.marigold = {
+export const marigold = {
     'marigold-shade50': '#251a00',
     'marigold-shade40': '#463100',
     'marigold-shade30': '#835b00',
@@ -285,7 +285,7 @@ exports.marigold = {
     'marigold-tint60': '#fefbf4',
 };
 
-exports.yellow = {
+export const yellow = {
     'yellow-primary': '#fde300',
     'yellow-shade10': '#e4cc00',
     'yellow-shade20': '#c0ad00',
@@ -300,7 +300,7 @@ exports.yellow = {
     'yellow-tint60': '#fffef5',
 };
 
-exports.gold = {
+export const gold = {
     'gold-shade50': '#1f1900',
     'gold-shade40': '#3a2f00',
     'gold-shade30': '#6c5700',
@@ -315,7 +315,7 @@ exports.gold = {
     'gold-tint60': '#fdfbf2',
 };
 
-exports.brass = {
+export const brass = {
     'brass-shade50': '#181202',
     'brass-shade40': '#2e2103',
     'brass-shade30': '#553e06',
@@ -330,7 +330,7 @@ exports.brass = {
     'brass-tint60': '#fbf8f2',
 };
 
-exports.brown = {
+export const brown = {
     'brown-shade50': '#170e07',
     'brown-shade40': '#2b1a0e',
     'brown-shade30': '#50301a',
@@ -345,7 +345,7 @@ exports.brown = {
     'brown-tint60': '#faf7f4',
 };
 
-exports.darkBrown = {
+export const darkBrown = {
     'dark-brown-shade50': '#0c0704',
     'dark-brown-shade40': '#170c08',
     'dark-brown-shade30': '#2b1710',
@@ -360,7 +360,7 @@ exports.darkBrown = {
     'dark-brown-tint60': '#f8f3f2',
 };
 
-exports.lime = {
+export const lime = {
     'lime-shade50': '#121b06',
     'lime-shade40': '#23330b',
     'lime-shade30': '#405f14',
@@ -375,7 +375,7 @@ exports.lime = {
     'lime-tint60': '#f8fcf4',
 };
 
-exports.forest = {
+export const forest = {
     'forest-shade50': '#0c1501',
     'forest-shade40': '#162702',
     'forest-shade30': '#294903',
@@ -390,7 +390,7 @@ exports.forest = {
     'forest-tint60': '#f6faf0',
 };
 
-exports.seafoam = {
+export const seafoam = {
     'seafoam-shade50': '#002111',
     'seafoam-shade40': '#003d20',
     'seafoam-shade30': '#00723b',
@@ -405,7 +405,7 @@ exports.seafoam = {
     'seafoam-tint60': '#f3fdf8',
 };
 
-exports.lightGreen = {
+export const lightGreen = {
     'light-green-shade50': '#031a02',
     'light-green-shade40': '#063004',
     'light-green-shade30': '#0b5a08',
@@ -420,7 +420,7 @@ exports.lightGreen = {
     'light-green-tint60': '#f2fbf2',
 };
 
-exports.green = {
+export const green = {
     'green-shade50': '#031403',
     'green-shade40': '#052505',
     'green-shade30': '#094509',
@@ -435,7 +435,7 @@ exports.green = {
     'green-tint60': '#f1faf1',
 };
 
-exports.darkGreen = {
+export const darkGreen = {
     'dark-green-shade50': '#021102',
     'dark-green-shade40': '#032003',
     'dark-green-shade30': '#063b06',
@@ -450,7 +450,7 @@ exports.darkGreen = {
     'dark-green-tint60': '#f0f9f0',
 };
 
-exports.lightTeal = {
+export const lightTeal = {
     'light-teal-shade50': '#001d1f',
     'light-teal-shade40': '#00373a',
     'light-teal-shade30': '#00666d',
@@ -465,7 +465,7 @@ exports.lightTeal = {
     'light-teal-tint60': '#f2fcfd',
 };
 
-exports.teal = {
+export const teal = {
     'teal-shade50': '#001516',
     'teal-shade40': '#012728',
     'teal-shade30': '#02494c',
@@ -480,7 +480,7 @@ exports.teal = {
     'teal-tint60': '#f0fafa',
 };
 
-exports.darkTeal = {
+export const darkTeal = {
     'dark-teal-shade50': '#001010',
     'dark-teal-shade40': '#001f1f',
     'dark-teal-shade30': '#003939',
@@ -495,7 +495,7 @@ exports.darkTeal = {
     'dark-teal-tint60': '#eff9f9',
 };
 
-exports.cyan = {
+export const cyan = {
     'cyan-shade50': '#00181e',
     'cyan-shade40': '#002e38',
     'cyan-shade30': '#005669',
@@ -510,7 +510,7 @@ exports.cyan = {
     'cyan-tint60': '#f2fafc',
 };
 
-exports.steel = {
+export const steel = {
     'steel-shade50': '#000f12',
     'steel-shade40': '#001b22',
     'steel-shade30': '#00333f',
@@ -525,7 +525,7 @@ exports.steel = {
     'steel-tint60': '#eff7f9',
 };
 
-exports.lightBlue = {
+export const lightBlue = {
     'light-blue-shade50': '#091823',
     'light-blue-shade40': '#112d42',
     'light-blue-shade30': '#20547c',
@@ -540,7 +540,7 @@ exports.lightBlue = {
     'light-blue-tint60': '#f6fafe',
 };
 
-exports.blue = {
+export const blue = {
     'blue-shade50': '#001322',
     'blue-shade40': '#002440',
     'blue-shade30': '#004377',
@@ -555,7 +555,7 @@ exports.blue = {
     'blue-tint60': '#f3f9fd',
 };
 
-exports.royalBlue = {
+export const royalBlue = {
     'royal-blue-shade50': '#000c16',
     'royal-blue-shade40': '#00172a',
     'royal-blue-shade30': '#002c4e',
@@ -570,7 +570,7 @@ exports.royalBlue = {
     'royal-blue-tint60': '#f0f6fa',
 };
 
-exports.darkBlue = {
+export const darkBlue = {
     'dark-blue-shade50': '#000910',
     'dark-blue-shade40': '#00111f',
     'dark-blue-shade30': '#002039',
@@ -585,7 +585,7 @@ exports.darkBlue = {
     'dark-blue-tint60': '#eff4f9',
 };
 
-exports.cornflower = {
+export const cornflower = {
     'cornflower-shade50': '#0d1126',
     'cornflower-shade40': '#182047',
     'cornflower-shade30': '#2c3c85',
@@ -600,7 +600,7 @@ exports.cornflower = {
     'cornflower-tint60': '#f7f9fe',
 };
 
-exports.navy = {
+export const navy = {
     'navy-shade50': '#00061d',
     'navy-shade40': '#000c36',
     'navy-shade30': '#001665',
@@ -615,7 +615,7 @@ exports.navy = {
     'navy-tint60': '#f2f4fc',
 };
 
-exports.lavender = {
+export const lavender = {
     'lavender-shade50': '#120f25',
     'lavender-shade40': '#221d46',
     'lavender-shade30': '#3f3682',
@@ -630,7 +630,7 @@ exports.lavender = {
     'lavender-tint60': '#f9f8fe',
 };
 
-exports.purple = {
+export const purple = {
     'purple-shade50': '#0f0717',
     'purple-shade40': '#1c0e2b',
     'purple-shade30': '#341a51',
@@ -645,7 +645,7 @@ exports.purple = {
     'purple-tint60': '#f7f4fb',
 };
 
-exports.darkPurple = {
+export const darkPurple = {
     'dark-purple-shade50': '#0a0411',
     'dark-purple-shade40': '#130820',
     'dark-purple-shade30': '#240f3c',
@@ -660,7 +660,7 @@ exports.darkPurple = {
     'dark-purple-tint60': '#f5f2f9',
 };
 
-exports.orchid = {
+export const orchid = {
     'orchid-shade50': '#16101d',
     'orchid-shade40': '#281e37',
     'orchid-shade30': '#4c3867',
@@ -675,7 +675,7 @@ exports.orchid = {
     'orchid-tint60': '#f9f8fc',
 };
 
-exports.grape = {
+export const grape = {
     'grape-shade50': '#160418',
     'grape-shade40': '#29072e',
     'grape-shade30': '#4c0d55',
@@ -690,7 +690,7 @@ exports.grape = {
     'grape-tint60': '#faf2fb',
 };
 
-exports.berry = {
+export const berry = {
     'berry-shade50': '#1f091d',
     'berry-shade40': '#3a1136',
     'berry-shade30': '#6d2064',
@@ -705,7 +705,7 @@ exports.berry = {
     'berry-tint60': '#fdf5fc',
 };
 
-exports.lilac = {
+export const lilac = {
     'lilac-shade50': '#1c0b1f',
     'lilac-shade40': '#35153a',
     'lilac-shade30': '#63276d',
@@ -720,7 +720,7 @@ exports.lilac = {
     'lilac-tint60': '#fcf6fd',
 };
 
-exports.pink = {
+export const pink = {
     'pink-shade50': '#24091b',
     'pink-shade40': '#441232',
     'pink-shade30': '#80215d',
@@ -735,7 +735,7 @@ exports.pink = {
     'pink-tint60': '#fef6fb',
 };
 
-exports.hotPink = {
+export const hotPink = {
     'hot-pink-shade50': '#240016',
     'hot-pink-shade40': '#44002a',
     'hot-pink-shade30': '#7f004e',
@@ -750,7 +750,7 @@ exports.hotPink = {
     'hot-pink-tint60': '#fef4fa',
 };
 
-exports.magenta = {
+export const magenta = {
     'magenta-shade50': '#1f0013',
     'magenta-shade40': '#390024',
     'magenta-shade30': '#6b0043',
@@ -765,7 +765,7 @@ exports.magenta = {
     'magenta-tint60': '#fcf2f9',
 };
 
-exports.plum = {
+export const plum = {
     'plum-shade50': '#13000c',
     'plum-shade40': '#240017',
     'plum-shade30': '#43002b',
@@ -780,7 +780,7 @@ exports.plum = {
     'plum-tint60': '#faf0f6',
 };
 
-exports.beige = {
+export const beige = {
     'beige-shade50': '#141313',
     'beige-shade40': '#252323',
     'beige-shade30': '#444241',
@@ -795,7 +795,7 @@ exports.beige = {
     'beige-tint60': '#faf9f9',
 };
 
-exports.mink = {
+export const mink = {
     'mink-shade50': '#0f0e0e',
     'mink-shade40': '#1c1b1a',
     'mink-shade30': '#343231',
@@ -810,7 +810,7 @@ exports.mink = {
     'mink-tint60': '#f8f8f8',
 };
 
-exports.silver = {
+export const silver = {
     'silver-shade50': '#151818',
     'silver-shade40': '#282d2e',
     'silver-shade30': '#4a5356',
@@ -825,7 +825,7 @@ exports.silver = {
     'silver-tint60': '#fafbfb',
 };
 
-exports.platinum = {
+export const platinum = {
     'platinum-shade50': '#111314',
     'platinum-shade40': '#1f2426',
     'platinum-shade30': '#3b4447',
@@ -840,7 +840,7 @@ exports.platinum = {
     'platinum-tint60': '#f8f9fa',
 };
 
-exports.anchor = {
+export const anchor = {
     'anchor-shade50': '#090a0b',
     'anchor-shade40': '#111315',
     'anchor-shade30': '#202427',
@@ -855,7 +855,7 @@ exports.anchor = {
     'anchor-tint60': '#f6f7f8',
 };
 
-exports.charcoa = {
+export const charcoa = {
     'charcoa-shade50': '#090909',
     'charcoa-shade40': '#111111',
     'charcoa-shade30': '#202020',

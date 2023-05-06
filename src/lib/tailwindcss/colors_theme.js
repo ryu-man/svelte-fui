@@ -1,4 +1,4 @@
-exports.colorsTheme = {
+export const colorsTheme = {
     'neutral-foreground-1': 'var(--fui-colorNeutralForeground1)',
     'neutral-foreground-1-hover': 'var(--fui-colorNeutralForeground1Hover)',
     'neutral-foreground-1-pressed': 'var(--fui-colorNeutralForeground1Pressed)',
