@@ -1,392 +1,645 @@
-export type Theme = {
-	'--fui-colorNeutralForeground1': string;
-	'--fui-colorNeutralForeground1Hover': string;
-	'--fui-colorNeutralForeground1Pressed': string;
-	'--fui-colorNeutralForeground1Selected': string;
-	'--fui-colorNeutralForeground2': string;
-	'--fui-colorNeutralForeground2Hover': string;
-	'--fui-colorNeutralForeground2Pressed': string;
-	'--fui-colorNeutralForeground2Selected': string;
-	'--fui-colorNeutralForeground2BrandHover': string;
-	'--fui-colorNeutralForeground2BrandPressed': string;
-	'--fui-colorNeutralForeground2BrandSelected': string;
-	'--fui-colorNeutralForeground3': string;
-	'--fui-colorNeutralForeground3Hover': string;
-	'--fui-colorNeutralForeground3Pressed': string;
-	'--fui-colorNeutralForeground3Selected': string;
-	'--fui-colorNeutralForeground3BrandHover': string;
-	'--fui-colorNeutralForeground3BrandPressed': string;
-	'--fui-colorNeutralForeground3BrandSelected': string;
-	'--fui-colorNeutralForeground4': string;
-	'--fui-colorNeutralForegroundDisabled': string;
-	'--fui-colorNeutralForegroundInvertedDisabled': string;
-	'--fui-colorBrandForegroundLink': string;
-	'--fui-colorBrandForegroundLinkHover': string;
-	'--fui-colorBrandForegroundLinkPressed': string;
-	'--fui-colorBrandForegroundLinkSelected': string;
-	'--fui-colorNeutralForeground2Link': string;
-	'--fui-colorNeutralForeground2LinkHover': string;
-	'--fui-colorNeutralForeground2LinkPressed': string;
-	'--fui-colorNeutralForeground2LinkSelected': string;
-	'--fui-colorCompoundBrandForeground1': string;
-	'--fui-colorCompoundBrandForeground1Hover': string;
-	'--fui-colorCompoundBrandForeground1Pressed': string;
-	'--fui-colorBrandForeground1': string;
-	'--fui-colorBrandForeground2': string;
-	'--fui-colorNeutralForeground1Static': string;
-	'--fui-colorNeutralForegroundStaticInverted': string;
-	'--fui-colorNeutralForegroundInverted': string;
-	'--fui-colorNeutralForegroundInvertedHover': string;
-	'--fui-colorNeutralForegroundInvertedPressed': string;
-	'--fui-colorNeutralForegroundInvertedSelected': string;
-	'--fui-colorNeutralForegroundInverted2': string;
-	'--fui-colorNeutralForegroundOnBrand': string;
-	'--fui-colorNeutralForegroundInvertedLink': string;
-	'--fui-colorNeutralForegroundInvertedLinkHover': string;
-	'--fui-colorNeutralForegroundInvertedLinkPressed': string;
-	'--fui-colorNeutralForegroundInvertedLinkSelected': string;
-	'--fui-colorBrandForegroundInverted': string;
-	'--fui-colorBrandForegroundInvertedHover': string;
-	'--fui-colorBrandForegroundInvertedPressed': string;
-	'--fui-colorBrandForegroundOnLight': string;
-	'--fui-colorBrandForegroundOnLightHover': string;
-	'--fui-colorBrandForegroundOnLightPressed': string;
-	'--fui-colorBrandForegroundOnLightSelected': string;
-	'--fui-colorNeutralBackground1': string;
-	'--fui-colorNeutralBackground1Hover': string;
-	'--fui-colorNeutralBackground1Pressed': string;
-	'--fui-colorNeutralBackground1Selected': string;
-	'--fui-colorNeutralBackground2': string;
-	'--fui-colorNeutralBackground2Hover': string;
-	'--fui-colorNeutralBackground2Pressed': string;
-	'--fui-colorNeutralBackground2Selected': string;
-	'--fui-colorNeutralBackground3': string;
-	'--fui-colorNeutralBackground3Hover': string;
-	'--fui-colorNeutralBackground3Pressed': string;
-	'--fui-colorNeutralBackground3Selected': string;
-	'--fui-colorNeutralBackground4': string;
-	'--fui-colorNeutralBackground4Hover': string;
-	'--fui-colorNeutralBackground4Pressed': string;
-	'--fui-colorNeutralBackground4Selected': string;
-	'--fui-colorNeutralBackground5': string;
-	'--fui-colorNeutralBackground5Hover': string;
-	'--fui-colorNeutralBackground5Pressed': string;
-	'--fui-colorNeutralBackground5Selected': string;
-	'--fui-colorNeutralBackground6': string;
-	'--fui-colorNeutralBackgroundInverted': string;
-	'--fui-colorNeutralBackgroundStatic': string;
-	'--fui-colorNeutralBackgroundAlpha': string;
-	'--fui-colorNeutralBackgroundAlpha2': string;
-	'--fui-colorSubtleBackground': string;
-	'--fui-colorSubtleBackgroundHover': string;
-	'--fui-colorSubtleBackgroundPressed': string;
-	'--fui-colorSubtleBackgroundSelected': string;
-	'--fui-colorSubtleBackgroundLightAlphaHover': string;
-	'--fui-colorSubtleBackgroundLightAlphaPressed': string;
-	'--fui-colorSubtleBackgroundLightAlphaSelected': string;
-	'--fui-colorSubtleBackgroundInverted': string;
-	'--fui-colorSubtleBackgroundInvertedHover': string;
-	'--fui-colorSubtleBackgroundInvertedPressed': string;
-	'--fui-colorSubtleBackgroundInvertedSelected': string;
-	'--fui-colorTransparentBackground': string;
-	'--fui-colorTransparentBackgroundHover': string;
-	'--fui-colorTransparentBackgroundPressed': string;
-	'--fui-colorTransparentBackgroundSelected': string;
-	'--fui-colorNeutralBackgroundDisabled': string;
-	'--fui-colorNeutralBackgroundInvertedDisabled': string;
-	'--fui-colorNeutralStencil1': string;
-	'--fui-colorNeutralStencil2': string;
-	'--fui-colorNeutralStencil1Alpha': string;
-	'--fui-colorNeutralStencil2Alpha': string;
-	'--fui-colorBackgroundOverlay': string;
-	'--fui-colorScrollbarOverlay': string;
-	'--fui-colorBrandBackground': string;
-	'--fui-colorBrandBackgroundHover': string;
-	'--fui-colorBrandBackgroundPressed': string;
-	'--fui-colorBrandBackgroundSelected': string;
-	'--fui-colorCompoundBrandBackground': string;
-	'--fui-colorCompoundBrandBackgroundHover': string;
-	'--fui-colorCompoundBrandBackgroundPressed': string;
-	'--fui-colorBrandBackgroundStatic': string;
-	'--fui-colorBrandBackground2': string;
-	'--fui-colorBrandBackgroundInverted': string;
-	'--fui-colorBrandBackgroundInvertedHover': string;
-	'--fui-colorBrandBackgroundInvertedPressed': string;
-	'--fui-colorBrandBackgroundInvertedSelected': string;
-	'--fui-colorNeutralStrokeAccessible': string;
-	'--fui-colorNeutralStrokeAccessibleHover': string;
-	'--fui-colorNeutralStrokeAccessiblePressed': string;
-	'--fui-colorNeutralStrokeAccessibleSelected': string;
-	'--fui-colorNeutralStroke1': string;
-	'--fui-colorNeutralStroke1Hover': string;
-	'--fui-colorNeutralStroke1Pressed': string;
-	'--fui-colorNeutralStroke1Selected': string;
-	'--fui-colorNeutralStroke2': string;
-	'--fui-colorNeutralStroke3': string;
-	'--fui-colorNeutralStrokeOnBrand': string;
-	'--fui-colorNeutralStrokeOnBrand2': string;
-	'--fui-colorNeutralStrokeOnBrand2Hover': string;
-	'--fui-colorNeutralStrokeOnBrand2Pressed': string;
-	'--fui-colorNeutralStrokeOnBrand2Selected': string;
-	'--fui-colorBrandStroke1': string;
-	'--fui-colorBrandStroke2': string;
-	'--fui-colorCompoundBrandStroke': string;
-	'--fui-colorCompoundBrandStrokeHover': string;
-	'--fui-colorCompoundBrandStrokePressed': string;
-	'--fui-colorNeutralStrokeDisabled': string;
-	'--fui-colorNeutralStrokeInvertedDisabled': string;
-	'--fui-colorTransparentStroke': string;
-	'--fui-colorTransparentStrokeInteractive': string;
-	'--fui-colorTransparentStrokeDisabled': string;
-	'--fui-colorNeutralStrokeAlpha': string;
-	'--fui-colorStrokeFocus1': string;
-	'--fui-colorStrokeFocus2': string;
-	'--fui-colorNeutralShadowAmbient': string;
-	'--fui-colorNeutralShadowKey': string;
-	'--fui-colorNeutralShadowAmbientLighter': string;
-	'--fui-colorNeutralShadowKeyLighter': string;
-	'--fui-colorNeutralShadowAmbientDarker': string;
-	'--fui-colorNeutralShadowKeyDarker': string;
-	'--fui-colorBrandShadowAmbient': string;
-	'--fui-colorBrandShadowKey': string;
+import type { personaSharedColorNames, statusSharedColorNames, unusedSharedColorNames } from './sharedColorNames';
 
-	/*******************************/
-
-	/* Color palette tokens */
-
-	/* Color palette red tokens */
-	'--fui-colorPaletteRedBackground1': string;
-	'--fui-colorPaletteRedBackground2': string;
-	'--fui-colorPaletteRedBackground3': string;
-	'--fui-colorPaletteRedBorderActive': string;
-	'--fui-colorPaletteRedBorder1': string;
-	'--fui-colorPaletteRedBorder2': string;
-	'--fui-colorPaletteRedForeground1': string;
-	'--fui-colorPaletteRedForeground2': string;
-	'--fui-colorPaletteRedForeground3': string;
-	'--fui-colorPaletteRedForegroundInverted': string;
-
-	/* Color palette green tokens */
-	'--fui-colorPaletteGreenBackground1': string;
-	'--fui-colorPaletteGreenBackground2': string;
-	'--fui-colorPaletteGreenBackground3': string;
-	'--fui-colorPaletteGreenBorderActive': string;
-	'--fui-colorPaletteGreenBorder1': string;
-	'--fui-colorPaletteGreenBorder2': string;
-	'--fui-colorPaletteGreenForeground1': string;
-	'--fui-colorPaletteGreenForeground2': string;
-	'--fui-colorPaletteGreenForeground3': string;
-	'--fui-colorPaletteGreenForegroundInverted': string;
-
-	/* Color palette dark orange tokens */
-	'--fui-colorPaletteDarkOrangeBackground1': string;
-	'--fui-colorPaletteDarkOrangeBackground2': string;
-	'--fui-colorPaletteDarkOrangeBackground3': string;
-	'--fui-colorPaletteDarkOrangeBorderActive': string;
-	'--fui-colorPaletteDarkOrangeBorder1': string;
-	'--fui-colorPaletteDarkOrangeBorder2': string;
-	'--fui-colorPaletteDarkOrangeForeground1': string;
-	'--fui-colorPaletteDarkOrangeForeground2': string;
-	'--fui-colorPaletteDarkOrangeForeground3': string;
-
-	/* Color palette yellow tokens */
-	'--fui-colorPaletteYellowBackground1': string;
-	'--fui-colorPaletteYellowBackground2': string;
-	'--fui-colorPaletteYellowBackground3': string;
-	'--fui-colorPaletteYellowBorderActive': string;
-	'--fui-colorPaletteYellowBorder1': string;
-	'--fui-colorPaletteYellowBorder2': string;
-	'--fui-colorPaletteYellowForeground1': string;
-	'--fui-colorPaletteYellowForeground2': string;
-	'--fui-colorPaletteYellowForeground3': string;
-	'--fui-colorPaletteYellowForegroundInverted': string;
-
-	/* Color palette berry tokens */
-	'--fui-colorPaletteBerryBackground1': string;
-	'--fui-colorPaletteBerryBackground2': string;
-	'--fui-colorPaletteBerryBackground3': string;
-	'--fui-colorPaletteBerryBorderActive': string;
-	'--fui-colorPaletteBerryBorder1': string;
-	'--fui-colorPaletteBerryBorder2': string;
-	'--fui-colorPaletteBerryForeground1': string;
-	'--fui-colorPaletteBerryForeground2': string;
-	'--fui-colorPaletteBerryForeground3': string;
-
-	/* Color palette marigold tokens */
-	'--fui-colorPaletteMarigoldBackground1': string;
-	'--fui-colorPaletteMarigoldBackground2': string;
-	'--fui-colorPaletteMarigoldBackground3': string;
-	'--fui-colorPaletteMarigoldBorderActive': string;
-	'--fui-colorPaletteMarigoldBorder1': string;
-	'--fui-colorPaletteMarigoldBorder2': string;
-	'--fui-colorPaletteMarigoldForeground1': string;
-	'--fui-colorPaletteMarigoldForeground2': string;
-	'--fui-colorPaletteMarigoldForeground3': string;
-
-	/* Color palette light green tokens */
-	'--fui-colorPaletteLightGreenBackground1': string;
-	'--fui-colorPaletteLightGreenBackground2': string;
-	'--fui-colorPaletteLightGreenBackground3': string;
-	'--fui-colorPaletteLightGreenBorderActive': string;
-	'--fui-colorPaletteLightGreenBorder1': string;
-	'--fui-colorPaletteLightGreenBorder2': string;
-	'--fui-colorPaletteLightGreenForeground1': string;
-	'--fui-colorPaletteLightGreenForeground2': string;
-	'--fui-colorPaletteLightGreenForeground3': string;
-
-	/* Color palette anchor tokens */
-	'--fui-colorPaletteAnchorBackground2': string;
-	'--fui-colorPaletteAnchorBorderActive': string;
-	'--fui-colorPaletteAnchorForeground2': string;
-
-	/* Color palette beige tokens */
-	'--fui-colorPaletteBeigeBackground2': string;
-	'--fui-colorPaletteBeigeBorderActive': string;
-	'--fui-colorPaletteBeigeForeground2': string;
-
-	/* Color palette blue tokens */
-	'--fui-colorPaletteBlueBackground2': string;
-	'--fui-colorPaletteBlueBorderActive': string;
-	'--fui-colorPaletteBlueForeground2': string;
-
-	/* Color palette brass tokens */
-	'--fui-colorPaletteBrassBackground2': string;
-	'--fui-colorPaletteBrassBorderActive': string;
-	'--fui-colorPaletteBrassForeground2': string;
-
-	/* Color palette brown tokens */
-	'--fui-colorPaletteBrownBackground2': string;
-	'--fui-colorPaletteBrownBorderActive': string;
-	'--fui-colorPaletteBrownForeground2': string;
-
-	/* Color palette cornflower tokens */
-	'--fui-colorPaletteCornflowerBackground2': string;
-	'--fui-colorPaletteCornflowerBorderActive': string;
-	'--fui-colorPaletteCornflowerForeground2': string;
-
-	/* Color palette cranberry tokens */
-	'--fui-colorPaletteCranberryBackground2': string;
-	'--fui-colorPaletteCranberryBorderActive': string;
-	'--fui-colorPaletteCranberryForeground2': string;
-
-	/* Color palette dark green tokens */
-	'--fui-colorPaletteDarkGreenBackground2': string;
-	'--fui-colorPaletteDarkGreenBorderActive': string;
-	'--fui-colorPaletteDarkGreenForeground2': string;
-
-	/* Color palette dark red tokens */
-	'--fui-colorPaletteDarkRedBackground2': string;
-	'--fui-colorPaletteDarkRedBorderActive': string;
-	'--fui-colorPaletteDarkRedForeground2': string;
-
-	/* Color palette forest tokens */
-	'--fui-colorPaletteForestBackground2': string;
-	'--fui-colorPaletteForestBorderActive': string;
-	'--fui-colorPaletteForestForeground2': string;
-
-	/* Color palette gold tokens */
-	'--fui-colorPaletteGoldBackground2': string;
-	'--fui-colorPaletteGoldBorderActive': string;
-	'--fui-colorPaletteGoldForeground2': string;
-
-	/* Color palette grape tokens */
-	'--fui-colorPaletteGrapeBackground2': string;
-	'--fui-colorPaletteGrapeBorderActive': string;
-	'--fui-colorPaletteGrapeForeground2': string;
-
-	/* Color palette lavender tokens */
-	'--fui-colorPaletteLavenderBackground2': string;
-	'--fui-colorPaletteLavenderBorderActive': string;
-	'--fui-colorPaletteLavenderForeground2': string;
-
-	/* Color palette light teal tokens */
-	'--fui-colorPaletteLightTealBackground2': string;
-	'--fui-colorPaletteLightTealBorderActive': string;
-	'--fui-colorPaletteLightTealForeground2': string;
-
-	/* Color palette lilac tokens */
-	'--fui-colorPaletteLilacBackground2': string;
-	'--fui-colorPaletteLilacBorderActive': string;
-	'--fui-colorPaletteLilacForeground2': string;
-
-	/* Color palette magenta tokens */
-	'--fui-colorPaletteMagentaBackground2': string;
-	'--fui-colorPaletteMagentaBorderActive': string;
-	'--fui-colorPaletteMagentaForeground2': string;
-
-	/* Color palette mink tokens */
-	'--fui-colorPaletteMinkBackground2': string;
-	'--fui-colorPaletteMinkBorderActive': string;
-	'--fui-colorPaletteMinkForeground2': string;
-
-	/* Color palette navy tokens */
-	'--fui-colorPaletteNavyBackground2': string;
-	'--fui-colorPaletteNavyBorderActive': string;
-	'--fui-colorPaletteNavyForeground2': string;
-
-	/* Color palette peach tokens */
-	'--fui-colorPalettePeachBackground2': string;
-	'--fui-colorPalettePeachBorderActive': string;
-	'--fui-colorPalettePeachForeground2': string;
-
-	/* Color palette pink tokens */
-	'--fui-colorPalettePinkBackground2': string;
-	'--fui-colorPalettePinkBorderActive': string;
-	'--fui-colorPalettePinkForeground2': string;
-
-	/* Color palette platinum tokens */
-	'--fui-colorPalettePlatinumBackground2': string;
-	'--fui-colorPalettePlatinumBorderActive': string;
-	'--fui-colorPalettePlatinumForeground2': string;
-
-	/* Color palette plum tokens */
-	'--fui-colorPalettePlumBackground2': string;
-	'--fui-colorPalettePlumBorderActive': string;
-	'--fui-colorPalettePlumForeground2': string;
-
-	/* Color palette pumpkin tokens */
-	'--fui-colorPalettePumpkinBackground2': string;
-	'--fui-colorPalettePumpkinBorderActive': string;
-	'--fui-colorPalettePumpkinForeground2': string;
-
-	/* Color palette purple tokens */
-	'--fui-colorPalettePurpleBackground2': string;
-	'--fui-colorPalettePurpleBorderActive': string;
-	'--fui-colorPalettePurpleForeground2': string;
-
-	/* Color palette royal blue tokens */
-	'--fui-colorPaletteRoyalBlueBackground2': string;
-	'--fui-colorPaletteRoyalBlueBorderActive': string;
-	'--fui-colorPaletteRoyalBlueForeground2': string;
-
-	/* Color palette seafoam tokens */
-	'--fui-colorPaletteSeafoamBackground2': string;
-	'--fui-colorPaletteSeafoamBorderActive': string;
-	'--fui-colorPaletteSeafoamForeground2': string;
-
-	/* Color palette steel tokens */
-	'--fui-colorPaletteSteelBackground2': string;
-	'--fui-colorPaletteSteelBorderActive': string;
-	'--fui-colorPaletteSteelForeground2': string;
-
-	/* Color palette teal tokens */
-	'--fui-colorPaletteTealBackground2': string;
-	'--fui-colorPaletteTealBorderActive': string;
-	'--fui-colorPaletteTealForeground2': string;
-
-	/*************************************************************************/
-
-	'--fui-shadow2': string;
-	'--fui-shadow4': string;
-	'--fui-shadow8': string;
-	'--fui-shadow16': string;
-	'--fui-shadow28': string;
-	'--fui-shadow64': string;
-
-	'--fui-shadow2Brand': string;
-	'--fui-shadow4Brand': string;
-	'--fui-shadow8Brand': string;
-	'--fui-shadow16Brand': string;
-	'--fui-shadow28Brand': string;
-	'--fui-shadow64Brand': string;
+/**
+ * Design tokens for alias colors
+ */
+export type ColorTokens = {
+	colorNeutralForeground1: string;
+	colorNeutralForeground1Hover: string;
+	colorNeutralForeground1Pressed: string;
+	colorNeutralForeground1Selected: string;
+	colorNeutralForeground2: string;
+	colorNeutralForeground2Hover: string;
+	colorNeutralForeground2Pressed: string;
+	colorNeutralForeground2Selected: string;
+	colorNeutralForeground2BrandHover: string;
+	colorNeutralForeground2BrandPressed: string;
+	colorNeutralForeground2BrandSelected: string;
+	colorNeutralForeground3: string;
+	colorNeutralForeground3Hover: string;
+	colorNeutralForeground3Pressed: string;
+	colorNeutralForeground3Selected: string;
+	colorNeutralForeground3BrandHover: string;
+	colorNeutralForeground3BrandPressed: string;
+	colorNeutralForeground3BrandSelected: string;
+	colorNeutralForeground4: string;
+	colorNeutralForegroundDisabled: string;
+	colorNeutralForegroundInvertedDisabled: string;
+	colorBrandForegroundLink: string;
+	colorBrandForegroundLinkHover: string;
+	colorBrandForegroundLinkPressed: string;
+	colorBrandForegroundLinkSelected: string;
+	colorNeutralForeground2Link: string;
+	colorNeutralForeground2LinkHover: string;
+	colorNeutralForeground2LinkPressed: string;
+	colorNeutralForeground2LinkSelected: string;
+	colorCompoundBrandForeground1: string;
+	colorCompoundBrandForeground1Hover: string;
+	colorCompoundBrandForeground1Pressed: string;
+	colorBrandForeground1: string;
+	colorBrandForeground2: string;
+	colorNeutralForeground1Static: string;
+	colorNeutralForegroundInverted: string;
+	colorNeutralForegroundInvertedHover: string;
+	colorNeutralForegroundInvertedPressed: string;
+	colorNeutralForegroundInvertedSelected: string;
+	colorNeutralForegroundInverted2: string;
+	colorNeutralForegroundOnBrand: string;
+	colorNeutralForegroundStaticInverted: string;
+	colorNeutralForegroundInvertedLink: string;
+	colorNeutralForegroundInvertedLinkHover: string;
+	colorNeutralForegroundInvertedLinkPressed: string;
+	colorNeutralForegroundInvertedLinkSelected: string;
+	colorBrandForegroundInverted: string;
+	colorBrandForegroundInvertedHover: string;
+	colorBrandForegroundInvertedPressed: string;
+	colorBrandForegroundOnLight: string;
+	colorBrandForegroundOnLightHover: string;
+	colorBrandForegroundOnLightPressed: string;
+	colorBrandForegroundOnLightSelected: string;
+	colorNeutralBackground1: string;
+	colorNeutralBackground1Hover: string;
+	colorNeutralBackground1Pressed: string;
+	colorNeutralBackground1Selected: string;
+	colorNeutralBackground2: string;
+	colorNeutralBackground2Hover: string;
+	colorNeutralBackground2Pressed: string;
+	colorNeutralBackground2Selected: string;
+	colorNeutralBackground3: string;
+	colorNeutralBackground3Hover: string;
+	colorNeutralBackground3Pressed: string;
+	colorNeutralBackground3Selected: string;
+	colorNeutralBackground4: string;
+	colorNeutralBackground4Hover: string;
+	colorNeutralBackground4Pressed: string;
+	colorNeutralBackground4Selected: string;
+	colorNeutralBackground5: string;
+	colorNeutralBackground5Hover: string;
+	colorNeutralBackground5Pressed: string;
+	colorNeutralBackground5Selected: string;
+	colorNeutralBackground6: string;
+	colorNeutralBackgroundInverted: string;
+	colorNeutralBackgroundStatic: string;
+	colorNeutralBackgroundAlpha: string;
+	colorNeutralBackgroundAlpha2: string;
+	colorSubtleBackground: string;
+	colorSubtleBackgroundHover: string;
+	colorSubtleBackgroundPressed: string;
+	colorSubtleBackgroundSelected: string;
+	colorSubtleBackgroundLightAlphaHover: string;
+	colorSubtleBackgroundLightAlphaPressed: string;
+	colorSubtleBackgroundLightAlphaSelected: string;
+	colorSubtleBackgroundInverted: string;
+	colorSubtleBackgroundInvertedHover: string;
+	colorSubtleBackgroundInvertedPressed: string;
+	colorSubtleBackgroundInvertedSelected: string;
+	colorTransparentBackground: string;
+	colorTransparentBackgroundHover: string;
+	colorTransparentBackgroundPressed: string;
+	colorTransparentBackgroundSelected: string;
+	colorNeutralBackgroundDisabled: string;
+	colorNeutralBackgroundInvertedDisabled: string;
+	colorNeutralStencil1: string;
+	colorNeutralStencil2: string;
+	colorNeutralStencil1Alpha: string;
+	colorNeutralStencil2Alpha: string;
+	colorBackgroundOverlay: string;
+	colorScrollbarOverlay: string;
+	colorBrandBackground: string;
+	colorBrandBackgroundHover: string;
+	colorBrandBackgroundPressed: string;
+	colorBrandBackgroundSelected: string;
+	colorCompoundBrandBackground: string;
+	colorCompoundBrandBackgroundHover: string;
+	colorCompoundBrandBackgroundPressed: string;
+	colorBrandBackgroundStatic: string;
+	colorBrandBackground2: string;
+	colorBrandBackgroundInverted: string;
+	colorBrandBackgroundInvertedHover: string;
+	colorBrandBackgroundInvertedPressed: string;
+	colorBrandBackgroundInvertedSelected: string;
+	colorNeutralStrokeAccessible: string;
+	colorNeutralStrokeAccessibleHover: string;
+	colorNeutralStrokeAccessiblePressed: string;
+	colorNeutralStrokeAccessibleSelected: string;
+	colorNeutralStroke1: string;
+	colorNeutralStroke1Hover: string;
+	colorNeutralStroke1Pressed: string;
+	colorNeutralStroke1Selected: string;
+	colorNeutralStroke2: string;
+	colorNeutralStroke3: string;
+	colorNeutralStrokeOnBrand: string;
+	colorNeutralStrokeOnBrand2: string;
+	colorNeutralStrokeOnBrand2Hover: string;
+	colorNeutralStrokeOnBrand2Pressed: string;
+	colorNeutralStrokeOnBrand2Selected: string;
+	colorBrandStroke1: string;
+	colorBrandStroke2: string;
+	colorCompoundBrandStroke: string;
+	colorCompoundBrandStrokeHover: string;
+	colorCompoundBrandStrokePressed: string;
+	colorNeutralStrokeDisabled: string;
+	colorNeutralStrokeInvertedDisabled: string;
+	colorTransparentStroke: string;
+	colorTransparentStrokeInteractive: string;
+	colorTransparentStrokeDisabled: string;
+	colorNeutralStrokeAlpha: string;
+	colorStrokeFocus1: string;
+	colorStrokeFocus2: string;
+	colorNeutralShadowAmbient: string;
+	colorNeutralShadowKey: string;
+	colorNeutralShadowAmbientLighter: string;
+	colorNeutralShadowKeyLighter: string;
+	colorNeutralShadowAmbientDarker: string;
+	colorNeutralShadowKeyDarker: string;
+	colorBrandShadowAmbient: string;
+	colorBrandShadowKey: string;
 };
+
+export type ColorPaletteRed =
+	| 'colorPaletteRedBackground1'
+	| 'colorPaletteRedBackground2'
+	| 'colorPaletteRedBackground3'
+	| 'colorPaletteRedForeground1'
+	| 'colorPaletteRedForeground2'
+	| 'colorPaletteRedForeground3'
+	| 'colorPaletteRedForegroundInverted'
+	| 'colorPaletteRedBorderActive'
+	| 'colorPaletteRedBorder1'
+	| 'colorPaletteRedBorder2';
+
+export type ColorPaletteGreen =
+	| 'colorPaletteGreenBackground1'
+	| 'colorPaletteGreenBackground2'
+	| 'colorPaletteGreenBackground3'
+	| 'colorPaletteGreenForeground1'
+	| 'colorPaletteGreenForeground2'
+	| 'colorPaletteGreenForeground3'
+	| 'colorPaletteGreenForegroundInverted'
+	| 'colorPaletteGreenBorderActive'
+	| 'colorPaletteGreenBorder1'
+	| 'colorPaletteGreenBorder2';
+
+export type ColorPaletteDarkOrange =
+	| 'colorPaletteDarkOrangeBackground1'
+	| 'colorPaletteDarkOrangeBackground2'
+	| 'colorPaletteDarkOrangeBackground3'
+	| 'colorPaletteDarkOrangeForeground1'
+	| 'colorPaletteDarkOrangeForeground2'
+	| 'colorPaletteDarkOrangeForeground3'
+	| 'colorPaletteDarkOrangeBorderActive'
+	| 'colorPaletteDarkOrangeBorder1'
+	| 'colorPaletteDarkOrangeBorder2';
+
+export type ColorPaletteYellow =
+	| 'colorPaletteYellowBackground1'
+	| 'colorPaletteYellowBackground2'
+	| 'colorPaletteYellowBackground3'
+	| 'colorPaletteYellowForeground1'
+	| 'colorPaletteYellowForeground2'
+	| 'colorPaletteYellowForeground3'
+	| 'colorPaletteYellowForegroundInverted'
+	| 'colorPaletteYellowBorderActive'
+	| 'colorPaletteYellowBorder1'
+	| 'colorPaletteYellowBorder2';
+
+export type ColorPaletteBerry =
+	| 'colorPaletteBerryBackground1'
+	| 'colorPaletteBerryBackground2'
+	| 'colorPaletteBerryBackground3'
+	| 'colorPaletteBerryForeground1'
+	| 'colorPaletteBerryForeground2'
+	| 'colorPaletteBerryForeground3'
+	| 'colorPaletteBerryBorderActive'
+	| 'colorPaletteBerryBorder1'
+	| 'colorPaletteBerryBorder2';
+
+export type ColorPaletteMarigold =
+	| 'colorPaletteMarigoldBackground1'
+	| 'colorPaletteMarigoldBackground2'
+	| 'colorPaletteMarigoldBackground3'
+	| 'colorPaletteMarigoldForeground1'
+	| 'colorPaletteMarigoldForeground2'
+	| 'colorPaletteMarigoldForeground3'
+	| 'colorPaletteMarigoldBorderActive'
+	| 'colorPaletteMarigoldBorder1'
+	| 'colorPaletteMarigoldBorder2';
+
+export type ColorPaletteLightGreen =
+	| 'colorPaletteLightGreenBackground1'
+	| 'colorPaletteLightGreenBackground2'
+	| 'colorPaletteLightGreenBackground3'
+	| 'colorPaletteLightGreenForeground1'
+	| 'colorPaletteLightGreenForeground2'
+	| 'colorPaletteLightGreenForeground3'
+	| 'colorPaletteLightGreenBorderActive'
+	| 'colorPaletteLightGreenBorder1'
+	| 'colorPaletteLightGreenBorder2';
+
+export type ColorPaletteDarkRed = 'colorPaletteDarkRedBackground2' | 'colorPaletteDarkRedForeground2' | 'colorPaletteDarkRedBorderActive';
+
+export type ColorPaletteCranberry =
+	| 'colorPaletteCranberryBackground2'
+	| 'colorPaletteCranberryForeground2'
+	| 'colorPaletteCranberryBorderActive';
+
+export type ColorPalettePumpkin = 'colorPalettePumpkinBackground2' | 'colorPalettePumpkinForeground2' | 'colorPalettePumpkinBorderActive';
+
+export type ColorPalettePeach = 'colorPalettePeachBackground2' | 'colorPalettePeachForeground2' | 'colorPalettePeachBorderActive';
+
+export type ColorPaletteGold = 'colorPaletteGoldBackground2' | 'colorPaletteGoldForeground2' | 'colorPaletteGoldBorderActive';
+
+export type ColorPaletteBrass = 'colorPaletteBrassBackground2' | 'colorPaletteBrassForeground2' | 'colorPaletteBrassBorderActive';
+
+export type ColorPaletteBrown = 'colorPaletteBrownBackground2' | 'colorPaletteBrownForeground2' | 'colorPaletteBrownBorderActive';
+
+export type ColorPaletteForest = 'colorPaletteForestBackground2' | 'colorPaletteForestForeground2' | 'colorPaletteForestBorderActive';
+
+export type ColorPaletteSeafoam = 'colorPaletteSeafoamBackground2' | 'colorPaletteSeafoamForeground2' | 'colorPaletteSeafoamBorderActive';
+
+export type ColorPaletteDarkGreen =
+	| 'colorPaletteDarkGreenBackground2'
+	| 'colorPaletteDarkGreenForeground2'
+	| 'colorPaletteDarkGreenBorderActive';
+
+export type ColorPaletteLightTeal =
+	| 'colorPaletteLightTealBackground2'
+	| 'colorPaletteLightTealForeground2'
+	| 'colorPaletteLightTealBorderActive';
+
+export type ColorPaletteTeal = 'colorPaletteTealBackground2' | 'colorPaletteTealForeground2' | 'colorPaletteTealBorderActive';
+
+export type ColorPaletteSteel = 'colorPaletteSteelBackground2' | 'colorPaletteSteelForeground2' | 'colorPaletteSteelBorderActive';
+
+export type ColorPaletteBlue = 'colorPaletteBlueBackground2' | 'colorPaletteBlueForeground2' | 'colorPaletteBlueBorderActive';
+
+export type ColorPaletteRoyalBlue =
+	| 'colorPaletteRoyalBlueBackground2'
+	| 'colorPaletteRoyalBlueForeground2'
+	| 'colorPaletteRoyalBlueBorderActive';
+
+export type ColorPaletteCornflower =
+	| 'colorPaletteCornflowerBackground2'
+	| 'colorPaletteCornflowerForeground2'
+	| 'colorPaletteCornflowerBorderActive';
+
+export type ColorPaletteNavy = 'colorPaletteNavyBackground2' | 'colorPaletteNavyForeground2' | 'colorPaletteNavyBorderActive';
+
+export type ColorPaletteLavender = 'colorPaletteLavenderBackground2' | 'colorPaletteLavenderForeground2' | 'colorPaletteLavenderBorderActive';
+
+export type ColorPalettePurple = 'colorPalettePurpleBackground2' | 'colorPalettePurpleForeground2' | 'colorPalettePurpleBorderActive';
+
+export type ColorPaletteGrape = 'colorPaletteGrapeBackground2' | 'colorPaletteGrapeForeground2' | 'colorPaletteGrapeBorderActive';
+
+export type ColorPaletteLilac = 'colorPaletteLilacBackground2' | 'colorPaletteLilacForeground2' | 'colorPaletteLilacBorderActive';
+
+export type ColorPalettePink = 'colorPalettePinkBackground2' | 'colorPalettePinkForeground2' | 'colorPalettePinkBorderActive';
+
+export type ColorPaletteMagenta = 'colorPaletteMagentaBackground2' | 'colorPaletteMagentaForeground2' | 'colorPaletteMagentaBorderActive';
+
+export type ColorPalettePlum = 'colorPalettePlumBackground2' | 'colorPalettePlumForeground2' | 'colorPalettePlumBorderActive';
+
+export type ColorPaletteBeige = 'colorPaletteBeigeBackground2' | 'colorPaletteBeigeForeground2' | 'colorPaletteBeigeBorderActive';
+
+export type ColorPaletteMink = 'colorPaletteMinkBackground2' | 'colorPaletteMinkForeground2' | 'colorPaletteMinkBorderActive';
+
+export type ColorPalettePlatinum = 'colorPalettePlatinumBackground2' | 'colorPalettePlatinumForeground2' | 'colorPalettePlatinumBorderActive';
+
+export type ColorPaletteAnchor = 'colorPaletteAnchorBackground2' | 'colorPaletteAnchorForeground2' | 'colorPaletteAnchorBorderActive';
+
+export type StatusColorPaletteTokens = Record<
+	| ColorPaletteRed
+	| ColorPaletteGreen
+	| ColorPaletteDarkOrange
+	| ColorPaletteYellow
+	| ColorPaletteBerry
+	| ColorPaletteMarigold
+	| ColorPaletteLightGreen,
+	string
+>;
+
+export type PersonaColorPaletteTokens = Record<
+	| ColorPaletteDarkRed
+	| ColorPaletteCranberry
+	| ColorPalettePumpkin
+	| ColorPalettePeach
+	| ColorPaletteGold
+	| ColorPaletteBrass
+	| ColorPaletteBrown
+	| ColorPaletteForest
+	| ColorPaletteSeafoam
+	| ColorPaletteDarkGreen
+	| ColorPaletteLightTeal
+	| ColorPaletteTeal
+	| ColorPaletteSteel
+	| ColorPaletteBlue
+	| ColorPaletteRoyalBlue
+	| ColorPaletteCornflower
+	| ColorPaletteNavy
+	| ColorPaletteLavender
+	| ColorPalettePurple
+	| ColorPaletteGrape
+	| ColorPaletteLilac
+	| ColorPalettePink
+	| ColorPaletteMagenta
+	| ColorPalettePlum
+	| ColorPaletteBeige
+	| ColorPaletteMink
+	| ColorPalettePlatinum
+	| ColorPaletteAnchor,
+	string
+>;
+
+export type ColorPaletteTokens = StatusColorPaletteTokens & PersonaColorPaletteTokens;
+
+/**
+ * Possible color variant values
+ */
+export type ColorVariants = {
+	shade50: string;
+	shade40: string;
+	shade30: string;
+	shade20: string;
+	shade10: string;
+	primary: string;
+	tint10: string;
+	tint20: string;
+	tint30: string;
+	tint40: string;
+	tint50: string;
+	tint60: string;
+};
+
+export type Brands = '10' | '20' | '30' | '40' | '50' | '60' | '70' | '80' | '90' | '100' | '110' | '120' | '130' | '140' | '150' | '160';
+
+export type BrandVariants = Record<Brands, string>;
+
+type StatusSharedColorNames = (typeof statusSharedColorNames)[number];
+type PersonaSharedColorNames = (typeof personaSharedColorNames)[number];
+type UnusedSharedColorNames = (typeof unusedSharedColorNames)[number];
+
+export type StatusSharedColors = Record<StatusSharedColorNames, ColorVariants>;
+export type PersonaSharedColors = Record<PersonaSharedColorNames, ColorVariants>;
+export type UnusedSharedColors = Record<UnusedSharedColorNames, ColorVariants>;
+
+export type FontSizeTokens = {
+	fontSizeBase100: string;
+	fontSizeBase200: string;
+	fontSizeBase300: string;
+	fontSizeBase400: string;
+	fontSizeBase500: string;
+	fontSizeBase600: string;
+
+	fontSizeHero700: string;
+	fontSizeHero800: string;
+	fontSizeHero900: string;
+	fontSizeHero1000: string;
+};
+
+export type LineHeightTokens = {
+	lineHeightBase100: string;
+	lineHeightBase200: string;
+	lineHeightBase300: string;
+	lineHeightBase400: string;
+	lineHeightBase500: string;
+	lineHeightBase600: string;
+
+	lineHeightHero700: string;
+	lineHeightHero800: string;
+	lineHeightHero900: string;
+	lineHeightHero1000: string;
+};
+
+export type FontWeightTokens = {
+	fontWeightRegular: number;
+	fontWeightMedium: number;
+	fontWeightSemibold: number;
+	fontWeightBold: number;
+};
+
+export type FontFamilyTokens = {
+	fontFamilyBase: string;
+	fontFamilyMonospace: string;
+	fontFamilyNumeric: string;
+};
+
+export type TextAlignment =
+	| 'inherit'
+	| 'initial'
+	| 'revert'
+	| 'unset'
+	| 'center'
+	| 'end'
+	| 'start'
+	| 'justify'
+	| 'left'
+	| 'match-parent'
+	| 'right';
+
+export type TextAlignments = {
+	start: TextAlignment;
+	center: TextAlignment;
+	end: TextAlignment;
+	justify: TextAlignment;
+};
+
+export type TypographyStyle = {
+	fontFamily: string;
+	fontSize: string;
+	fontWeight: string;
+	lineHeight: string;
+};
+
+export type TypographyStyles = {
+	body1: TypographyStyle;
+	body1Strong: TypographyStyle;
+	body1Stronger: TypographyStyle;
+	body2: TypographyStyle;
+	caption1: TypographyStyle;
+	caption1Strong: TypographyStyle;
+	caption1Stronger: TypographyStyle;
+	caption2: TypographyStyle;
+	caption2Strong: TypographyStyle;
+	subtitle1: TypographyStyle;
+	subtitle2: TypographyStyle;
+	subtitle2Stronger: TypographyStyle;
+	title1: TypographyStyle;
+	title2: TypographyStyle;
+	title3: TypographyStyle;
+	largeTitle: TypographyStyle;
+	display: TypographyStyle;
+};
+
+export type BorderRadiusTokens = {
+	borderRadiusNone: string;
+	borderRadiusSmall: string;
+	borderRadiusMedium: string;
+	borderRadiusLarge: string;
+	borderRadiusXLarge: string;
+	borderRadiusCircular: string;
+};
+
+export type StrokeWidthTokens = {
+	strokeWidthThin: string;
+	strokeWidthThick: string;
+	strokeWidthThicker: string;
+	strokeWidthThickest: string;
+};
+
+export type SpacingTokens = {
+	none: string;
+	xxs: string;
+	xs: string;
+	sNudge: string;
+	s: string;
+	mNudge: string;
+	m: string;
+	l: string;
+	xl: string;
+	xxl: string;
+	xxxl: string;
+};
+
+export type HorizontalSpacingTokens = {
+	spacingHorizontalNone: string;
+	spacingHorizontalXXS: string;
+	spacingHorizontalXS: string;
+	spacingHorizontalSNudge: string;
+	spacingHorizontalS: string;
+	spacingHorizontalMNudge: string;
+	spacingHorizontalM: string;
+	spacingHorizontalL: string;
+	spacingHorizontalXL: string;
+	spacingHorizontalXXL: string;
+	spacingHorizontalXXXL: string;
+};
+
+export type VerticalSpacingTokens = {
+	spacingVerticalNone: string;
+	spacingVerticalXXS: string;
+	spacingVerticalXS: string;
+	spacingVerticalSNudge: string;
+	spacingVerticalS: string;
+	spacingVerticalMNudge: string;
+	spacingVerticalM: string;
+	spacingVerticalL: string;
+	spacingVerticalXL: string;
+	spacingVerticalXXL: string;
+	spacingVerticalXXXL: string;
+};
+
+export type DurationTokens = {
+	durationUltraFast: string;
+	durationFaster: string;
+	durationFast: string;
+	durationNormal: string;
+	durationSlow: string;
+	durationSlower: string;
+	durationUltraSlow: string;
+};
+
+export type CurveTokens = {
+	curveAccelerateMax: string;
+	curveAccelerateMid: string;
+	curveAccelerateMin: string;
+	curveDecelerateMax: string;
+	curveDecelerateMid: string;
+	curveDecelerateMin: string;
+	curveEasyEaseMax: string;
+	curveEasyEase: string;
+	curveLinear: string;
+};
+
+/**
+ * Design tokens for shadow levels
+ */
+export type ShadowTokens = {
+	shadow2: string;
+	shadow4: string;
+	shadow8: string;
+	shadow16: string;
+	shadow28: string;
+	shadow64: string;
+};
+
+export type ShadowBrandTokens = {
+	shadow2Brand: string;
+	shadow4Brand: string;
+	shadow8Brand: string;
+	shadow16Brand: string;
+	shadow28Brand: string;
+	shadow64Brand: string;
+};
+
+export type Greys =
+	| 2
+	| 4
+	| 6
+	| 8
+	| 10
+	| 12
+	| 14
+	| 16
+	| 18
+	| 20
+	| 22
+	| 24
+	| 26
+	| 28
+	| 30
+	| 32
+	| 34
+	| 36
+	| 38
+	| 40
+	| 42
+	| 44
+	| 46
+	| 48
+	| 50
+	| 52
+	| 54
+	| 56
+	| 58
+	| 60
+	| 62
+	| 64
+	| 66
+	| 68
+	| 70
+	| 72
+	| 74
+	| 76
+	| 78
+	| 80
+	| 82
+	| 84
+	| 86
+	| 88
+	| 90
+	| 92
+	| 94
+	| 96
+	| 98;
+
+export type AlphaColors = 5 | 10 | 20 | 30 | 40 | 50 | 60 | 70 | 80 | 90;
+
+// TODO: do we want to split theme for better tree shaking? (MUI)
+// But will this end up in the bundle at all? It should be used only in makeStyles and should be removed during build
+export type Theme =
+	// FontSizeTokens &
+	// LineHeightTokens &
+	// BorderRadiusTokens &
+	// StrokeWidthTokens &
+	// HorizontalSpacingTokens &
+	// VerticalSpacingTokens &
+	// DurationTokens &
+	// CurveTokens &
+	ShadowTokens &
+		ShadowBrandTokens &
+		// FontFamilyTokens &
+		// FontWeightTokens &
+		ColorPaletteTokens &
+		ColorTokens;
+
+export type PartialTheme = Partial<Theme>;
