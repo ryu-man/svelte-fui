@@ -89,7 +89,7 @@
 				</CardFooter>
 			</Card>
 
-			<Card {...args} class="w-[400px]">
+			<!-- <Card {...args} class="w-[400px]">
 				<CardPreview
 					src="https://raw.githubusercontent.com/microsoft/fluentui/master/packages/react-components/react-card/stories/assets/sales_template.png"
 					alt="Sales Presentation Preview"
@@ -120,7 +120,7 @@
 						Share
 					</Button>
 				</CardFooter>
-			</Card>
+			</Card> -->
 		</div>
 	</App>
 </Story>

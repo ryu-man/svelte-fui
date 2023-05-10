@@ -3,6 +3,7 @@
 	import type { ArgTypes } from '@storybook/svelte';
 	import { App, Button, Icon } from 'svelte-fui';
 	import { CalendarMonthFilled, CalendarMonthRegular } from 'svelte-fui/icons';
+	import { webDarkTheme, webLightTheme } from 'svelte-fui/theme/themes/web';
 
 	const defaultValues = {
 		size: 'md',
@@ -33,12 +34,19 @@
 			}
 		}
 	} satisfies ArgTypes;
+
+	let theme = webLightTheme;
 </script>
 
 <Meta title="Components/Button" component={Button} {argTypes} />
 
 <Story id="button" name="Button" args={defaultValues} let:args>
-	<App>
+	<App
+		{theme}
+		on:color-scheme-change={(e) => {
+			theme = e.detail === 'light' ? webLightTheme : webDarkTheme;
+		}}
+	>
 		<div class="flex flex-col gap-4 items-center justify-center w-full h-full">
 			<div class="flex gap-4">
 				<Button {...args}>Fluent UI for Svelte</Button>

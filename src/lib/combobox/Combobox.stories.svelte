@@ -7,7 +7,7 @@
 
 <Story id="combobox" name="Combobox" args={{}} let:args>
 	<App>
-		<div>
+		<div class="flex items-center justify-center w-full h-full">
 			<Combobox {...args}>
 				<Option>Arabic</Option>
 				<Option>English</Option>

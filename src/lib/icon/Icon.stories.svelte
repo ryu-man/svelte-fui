@@ -8,6 +8,8 @@
 
 <Story id="icon" name="Icon" args={{}} let:args>
 	<App>
-		<Icon {...args} src={AccessibilityCheckmarkFilled} size="24em" fill="red" />
+		<div class="flex items-center justify-center w-full h-full">
+			<Icon {...args} src={AccessibilityCheckmarkFilled} size="24em" fill="red" />
+		</div>
 	</App>
 </Story>

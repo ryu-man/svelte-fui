@@ -8,6 +8,8 @@
 
 <Story id="input" name="Checkbox" args={{}} let:args>
 	<App>
-		<Checkbox {...args} />
+		<div class="flex items-center justify-center w-full h-full">
+			<Checkbox {...args} />
+		</div>
 	</App>
 </Story>

@@ -48,6 +48,8 @@
 
 <Story id="fui_label" name="Label" args={argDefaults} let:args>
 	<App>
-		<Label {...args}>This is an example of the Text component's usage.</Label>
+		<div class="flex items-center justify-center w-full h-full">
+			<Label {...args}>This is an example of the Text component's usage.</Label>
+		</div>
 	</App>
 </Story>
