@@ -8,6 +8,8 @@
 
 <Story id="avatar" name="Avatar" let:args>
 	<App>
-		<Avatar {...args} src={PersonRegular} />
+		<div class="flex items-center justify-center w-full h-full">
+			<Avatar {...args} src={PersonRegular} />
+		</div>
 	</App>
 </Story>

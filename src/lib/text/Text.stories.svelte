@@ -8,6 +8,8 @@
 
 <Story id="fui_text" name="Text" args={{}} let:args>
 	<App>
-		<Text {...args} >This is an example of the Text component's usage.</Text>
+		<div class="flex items-center justify-center w-full h-full">
+			<Text {...args} >This is an example of the Text component's usage.</Text>
+		</div>
 	</App>
 </Story>

@@ -16,11 +16,13 @@
 
 <Story name="Listbox" args={{}} let:args>
 	<App>
-		<ComboboxListbox {...args}>
-			<Option>Arabic</Option>
-			<Option>English</Option>
-			<Option>Italian</Option>
-			<Option disabled>Frensh</Option>
-		</ComboboxListbox>
+		<div class="flex items-center justify-center w-full h-full">
+			<ComboboxListbox top="50%" left="50%" x="-50%" y="-50%" {...args}>
+				<Option>Arabic</Option>
+				<Option>English</Option>
+				<Option>Italian</Option>
+				<Option disabled>Frensh</Option>
+			</ComboboxListbox>
+		</div>
 	</App>
 </Story>

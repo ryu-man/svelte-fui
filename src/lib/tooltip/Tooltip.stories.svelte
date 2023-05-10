@@ -48,10 +48,10 @@
 
 <Story id="fui_tooltip" name="Tooltip" let:args>
 	<App>
-		<div class="flex justify-center items-center w-full h-full">
+		<div class="flex items-center justify-center w-full h-full">
 			<Tooltip {...args}>
 				<Button>Hello Svelte land</Button>
-
+	
 				<span slot="content">Hello from the other side! [slotted]</span>
 			</Tooltip>
 		</div>

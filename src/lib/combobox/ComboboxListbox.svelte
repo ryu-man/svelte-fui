@@ -4,6 +4,8 @@
 
 	export let top = '0px';
 	export let left = '0px';
+	export let translateX = '0px';
+	export let translateY = '0px';
 	export let width = '248px';
 	export let collapsed = false;
 
@@ -17,7 +19,9 @@
 	data-popper-placement="bottom-start"
 	data-popper-is-intersecting=""
 	style:width
-	style:transform="translate3d({left}, {top}, 0px)"
+	style:top
+	style:left
+	style:transform="translate3d({translateX}, {translateY}, 0px)"
 	transition:fly={{ y: -16, duration: 100 }}
 >
 	<div class="flex flex-col">
