@@ -1,14 +1,14 @@
 <script lang="ts">
 	import { createEventDispatcher, onMount } from 'svelte';
 	import type { Theme } from 'svelte-fui/theme';
-	import webLight from 'svelte-fui/theme/web/light';
+	import { webLightTheme } from 'svelte-fui/theme/themes/web/light';
+	import './app.css';
 	import { setFluentAppContext } from './context';
 	import { applyTheme } from './utils';
-	import './app.css';
 
 	const dispatch = createEventDispatcher();
 
-	export let theme: Theme = webLight;
+	export let theme: Theme = webLightTheme;
 
 	const { appElement$ } = setFluentAppContext();
 

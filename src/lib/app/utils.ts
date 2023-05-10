@@ -4,7 +4,7 @@ export function applyTheme(element: HTMLElement, styleElement: HTMLStyleElement,
 	const classname = element.classList.item(element.classList.length - 1)
 
 	const vars = Object.entries(theme).reduce((acc, [key, value]) => {
-		return acc + `${key}: ${value};`;
+		return acc + `--fui-${key}: ${value};`;
 	}, '');
 
 	

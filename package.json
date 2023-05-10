@@ -5,6 +5,7 @@
     "dev": "vite dev",
     "build": "vite build && npm run package",
     "preview": "vite preview",
+    "sync": "svelte-kit sync",
     "package": "svelte-kit sync && svelte-package && publint",
     "prepublishOnly": "npm run package",
     "test": "playwright test",
@@ -14,12 +15,32 @@
     "lint": "prettier --plugin-search-dir . --check . && eslint .",
     "format": "prettier --plugin-search-dir . --write .",
     "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build"
+    "build-storybook": "svelte-kit sync && storybook build"
   },
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
       "svelte": "./dist/index.js"
+    },
+    "./icon": {
+      "types": "./dist/icon/index.d.ts",
+      "svelte": "./dist/icon/index.js"
+    },
+    "./icons": {
+      "types": "./dist/icons/index.d.ts",
+      "svelte": "./dist/icons/index.js"
+    },
+    "./theme": {
+      "types": "./dist/theme/index.d.ts",
+      "svelte": "./dist/theme/index.js"
+    },
+    "./tailwindcss": {
+      "types": "./dist/tailwindcss/index.d.ts",
+      "svelte": "./dist/tailwindcss/index.js",
+      "default": "./dist/tailwindcss/index.js"
+    },
+    "./package.json": {
+      "default": "./package.json"
     }
   },
   "files": [
@@ -36,13 +57,16 @@
     "@storybook/addon-mdx-gfm": "^7.0.7",
     "@storybook/addon-svelte-csf": "^3.0.2",
     "@storybook/blocks": "^7.0.7",
+    "@storybook/manager-api": "7.0.7",
     "@storybook/svelte": "^7.0.7",
     "@storybook/sveltekit": "^7.0.7",
     "@storybook/testing-library": "^0.1.0",
+    "@storybook/theming": "7.0.7",
     "@sveltejs/adapter-auto": "^2.0.0",
     "@sveltejs/kit": "^1.15.7",
     "@sveltejs/package": "^2.0.2",
     "@trivago/prettier-plugin-sort-imports": "^4.1.1",
+    "@types/lodash-es": "^4.17.7",
     "@typescript-eslint/eslint-plugin": "^5.59.0",
     "@typescript-eslint/parser": "^5.59.0",
     "autoprefixer": "^10.4.14",
@@ -52,6 +76,7 @@
     "eslint-plugin-svelte": "^2.27.2",
     "eslint-plugin-svelte3": "^4.0.0",
     "focus-trap": "^7.4.0",
+    "lodash-es": "^4.17.21",
     "nanoid": "^4.0.2",
     "postcss": "^8.4.23",
     "postcss-extend": "^1.0.5",
@@ -78,5 +103,6 @@
   },
   "svelte": "./dist/index.js",
   "types": "./dist/index.d.ts",
-  "type": "module"
+  "type": "module",
+  "sideEffects": false
 }
