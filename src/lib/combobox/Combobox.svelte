@@ -85,7 +85,7 @@
 
 	<Portal target={$appElement$}>
 		{#if element}
-			<ComboboxListbox left={element.offsetLeft + 'px'} top={element.offsetTop + element.clientHeight + 2 + 'px'} {collapsed}>
+			<ComboboxListbox translateX={element.offsetLeft + 'px'} translateY={element.offsetTop + element.clientHeight + 2 + 'px'} {collapsed}>
 				<slot />
 			</ComboboxListbox>
 		{/if}
