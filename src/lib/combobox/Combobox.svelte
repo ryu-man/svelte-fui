@@ -21,7 +21,7 @@
 	const { selectedId$, selectedValue$ } = setComboboxContext({
 		onOptionClick
 	});
-	const { themeElement$ } = getFluentAppContext();
+	const { appElement$ } = getFluentAppContext();
 
 	function mount(node: HTMLDivElement) {
 		function onOptionClickHandler(e: CustomEvent<string>) {
@@ -45,8 +45,8 @@
 		collapsed = !collapsed;
 		// request focus on the input element when the list is opened
 		if (!collapsed) {
-			const inputElement = (e.currentTarget as HTMLDivElement).querySelector("input") as HTMLInputElement;
-			inputElement?.focus()
+			const inputElement = (e.currentTarget as HTMLDivElement).querySelector('input') as HTMLInputElement;
+			inputElement?.focus();
 		}
 	}
 
@@ -83,13 +83,9 @@
 		src={ChevronDownRegular}
 	/>
 
-	<Portal target={$themeElement$}>
+	<Portal target={$appElement$}>
 		{#if element}
-			<ComboboxListbox
-				left={element.clientLeft + 'px'}
-				top={element.clientTop + element.clientHeight + 1 + 'px'}
-				{collapsed}
-			>
+			<ComboboxListbox left={element.offsetLeft + 'px'} top={element.offsetTop + element.clientHeight + 2 + 'px'} {collapsed}>
 				<slot />
 			</ComboboxListbox>
 		{/if}
@@ -285,12 +281,6 @@
 
 		color: var(--fui-colorNeutralStrokeAccessible);
 
-		/* the SVG must have display: block for accurate positioning
-		otherwise an extra inline space is inserted after the svg element */
-		&svg {
-			@apply block;
-		}
-
 		/* icon size variants */
 		&.sm {
 			--fui-icon-size: 16px;
@@ -311,5 +301,11 @@
 			color: var(--fui-colorNeutralForegroundDisabled);
 			cursor: not-allowed;
 		}
+	}
+
+	.fui-combobox :global(.fui-icon svg) {
+		/* the SVG must have display: block for accurate positioning
+		otherwise an extra inline space is inserted after the svg element */
+		@apply block;
 	}
 </style>
