@@ -1,18 +1,18 @@
-import { anchor, beige, berry, black, blackAlpha, blue, brass, bronze, brown, burgundy, charcoa, cornflower, cranberry, cyan, darkBlue, darkBrown, darkGreen, darkOrange, darkPurple, darkRed, darkTeal, forest, gold, grape, green, grey, grey10Alpha, grey12Alpha, grey14Alpha, hcButtonFace, hcButtonText, hcCanvas, hcCanvasText, hcDisabled, hcHighlight, hcHighlightText, hcHyperlink, hotPink, lavender, lightBlue, lightGreen, lightTeal, lilac, lime, magenta, marigold, mink, navy, orange, orchid, peach, pink, platinum, plum, pumpkin, purple, red, royalBlue, seafoam, silver, steel, teal, white, whiteAlpha, yellow } from 'svelte-fui/theme/global/colors'
+import { anchor, beige, berry, black, blackAlpha, blue, brass, bronze, brown, burgundy, charcoa, cornflower, cranberry, cyan, darkBlue, darkBrown, darkGreen, darkOrange, darkPurple, darkRed, darkTeal, forest, gold, grape, green, grey, grey10Alpha, grey12Alpha, grey14Alpha, hcButtonFace, hcButtonText, hcCanvas, hcCanvasText, hcDisabled, hcHighlight, hcHighlightText, hcHyperlink, hotPink, lavender, lightBlue, lightGreen, lightTeal, lilac, lime, magenta, marigold, mink, navy, orange, orchid, peach, pink, platinum, plum, pumpkin, purple, red, royalBlue, seafoam, silver, steel, teal, white, whiteAlpha, yellow } from '../theme/global/colors'
 
-import { brandOffice, brandTeams, brandWeb } from 'svelte-fui/theme/global/brandColors'
+import { brandOffice, brandTeams, brandWeb } from '../theme/global/brandColors'
 
 import { colorsTheme } from './colors_theme.js'
 
-import { fontFamilies, fontSizes, fontWeights, lineHeights } from 'svelte-fui/theme/global/fonts'
+import { fontFamilies, fontSizes, fontWeights, lineHeights } from '../theme/global/fonts'
 
-import { spacings } from 'svelte-fui/theme/global/spacings'
+import { spacings } from '../theme/global/spacings'
 
-import { durations } from 'svelte-fui/theme/global/duration'
+import { durations } from '../theme/global/duration'
 
-import { timingFunctions } from 'svelte-fui/theme/global/timingFunctions'
+import { timingFunctions } from '../theme/global/timingFunctions'
 
-import { shadow, shadowBrand } from 'svelte-fui/theme/global/shadow'
+import { shadow, shadowBrand } from '../theme/global/shadow'
 
 import { typography } from './typography.js'
 
