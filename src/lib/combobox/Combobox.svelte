@@ -1,7 +1,7 @@
 <script lang="ts">
 	import Portal from 'svelte-portal/src/Portal.svelte';
 	import { Icon, Input, getFluentAppContext } from 'svelte-fui';
-	import { ChevronDownRegular } from 'svelte-fui/icons';
+	import { ChevronDownRegular } from '@svelte-fui/icons';
 	import { classnames } from 'svelte-fui/internal';
 	import ComboboxListbox from './ComboboxListbox.svelte';
 	import { setComboboxContext } from './context';

@@ -2,7 +2,7 @@
 	import { flip } from 'svelte/animate';
 	import { get_current_component } from 'svelte/internal';
 	import { Icon } from 'svelte-fui';
-	import { CheckmarkFilled } from 'svelte-fui/icons';
+	import { CheckmarkFilled } from '@svelte-fui/icons';
 	import { classnames } from '$lib/internal';
 
 	/** Controls whether the checkbox is checked or not. */
