@@ -12,5 +12,8 @@ export default defineConfig({
 		alias:{
 			...configs.kit.alias
 		}
+	},
+	optimizeDeps:{
+		include: ['@svelte-fui/icons']
 	}
 });
