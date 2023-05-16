@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { Meta, Story } from '@storybook/addon-svelte-csf';
 	import { Text, App, Icon } from 'svelte-fui';
-	import { MicRegular, PersonRegular } from 'svelte-fui/icons';
+	import { MicRegular, PersonRegular } from '@svelte-fui/icons';
 </script>
 
 <Meta title="Components/Text" component={Text} />

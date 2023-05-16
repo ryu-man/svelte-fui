@@ -7,7 +7,7 @@
 	type Relationship = 'label' | 'description' | 'inaccessible' | undefined;
 	type Position =
 		| 'above'
-		| 'aboce-start'
+		| 'above-start'
 		| 'above-end'
 		| 'after'
 		| 'after-top'

@@ -2,7 +2,7 @@
 	import { Meta, Story } from '@storybook/addon-svelte-csf';
 	import type { ArgTypes } from '@storybook/svelte';
 	import { App, Button, Card, CardFooter, CardHeader, CardPreview, Icon } from 'svelte-fui';
-	import { ArrowReplyRegular, MoreHorizontalFilled, OpenRegular, ShareRegular } from 'svelte-fui/icons';
+	import { ArrowReplyRegular, MoreHorizontalFilled, OpenRegular, ShareRegular } from '@svelte-fui/icons';
 
 	const argDefaults = {
 		disabled: false,

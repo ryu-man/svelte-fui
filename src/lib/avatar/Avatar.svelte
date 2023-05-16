@@ -521,7 +521,7 @@
 			); /* Work-around for text pixel snapping at        the end of the animation */
 			transition-property: transform, opacity;
 			transition-duration: theme(transitionDuration.ultra-slow), theme(transitionDuration.faster);
-			transition-timing-function: theme(transitionTimingFunction.easyEase-max),
+			transition-timing-function: theme(transitionTimingFunction.easy-ease-max),
 				theme(transitionTimingFunction.linear);
 
 			@media screen and (prefers-reduced-motion: reduce) {
@@ -534,7 +534,7 @@
 				border-radius: inherit;
 				transition-property: margin, opacity;
 				transition-duration: theme(transitionDuration.ultra-slow), theme(transitionDuration.slower);
-				transition-timing-function: theme(transitionTimingFunction.easyEase-max),
+				transition-timing-function: theme(transitionTimingFunction.easy-ease-max),
 					theme(transitionTimingFunction.linear);
 
 				@media screen and (prefers-reduced-motion: reduce) {

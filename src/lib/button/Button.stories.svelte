@@ -2,7 +2,7 @@
 	import { Meta, Story } from '@storybook/addon-svelte-csf';
 	import type { ArgTypes } from '@storybook/svelte';
 	import { App, Button, Icon } from 'svelte-fui';
-	import { CalendarMonthFilled, CalendarMonthRegular } from 'svelte-fui/icons';
+	import { CalendarMonthFilled, CalendarMonthRegular } from '@svelte-fui/icons';
 	import { webDarkTheme, webLightTheme } from 'svelte-fui/theme/themes/web';
 
 	const defaultValues = {
@@ -43,9 +43,6 @@
 <Story id="button" name="Button" args={defaultValues} let:args>
 	<App
 		{theme}
-		on:color-scheme-change={(e) => {
-			theme = e.detail === 'light' ? webLightTheme : webDarkTheme;
-		}}
 	>
 		<div class="flex flex-col gap-4 items-center justify-center w-full h-full">
 			<div class="flex gap-4">
