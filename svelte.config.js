@@ -16,6 +16,9 @@ const config = {
 		alias: {
 			'svelte-fui': path.resolve('./src/lib')
 		}
+	},
+	package: {
+		files: (path) => !path.includes('.stories.svelte')
 	}
 };
 
