@@ -12,20 +12,6 @@
 
 	const { appElement$ } = setFluentAppContext();
 
-	onMount(() => {
-		function handler(e: MediaQueryListEvent) {
-			dispatch('color-scheme-change', e.matches ? 'light' : 'dark');
-		}
-
-		const schemeMedia = matchMedia('(prefers-color-scheme: light)');
-
-		schemeMedia.addEventListener('change', handler);
-
-		return () => {
-			schemeMedia.removeEventListener('change', handler);
-		};
-	});
-
 	function theming(node: HTMLDivElement, theme: Theme) {
 		const nodeHashedClassName = node.classList.item(node.classList.length - 1);
 		const tag = document.createElement('style');
