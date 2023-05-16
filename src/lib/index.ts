@@ -11,3 +11,4 @@ export * from './tooltip';
 export * from './card';
 export * from './divider';
 export * from './theme'
+export * from './switch'
