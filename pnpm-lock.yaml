@@ -285,7 +285,7 @@ importers:
         specifier: ^0.0.1
         version: 0.0.1
       '@svelte-fui/theme':
-        specifier: workspace:^
+        specifier: '*'
         version: link:../theme
     devDependencies:
       '@sveltejs/adapter-auto':
