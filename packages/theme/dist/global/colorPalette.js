@@ -1,0 +1,40 @@
+import { anchor, beige, berry, blue, brass, brown, cornflower, cranberry, darkGreen, darkOrange, darkRed, forest, gold, grape, green, lavender, lightGreen, lightTeal, lilac, magenta, marigold, mink, navy, peach, pink, platinum, plum, pumpkin, purple, red, royalBlue, seafoam, steel, teal, yellow } from './colors';
+export const statusSharedColors = {
+    red,
+    green,
+    darkOrange,
+    yellow,
+    berry,
+    lightGreen,
+    marigold
+};
+export const personaSharedColors = {
+    darkRed,
+    cranberry,
+    pumpkin,
+    peach,
+    gold,
+    brass,
+    brown,
+    forest,
+    seafoam,
+    darkGreen,
+    lightTeal,
+    teal,
+    steel,
+    blue,
+    royalBlue,
+    cornflower,
+    navy,
+    lavender,
+    purple,
+    grape,
+    lilac,
+    pink,
+    magenta,
+    plum,
+    beige,
+    mink,
+    platinum,
+    anchor
+};

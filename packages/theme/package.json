@@ -1,0 +1,29 @@
+{
+  "name": "@svelte-fui/theme",
+  "version": "0.1.0",
+  "description": "",
+  "type": "module",
+  "sideEffects": false,
+  "scripts": {
+    "build": "svelte-package -i ./src"
+  },
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "@sveltejs/package": "^2.0.2",
+    "@sveltejs/vite-plugin-svelte": "^2.0.3",
+    "@tsconfig/svelte": "^4.0.1",
+    "lodash-es": "^4.17.21",
+    "svelte": "^3.58.0",
+    "svelte-check": "^2.10.3",
+    "tslib": "^2.5.0",
+    "typescript": "^5.0.2",
+    "vite": "^4.3.2"
+  },
+  "peerDependencies": {
+    "svelte": "^3.58.0"
+  },
+  "types": "./dist/index.d.ts",
+  "svelte": "./dist/index.js",
+  "module": "./dist/index.js"
+}
