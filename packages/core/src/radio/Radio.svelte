@@ -69,8 +69,8 @@
 		@apply pl-xs;
 		/* Use a (negative) margin to account for the difference between the indicator's height and the label's line height. */
 		/* This prevents the label from expanding the height of the Radio, but preserves line height if the label wraps. */
-		margintop: calc((var(--indicator-size) - theme(lineHeight.base-300)) / 2);
-		marginbottom: calc((var(--indicator-size) - theme(lineHeight.base-300)) / 2);
+		margin-top: calc((var(--indicator-size) - theme(lineHeight.base-300)) / 2);
+		margin-bottom: calc((var(--indicator-size) - theme(lineHeight.base-300)) / 2);
 	}
 	.fui-radio > :global(.fui-radio-label.below) {
 		@apply pt-xs text-center;
