@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { Meta, Story } from '@storybook/addon-svelte-csf';
 	import { App, Combobox, Input, Option } from '@svelte-fui/core';
-	import { webDarkTheme, webLightTheme } from '@svelte-fui/theme/src/themes/web';
+	import { webDarkTheme, webLightTheme } from '@svelte-fui/themes';
 	import { onMount } from 'svelte';
 
 	let theme = webLightTheme;

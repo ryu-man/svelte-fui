@@ -13,8 +13,10 @@ export default defineConfig({
   },
   resolve:{
     alias:{
-      "@svelte-fui/theme": path.resolve('../theme'),
-      "@svelte-fui/tailwindcss": path.resolve('../tailwindcss'),
+			'@svelte-fui/core': path.resolve('./src'),
+			'@svelte-fui/theme': path.resolve('../theme'),
+			'@svelte-fui/themes': path.resolve('../themes'),
+			'@svelte-fui/tailwindcss': path.resolve('../tailwindcss')
     }
   }
 })

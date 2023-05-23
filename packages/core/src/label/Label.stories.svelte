@@ -2,7 +2,7 @@
 	import { Meta, Story } from '@storybook/addon-svelte-csf';
 	import type { ArgTypes } from '@storybook/svelte';
 	import { App, Label } from '@svelte-fui/core';
-	import { webDarkTheme, webLightTheme } from '@svelte-fui/theme/src/themes/web';
+	import { webDarkTheme, webLightTheme } from '@svelte-fui/themes';
 	import { onMount } from 'svelte';
 
 	const argDefaults = {

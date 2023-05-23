@@ -180,7 +180,7 @@
 			background-color: var(--fui-colorTransparentBackground);
 		}
 
-		,
+		
 		&:hover:active {
 			background-color: var(--fui-colorTransparentBackground);
 		}

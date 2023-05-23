@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { createEventDispatcher, onMount } from 'svelte';
 	import type { Theme } from '@svelte-fui/theme';
-	import { webLightTheme } from '@svelte-fui/theme/src/themes/web/light';
+	import { webLightTheme } from '@svelte-fui/themes';
 	import './app.css';
 	import { setFluentAppContext } from './context';
 	import { applyTheme } from './utils';

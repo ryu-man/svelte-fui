@@ -2,7 +2,7 @@
 	import { Meta, Story } from '@storybook/addon-svelte-csf';
 	import { App, Avatar } from '@svelte-fui/core';
 	import { PersonRegular } from '@svelte-fui/icons';
-	import { webDarkTheme, webLightTheme } from '@svelte-fui/theme/src/themes/web';
+	import { webDarkTheme, webLightTheme } from '@svelte-fui/themes';
 	import { onMount } from 'svelte';
 
 	let theme = webLightTheme;

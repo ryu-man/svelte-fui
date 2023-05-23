@@ -3,7 +3,7 @@
 	import type { ArgTypes } from '@storybook/svelte';
 	import { App, Button, Card, CardFooter, CardHeader, CardPreview, Icon } from '@svelte-fui/core';
 	import { ArrowReplyRegular, ShareRegular } from '@svelte-fui/icons';
-	import { webDarkTheme, webLightTheme } from '@svelte-fui/theme/src/themes/web';
+	import { webDarkTheme, webLightTheme } from '@svelte-fui/themes';
 	import { onMount } from 'svelte';
 
 	const argDefaults = {

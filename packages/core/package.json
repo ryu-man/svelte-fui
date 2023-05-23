@@ -36,8 +36,9 @@
   },
   "peerDependencies": {
     "@svelte-fui/theme": "*",
-    "svelte": "^3.58.0",
-    "@svelte-fui/icons": "^0.0.1"
+    "@svelte-fui/themes": "*",
+    "@svelte-fui/icons": "^0.0.1",
+    "svelte": "^3.58.0"
   },
   "types": "./dist/index.d.ts",
   "svelte": "./dist/index.js",
