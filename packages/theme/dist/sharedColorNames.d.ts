@@ -1,3 +1,0 @@
-export declare const statusSharedColorNames: readonly ["red", "green", "darkOrange", "yellow", "berry", "lightGreen", "marigold"];
-export declare const personaSharedColorNames: readonly ["darkRed", "cranberry", "pumpkin", "peach", "gold", "brass", "brown", "forest", "seafoam", "darkGreen", "lightTeal", "teal", "steel", "blue", "royalBlue", "cornflower", "navy", "lavender", "purple", "grape", "lilac", "pink", "magenta", "plum", "beige", "mink", "platinum", "anchor"];
-export declare const unusedSharedColorNames: readonly ["burgundy", "bronze", "orange", "darkBrown", "lime", "darkTeal", "cyan", "lightBlue", "darkBlue", "darkPurple", "orchid", "hotPink", "silver", "charcoal"];
