@@ -5,9 +5,12 @@
 	export let required = false;
 	export let size: 'sm' | 'md' | 'lg' = 'md';
 	export let weight: 'regular' | 'semibold' = 'regular';
+
+	let klass = ''
+	export { klass as class }
 </script>
 
-<label class={classnames('fui-label', { disabled, required }, size, weight)}>
+<label class={classnames('fui-label', { disabled, required }, size, weight, klass)} {...$$restProps}>
 	<slot />
 </label>
 
@@ -28,7 +31,7 @@
 			color: var(--fui-colorPaletteRedForeground3);
 			padding-left: theme(spacing.xs); /* TODO: Once spacing tokens are added, change this to Horizontal XS */
 		}
-/* 
+		/* 
 		&.requiredDisabled {
 		} */
 
@@ -41,7 +44,7 @@
 		}
 
 		&.lg {
-			@apply text-base-400 font-semibold leading-base-400;
+			@apply text-base-400 leading-base-400 font-semibold;
 		}
 
 		&.semibold {
