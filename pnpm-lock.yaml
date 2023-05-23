@@ -279,10 +279,10 @@ importers:
         specifier: ^0.0.1
         version: 0.0.1
       '@svelte-fui/theme':
-        specifier: '*'
+        specifier: ^0.1.0
         version: link:../theme
       '@svelte-fui/themes':
-        specifier: '*'
+        specifier: ^0.1.0
         version: link:../themes
     devDependencies:
       '@sveltejs/adapter-auto':
@@ -347,11 +347,10 @@ importers:
         version: 4.3.2(@types/node@18.15.13)
 
   packages/tailwindcss:
-    dependencies:
-      '@svelte-fui/theme':
-        specifier: '*'
-        version: link:../theme
     devDependencies:
+      '@svelte-fui/theme':
+        specifier: ^0.1.0
+        version: link:../theme
       '@sveltejs/kit':
         specifier: ^1.15.7
         version: 1.15.7(svelte@3.58.0)(vite@4.3.2)
@@ -413,7 +412,7 @@ importers:
   packages/themes:
     dependencies:
       '@svelte-fui/theme':
-        specifier: '*'
+        specifier: ^0.1.0
         version: link:../theme
     devDependencies:
       '@sveltejs/package':
@@ -3648,7 +3647,7 @@ packages:
     peerDependencies:
       '@sveltejs/kit': ^1.0.0
     dependencies:
-      '@sveltejs/kit': 1.15.7(svelte@3.58.0)(vite@4.3.1)
+      '@sveltejs/kit': 1.15.7(svelte@3.58.0)(vite@4.3.2)
       import-meta-resolve: 2.2.2
     dev: true
 
