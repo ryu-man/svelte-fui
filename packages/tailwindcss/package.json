@@ -24,10 +24,10 @@
     "vite": "^4.3.2"
   },
   "dependencies": {
-    "@svelte-fui/theme": "*"
+    "@svelte-fui/theme": "^0.1.0"
   },
   "peerDependencies": {
-    "@svelte-fui/theme": "*"
+    "@svelte-fui/theme": "^0.1.0"
   },
   "types": "./dist/index.d.ts",
   "svelte": "./dist/index.js",

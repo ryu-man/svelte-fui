@@ -22,11 +22,10 @@
     "vite": "^4.3.2"
   },
   "dependencies": {
-    "@svelte-fui/theme": "*"
+    "@svelte-fui/theme": "^0.1.0"
   },
   "peerDependencies": {
-    "svelte": "^3.58.0",
-    "@svelte-fui/theme": "*"
+    "@svelte-fui/theme": "^0.1.0"
   },
   "exports": {
     ".": {

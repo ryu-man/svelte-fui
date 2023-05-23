@@ -7,6 +7,9 @@
   "scripts": {
     "build": "svelte-package -i ./src"
   },
+  "files": [
+    "./dist"
+  ],
   "author": "",
   "license": "MIT",
   "devDependencies": {
@@ -19,9 +22,6 @@
     "tslib": "^2.5.0",
     "typescript": "^5.0.2",
     "vite": "^4.3.2"
-  },
-  "peerDependencies": {
-    "svelte": "^3.58.0"
   },
   "types": "./dist/index.d.ts",
   "svelte": "./dist/index.js",
