@@ -17,7 +17,12 @@
     "lint": "prettier --plugin-search-dir . --check . && eslint .",
     "format": "prettier --plugin-search-dir . --write .",
     "storybook": "storybook dev -p 6006",
-    "build-storybook": "svelte-kit sync && storybook build"
+    "build-storybook": "svelte-kit sync && storybook build",
+    "build:core": "cd packages/core && pnpm run build",
+    "build:tailwindcss": "cd packages/tailwindcss && pnpm run build",
+    "build:theme": "cd packages/theme && pnpm run build",
+    "build:themes": "cd packages/themes && pnpm run build",
+    "build:storyapp": "pnpm run build:theme && pnpm run build:themes && pnpm run build:tailwindcss && cd apps/storyapp && pnpm run storybook:build"
   },
   "workspaces": [
     "apps/**",
