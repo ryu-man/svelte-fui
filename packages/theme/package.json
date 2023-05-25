@@ -23,6 +23,9 @@
     "typescript": "^5.0.2",
     "vite": "^4.3.2"
   },
+  "peerDependencies": {
+    "lodash-es": "^4.17.21"
+  },
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
