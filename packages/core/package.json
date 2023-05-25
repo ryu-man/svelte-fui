@@ -38,12 +38,21 @@
     "@svelte-fui/theme": "^0.1.0",
     "@svelte-fui/themes": "^0.1.0",
     "@svelte-fui/icons": "^0.0.1",
-    "svelte": "^3.58.0"
+    "focus-trap": "^7.4.0",
+    "lodash-es": "^4.17.21",
+    "nanoid": "^4.0.2"
   },
   "dependencies": {
     "@svelte-fui/icons": "^0.0.1"
   },
   "types": "./dist/index.d.ts",
   "svelte": "./dist/index.js",
-  "module": "./dist/index.js"
+  "module": "./dist/index.js",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "svelte": "./dist/index.js",
+      "default": "./dist/index.js"
+    }
+  }
 }
