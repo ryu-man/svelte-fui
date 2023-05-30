@@ -1,0 +1,79 @@
+{
+  "name": "@svelte-fui/theme",
+  "version": "0.1.2",
+  "description": "",
+  "type": "module",
+  "sideEffects": false,
+  "scripts": {
+    "build": "svelte-package -i ./src"
+  },
+  "files": [
+    "./dist"
+  ],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "@sveltejs/package": "^2.0.2",
+    "@sveltejs/vite-plugin-svelte": "^2.0.3",
+    "@tsconfig/svelte": "^4.0.1",
+    "lodash-es": "^4.17.21",
+    "svelte": "^3.58.0",
+    "svelte-check": "^2.10.3",
+    "tslib": "^2.5.0",
+    "typescript": "^5.0.2",
+    "vite": "^4.3.2"
+  },
+  "peerDependencies": {
+    "lodash-es": "^4.17.21"
+  },
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "svelte": "./dist/index.js",
+      "default": "./dist/index.js"
+    },
+    "./global/colors": {
+      "types": "./dist/global/colors.d.ts",
+      "svelte": "./dist/global/colors.js",
+      "default": "./dist/global/colors.js"
+    },
+    "./global/brandColors": {
+      "types": "./dist/global/brandColors.d.ts",
+      "svelte": "./dist/global/brandColors.js",
+      "default": "./dist/global/brandColors.js"
+    },
+    "./global/duration": {
+      "types": "./dist/global/duration.d.ts",
+      "svelte": "./dist/global/duration.js",
+      "default": "./dist/global/duration.js"
+    },
+    "./global/fonts": {
+      "types": "./dist/global/fonts.d.ts",
+      "svelte": "./dist/global/fonts.js",
+      "default": "./dist/global/fonts.js"
+    },
+    "./global/shadow": {
+      "types": "./dist/global/shadow.d.ts",
+      "svelte": "./dist/global/shadow.js",
+      "default": "./dist/global/shadow.js"
+    },
+    "./global/spacings": {
+      "types": "./dist/global/spacings.d.ts",
+      "svelte": "./dist/global/spacings.js",
+      "default": "./dist/global/spacings.js"
+    },
+    "./global/timingFunctions": {
+      "types": "./dist/global/timingFunctions.d.ts",
+      "svelte": "./dist/global/timingFunctions.js",
+      "default": "./dist/global/timingFunctions.js"
+    },
+    "./utils": {
+      "types": "./dist/utils/index.d.ts",
+      "svelte": "./dist/utils/index.js",
+      "default": "./dist/utils/index.js"
+    },
+    "./types": {
+      "types": "./dist/types.d.ts"
+    }
+  }
+}

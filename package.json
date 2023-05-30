@@ -1,6 +1,8 @@
 {
-  "name": "svelte-fui",
+  "name": "@svelte-fui/monorepo",
   "version": "0.0.1",
+  "type": "module",
+  "sideEffects": false,
   "scripts": {
     "dev": "vite dev",
     "build": "vite build && npm run package",
@@ -15,40 +17,18 @@
     "lint": "prettier --plugin-search-dir . --check . && eslint .",
     "format": "prettier --plugin-search-dir . --write .",
     "storybook": "storybook dev -p 6006",
-    "build-storybook": "svelte-kit sync && storybook build"
+    "build-storybook": "svelte-kit sync && storybook build",
+    "build:core": "cd packages/core && pnpm run build",
+    "build:tailwindcss": "cd packages/tailwindcss && pnpm run build",
+    "build:theme": "cd packages/theme && pnpm run build",
+    "build:themes": "cd packages/themes && pnpm run build",
+    "build:storyapp": "pnpm run build:theme && pnpm run build:themes && pnpm run build:tailwindcss && cd apps/storyapp && pnpm run storybook:build"
   },
-  "exports": {
-    ".": {
-      "types": "./dist/index.d.ts",
-      "svelte": "./dist/index.js"
-    },
-    "./icon": {
-      "types": "./dist/icon/index.d.ts",
-      "svelte": "./dist/icon/index.js"
-    },
-    "./theme": {
-      "types": "./dist/theme/index.d.ts",
-      "svelte": "./dist/theme/index.js"
-    },
-    "./tailwindcss": {
-      "types": "./dist/tailwindcss/index.d.ts",
-      "svelte": "./dist/tailwindcss/index.js",
-      "default": "./dist/tailwindcss/index.js"
-    },
-    "./internal": {
-      "types": "./dist/internal.d.ts",
-      "default": "./dist/internal.js"
-    },
-    "./package.json": {
-      "default": "./package.json"
-    }
-  },
-  "files": [
-    "dist"
+  "workspaces": [
+    "apps/**",
+    "app/**",
+    "packages/**"
   ],
-  "peerDependencies": {
-    "svelte": "^3.54.0"
-  },
   "devDependencies": {
     "@playwright/test": "^1.32.3",
     "@storybook/addon-essentials": "^7.0.7",
@@ -101,9 +81,9 @@
     "vite": "^4.3.1",
     "vitest": "^0.30.1"
   },
-  "type": "module",
-  "sideEffects": false,
-  "dependencies": {
-    "@svelte-fui/icons": "^0.0.1"
-  }
+  "engines": {
+    "pnpm": ">=8.x",
+    "node": "18.x"
+  },
+  "packageManager": "pnpm@8.3.1"
 }
