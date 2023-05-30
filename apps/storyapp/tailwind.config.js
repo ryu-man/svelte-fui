@@ -1,4 +1,4 @@
-import { tailwindcssConfig } from '@svelte-fui/tailwindcss'
+import { tailwindcssConfig } from '../../packages/tailwindcss/src'
 
 /** @type {import('tailwindcss').Config} */
 export default {
