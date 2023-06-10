@@ -13,4 +13,5 @@ export * from './divider';
 // export * from './theme'
 export * from './switch';
 export * from './radio';
-export * from './slider'
+export * from './slider';
+export * from './dialog';
