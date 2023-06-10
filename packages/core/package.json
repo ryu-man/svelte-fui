@@ -7,7 +7,8 @@
   "sideEffects": false,
   "type": "module",
   "files": [
-    "dist"
+    "dist",
+    "!dist/**/*.stories.*"
   ],
   "scripts": {
     "build": "svelte-package -i ./src"
