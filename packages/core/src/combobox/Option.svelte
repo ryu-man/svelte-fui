@@ -1,14 +1,15 @@
 <script lang="ts">
-	import { createEventDispatcher } from 'svelte';
 	import { Icon } from '@svelte-fui/core';
 	import { CheckmarkRegular } from '@svelte-fui/icons';
+	import { createEventDispatcher } from 'svelte';
 	import { classnames } from '../internal';
 	import { getComboboxContext } from './context';
 
 	const dispatch = createEventDispatcher();
-	const { selectedId$, selectedValue$, onOptionClick } = getComboboxContext();
+	const { selectedId$, selectedValue$, selectedData$, onOptionClick } = getComboboxContext();
 
 	export let id: string | undefined = (+new Date() + Math.random()).toString(32);
+	export let data: unknown | undefined = undefined;
 	export let active = false;
 	export let selected = id === $selectedId$;
 	export let disabled = false;
@@ -25,9 +26,11 @@
 			selectedId$.set(id);
 			const value = (e.currentTarget as HTMLDivElement).innerText;
 			selectedValue$.set(value);
+			selectedData$.set(data);
 		} else {
 			selectedId$.set('');
 			selectedValue$.set('');
+			selectedData$.set(undefined);
 		}
 
 		dispatch('click', selected);
@@ -55,7 +58,7 @@
 
 <style lang="postcss">
 	.fui-option {
-		@apply relative flex cursor-pointer items-center rounded-md font-base text-base-300 leading-base-300;
+		@apply font-base text-base-300 leading-base-300 relative flex cursor-pointer items-center rounded-md;
 
 		--fui-icon-size: 16px;
 
