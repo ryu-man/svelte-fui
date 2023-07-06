@@ -8,22 +8,33 @@ type OnOptionClickOptions = {
 	value: string;
 	selected: boolean;
 };
+
+type Item = {
+	id: string;
+	value: string;
+	selected?: boolean;
+};
+
 export type ComboboxContext = {
 	selectedId$: Writable<string>;
 	selectedValue$: Writable<string>;
+	selectedData$: Writable<unknown>;
+	items$: Writable<Record<string, Item>>;
 	onOptionClick: (options: OnOptionClickOptions) => void;
 };
 
 const builders: Record<keyof ComboboxContext, () => any> = {
 	selectedId$: () => writable(''),
 	selectedValue$: () => writable(''),
+	selectedData$: () => writable(),
+	items$: () => writable({}),
 	onOptionClick: () => () => {
 		return;
 	}
 };
 
 function buildContext(context: Partial<ComboboxContext> = {}) {
-	const keys: Set<keyof ComboboxContext> = new Set(['selectedId$', 'selectedValue$']);
+	const keys: Set<keyof ComboboxContext> = new Set(Object.keys(builders));
 
 	Object.keys(context).forEach((key) => keys.delete(key));
 

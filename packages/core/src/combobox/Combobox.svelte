@@ -1,9 +1,9 @@
 <script lang="ts">
-	import Portal from 'svelte-portal/src/Portal.svelte';
-	import { Icon, Input, getFluentAppContext } from '@svelte-fui/core';
+	import { Icon, getFluentAppContext } from '@svelte-fui/core';
 	import { ChevronDownRegular } from '@svelte-fui/icons';
+	import Portal from 'svelte-portal/src/Portal.svelte';
 	import { classnames } from '../internal';
-	import ComboboxListbox from './ComboboxListbox.svelte';
+	import Listbox from './Listbox.svelte';
 	import { setComboboxContext } from './context';
 
 	export let appearance: 'outline' | 'underline' | 'filled-darker' | 'filled-lighter' = 'outline';
@@ -21,24 +21,12 @@
 	const { selectedId$, selectedValue$ } = setComboboxContext({
 		onOptionClick
 	});
+
+	selectedId$.set(value);
+
 	const { appElement$ } = getFluentAppContext();
 
-	function mount(node: HTMLDivElement) {
-		function onOptionClickHandler(e: CustomEvent<string>) {
-			e.stopPropagation();
-			const detail = e.detail;
-			console.log('hello world!');
-		}
-
-		console.log('combobox mount...');
-		node.addEventListener('option-click', onOptionClickHandler);
-
-		return {
-			destroy() {
-				node.removeEventListener('option-click', onOptionClickHandler);
-			}
-		};
-	}
+	$: value = $selectedId$;
 
 	function onClickHandler(e: Event) {
 		if (disabled) return;
@@ -55,13 +43,7 @@
 	}
 </script>
 
-<div
-	bind:this={element}
-	use:mount
-	class={classnames('fui-combobox', appearance, size, { disabled })}
-	on:click={onClickHandler}
-	on:keypress={() => {}}
->
+<div bind:this={element} class={classnames('fui-combobox', appearance, size, { disabled })} on:click={onClickHandler} on:keypress={() => {}}>
 	<input
 		role="combobox"
 		aria-controls=""
@@ -85,9 +67,9 @@
 
 	<Portal target={$appElement$}>
 		{#if element}
-			<ComboboxListbox translateX={element.offsetLeft + 'px'} translateY={element.offsetTop + element.clientHeight + 2 + 'px'} {collapsed}>
+			<Listbox reference={element} bind:collapsed>
 				<slot />
-			</ComboboxListbox>
+			</Listbox>
 		{/if}
 	</Portal>
 </div>
@@ -116,7 +98,7 @@
 
 		/* bottom focus border, shared with Input, Select, and SpinButton */
 		&::after {
-			@apply absolute box-border delay-accelerate-mid duration-ultra-fast;
+			@apply delay-accelerate-mid duration-ultra-fast absolute box-border;
 			content: '';
 			left: -1px;
 			bottom: -1px;
@@ -232,7 +214,7 @@
 	}
 
 	input {
-		@apply rounded-none font-base;
+		@apply font-base rounded-none;
 
 		background-color: var(--fui-colorTransparentBackground);
 		color: var(--fui-colorNeutralForeground1);
@@ -277,7 +259,7 @@
 	}
 
 	.fui-combobox :global(.fui-icon) {
-		@apply box-border block cursor-pointer text-base-500;
+		@apply text-base-500 box-border block cursor-pointer;
 
 		color: var(--fui-colorNeutralStrokeAccessible);
 
