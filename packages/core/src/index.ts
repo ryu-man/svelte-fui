@@ -15,3 +15,4 @@ export * from './switch';
 export * from './radio';
 export * from './slider';
 export * from './dialog';
+export * from './accordion';
