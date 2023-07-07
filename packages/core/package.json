@@ -1,11 +1,33 @@
 {
   "name": "@svelte-fui/core",
   "version": "0.1.6",
-  "description": "",
-  "license": "MIT",
-  "author": "",
   "sideEffects": false,
   "type": "module",
+  "description": "An implementation of Microsoft Fluent UI v9 for Svelte framework",
+  "author": "ryu-man",
+  "license": "MIT",
+  "homepage": "https://github.com/ryu-man/svelte-fui/tree/main/packages/core#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ryu-man/svelte-fui.git"
+  },
+  "bugs": {
+    "url": "https://github.com/ryu-man/svelte-fui.git/issues"
+  },
+  "keywords": [
+    "html",
+    "css",
+    "ui",
+    "framework",
+    "svelte",
+    "component",
+    "fluent",
+    "fluent-ui",
+    "fui",
+    "microsoft",
+    "design",
+    "modern"
+  ],
   "files": [
     "dist",
     "!dist/**/*.stories.*"
