@@ -10,7 +10,7 @@
 
 	const defaultValues = {
 		size: 'md',
-		orientation: 'vertical'
+		orientation: 'vertical',
 	};
 
 	const argTypes = {
@@ -31,9 +31,6 @@
 			type: 'string',
 			options: ['none', 'success', 'warning', 'error'],
 			control: 'select'
-		},
-		validationMessage: {
-			type: 'string'
 		}
 	} satisfies ArgTypes;
 
