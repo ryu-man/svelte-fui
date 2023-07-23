@@ -29,7 +29,7 @@
 	$: state$.set(state);
 </script>
 
-<div class={classnames('fui-field', orientation, state, size)}>
+<div class={classnames('fui-field', orientation, state, size, { 'no-label': !label })}>
 	<Label>{label}</Label>
 	<slot />
 </div>
@@ -55,13 +55,13 @@
 	.fui-field :global(.fui-label.lg) {
 		@apply py-[1px];
 	}
-	.fui-field :global(.fui-label.vertical) {
+	.fui-field.vertical :global(.fui-label) {
 		@apply mb-xxs;
 	}
-	.fui-field :global(.fui-label.lg.vertical) {
+	.fui-field.vertical :global(.fui-label.lg) {
 		@apply pb-xs;
 	}
-	.fui-field :global(.fui-label.horizontal) {
+	.fui-field.horizontal :global(.fui-label) {
 		@apply mr-m;
 		grid-row-start: 1;
 		grid-row-end: -1;
