@@ -286,7 +286,7 @@ importers:
         specifier: ^0.0.1
         version: 0.0.1
       '@svelte-fui/theme':
-        specifier: ^0.1.0
+        specifier: ^0.1.3
         version: link:../theme
       '@svelte-fui/themes':
         specifier: ^0.1.0
