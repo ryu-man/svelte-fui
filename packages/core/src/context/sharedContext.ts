@@ -8,6 +8,10 @@ export type SharedContext<T> = Record<string, Record<string, unknown>> & T;
 export function getSharedContext<T>(key?: 'input' | 'label'): Readable<SharedContext<T>> {
 	const context$ = getContext(SVELTE_FUI_SHARED_CONTEXT_KEY) as Writable<SharedContext<T>>;
 
+	if (!context$) {
+		return readonly(writable({} as SharedContext<T>));
+	}
+
 	if (key) {
 		return derived(context$, (val) => val[key] as SharedContext<T>);
 	}
