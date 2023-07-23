@@ -1,23 +1,14 @@
 <script lang="ts">
+	import { getSharedContext } from '../context';
 	import { classnames } from '../internal';
 
 	type InputEvent = Event & {
 		currentTarget: EventTarget & HTMLInputElement;
 	};
 
-	type InputTypes =
-		| 'text'
-		| 'number'
-		| 'search'
-		| 'password'
-		| 'email'
-		| 'tel'
-		| 'url'
-		| 'date'
-		| 'datetime-local'
-		| 'month'
-		| 'time'
-		| 'week';
+	type InputTypes = 'text' | 'number' | 'search' | 'password' | 'email' | 'tel' | 'url' | 'date' | 'datetime-local' | 'month' | 'time' | 'week';
+
+	const sharedContext$ = getSharedContext<{ invalid: boolean; size: 'sm' | 'md' | 'lg' }>('input') || {};
 
 	/** The input's current value. */
 	export let value: any = '';
@@ -36,13 +27,16 @@
 	/** Controls whether the TextBox is intended for user interaction, and styles it accordingly. */
 	export let disabled = false;
 
-	export let size: 'sm' | 'md' | 'lg' = 'md';
+	export let size: 'sm' | 'md' | 'lg' = $sharedContext$.size || 'md';
 
 	export let underline = false;
 
-	export let name : string | undefined = undefined;
+	export let name: string | undefined = undefined;
 
 	export let ariaLabel: string | undefined = undefined;
+
+	export let ariaDescribedby: string | undefined = undefined;
+	export let ariaInvalid = $sharedContext$.invalid || false;
 
 	/** Specifies a custom class name for the TextBox container. */
 	let klass = '';
@@ -61,11 +55,7 @@
 	}
 </script>
 
-<span
-	class={classnames('fui-input', { size, underline, disabled }, klass)}
-	{id}
-	
->
+<span class={classnames('fui-input', { size, underline, disabled, invalid: ariaInvalid && !disabled }, klass)} {id}>
 	<slot name="before" />
 	<input
 		use:setInputType={type}
@@ -76,6 +66,8 @@
 		{disabled}
 		{readonly}
 		aria-label={ariaLabel}
+		aria-describedby={ariaDescribedby}
+		aria-invalid={ariaInvalid}
 		on:input={onInputHandler}
 		on:input
 		on:blur
@@ -234,7 +226,8 @@
 			/* ...shorthands.borderColor(tokens.colorNeutralStrokeDisabled); */
 
 			@media (forced-colors: active) {
-				color: graytext;
+				/* color: graytext; */
+				border-color: graytext;
 				/* ...shorthands.borderColor('GrayText'); */
 			}
 

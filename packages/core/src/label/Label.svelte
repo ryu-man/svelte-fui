@@ -1,13 +1,16 @@
 <script lang="ts">
+	import { getSharedContext } from '../context';
 	import { classnames } from '../internal';
+
+	const sharedContext$ = getSharedContext<{  size: 'sm' | 'md' | 'lg' }>('label') || {};
 
 	export let disabled = false;
 	export let required = false;
-	export let size: 'sm' | 'md' | 'lg' = 'md';
+	export let size: 'sm' | 'md' | 'lg' = $sharedContext$.size || 'md';
 	export let weight: 'regular' | 'semibold' = 'regular';
 
-	let klass = ''
-	export { klass as class }
+	let klass = '';
+	export { klass as class };
 </script>
 
 <label class={classnames('fui-label', { disabled, required }, size, weight, klass)} {...$$restProps}>

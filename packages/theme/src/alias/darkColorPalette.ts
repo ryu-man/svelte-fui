@@ -1,5 +1,5 @@
 /* color palette used in both darkTheme and teamsDarkTheme */
-import { capitalize } from 'lodash-es';
+import { upperFirst } from 'lodash-es';
 import { personaSharedColors, statusSharedColors } from '../global/colorPalette';
 import { personaSharedColorNames, statusSharedColorNames } from '../sharedColorNames';
 import type {
@@ -12,18 +12,18 @@ import type {
 
 const statusColorPaletteTokens = applyStatusColorPalettePatches(
 	statusSharedColorNames.reduce((acc, sharedColor) => {
-		const capitalizedColorName = capitalize(sharedColor);
+		const upperedFirstColorName = upperFirst(sharedColor);
 
 		const sharedColorTokens = {
-			[`colorPalette${capitalizedColorName}Background1`]: statusSharedColors[sharedColor].shade40,
-			[`colorPalette${capitalizedColorName}Background2`]: statusSharedColors[sharedColor].shade30,
-			[`colorPalette${capitalizedColorName}Background3`]: statusSharedColors[sharedColor].primary,
-			[`colorPalette${capitalizedColorName}Foreground1`]: statusSharedColors[sharedColor].tint30,
-			[`colorPalette${capitalizedColorName}Foreground2`]: statusSharedColors[sharedColor].tint40,
-			[`colorPalette${capitalizedColorName}Foreground3`]: statusSharedColors[sharedColor].tint20,
-			[`colorPalette${capitalizedColorName}BorderActive`]: statusSharedColors[sharedColor].tint30,
-			[`colorPalette${capitalizedColorName}Border1`]: statusSharedColors[sharedColor].primary,
-			[`colorPalette${capitalizedColorName}Border2`]: statusSharedColors[sharedColor].tint20
+			[`colorPalette${upperedFirstColorName}Background1`]: statusSharedColors[sharedColor].shade40,
+			[`colorPalette${upperedFirstColorName}Background2`]: statusSharedColors[sharedColor].shade30,
+			[`colorPalette${upperedFirstColorName}Background3`]: statusSharedColors[sharedColor].primary,
+			[`colorPalette${upperedFirstColorName}Foreground1`]: statusSharedColors[sharedColor].tint30,
+			[`colorPalette${upperedFirstColorName}Foreground2`]: statusSharedColors[sharedColor].tint40,
+			[`colorPalette${upperedFirstColorName}Foreground3`]: statusSharedColors[sharedColor].tint20,
+			[`colorPalette${upperedFirstColorName}BorderActive`]: statusSharedColors[sharedColor].tint30,
+			[`colorPalette${upperedFirstColorName}Border1`]: statusSharedColors[sharedColor].primary,
+			[`colorPalette${upperedFirstColorName}Border2`]: statusSharedColors[sharedColor].tint20
 		};
 
 		return Object.assign(acc, sharedColorTokens);
@@ -33,12 +33,12 @@ const statusColorPaletteTokens = applyStatusColorPalettePatches(
 
 const personaColorPaletteTokens = applyPersonaColorPalettePatches(
 	personaSharedColorNames.reduce((acc, sharedColor) => {
-		const capitalizedColorName = capitalize(sharedColor);
+		const upperedFirstColorName = upperFirst(sharedColor);
 
 		const sharedColorTokens = {
-			[`colorPalette${capitalizedColorName}Background2`]: personaSharedColors[sharedColor].shade30,
-			[`colorPalette${capitalizedColorName}Foreground2`]: personaSharedColors[sharedColor].tint40,
-			[`colorPalette${capitalizedColorName}BorderActive`]: personaSharedColors[sharedColor].tint30
+			[`colorPalette${upperedFirstColorName}Background2`]: personaSharedColors[sharedColor].shade30,
+			[`colorPalette${upperedFirstColorName}Foreground2`]: personaSharedColors[sharedColor].tint40,
+			[`colorPalette${upperedFirstColorName}BorderActive`]: personaSharedColors[sharedColor].tint30
 		};
 
 		return Object.assign(acc, sharedColorTokens);
