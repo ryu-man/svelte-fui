@@ -1,58 +1,104 @@
-# create-svelte
+# Svelte Fluent UI
 
-Everything you need to build a Svelte library, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/master/packages/create-svelte).
+This project aims to brings Microsoft's Fluent UI version 9 into the Svelte framework, offering a seamless and modern user interface experience. Fluent UI is a design system developed by Microsoft that provides a set of reusable components, icons, and styles for building user interfaces that align with Microsoft's Fluent Design System.
 
-Read more about creating a library [in the docs](https://kit.svelte.dev/docs/packaging).
+**Please be noticed that this project is still in early development stage, so it's not ready to be used in production yet**.
 
-## Creating a project
+# Installation
 
-If you're seeing this, you've probably already done this step. Congrats!
+```shell
+// pnpm
+pnpm install @svelte-fui/core
 
-```bash
-# create a new project in the current directory
-npm create svelte@latest
-
-# create a new project in my-app
-npm create svelte@latest my-app
+//npm
+npm install @svelte-fui/core
 ```
 
-## Developing
+# Usage
 
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
+```html
+<script>
+	import { App, Button } from '@svelte-fui/core';
+</script>
 
-```bash
-npm run dev
-
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
+<App>
+	<button>Hello World!</button>
+</App>
 ```
 
-Everything inside `src/lib` is part of your library, everything inside `src/routes` can be used as a showcase or preview app.
+# Using FUI preset fot TailwindCSS 
 
-## Building
+This will allow you to integrate FUI tokens into your TailwindCSS config.
 
-To build your library:
 
 ```bash
-npm run package
+// pnpm
+pnpm install @svelte-fui/tailwindcss
+
+//npm
+npm install @svelte-fui/tailwindcss
 ```
 
-To create a production version of your showcase app:
+```js
+// tailwindcss.config.js
 
-```bash
-npm run build
+import { fuiPreset } from '@svelte-fui/tailwindcss';
+
+/** @type {import('tailwindcss').Config} */
+export default {
+	presets: [fuiPreset],
+	content: ['./src/**/*.{html,js,svelte, stories.svelte, ts}']
+};
 ```
 
-You can preview the production build with `npm run preview`.
+Now in your `.svelte` file you can use FUI tokens as tw classes:
 
-> To deploy your app, you may need to install an [adapter](https://kit.svelte.dev/docs/adapters) for your target environment.
+```html
+<!-- src/routes/+page.svelte -->
+<script>
+  // some logic goes here
+</script>
 
-## Publishing
+<!--  -->
 
-Go into the `package.json` and give your package the desired name through the `"name"` option. Also consider adding a `"license"` field and point it to a `LICENSE` file which you can create from a template (one popular option is the [MIT license](https://opensource.org/license/mit/)).
-
-To publish your library to [npm](https://www.npmjs.com):
+<div class="bg-neutral-background-1 text-neutral-foreground-1 font-base-400">
+    <!-- UI contents goes here -->
+</div>
+```
+# Use Pre-Defined Themes
 
 ```bash
-npm publish
+// pnpm
+pnpm install @svelte-fui/themes
+
+//npm
+npm install @svelte-fui/themes
+```
+```html
+<script>
+  import { webLightTheme, webDarkTheme } from '@svelte-fui/themes';
+  import { App, Button } from '@svelte-fui/core';
+
+	let theme = webLightTheme;
+
+	onMount(() => {
+		function handler(schemeMedia: MediaQueryListEvent) {
+			theme = schemeMedia.matches ? webLightTheme : webDarkTheme;
+		}
+
+		const schemeMedia = matchMedia('(prefers-color-scheme: light)');
+
+		schemeMedia.addEventListener('change', handler);
+
+		theme = schemeMedia.matches ? webLightTheme : webDarkTheme;
+
+		return () => {
+			schemeMedia.removeEventListener('change', handler);
+		};
+	});
+</script>
+
+<App {theme}>
+	<Button>Fluent UI for Svelte</Button>
+</App>
 ```
