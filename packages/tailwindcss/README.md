@@ -35,7 +35,7 @@ export default {
 </script>
 
 <App>
-    <div class="text-neutral-foreground-1 text-base-400" >This a simple label</div>
+	<div class="text-neutral-foreground-1 text-base-400" >This a simple label</div>
 	<Button>Hello World!</Button>
 </App>
 ```
