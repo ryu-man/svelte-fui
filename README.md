@@ -1,10 +1,16 @@
 # Svelte Fluent UI
 
-This project aims to brings Microsoft's Fluent UI version 9 into the Svelte framework, offering a seamless and modern user interface experience. Fluent UI is a design system developed by Microsoft that provides a set of reusable components, icons, and styles for building user interfaces that align with Microsoft's Fluent Design System.
+The primary objective of this exciting project is to seamlessly integrate Microsoft's highly anticipated Fluent UI version 9 with the powerful Svelte framework. By combining these cutting-edge technologies, we aim to deliver a truly exceptional user interface experience that is not only visually stunning but also incredibly intuitive and user-friendly. 
+
+Fluent UI, originally developed by Microsoft for the React library, is a comprehensive design system offering a vast collection of reusable components, meticulously crafted icons, and stylish themes that effortlessly align with Microsoft's acclaimed Fluent Design System.
+
+With this integration, developers will have access to a rich toolkit that empowers them to create stunning and modern user interfaces with ease, revolutionizing the way we interact with software applications. Get ready to embark on a journey of innovation and elevate your UI development to new heights!
 
 **Please be noticed that this project is still in early development stage, so it's not ready to be used in production yet**.
 
-# Installation
+# Usage
+
+Add @fluentui/react-components to a project:
 
 ```shell
 // pnpm
@@ -14,7 +20,7 @@ pnpm install @svelte-fui/core
 npm install @svelte-fui/core
 ```
 
-# Usage
+To use Fluent design for Sveltekit app you have to make `App` component at the top level route, ex: `/routes/+layout.svelte`
 
 ```html
 <script>

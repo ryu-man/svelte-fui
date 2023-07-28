@@ -1,4 +1,4 @@
-# Svelte Fluent UI
+# @svelte-fui/core
 
 This project aims to integrate Microsoft's Fluent UI version 9 into the Svelte framework, offering a seamless and modern user interface experience. Fluent UI is a design system developed by Microsoft that provides a set of reusable components, icons, and styles for building user interfaces that align with Microsoft's Fluent Design System.
 
