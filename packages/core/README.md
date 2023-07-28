@@ -1,14 +1,12 @@
-# Svelte Fluent UI
+# @svelte-fui/core
 
-This project aims to integrate Microsoft's Fluent UI version 9 into the Svelte framework, offering a seamless and modern user interface experience. Fluent UI is a design system developed by Microsoft that provides a set of reusable components, icons, and styles for building user interfaces that align with Microsoft's Fluent Design System.
+`@svelte-fui/core` is a comprehensive UI library that seamlessly brings the elegant Microsoft Fluent Design System to your web applications. It offers an intuitive and extensive collection of components and tools, meticulously crafted with the power of TailwindCSS, making it effortless to create stunning and modern user interfaces. 
 
-With this project, the goal is to leverage the power of Fluent UI v9 and combine it with the simplicity and efficiency of the Svelte framework. Svelte is a lightweight framework known for its reactive approach to building user interfaces, allowing for fast rendering and optimal performance.
+With @svelte-fui/core at your disposal, developers can effortlessly design beautiful, responsive layouts that captivate users and elevate their web experiences to new heights.
 
-Fluent UI for Svelte is built using TailwindCSS for TailwindCSS, you can easily integrate Fluent UI preset on your TailwindCSS configuration and access Fluent
+# Usage
 
-# Installation
-
-First install fluent ui for svelte:
+To begin, install the `@svelte-fui/core` package into your project.
 
 ```shell
 // pnpm
@@ -18,7 +16,8 @@ pnpm install @svelte-fui/core
 npm install @svelte-fui/core
 ```
 
-# Usage
+To build UIs using `@svelte-fui/core` components, it is necessary to place the `App` component at the highest level of your application or route (in the case of Sveltekit). Import the UI component and include the theme as children of the `App` component. 
+
 
 ```html
 <script>
@@ -26,12 +25,16 @@ npm install @svelte-fui/core
 </script>
 
 <App>
-	<button>Hello World!</button>
+	<Button>Hello World!</Button>
 </App>
 ```
 
-# Inegration with TailwindCSS 
+**Note: For TailwindCSS users :point_down:**
 
+If you're a TailwindCSS enthusiast and want to incorporate Fluent UI tokens into your app for creating custom components that align with the Fluent Design system, You can easily integrate the `fuiPreset` export by `@svelte-ui/tailwindcss` into your tailwindcss configuration. Simply follow the instructions listed below.
+
+
+First, let's make sure the package is installed.
 
 ```bash
 // pnpm
@@ -41,52 +44,17 @@ pnpm install @svelte-fui/tailwindcss
 npm install @svelte-fui/tailwindcss
 ```
 
+Next up, we just need to make the necessary change to our `taindindcss.config.js` file.
+
 ```js
 // tailwindcss.config.js
 
-import { tailwindcssConfig } from '@svelte-fui/tailwindcss';
+import { fuiPreset } from '@svelte-fui/tailwindcss';
 
 /** @type {import('tailwindcss').Config} */
 export default {
-	presets: [tailwindcssConfig],
-	content: ['./src/**/*.{html,js,svelte, stories.svelte, ts}']
+	presets: [fuiPreset],
+	content: ['./src/**/*.{html,js,svelte, stories.svelte, ts}'],
+	// other configurations goes here
 };
-```
-
-# Use Pre-Defined Themes
-
-```bash
-// pnpm
-pnpm install @svelte-fui/themes
-
-//npm
-npm install @svelte-fui/themes
-```
-```html
-<script>
-  import { webLightTheme, webDarkTheme } from '@svelte-fui/themes';
-  import { App, Button } from '@svelte-fui/core';
-
-	let theme = webLightTheme;
-
-	onMount(() => {
-		function handler(schemeMedia: MediaQueryListEvent) {
-			theme = schemeMedia.matches ? webLightTheme : webDarkTheme;
-		}
-
-		const schemeMedia = matchMedia('(prefers-color-scheme: light)');
-
-		schemeMedia.addEventListener('change', handler);
-
-		theme = schemeMedia.matches ? webLightTheme : webDarkTheme;
-
-		return () => {
-			schemeMedia.removeEventListener('change', handler);
-		};
-	});
-</script>
-
-<App {theme}>
-	<Button>Fluent UI for Svelte</Button>
-</App>
 ```
