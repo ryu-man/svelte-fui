@@ -1,10 +1,10 @@
 <script lang="ts">
 	import { Icon, getFluentAppContext } from '@svelte-fui/core';
-	import { ChevronDownRegular } from '@svelte-fui/icons';
 	import Portal from 'svelte-portal/src/Portal.svelte';
-	import { classnames } from '../internal';
 	import Listbox from './Listbox.svelte';
 	import { setComboboxContext } from './context';
+	import { ChevronDownRegular } from '../icons';
+	import { classnames } from '../internal';
 
 	export let appearance: 'outline' | 'underline' | 'filled-darker' | 'filled-lighter' = 'outline';
 	export let id: string | undefined = undefined;

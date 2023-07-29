@@ -1,8 +1,6 @@
 <script lang="ts">
-	import { flip } from 'svelte/animate';
-	import { get_current_component } from 'svelte/internal';
 	import { Icon } from '@svelte-fui/core';
-	import { CheckmarkFilled } from '@svelte-fui/icons';
+	import { CheckmarkFilled } from '../icons';
 	import { classnames } from '../internal';
 
 	/** Controls whether the checkbox is checked or not. */
@@ -42,12 +40,7 @@
 	}
 </script>
 
-<span
-	class={classnames('fui-checkbox', { disabled }, klass)}
-	data-checked={checked}
-	on:click={onInputClickHandler}
-	on:keypress={() => {}}
->
+<span class={classnames('fui-checkbox', { disabled }, klass)} data-checked={checked} on:click={onInputClickHandler} on:keypress={() => {}}>
 	<input class="fui-checkbox-input" type="checkbox" {id} {checked} />
 	<div class={classnames('fui-checkbox-indicator', { size, disabled, circular })} aria-hidden="true">
 		{#if checked}
@@ -138,7 +131,7 @@
 		}
 
 		&.disabled {
-			@apply cursor-default pointer-events-none;
+			@apply pointer-events-none cursor-default;
 			color: var(--fui-colorNeutralForegroundDisabled);
 
 			& > .fui-checkbox-indicator {

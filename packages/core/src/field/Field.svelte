@@ -1,11 +1,10 @@
 <script lang="ts">
-	import { CheckmarkCircleFilled, ErrorCircleFilled, WarningFilled } from '@svelte-fui/icons';
-	import { setSharedContext } from '../context';
-	import { classnames } from '../internal';
-	import { Label } from '../label';
-	import ValidationMessage from './ValidationMessage.svelte';
 	import { setFieldContext } from './context';
 	import type { State } from './types,';
+	import { setSharedContext } from '../context';
+	import { CheckmarkCircleFilled, ErrorCircleFilled, WarningFilled } from '../icons';
+	import { classnames } from '../internal';
+	import { Label } from '../label';
 
 	export let label: string = '';
 	export let orientation: 'horizontal' | 'vertical' = 'vertical';
