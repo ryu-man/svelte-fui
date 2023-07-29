@@ -1,9 +1,9 @@
 <script lang="ts">
-	import { Icon } from '@svelte-fui/core';
-	import { CheckmarkRegular } from '@svelte-fui/icons';
 	import { createEventDispatcher } from 'svelte';
-	import { classnames } from '../internal';
+	import { Icon } from '@svelte-fui/core';
 	import { getComboboxContext } from './context';
+	import { CheckmarkRegular } from '../icons';
+	import { classnames } from '../internal';
 
 	const dispatch = createEventDispatcher();
 	const { selectedId$, selectedValue$, selectedData$, onOptionClick } = getComboboxContext();

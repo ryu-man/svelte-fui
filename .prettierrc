@@ -21,13 +21,15 @@
 	"order": "smacss",
 	"importOrder": [
 		"^svelte$",
-		"^svelte/(.*)$",
-		"^svelte-fui$",
-		"^svelte-fui/(.*)$",
-		"^<THIRD_PARTY_MODULES>/(.*)$",
-		"^\\$(.*)$",
-		"^\\$(.*)/(.*)$",
-		"^[./]"
+		"^svelte\/.+$",
+		"^@svelte-fui$",
+		"^@svelte-fui\/.+$",
+		"<THIRD_PARTY_MODULES>",
+		"^[$](.*)\/{0, 1}",
+		"^[$](.*)\/.+",
+		"^[.]\/{0, 1}",
+		"^[.]\/.+",
+		"^[.]{2}\/.+"
 	],
 	"importOrderSeparation": false,
 	"importOrderSortSpecifiers": true,
