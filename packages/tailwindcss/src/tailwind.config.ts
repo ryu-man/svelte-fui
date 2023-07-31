@@ -101,6 +101,12 @@ const config = {
 				xl: '8px',
 				circular: '9999px'
 			},
+			strokeWidth: {
+				thin: '1px',
+				thick: '2px',
+				thicker: '3px',
+				thickest: '4px'
+			},
 			borderWidth: {
 				thin: '1px',
 				thick: '2px',
