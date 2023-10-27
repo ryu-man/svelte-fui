@@ -47,7 +47,6 @@
 			<Icon src={CheckmarkFilled} />
 		{/if}
 	</div>
-	<label class={classnames('fui-Label fui-checkbox-label', { size })} for={id}>Checkbox</label>
 </span>
 
 <style lang="postcss">
