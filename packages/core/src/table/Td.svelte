@@ -20,6 +20,7 @@
 
 		--fui-icon-size: 20px;
 	}
+
 	.fui-table-cell.truncate {
 		@apply overflow-x-hidden;
 	}

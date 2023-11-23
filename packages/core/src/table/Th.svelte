@@ -89,6 +89,7 @@
 			&:hover {
 				@apply bg-subtle-background-hover;
 			}
+
 			&:active {
 				@apply bg-subtle-background-pressed;
 			}

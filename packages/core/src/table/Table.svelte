@@ -34,6 +34,7 @@
 	.fui-table {
 		@apply bg-subtle-background w-full table-fixed border-collapse align-middle;
 	}
+
 	.fui-table :global(thead) {
 		@apply table-row-group;
 	}

@@ -56,6 +56,7 @@
 	.md {
 		@apply border-thin border-neutral-stroke-2 h-[44px] border-b;
 	}
+
 	.sm {
 		@apply border-thin border-neutral-stroke-2 h-[34px] border-b;
 	}

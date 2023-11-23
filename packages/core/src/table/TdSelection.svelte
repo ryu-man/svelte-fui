@@ -65,9 +65,11 @@
 		&.md {
 			@apply h-[44px];
 		}
+
 		&.sm {
 			@apply h-[34px];
 		}
+
 		&.xs {
 			@apply h-[24px];
 		}
