@@ -136,7 +136,7 @@ importers:
         version: 3.58.0
       svelte-check:
         specifier: ^3.2.0
-        version: 3.2.0(@babel/core@7.22.9)(postcss@8.4.23)(svelte@3.58.0)
+        version: 3.2.0(@babel/core@7.21.8)(postcss@8.4.23)(svelte@3.58.0)
       svelte-portal:
         specifier: ^2.2.0
         version: 2.2.0
@@ -263,7 +263,7 @@ importers:
         version: 3.58.0
       svelte-check:
         specifier: ^3.0.1
-        version: 3.2.0(@babel/core@7.21.8)(postcss@8.4.23)(svelte@3.58.0)
+        version: 3.2.0(@babel/core@7.22.9)(postcss@8.4.23)(svelte@3.58.0)
       tailwindcss:
         specifier: ^3.3.1
         version: 3.3.1(postcss@8.4.23)
@@ -342,7 +342,7 @@ importers:
         version: 3.58.0
       svelte-check:
         specifier: ^2.10.3
-        version: 2.10.3(@babel/core@7.22.9)(postcss@8.4.23)(svelte@3.58.0)
+        version: 2.10.3(@babel/core@7.21.8)(postcss@8.4.23)(svelte@3.58.0)
       tslib:
         specifier: ^2.5.0
         version: 2.5.0
@@ -376,7 +376,7 @@ importers:
         version: 3.58.0
       svelte-check:
         specifier: ^2.10.3
-        version: 2.10.3(@babel/core@7.22.9)(postcss@8.4.23)(svelte@3.58.0)
+        version: 2.10.3(@babel/core@7.21.8)(postcss@8.4.23)(svelte@3.58.0)
       tslib:
         specifier: ^2.5.0
         version: 2.5.0
@@ -406,7 +406,7 @@ importers:
         version: 3.58.0
       svelte-check:
         specifier: ^2.10.3
-        version: 2.10.3(@babel/core@7.22.9)(postcss@8.4.23)(svelte@3.58.0)
+        version: 2.10.3(@babel/core@7.21.8)(postcss@8.4.23)(svelte@3.58.0)
       tslib:
         specifier: ^2.5.0
         version: 2.5.0
@@ -440,7 +440,7 @@ importers:
         version: 3.58.0
       svelte-check:
         specifier: ^2.10.3
-        version: 2.10.3(@babel/core@7.22.9)(postcss@8.4.23)(svelte@3.58.0)
+        version: 2.10.3(@babel/core@7.21.8)(postcss@8.4.23)(svelte@3.58.0)
       tslib:
         specifier: ^2.5.0
         version: 2.5.0
@@ -9622,7 +9622,7 @@ packages:
     engines: {node: '>= 0.4'}
     dev: true
 
-  /svelte-check@2.10.3(@babel/core@7.22.9)(postcss@8.4.23)(svelte@3.58.0):
+  /svelte-check@2.10.3(@babel/core@7.21.8)(postcss@8.4.23)(svelte@3.58.0):
     resolution: {integrity: sha512-Nt1aWHTOKFReBpmJ1vPug0aGysqPwJh2seM1OvICfM2oeyaA62mOiy5EvkXhltGfhCcIQcq2LoE0l1CwcWPjlw==}
     hasBin: true
     peerDependencies:
@@ -9635,7 +9635,7 @@ packages:
       picocolors: 1.0.0
       sade: 1.8.1
       svelte: 3.58.0
-      svelte-preprocess: 4.10.7(@babel/core@7.22.9)(postcss@8.4.23)(svelte@3.58.0)(typescript@5.0.4)
+      svelte-preprocess: 4.10.7(@babel/core@7.21.8)(postcss@8.4.23)(svelte@3.58.0)(typescript@5.0.4)
       typescript: 5.0.4
     transitivePeerDependencies:
       - '@babel/core'
@@ -9731,7 +9731,7 @@ packages:
   /svelte-portal@2.2.0:
     resolution: {integrity: sha512-jhtZWtD6cUE2nMw46dJ5VXWYiqnER+JH+V/BmNBQ5fNP/YdsJCpJi+DemUy9msklqGb0f+wLhJPBtKHLWQvzjg==}
 
-  /svelte-preprocess@4.10.7(@babel/core@7.22.9)(postcss@8.4.23)(svelte@3.58.0)(typescript@5.0.4):
+  /svelte-preprocess@4.10.7(@babel/core@7.21.8)(postcss@8.4.23)(svelte@3.58.0)(typescript@5.0.4):
     resolution: {integrity: sha512-sNPBnqYD6FnmdBrUmBCaqS00RyCsCpj2BG58A1JBswNF7b0OKviwxqVrOL/CKyJrLSClrSeqQv5BXNg2RUbPOw==}
     engines: {node: '>= 9.11.2'}
     requiresBuild: true
@@ -9772,7 +9772,7 @@ packages:
       typescript:
         optional: true
     dependencies:
-      '@babel/core': 7.22.9
+      '@babel/core': 7.21.8
       '@types/pug': 2.0.6
       '@types/sass': 1.45.0
       detect-indent: 6.1.0
