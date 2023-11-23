@@ -1,14 +1,30 @@
 <script lang="ts">
-	import { classnames } from '../internal';
+	import { derived } from 'svelte/store';
+	import { nanoid } from 'nanoid';
+	import { setTableRowContext } from './context';
+	import { classnames } from '../../internal';
+	import { getTableContext } from '../context';
+
+	const id = nanoid();
 
 	export let appearance: 'none' | 'neutral' | 'brand' = 'none';
-	export let size: 'md' | 'sm' | 'xs' = 'md';
 	export let header = false;
 	let klass = '';
 	export { klass as class };
+
+	const context = setTableRowContext();
+	context.id = id;
+	context.header = header;
+
+	const { selectedRows$, allRows$, size$ } = getTableContext();
+	const isSelected$ = derived(selectedRows$, (ids) => ids.has(id));
+
+	if (!header) {
+		allRows$.update((array) => array.add(id));
+	}
 </script>
 
-<tr class={classnames('fui-table-row', size, appearance !== 'none' ? appearance : '', { header }, klass)}>
+<tr class={classnames('fui-table-row', $size$, appearance !== 'none' ? appearance : '', { header, brand: !header && $isSelected$ }, klass)}>
 	<slot />
 </tr>
 
@@ -38,13 +54,13 @@
 	}
 
 	.md {
-		@apply border-thin border-neutral-stroke-2 border-b;
+		@apply border-thin border-neutral-stroke-2 h-[44px] border-b;
 	}
 	.sm {
-		@apply border-thin border-neutral-stroke-2 border-b;
+		@apply border-thin border-neutral-stroke-2 h-[34px] border-b;
 	}
 	.xs {
-		@apply text-base-200;
+		@apply text-base-200 h-[24px];
 	}
 
 	.brand {

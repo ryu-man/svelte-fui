@@ -1,16 +1,13 @@
 <script lang="ts">
-	import { getTableContext } from './context';
 	import { classnames } from '../internal';
 
 	export let truncate = false;
 	export let primary = false;
 	let klass = '';
 	export { klass as class };
-
-	const { size$ } = getTableContext();
 </script>
 
-<td class={classnames('fui-table-cell', $size$, { truncate, primary })}>
+<td class={classnames('fui-table-cell', { truncate, primary })}>
 	<div class={klass}>
 		<slot />
 	</div>
@@ -19,18 +16,9 @@
 <style lang="postcss">
 	/* Need to implement focus style */
 	.fui-table-cell {
-		@apply px-s relative table-cell bg-inherit py-0 align-middle;
-		--fui-icon-size: 20px;
+		@apply px-s relative table-cell h-full bg-inherit py-0 align-middle;
 
-		&.md {
-			@apply h-[44px];
-		}
-		&.sm {
-			@apply h-[34px];
-		}
-		&.xs {
-			@apply h-[24px];
-		}
+		--fui-icon-size: 20px;
 	}
 	.fui-table-cell.truncate {
 		@apply overflow-x-hidden;

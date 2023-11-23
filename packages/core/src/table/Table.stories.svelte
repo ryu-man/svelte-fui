@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
+	import { flip } from 'svelte/animate';
 	import { App, Icon } from '@svelte-fui/core';
 	import { DocumentPdfRegular, DocumentRegular, EditRegular, FolderRegular, OpenRegular, PeopleRegular, VideoRegular } from '@svelte-fui/icons';
 	import { webDarkTheme, webLightTheme } from '@svelte-fui/themes';
@@ -9,11 +10,10 @@
 	import Td from './Td.svelte';
 	import TdSelection from './TdSelection.svelte';
 	import Th from './Th.svelte';
-	import Tr from './Tr.svelte';
+	import Tr from './Tr/Tr.svelte';
 
 	const defaultValues = {
 		size: 'md',
-		appearance: 'none',
 		sortable: false
 	};
 
@@ -25,19 +25,63 @@
 				type: 'select'
 			}
 		},
-		appearance: {
-			type: 'string',
-			options: ['none', 'none', 'none'],
-			control: {
-				type: 'select'
-			}
-		},
 		sortable: {
 			type: 'boolean'
 		}
 	} satisfies ArgTypes;
 
 	let theme = webLightTheme;
+
+	const data = [
+		{
+			file: {
+				desc: 'Meeting notes',
+				icon: DocumentRegular
+			},
+			author: 'Max mustermann',
+			last_updated: '7h ago',
+			last_update: {
+				desc: '7h ago',
+				icon: EditRegular
+			}
+		},
+		{
+			file: {
+				desc: 'Thursday presentation',
+				icon: FolderRegular
+			},
+			author: 'Thursday presentation',
+			last_updated: 'Yesterday at 1:45 PM',
+			last_update: {
+				desc: 'You recently opened this',
+				icon: OpenRegular
+			}
+		},
+		{
+			file: {
+				desc: 'Training recording',
+				icon: VideoRegular
+			},
+			author: 'John Doe',
+			last_updated: 'Yesterday at 1:45 PM',
+			last_update: {
+				desc: 'You recently opened this',
+				icon: OpenRegular
+			}
+		},
+		{
+			file: {
+				desc: 'Purchase order',
+				icon: DocumentPdfRegular
+			},
+			author: 'Jane Doe',
+			last_updated: 'Tue at 9:30 AM',
+			last_update: {
+				desc: 'You shared this in a Teams chat',
+				icon: PeopleRegular
+			}
+		}
+	];
 
 	onMount(() => {
 		function handler(schemeMedia: MediaQueryListEvent) {
@@ -60,72 +104,32 @@
 
 <Story id="table" name="Table" args={defaultValues} let:args>
 	<App {theme}>
-		<Table sortable>
+		<Table {...args} {data} let:data>
 			<thead>
 				<Tr header>
 					<TdSelection />
-					<Th>File</Th>
-					<Th>Author</Th>
-					<Th>Last updated</Th>
-					<Th>Last update</Th>
+					<Th key={(d) => d.file.desc}>File</Th>
+					<Th key={(d) => d.author}>Author</Th>
+					<Th key={(d) => d.last_updated}>Last updated</Th>
+					<Th key={(d) => d.last_update}>Last update</Th>
 				</Tr>
 			</thead>
 			<tbody>
-				<Tr appearance="none">
-					<TdSelection />
-					<Td class="flex items-center gap-2">
-						<Icon src={DocumentRegular} />
-						<span>Meeting notes</span>
-					</Td>
-					<Td>Max mustermann</Td>
-					<Td>7h ago</Td>
-					<Td class="flex items-center gap-2">
-						<Icon src={EditRegular} />
-						You edited this
-					</Td>
-				</Tr>
-
-				<Tr appearance="none">
-					<TdSelection />
-					<Td class="flex items-center gap-2">
-						<Icon src={FolderRegular} />
-						<span>Thursday presentation</span>
-					</Td>
-					<Td>Erika Mustermann</Td>
-					<Td>Yesterday at 1:45 PM</Td>
-					<Td class="flex items-center gap-2">
-						<Icon src={EditRegular} />
-						You recently opened this
-					</Td>
-				</Tr>
-
-				<Tr appearance="none">
-					<TdSelection />
-					<Td class="flex items-center gap-2">
-						<Icon src={VideoRegular} />
-						<span>Training recording</span>
-					</Td>
-					<Td>John Doe</Td>
-					<Td>Yesterday at 1:45 PM</Td>
-					<Td class="flex items-center gap-2">
-						<Icon src={EditRegular} />
-						You recently opened this
-					</Td>
-				</Tr>
-
-				<Tr appearance="none">
-					<TdSelection />
-					<Td class="flex items-center gap-2">
-						<Icon src={DocumentPdfRegular} />
-						<span>Purchase order</span>
-					</Td>
-					<Td>Jane Doe</Td>
-					<Td>Tue at 9:30 AM</Td>
-					<Td class="flex items-center gap-2">
-						<Icon src={EditRegular} />
-						You shared this in a Teams chat
-					</Td>
-				</Tr>
+				{#each data as item (JSON.stringify(item))}
+					<Tr appearance="none">
+						<TdSelection />
+						<Td class="flex items-center gap-2">
+							<Icon src={item.file.icon} />
+							<span>{item.file.desc}</span>
+						</Td>
+						<Td>{item.author}</Td>
+						<Td>{item.last_updated}</Td>
+						<Td class="flex items-center gap-2">
+							<Icon src={item.last_update.icon} />
+							{item.last_update.desc}
+						</Td>
+					</Tr>
+				{/each}
 			</tbody>
 		</Table>
 	</App>
