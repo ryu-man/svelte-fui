@@ -110,7 +110,7 @@
 		<Table {...args} {data} bind:selectedItems let:data>
 			<thead>
 				<Tr header>
-					<TdSelection />
+					<TdSelection type="radio" hidden />
 					<Th key={(d) => d.file.desc}>File</Th>
 					<Th key={(d) => d.author}>Author</Th>
 					<Th key={(d) => d.last_updated}>Last updated</Th>
@@ -120,7 +120,7 @@
 			<tbody>
 				{#each data as item (JSON.stringify(item))}
 					<Tr appearance="none" data={item}>
-						<TdSelection />
+						<TdSelection type="radio" />
 						<Td class="flex items-center gap-2">
 							<Icon src={item.file.icon} />
 							<span>{item.file.desc}</span>

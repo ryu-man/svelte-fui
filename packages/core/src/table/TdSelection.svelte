@@ -22,13 +22,17 @@
 		checked$ = row$.selected$;
 	}
 
+	const element = rowContext.header ? 'th' : 'td';
+
 	// export let checked: boolean | 'mixed' = false;
 	export let type: 'checkbox' | 'radio' = 'checkbox';
 	export let subtle = false;
+	export let hidden = false;
 
-	function onChange(ev: Event) {
+	function onCheckboxChange(ev: Event) {
 		const currentTarget = ev.currentTarget as HTMLInputElement;
 
+		console.log(currentTarget.checked);
 		if (rowContext.header) {
 			if (currentTarget.checked) {
 				$allRows$.forEach((d) => d.selected$.set(true));
@@ -42,15 +46,24 @@
 			row$.selected$.set(currentTarget.checked);
 		}
 	}
+
+	function onRadioChange(ev: Event) {
+		const currentTarget = ev.currentTarget as HTMLInputElement;
+
+		$allRows$.forEach((d) => d.selected$.set(false));
+		if (row$) {
+			row$.selected$.set(currentTarget.checked);
+		}
+	}
 </script>
 
-<td class={classnames('fui-table-cell-selection', $size$, { subtle })}>
+<svelte:element this={element} class={classnames('fui-table-cell-selection', $size$, { subtle, hidden })}>
 	{#if type === 'checkbox'}
-		<Checkbox checked={$checked$} on:change={onChange} />
+		<Checkbox checked={$checked$} on:change={onCheckboxChange} />
 	{:else}
-		<Radio checked={$checked$} />
+		<Radio checked={$checked$} name="selected-row" on:change={onRadioChange} />
 	{/if}
-</td>
+</svelte:element>
 
 <style lang="postcss">
 	/* Need to implement focus style */
@@ -88,5 +101,6 @@
 
 	.hidden {
 		@apply invisible;
+		display: table-cell;
 	}
 </style>
