@@ -6,6 +6,7 @@
 	export let size: TableSize = 'md';
 	export let sortable = false;
 	export let data: any[] = [];
+	export let selectedItems: any[] = [];
 
 	let sorted: any[] = [];
 	let orderBy: typeof _orderBy | undefined = undefined;
@@ -16,14 +17,19 @@
 		});
 	}
 
-	const { sortable$, sorting$, size$ } = setTableContext();
+	const { sortable$, sorting$, size$, allRows$, selectedKeys$ } = setTableContext();
 	sortable$.set(sortable);
 	size$.set(size);
 
 	$: sortable$.set(sortable);
 
 	$: [key, direction] = $sorting$ || [];
+
 	$: sorted = orderBy && key ? orderBy(data, key, direction === 'ascending' ? 'asc' : 'desc') : data;
+
+	$: if ($selectedKeys$) {
+		selectedItems = $allRows$.filter((d) => d.selected$.value).map((d) => d.data);
+	}
 </script>
 
 <table class="fui-table">

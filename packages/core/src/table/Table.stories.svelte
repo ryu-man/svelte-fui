@@ -98,13 +98,16 @@
 			schemeMedia.removeEventListener('change', handler);
 		};
 	});
+
+	let selectedItems = [];
+	$: console.log(selectedItems);
 </script>
 
 <Meta title="Components/Table" component={Table} {argTypes} />
 
 <Story id="table" name="Table" args={defaultValues} let:args>
 	<App {theme}>
-		<Table {...args} {data} let:data>
+		<Table {...args} {data} bind:selectedItems let:data>
 			<thead>
 				<Tr header>
 					<TdSelection />
@@ -116,7 +119,7 @@
 			</thead>
 			<tbody>
 				{#each data as item (JSON.stringify(item))}
-					<Tr appearance="none">
+					<Tr appearance="none" data={item}>
 						<TdSelection />
 						<Td class="flex items-center gap-2">
 							<Icon src={item.file.icon} />

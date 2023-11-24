@@ -1,31 +1,36 @@
 <script lang="ts">
+	import { onMount, tick } from 'svelte';
 	import { derived } from 'svelte/store';
 	import { nanoid } from 'nanoid';
 	import { setTableRowContext } from './context';
 	import { classnames } from '../../internal';
 	import { getTableContext } from '../context';
+	import { rowStore } from '../store';
 
-	const id = nanoid();
-
-	export let appearance: 'none' | 'neutral' | 'brand' = 'none';
 	export let header = false;
+	export let key = header ? 'fui-table-header-row-' + nanoid(4) : nanoid();
+	export let data: any = undefined;
+	export let appearance: 'none' | 'neutral' | 'brand' = 'none';
 	let klass = '';
 	export { klass as class };
 
 	const context = setTableRowContext();
-	context.id = id;
+	context.id = key;
 	context.header = header;
 
-	const { selectedRows$, allRows$, size$ } = getTableContext();
-	const isSelected$ = derived(selectedRows$, (ids) => ids.has(id));
+	const { size$, mountRow } = getTableContext();
+	const row$ = rowStore(key, data);
+	const isSelected$ = derived(row$.selected$, (val) => val);
 
 	if (!header) {
-		allRows$.update((array) => array.add(id));
+		onMount(() => mountRow(row$));
 	}
 </script>
 
 <tr class={classnames('fui-table-row', $size$, appearance !== 'none' ? appearance : '', { header, brand: !header && $isSelected$ }, klass)}>
-	<slot />
+	{#await tick() then _}
+		<slot />
+	{/await}
 </tr>
 
 <style lang="postcss">

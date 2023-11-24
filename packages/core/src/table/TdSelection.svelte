@@ -1,22 +1,26 @@
 <script lang="ts">
-	import { derived } from 'svelte/store';
+	import { type Readable, derived } from 'svelte/store';
 	import { getTableRowContext } from './Tr';
 	import { getTableContext } from './context';
+	import type { RowStore } from './store';
 	import { Checkbox } from '../checkbox';
 	import { classnames } from '../internal';
 	import { Radio } from '../radio';
 
-	const { size$, selectedRows$, allRows$ } = getTableContext();
-
+	const { size$, allRows$, selectedKeys$ } = getTableContext();
 	const rowContext = getTableRowContext();
 
-	const checked$ = derived([selectedRows$, allRows$], ([rows, all]) => {
-		if (rowContext.header) {
-			return rows.size === all.size;
-		} else {
-			return rows.has(rowContext.id);
-		}
-	});
+	const row$ = $allRows$.find((d) => d.id === rowContext.id) as RowStore;
+
+	let checked$: Readable<boolean>;
+
+	if (rowContext.header) {
+		checked$ = derived([allRows$, selectedKeys$], ([rows, selected]) => {
+			return selected.length > 0 && rows.length === selected.length;
+		});
+	} else {
+		checked$ = row$.selected$;
+	}
 
 	// export let checked: boolean | 'mixed' = false;
 	export let type: 'checkbox' | 'radio' = 'checkbox';
@@ -27,20 +31,15 @@
 
 		if (rowContext.header) {
 			if (currentTarget.checked) {
-				selectedRows$.set(new Set($allRows$));
+				$allRows$.forEach((d) => d.selected$.set(true));
 			} else {
-				selectedRows$.set(new Set());
+				$allRows$.forEach((d) => d.selected$.set(false));
 			}
 			return;
 		}
 
-		if (currentTarget.checked) {
-			selectedRows$.update((rows) => rows.add(rowContext.id));
-		} else {
-			selectedRows$.update((rows) => {
-				rows.delete(rowContext.id);
-				return rows;
-			});
+		if (row$) {
+			row$.selected$.set(currentTarget.checked);
 		}
 	}
 </script>
