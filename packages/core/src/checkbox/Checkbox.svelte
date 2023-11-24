@@ -41,13 +41,12 @@
 </script>
 
 <span class={classnames('fui-checkbox', { disabled }, klass)} data-checked={checked} on:click={onInputClickHandler} on:keypress={() => {}}>
-	<input class="fui-checkbox-input" type="checkbox" {id} {checked} />
+	<input class="fui-checkbox-input" type="checkbox" {id} {checked} on:change />
 	<div class={classnames('fui-checkbox-indicator', { size, disabled, circular })} aria-hidden="true">
 		{#if checked}
 			<Icon src={CheckmarkFilled} />
 		{/if}
 	</div>
-	<label class={classnames('fui-Label fui-checkbox-label', { size })} for={id}>Checkbox</label>
 </span>
 
 <style lang="postcss">

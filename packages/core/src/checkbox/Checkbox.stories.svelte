@@ -27,8 +27,12 @@
 
 <Story id="input" name="Checkbox" args={{}} let:args>
 	<App {theme}>
-		<div class="flex items-center justify-center w-full h-full">
+		<div class="flex flex-col items-center justify-center w-full h-full">
 			<Checkbox {...args} />
+			<label>
+				<Checkbox {...args} />
+				Hello World!
+			</label>
 		</div>
 	</App>
 </Story>

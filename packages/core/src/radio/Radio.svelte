@@ -1,8 +1,8 @@
 <script lang="ts">
 	import { Label } from '@svelte-fui/core';
 	import { nanoid } from 'nanoid';
-	import { classnames } from '../internal';
 	import { getRadioGroupContext } from './context';
+	import { classnames } from '../internal';
 
 	const { disabled$, required$, value$, name$, layout$ } = getRadioGroupContext();
 
@@ -15,8 +15,6 @@
 	$: _name = $name$ || name;
 	$: position = $layout$ === 'stacked-horizontal' ? 'below' : 'after';
 	$: isVertical = position === 'below';
-
-	$: console.log(position);
 
 	function onClickHandler() {
 		value$.set(value);
@@ -40,9 +38,12 @@
 			><path d="M10 2a8 8 0 1 0 0 16 8 8 0 0 0 0-16Z" fill="currentColor" />
 		</svg>
 	</div>
-	<Label for={id} class={classnames("fui-radio-label", position)}>
-		<slot />
-	</Label>
+
+	{#if $$slots.default}
+		<Label for={id} class={classnames('fui-radio-label', position)}>
+			<slot />
+		</Label>
+	{/if}
 </span>
 
 <style lang="postcss">
