@@ -111,10 +111,10 @@
 			<thead>
 				<Tr header>
 					<TdSelection type="radio" hidden />
-					<Th key={(d) => d.file.desc}>File</Th>
-					<Th key={(d) => d.author}>Author</Th>
-					<Th key={(d) => d.last_updated}>Last updated</Th>
-					<Th key={(d) => d.last_update}>Last update</Th>
+					<Th sortBy={(d) => d.file.desc}>File</Th>
+					<Th sortBy={(d) => d.author}>Author</Th>
+					<Th sortBy={(d) => d.last_updated}>Last updated</Th>
+					<Th sortBy={(d) => d.last_update}>Last update</Th>
 				</Tr>
 			</thead>
 			<tbody>

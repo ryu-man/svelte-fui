@@ -10,32 +10,32 @@
 
 	const { sortable$, sorting$ } = getTableContext();
 
-	export let key: (d: any) => any | undefined = undefined;
+	export let sortBy: ((d: any) => any) | undefined = undefined;
 	export let direction: SortingDirection = 'ascending';
 	let klass = '';
 	export { klass as class };
 
-	const activeSort$ = derived(sorting$, (val) => val && val[0] === key);
+	const activeSort$ = derived(sorting$, (val) => val && val[0] === sortBy);
 
 	const rotate$ = spring(0);
 
-	if (key) {
+	if (sortBy) {
 		sorting$.update((val) => {
 			if (!val) {
-				return [key, direction];
+				return [sortBy, direction];
 			}
 
 			return val;
 		});
 	}
 
-	$: sortable = $sortable$ && key;
+	$: sortable = $sortable$ && sortBy;
 
 	onMount(() =>
 		sorting$.subscribe((val) => {
 			if (val) {
 				const [_key] = val;
-				if (key === _key) {
+				if (sortBy === _key) {
 					if (direction === 'ascending') {
 						rotate$.set(0);
 					} else {
@@ -47,11 +47,11 @@
 	);
 
 	function onClickHandler() {
-		if (!$sortable$ || !key) return;
+		if (!$sortable$ || !sortBy) return;
 
 		// rotate$.update((val) => (d = Math.abs(val - 1)));
 
-		if (key) {
+		if (sortBy) {
 			// If the current Th is active sorting then we would switch the direct
 			// Else we would activate the sorting
 			if ($activeSort$) {
@@ -63,7 +63,7 @@
 			}
 
 			// Update sorting infos
-			sorting$.set([key, direction]);
+			sorting$.set([sortBy, direction]);
 		}
 	}
 </script>
