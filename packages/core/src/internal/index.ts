@@ -1,3 +1,6 @@
+import { type ClassValue, clsx } from 'clsx';
+import { twMerge } from 'tailwind-merge';
+
 import type { SvelteComponent } from "svelte";
 import type { Options as FocusTrapOptions } from "focus-trap";
 
@@ -211,32 +214,6 @@ export function createEventForwarder(component: SvelteComponent, exclude: string
 	};
 }
 
-export type Classname = string | Record<string, boolean | string | undefined>
-export function classnames(...args: Classname[]): string {
-  return args
-    .filter(arg => arg)
-    .map(arg => {
-      if (typeof arg === 'string') {
-        return arg.trim()
-      }
-      return Array.from(Object.entries(arg))
-        .map(([key, value]) => {
-          if (key && value) {
-            if (typeof value === 'boolean') {
-              return key
-            }
-
-            if (typeof value === 'string') {
-              return `${key}-${value?.trim()}`
-            }
-          }
-          return ''
-        })
-        .filter(arg => arg)
-        .join(' ')
-        .trim()
-    })
-    .filter(o => o)
-    .join(' ')
-    .trim()
+export function classnames(...args: ClassValue[]): string {
+	return twMerge(clsx(...args));
 }

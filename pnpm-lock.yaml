@@ -288,6 +288,9 @@ importers:
       '@svelte-fui/themes':
         specifier: ^0.1.0
         version: link:../themes
+      clsx:
+        specifier: ^2.0.0
+        version: 2.0.0
       focus-trap:
         specifier: ^7.4.0
         version: 7.4.0
@@ -303,6 +306,9 @@ importers:
       tabbable:
         specifier: ^6.1.1
         version: 6.1.1
+      tailwind-merge:
+        specifier: ^2.0.0
+        version: 2.0.0
     devDependencies:
       '@sveltejs/adapter-auto':
         specifier: ^2.0.0
@@ -1859,6 +1865,13 @@ packages:
     dependencies:
       regenerator-runtime: 0.13.11
     dev: true
+
+  /@babel/runtime@7.23.4:
+    resolution: {integrity: sha512-2Yv65nlWnWlSpe3fXEyX5i7fx5kIKo4Qbcj+hMO0odwaneFjfXw5fdum+4yL20O0QiaHpia0cYQ9xpNMqrBwHg==}
+    engines: {node: '>=6.9.0'}
+    dependencies:
+      regenerator-runtime: 0.14.0
+    dev: false
 
   /@babel/template@7.21.9:
     resolution: {integrity: sha512-MK0X5k8NKOuWRamiEfc3KEJiHMTkGZNUjzMipqCGDDc6ijRl/B7RGSKVGncu4Ro/HdyzzY6cmoXuKI2Gffk7vQ==}
@@ -5022,6 +5035,11 @@ packages:
       kind-of: 6.0.3
       shallow-clone: 3.0.1
     dev: true
+
+  /clsx@2.0.0:
+    resolution: {integrity: sha512-rQ1+kcj+ttHG0MKVGBUXwayCCF1oh39BF5COIpRzuCEv8Mwjv0XucrI2ExNTOn9IlLifGClWQcU9BrZORvtw6Q==}
+    engines: {node: '>=6'}
+    dev: false
 
   /color-convert@1.9.3:
     resolution: {integrity: sha512-QfAUtd+vFdAtFQcC8CCyYt1fYWxSqAiK2cSD6zDB8N3cpsEBAvRxp9zOGg6G/SHHJYAT88/az/IuDGALsNVbGg==}
@@ -9056,6 +9074,10 @@ packages:
     resolution: {integrity: sha512-kY1AZVr2Ra+t+piVaJ4gxaFaReZVH40AKNo7UCX6W+dEwBo/2oZJzqfuN1qLq1oL45o56cPaTXELwrTh8Fpggg==}
     dev: true
 
+  /regenerator-runtime@0.14.0:
+    resolution: {integrity: sha512-srw17NI0TUWHuGa5CFGGmhfNIeja30WMBfbslPNhf6JrqQlLN5gcrvig1oqPxiVaXb0oW0XRKtH6Nngs5lKCIA==}
+    dev: false
+
   /regenerator-transform@0.15.1:
     resolution: {integrity: sha512-knzmNAcuyxV+gQCufkYcvOqX/qIIfHLv0u5x79kRxuGojfYVky1f15TzZEu2Avte8QGepvUNTnLskf8E6X6Vyg==}
     dependencies:
@@ -9920,6 +9942,12 @@ packages:
 
   /tabbable@6.1.1:
     resolution: {integrity: sha512-4kl5w+nCB44EVRdO0g/UGoOp3vlwgycUVtkk/7DPyeLZUCuNFFKCFG6/t/DgHLrUPHjrZg6s5tNm+56Q2B0xyg==}
+
+  /tailwind-merge@2.0.0:
+    resolution: {integrity: sha512-WO8qghn9yhsldLSg80au+3/gY9E4hFxIvQ3qOmlpXnqpDKoMruKfi/56BbbMg6fHTQJ9QD3cc79PoWqlaQE4rw==}
+    dependencies:
+      '@babel/runtime': 7.23.4
+    dev: false
 
   /tailwindcss@3.3.1(postcss@8.4.23):
     resolution: {integrity: sha512-Vkiouc41d4CEq0ujXl6oiGFQ7bA3WEhUZdTgXAhtKxSy49OmKs8rEfQmupsfF0IGW8fv2iQkp1EVUuapCFrZ9g==}
