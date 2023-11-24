@@ -27,7 +27,7 @@
 	// export let checked: boolean | 'mixed' = false;
 	export let type: 'checkbox' | 'radio' = 'checkbox';
 	export let subtle = false;
-	export let hidden = false;
+	export let hidden = rowContext.header;
 
 	function onCheckboxChange(ev: Event) {
 		const currentTarget = ev.currentTarget as HTMLInputElement;

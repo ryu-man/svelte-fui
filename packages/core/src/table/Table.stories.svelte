@@ -110,7 +110,7 @@
 		<Table {...args} {data} bind:selectedItems let:data>
 			<thead>
 				<Tr header>
-					<TdSelection type="radio" hidden />
+					<TdSelection type="radio" />
 					<Th sortBy={(d) => d.file.desc}>File</Th>
 					<Th sortBy={(d) => d.author}>Author</Th>
 					<Th sortBy={(d) => d.last_updated}>Last updated</Th>
