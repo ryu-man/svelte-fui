@@ -1,16 +1,18 @@
 <script lang="ts">
-	import { Meta, Story } from '@storybook/addon-svelte-csf';
-	import type { ArgTypes } from '@storybook/svelte';
+	import { onMount } from 'svelte';
 	import { App, Button, Card, CardFooter, CardHeader, CardPreview, Icon } from '@svelte-fui/core';
 	import { ArrowReplyRegular, ShareRegular } from '@svelte-fui/icons';
 	import { webDarkTheme, webLightTheme } from '@svelte-fui/themes';
-	import { onMount } from 'svelte';
+	import { Meta, Story } from '@storybook/addon-svelte-csf';
+	import type { ArgTypes } from '@storybook/svelte';
 
 	const argDefaults = {
-		disabled: false,
-		required: false,
+		selected: false,
+		interactive: false,
+		alternative: false,
 		size: 'md',
-		weight: 'regular'
+		weight: 'regular',
+		appearance: 'filled'
 	};
 
 	const argTypes = {
@@ -22,7 +24,14 @@
 				type: 'select'
 			}
 		},
-		required: {
+		interactive: {
+			type: 'boolean',
+			defaultValue: false,
+			control: {
+				type: 'boolean'
+			}
+		},
+		alternative: {
 			type: 'boolean',
 			defaultValue: false,
 			control: {
@@ -37,10 +46,10 @@
 				type: 'select'
 			}
 		},
-		weight: {
+		orientation: {
 			type: 'string',
-			defaultValue: 'regular',
-			options: ['regular', 'semibold'],
+			defaultValue: 'vertical',
+			options: ['vertical', 'horizontal'],
 			control: {
 				type: 'select'
 			}
@@ -68,9 +77,9 @@
 
 <Meta title="Components/Card" component={Card} />
 
-<Story id="fui_card" name="Card" let:args>
+<Story id="fui_card" name="Card" args={argDefaults} {argTypes} let:args>
 	<App {theme}>
-		<div class="flex flex-col gap-4 justify-center items-center w-full h-full">
+		<div class="flex h-full w-full flex-col items-center justify-center gap-4">
 			<Card {...args} class="w-[720px] max-w-[100%]">
 				<CardHeader>
 					<img
