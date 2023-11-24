@@ -1,6 +1,5 @@
 <script lang="ts">
 	import { classnames } from '../internal';
-	import { setCardContext } from './context';
 
 	// const focusMap = {
 	// 	off: undefined,
@@ -12,7 +11,7 @@
 	export let appearance: 'filled' | 'subtle' | 'outline' | 'filled-alternative' = 'filled';
 
 	export let orientation: 'horizontal' | 'vertical' = 'vertical';
-	export let size: 'sm' | 'md' | 'lg' | undefined = 'md';
+	export let size: 'sm' | 'md' | 'lg' = 'md';
 	export let interactive = false;
 	export let alternative = false;
 	export let selected = false;
@@ -24,13 +23,13 @@
 	// $: tabBehaviour = interactive ? 'no-tab' : focusMap[focusMode];
 </script>
 
-<div class={classnames('fui-card', { orientation, size, interactive, alternative, selected }, appearance, klass)} {style} role="group">
+<div class={classnames('fui-card', { interactive, alternative, selected }, appearance, orientation,size, klass)} {style} role="group">
 	<slot />
 </div>
 
 <style lang="postcss">
 	.fui-card {
-		@apply relative box-border flex overflow-hidden rounded-md p-m shadow-4;
+		@apply p-m shadow-4 relative box-border flex overflow-hidden rounded-md;
 
 		--fui-card-border-radius: theme(borderRadius.md);
 		--fui-card-size: theme(spacing.m);
@@ -42,26 +41,26 @@
 
 		/* Border setting using after pseudo element to allow CardPreview to render behind it. */
 		&::after {
-			@apply pointer-events-none absolute inset-0 border-thin border-solid;
+			@apply border-thin pointer-events-none absolute inset-0 border-solid;
 
 			content: '';
 			border-radius: inherit;
 			border-color: var(--fui-colorTransparentStroke);
 			/* pointerEvents: none;
 
-      ...shorthands.borderStyle('solid');
-      ...shorthands.borderWidth(tokens.strokeWidthThin);
-      ...shorthands.borderRadius(`var(${cardCSSVars.cardBorderRadiusVar})`); */
+			...shorthands.borderStyle('solid');
+			...shorthands.borderWidth(tokens.strokeWidthThin);
+			...shorthands.borderRadius(`var(${cardCSSVars.cardBorderRadiusVar})`); */
 		}
 
 		/* Prevents CardHeader and CardFooter from shrinking. */
-		> :global(.fui-card-header),
-		> :global(.fui-card-footer) {
+		& > :global(.fui-card-header),
+		& > :global(.fui-card-footer) {
 			flex-shrink: 0;
 		}
 
 		/* Allows non-card components to grow to fill the available space. */
-		> :global(:not(.fui-card-preview):not(.fui-card-header):not(.fui-card-footer)) {
+		& > :global(:not(.fui-card-preview):not(.fui-card-header):not(.fui-card-footer)) {
 			flex-grow: 1;
 		}
 
@@ -69,7 +68,7 @@
 			outline-width: theme(borderWidth.thin);
 		}
 
-		&.orientation-horizontal {
+		&.horizontal {
 			flex-direction: row;
 			align-items: center;
 
@@ -98,7 +97,7 @@
 			}
 		}
 
-		&.orientation-vertical {
+		&.vertical {
 			@apply flex-col;
 
 			/* Remove lateral padding to keep CardPreview content flush with Card's borders. */
@@ -182,7 +181,7 @@
 				}
 
 				&.interactive {
-					@apply cursor-pointer shadow-4;
+					@apply shadow-4 cursor-pointer;
 					background-color: var(--fui-colorNeutralBackground2);
 
 					&::after {
