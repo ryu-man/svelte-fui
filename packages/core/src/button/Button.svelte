@@ -43,9 +43,11 @@
 	role={href && !disabled ? 'button' : undefined}
 	href={href && !disabled ? href : undefined}
 	class={classnames('fds-button', appearance, shape, size, { icon: !!icon }, klass)}
+	type="button"
 	{disabled}
 	{...$$restProps}
 	on:click
+	on:dblclick
 	on:keypress
 	on:mouseenter
 	on:mouseleave
