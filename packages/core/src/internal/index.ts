@@ -1,5 +1,5 @@
 import { type ClassValue, clsx } from 'clsx';
-import { twMerge } from 'tailwind-merge';
+import { extendTailwindMerge  } from 'tailwind-merge';
 
 import type { SvelteComponent } from "svelte";
 import type { Options as FocusTrapOptions } from "focus-trap";
@@ -8,6 +8,8 @@ import { bubble, listen } from "svelte/internal";
 
 import { tabbable } from "tabbable";
 import { createFocusTrap } from "focus-trap";
+
+import { tailwindcssConfig } from '../../../tailwindcss/src'
 
 // export { default as FlyoutSurface } from "./Flyout/FlyoutSurface.svelte";
 // export { default as TooltipSurface } from "./Tooltip/TooltipSurface.svelte";
@@ -214,6 +216,15 @@ export function createEventForwarder(component: SvelteComponent, exclude: string
 	};
 }
 
+
+const custom_tw_merge = extendTailwindMerge({
+	  extend:{
+		theme: {
+			spacing: Object.keys(tailwindcssConfig.theme.extend.spacing)
+		}
+	  }
+})
+
 export function classnames(...args: ClassValue[]): string {
-	return twMerge(clsx(...args));
+	return custom_tw_merge(clsx(...args));
 }
