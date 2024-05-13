@@ -1,5 +1,5 @@
 <script lang="ts">
-	import SpinnerDefaultIcon from './SpinnerDefaultIcon.svelte';
+	import SpinnerDefaultIcon from './spinner-default-icon.svelte';
 	import { classnames } from '../internal';
 	import { Label } from '../label';
 

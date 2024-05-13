@@ -1,14 +1,14 @@
 <script lang="ts">
-	import { Meta, Story } from '@storybook/addon-svelte-csf';
-	import type { ArgTypes } from '@storybook/svelte';
+	import { onMount } from 'svelte';
 	import { App, Icon } from '@svelte-fui/core';
 	import { AddRegular } from '@svelte-fui/icons';
 	import { webDarkTheme, webLightTheme } from '@svelte-fui/themes';
-	import { onMount } from 'svelte';
-	import Accordion from './Accordion.svelte';
-	import AccordionHeader from './AccordionHeader.svelte';
-	import AccordionItem from './AccordionItem.svelte';
-	import AccordionPanel from './AccordionPanel.svelte';
+	import { Meta, Story } from '@storybook/addon-svelte-csf';
+	import type { ArgTypes } from '@storybook/svelte';
+	import AccordionHeader from './accordion-header.svelte';
+	import AccordionItem from './accordion-item.svelte';
+	import AccordionPanel from './accordion-panel.svelte';
+	import Accordion from './accordion-root.svelte';
 
 	let theme = webLightTheme;
 

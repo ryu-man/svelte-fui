@@ -1,7 +1,7 @@
 <script lang="ts">
-	import { Icon, getFluentAppContext } from '@svelte-fui/core';
+	import { Icon, getFluentRootContext } from '@svelte-fui/core';
 	import Portal from 'svelte-portal/src/Portal.svelte';
-	import Listbox from './Listbox.svelte';
+	import Listbox from './listbox.svelte';
 	import { setComboboxContext } from './context';
 	import { ChevronDownRegular } from '../icons';
 	import { classnames } from '../internal';
@@ -24,7 +24,7 @@
 
 	selectedId$.set(value);
 
-	const { appElement$ } = getFluentAppContext();
+	const { appElement$ } = getFluentRootContext();
 
 	$: value = $selectedId$;
 

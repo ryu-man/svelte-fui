@@ -1,2 +1,2 @@
-export { default as Field } from './Field.svelte';
-export { default as ValidationMessage } from './ValidationMessage.svelte'
+export { default as Field } from './field.svelte';
+export { default as ValidationMessage } from './field-message.svelte'

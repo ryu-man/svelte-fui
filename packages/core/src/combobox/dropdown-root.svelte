@@ -1,11 +1,11 @@
 <script lang="ts">
-	import { getFluentAppContext } from '@svelte-fui/core';
+	import { getFluentRootContext } from '@svelte-fui/core';
 	import Portal from 'svelte-portal/src/Portal.svelte';
 	import { classnames } from '../internal';
-	import Listbox from './Listbox.svelte';
+	import Listbox from './listbox.svelte';
 	import { setComboboxContext } from './context';
 
-	const { appElement$ } = getFluentAppContext();
+	const { appElement$ } = getFluentRootContext();
 
 	export let appearance: 'outline' | 'underline' | 'filled-darker' | 'filled-lighter' = 'outline';
 	export let id: string | undefined = undefined;

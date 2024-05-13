@@ -1,5 +1,5 @@
-export { default as Combobox } from './Combobox.svelte';
-export { default as ComboboxListbox } from './Listbox.svelte';
-export { default as Listbox } from './Listbox.svelte';
-export { default as Option } from './Option.svelte';
-export { default as Dropdown } from './Dropdown.svelte';
+export { default as Combobox } from './combobox-root.svelte';
+export { default as ComboboxListbox } from './listbox.svelte';
+export { default as Listbox } from './listbox.svelte';
+export { default as Option } from './combobox-option.svelte';
+export { default as Dropdown } from './dropdown-root.svelte';

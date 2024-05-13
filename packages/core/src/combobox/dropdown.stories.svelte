@@ -5,8 +5,8 @@
 	import { CalendarMonthFilled, CalendarMonthRegular } from '@svelte-fui/icons';
 	import { webDarkTheme, webLightTheme } from '@svelte-fui/themes';
 	import { onMount } from 'svelte';
-	import Dropdown from './Dropdown.svelte';
-	import Option from './Option.svelte';
+	import Dropdown from './dropdown-root.svelte';
+	import Option from './combobox-option.svelte';
 
 	const defaultValues = {
 		size: 'md',

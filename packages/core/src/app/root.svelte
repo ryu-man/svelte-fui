@@ -2,20 +2,21 @@
 	import { createEventDispatcher, onMount } from 'svelte';
 	import type { Theme } from '@svelte-fui/theme';
 	import { webLightTheme } from '@svelte-fui/themes';
-	import './app.css';
-	import { setFluentAppContext } from './context';
+	import { setFluentRootContext } from './context';
+	import './root.css';
 	import { applyTheme } from './utils';
 
 	const dispatch = createEventDispatcher();
 
 	export let theme: Theme = webLightTheme;
 
-	const { appElement$ } = setFluentAppContext();
+	const { appElement$ } = setFluentRootContext();
 
 	function theming(node: HTMLDivElement, theme: Theme) {
-		const nodeHashedClassName = node.classList.item(node.classList.length - 1);
+		const node_hashed_classname = node.classList.item(node.classList.length - 1);
+
 		const tag = document.createElement('style');
-		tag.setAttribute('id', nodeHashedClassName);
+		tag.setAttribute('id', node_hashed_classname);
 
 		node.prepend(tag);
 
@@ -29,7 +30,7 @@
 	}
 </script>
 
-<div class="fui-app" bind:this={$appElement$} use:theming={theme}>
+<div class="fui-root" bind:this={$appElement$} use:theming={theme}>
 	<slot />
 </div>
 
@@ -38,8 +39,8 @@
 		width: 100%;
 		height: 100%;
 	}
-	.fui-app {
-		@apply body-1 relative bg-neutral-background-1 text-left text-neutral-foreground-1;
+	.fui-root {
+		@apply body-1 bg-neutral-background-1 text-neutral-foreground-1 relative text-left;
 
 		width: 100%;
 		height: 100%;

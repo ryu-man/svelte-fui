@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { classnames } from '@svelte-fui/core/internal';
-	import Button from '../Button.svelte';
+	import Button from '../button.svelte';
 
 	export let shape: 'rounded' | 'circular' | 'square' = 'rounded';
 	export let appearance: 'subtle' | 'outline' | 'secondary' | 'primary' | 'transparent' | undefined = 'secondary';

@@ -29,7 +29,7 @@
 	<App {theme}>
 		<div class="flex items-center justify-center w-full h-full">
 			<Combobox {...args}>
-				<Option>Arabic</Option>
+				<Option id="ar">Arabic</Option>
 				<Option>English</Option>
 				<Option>Italian</Option>
 				<Option disabled>Frensh</Option>

@@ -6,11 +6,11 @@
 	import { webDarkTheme, webLightTheme } from '@svelte-fui/themes';
 	import { Meta, Story } from '@storybook/addon-svelte-csf';
 	import type { ArgTypes } from '@storybook/svelte';
-	import Table from './Table.svelte';
-	import Td from './Td.svelte';
-	import TdSelection from './TdSelection.svelte';
-	import Th from './Th.svelte';
-	import Tr from './Tr/Tr.svelte';
+	import Table from './table-root.svelte';
+	import Td from './td.svelte';
+	import TdSelection from './td-selection.svelte';
+	import Th from './th.svelte';
+	import Tr from './tr/tr.svelte';
 
 	const defaultValues = {
 		size: 'md',

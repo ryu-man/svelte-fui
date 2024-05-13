@@ -1,10 +1,10 @@
 <script lang="ts">
 	import Portal from 'svelte-portal/src/Portal.svelte';
 	import { createEventDispatcher, onMount } from 'svelte';
-	import { getFluentAppContext } from '../app';
+	import { getFluentRootContext } from '../app';
 
 	const dispatch = createEventDispatcher();
-	const { appElement$ } = getFluentAppContext();
+	const { appElement$ } = getFluentRootContext();
 
 	export let open = false;
 	export let type: 'modal' | 'non-modal' | 'alert' = 'modal';

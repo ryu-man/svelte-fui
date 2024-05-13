@@ -1,14 +1,14 @@
 <script lang="ts">
-	import { Meta, Story } from '@storybook/addon-svelte-csf';
-	import type { ArgTypes } from '@storybook/svelte';
+	import { onMount } from 'svelte';
 	import { App, Button } from '@svelte-fui/core';
 	import { webDarkTheme, webLightTheme } from '@svelte-fui/themes';
-	import { onMount } from 'svelte';
-	import Dialog from './Dialog.svelte';
-	import DialogActions from './DialogActions.svelte';
-	import DialogBody from './DialogBody.svelte';
-	import DialogContent from './DialogContent.svelte';
-	import DialogHeader from './DialogHeader.svelte';
+	import { Meta, Story } from '@storybook/addon-svelte-csf';
+	import type { ArgTypes } from '@storybook/svelte';
+	import DialogActions from './dialog-actions.svelte';
+	import DialogBody from './dialog-body.svelte';
+	import DialogContent from './dialog-content.svelte';
+	import DialogHeader from './dialog-header.svelte';
+	import Dialog from './dialog-root.svelte';
 
 	const defaultValues = {
 		open: false,

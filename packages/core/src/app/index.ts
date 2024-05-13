@@ -1,2 +1,2 @@
-export { default as App} from './App.svelte' 
+export { default as App} from './root.svelte' 
 export * from './context'

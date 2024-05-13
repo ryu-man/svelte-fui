@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { type Readable, derived } from 'svelte/store';
-	import { getTableRowContext } from './Tr';
+	import { getTableRowContext } from './tr';
 	import { getTableContext } from './context';
 	import type { RowStore } from './store';
 	import { Checkbox } from '../checkbox';
