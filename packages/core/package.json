@@ -1,6 +1,6 @@
 {
   "name": "@svelte-fui/core",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "sideEffects": false,
   "type": "module",
   "description": "An implementation of Microsoft Fluent UI v9 for Svelte framework",
