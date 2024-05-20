@@ -1,10 +1,9 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
-	import { App } from '@svelte-fui/core';
+	import { App, Spinner } from '@svelte-fui/core';
 	import { webDarkTheme, webLightTheme } from '@svelte-fui/themes';
 	import { Meta, Story } from '@storybook/addon-svelte-csf';
 	import type { ArgTypes } from '@storybook/svelte';
-	import Spinner from './Spinner.svelte';
 
 	const default_values = {
 		size: 'md',
