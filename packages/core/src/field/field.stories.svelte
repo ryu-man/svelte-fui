@@ -1,16 +1,14 @@
 <script lang="ts">
-	import { Meta, Story } from '@storybook/addon-svelte-csf';
-	import type { ArgTypes } from '@storybook/svelte';
-	import { App, Input } from '@svelte-fui/core';
+	import { onMount } from 'svelte';
+	import { App, Field, FieldMessage, Input } from '@svelte-fui/core';
 	import { AddCircleFilled } from '@svelte-fui/icons';
 	import { webDarkTheme, webLightTheme } from '@svelte-fui/themes';
-	import { onMount } from 'svelte';
-	import Field from './Field.svelte';
-	import ValidationMessage from './ValidationMessage.svelte';
+	import { Meta, Story } from '@storybook/addon-svelte-csf';
+	import type { ArgTypes } from '@storybook/svelte';
 
 	const defaultValues = {
 		size: 'md',
-		orientation: 'vertical',
+		orientation: 'vertical'
 	};
 
 	const argTypes = {
@@ -61,26 +59,26 @@
 			<div class="flex w-[90%] flex-col gap-4">
 				<Field {...args} label="Example Field" state="error">
 					<Input />
-					<ValidationMessage>This an error message</ValidationMessage>
+					<FieldMessage>This an error message</FieldMessage>
 				</Field>
 
 				<Field {...args} label="Example Field" state="warning">
 					<Input />
-					<ValidationMessage>This a warning message</ValidationMessage>
+					<FieldMessage>This a warning message</FieldMessage>
 				</Field>
 
 				<Field {...args} label="Example Field" state="success">
 					<Input />
-					<ValidationMessage>This a success message</ValidationMessage>
+					<FieldMessage>This a success message</FieldMessage>
 				</Field>
 
 				<Field {...args} label="Example Field" state="none">
 					<Input />
-					<ValidationMessage>This a simple message</ValidationMessage>
+					<FieldMessage>This a simple message</FieldMessage>
 				</Field>
 				<Field {...args} label="Example Field" state="none">
 					<Input />
-					<ValidationMessage icon={AddCircleFilled}>This a simple message</ValidationMessage>
+					<FieldMessage icon={AddCircleFilled}>This a simple message</FieldMessage>
 				</Field>
 			</div>
 		</div>
