@@ -34,13 +34,13 @@
 	export let required = false;
 
 	// const forwardEvents = createEventForwarder(get_current_component());
-	function onInputClickHandler(e: Event) {
+	function onclick(e: Event) {
 		if (disabled) return;
 		checked = !checked;
 	}
 </script>
 
-<span class={classnames('fui-checkbox', { disabled }, klass)} data-checked={checked} on:click={onInputClickHandler} on:keypress={() => {}}>
+<span class={classnames('fui-checkbox', { disabled }, klass)} data-checked={checked} on:click={onclick} on:keypress={() => {}}>
 	<input class="fui-checkbox-input" type="checkbox" {id} {checked} on:change />
 	<div class={classnames('fui-checkbox-indicator', { size, disabled, circular })} aria-hidden="true">
 		{#if checked}

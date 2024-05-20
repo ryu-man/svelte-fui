@@ -6,7 +6,7 @@
 	import type { ArgTypes } from '@storybook/svelte';
 	import Spinner from './Spinner.svelte';
 
-	const defaultValues = {
+	const default_values = {
 		size: 'md',
 		appearance: 'primary',
 		vertical: false,
@@ -14,7 +14,7 @@
 		delay: 0
 	};
 
-	const argTypes = {
+	const arg_types = {
 		size: {
 			type: 'string',
 			options: ['xt', 'tn', 'xs', 'sm', 'md', 'lg', 'xl', 'hg'],
@@ -56,14 +56,12 @@
 	});
 </script>
 
-<Meta title="Components/Spinner" component={Spinner} {argTypes} />
+<Meta title="Components/Spinner" component={Spinner} argTypes={arg_types} />
 
-<Story id="spinner" name="Spinner" args={defaultValues} let:args>
+<Story id="spinner" name="Spinner" args={default_values} let:args>
 	<App {theme}>
 		<div class="flex h-full w-full flex-col items-center justify-center gap-4">
-			<Spinner {...args} >
-				Loding Data...
-			</Spinner>
+			<Spinner {...args}>Loding Data...</Spinner>
 		</div>
 	</App>
 </Story>

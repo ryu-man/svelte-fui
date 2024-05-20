@@ -19,7 +19,7 @@
 	let element: HTMLDivElement;
 
 	const { selectedId$, selectedValue$ } = setComboboxContext({
-		onOptionClick
+		onOptionClick: onclick_option
 	});
 
 	selectedId$.set(value);
@@ -28,7 +28,7 @@
 
 	$: value = $selectedId$;
 
-	function onClickHandler(e: Event) {
+	function onclick(e: Event) {
 		if (disabled) return;
 		collapsed = !collapsed;
 		// request focus on the input element when the list is opened
@@ -38,12 +38,12 @@
 		}
 	}
 
-	function onOptionClick({ id, value, selected }) {
+	function onclick_option({ id, value, selected }) {
 		collapsed = true;
 	}
 </script>
 
-<div bind:this={element} class={classnames('fui-combobox', appearance, size, { disabled })} on:click={onClickHandler} on:keypress={() => {}}>
+<div bind:this={element} class={classnames('fui-combobox', appearance, size, { disabled })} on:click={onclick} on:keypress={() => {}}>
 	<input
 		role="combobox"
 		aria-controls=""

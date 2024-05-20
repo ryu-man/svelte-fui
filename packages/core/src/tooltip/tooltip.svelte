@@ -1,7 +1,7 @@
 <script lang="ts">
-	import { nanoid } from 'nanoid';
 	import { createEventDispatcher } from 'svelte';
 	import { fly } from 'svelte/transition';
+	import { nanoid } from 'nanoid';
 	import { classnames } from '../internal';
 
 	type Relationship = 'label' | 'description' | 'inaccessible' | undefined;
@@ -28,15 +28,15 @@
 	export let relationship: Relationship = 'label';
 	export let id: string | undefined = nanoid();
 
-	let tooltipContentElement: HTMLDivElement;
+	let tooltip_content_element: HTMLDivElement;
 
-	$: transitionDirection = position === 'below' ? -1 : 1;
+	$: transition_direction = position === 'below' ? -1 : 1;
 
-	function setRelationship(node: HTMLDivElement, relationship: Relationship) {
+	function set_relationship(node: HTMLDivElement, relationship: Relationship) {
 		const child = node.querySelectorAll('*:not(.fui-tooltip-content)')[0];
 		console.log(child);
 
-		if(!child) {
+		if (!child) {
 			return;
 		}
 
@@ -59,31 +59,26 @@
 		}
 	}
 
-	function onMouseEnterHandler(e: MouseEvent) {
+	function onmouseenter(e: MouseEvent) {
 		visible = true;
 		dispatch('visible-change', visible);
 	}
 
-	function onMouseLeaveHandler(e: MouseEvent) {
+	function onmouseleave(e: MouseEvent) {
 		visible = false;
 		dispatch('visible-change', visible);
 	}
 </script>
 
-<div
-	class={classnames('fui-toolip-container')}
-	use:setRelationship={relationship}
-	on:mouseenter={onMouseEnterHandler}
-	on:mouseleave={onMouseLeaveHandler}
->
+<div class={classnames('fui-toolip-container')} use:set_relationship={relationship} on:mouseenter={onmouseenter} on:mouseleave={onmouseleave}>
 	<slot />
 
 	<div
 		class={classnames('fui-tooltip-content', position, { inverted: appearance === 'inverted', visible })}
 		role="tooltip"
 		{id}
-		bind:this={tooltipContentElement}
-		transition:fly={{ duration: 100, y: 4 * transitionDirection }}
+		bind:this={tooltip_content_element}
+		transition:fly={{ duration: 100, y: 4 * transition_direction }}
 	>
 		<slot name="content">
 			{content}
@@ -96,7 +91,7 @@
 		@apply relative inline-flex;
 
 		.fui-tooltip-content {
-			@apply pointer-events-none absolute box-border hidden cursor-default whitespace-nowrap rounded-md font-base text-base-200 leading-base-200;
+			@apply font-base text-base-200 leading-base-200 pointer-events-none absolute box-border hidden cursor-default whitespace-nowrap rounded-md;
 
 			left: 50%;
 			max-width: 240px;

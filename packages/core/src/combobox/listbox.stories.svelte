@@ -6,7 +6,7 @@
 	import { setComboboxContext } from './context';
 
 	const { selectedId$, selectedValue$ } = setComboboxContext({
-		onOptionClick
+		onOptionClick: onclick_option
 	});
 
 	let theme = webLightTheme;
@@ -27,7 +27,7 @@
 		};
 	});
 
-	function onOptionClick({ id, value, selected }) {
+	function onclick_option({ id, value, selected }) {
 		console.log(id);
 	}
 </script>

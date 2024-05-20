@@ -17,7 +17,7 @@
 	const rotate$ = tweened(+$active$, { duration: 100 });
 	$: rotate$.set(+$active$);
 
-	function dispatchTriggerEventHandler(e: Event) {
+	function onclick(e: Event) {
 		if (disabled) return;
 
 		const currentTarget = e.currentTarget as HTMLDivElement;
@@ -33,7 +33,7 @@
 		class={classnames('fui-accordion-header-button', position, size, { icon, inline }, klass)}
 		aria-expanded="false"
 		type="button"
-		on:click={dispatchTriggerEventHandler}
+		on:click={onclick}
 		on:keyup={() => {}}
 		on:click
 	>

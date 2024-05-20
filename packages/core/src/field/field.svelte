@@ -12,7 +12,7 @@
 	export let validationMessage = '';
 	export let state: State = validationMessage ? 'error' : 'none';
 
-	const validationMessageIcons = {
+	const validation_message_icons = {
 		error: ErrorCircleFilled,
 		warning: WarningFilled,
 		success: CheckmarkCircleFilled,
@@ -22,9 +22,9 @@
 	const sharedContext$ = setSharedContext({ input: { invalid: state === 'error', size }, label: { size } });
 	$: sharedContext$.set({ input: { invalid: state === 'error', size }, label: { size } });
 
-	const { icon$, state$ } = setFieldContext({ state, icon: validationMessageIcons[state || 'none'] });
+	const { icon$, state$ } = setFieldContext({ state, icon: validation_message_icons[state || 'none'] });
 
-	$: icon$.set(validationMessageIcons[state || 'none']);
+	$: icon$.set(validation_message_icons[state || 'none']);
 	$: state$.set(state);
 </script>
 

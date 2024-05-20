@@ -1,6 +1,6 @@
 <script lang="ts">
-	import { autoPlacement, computePosition } from '@floating-ui/dom';
 	import { tick } from 'svelte';
+	import { autoPlacement, computePosition } from '@floating-ui/dom';
 	import { classnames } from '../internal';
 
 	export let top = '0px';
@@ -15,7 +15,7 @@
 	let klass = '';
 	export { klass as class };
 
-	function computePositionAction(node: HTMLDivElement, { collapsed = false } = {}) {
+	function compute_position_action(node: HTMLDivElement, { collapsed = false } = {}) {
 		if (!collapsed) {
 			tick().then(calculate);
 		}
@@ -44,33 +44,33 @@
 		}
 	}
 
-	function clickOutsideAction(node: HTMLDivElement, eventHandler = (e: Event) => {}) {
-		const clickHandler = (e: Event) => {
+	function click_outside_action(node: HTMLDivElement, eventHandler = (e: Event) => {}) {
+		const onclick = (e: Event) => {
 			if (!reference.contains(e.target) && !node.contains(e.target)) {
 				eventHandler(e);
 			}
 		};
-		document.addEventListener('click', clickHandler);
+		document.addEventListener('click', onclick);
 
 		return {
 			destroy() {
-				document.removeEventListener('click', clickHandler);
+				document.removeEventListener('click', onclick);
 			}
 		};
 	}
 
-	function clickOutsideHandler(e: Event) {
+	function onclick_outside(e: Event) {
 		collapsed = true;
 	}
 </script>
 
 <div
-	use:clickOutsideAction={clickOutsideHandler}
+	use:click_outside_action={onclick_outside}
+	use:compute_position_action={{ collapsed }}
 	{id}
 	role="listbox"
 	class={classnames('fui-listbox', { collapsed }, klass)}
 	style:width
-	use:computePositionAction={{ collapsed }}
 >
 	<div class="flex flex-col">
 		<slot />

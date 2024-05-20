@@ -8,13 +8,13 @@
 	import Dropdown from './dropdown-root.svelte';
 	import Option from './combobox-option.svelte';
 
-	const defaultValues = {
+	const default_values = {
 		size: 'md',
 		appearance: 'outline',
 		shape: 'rounded'
 	};
 
-	const argTypes = {
+	const arg_types = {
 		size: {
 			type: 'string',
 			options: ['sm', 'md', 'lg'],
@@ -58,9 +58,9 @@
 	});
 </script>
 
-<Meta title="Components/Dropdown" component={Dropdown} {argTypes} />
+<Meta title="Components/Dropdown" component={Dropdown} argTypes={arg_types} />
 
-<Story id="dropodown" name="Dropdown" args={defaultValues} let:args>
+<Story id="dropodown" name="Dropdown" args={default_values} let:args>
 	<App {theme}>
 		<div class="flex h-full w-full flex-col items-center justify-center gap-4">
 			<div class="flex flex-col gap-4">

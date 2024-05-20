@@ -9,11 +9,11 @@
 	export let selectedItems: any[] = [];
 
 	let sorted: any[] = [];
-	let orderBy: typeof _orderBy | undefined = undefined;
+	let order_By: typeof _orderBy | undefined = undefined;
 
 	if (sortable) {
 		import('lodash-es/orderBy').then((module) => {
-			orderBy = module.default;
+			order_By = module.default;
 		});
 	}
 
@@ -25,7 +25,7 @@
 
 	$: [key, direction] = $sorting$ || [];
 
-	$: sorted = orderBy && key ? orderBy(data, key, direction === 'ascending' ? 'asc' : 'desc') : data;
+	$: sorted = order_By && key ? order_By(data, key, direction === 'ascending' ? 'asc' : 'desc') : data;
 
 	$: if ($selectedKeys$) {
 		selectedItems = $allRows$.filter((d) => d.selected$.value).map((d) => d.data);

@@ -1,19 +1,19 @@
 <script lang="ts">
-	import { Meta, Story } from '@storybook/addon-svelte-csf';
-	import type { ArgTypes } from '@storybook/svelte';
+	import { onMount } from 'svelte';
 	import { App, Button, Card, CardFooter, CardHeader, CardPreview, Icon } from '@svelte-fui/core';
 	import { MoreHorizontalFilled } from '@svelte-fui/icons';
 	import { webDarkTheme, webLightTheme } from '@svelte-fui/themes';
-	import { onMount } from 'svelte';
+	import { Meta, Story } from '@storybook/addon-svelte-csf';
+	import type { ArgTypes } from '@storybook/svelte';
 
-	const argDefaults = {
+	const arg_defaults = {
 		disabled: false,
 		required: false,
 		size: 'md',
 		weight: 'regular'
 	};
 
-	const argTypes = {
+	const arg_types = {
 		appearance: {
 			type: 'string',
 			defaultValue: 'filled',
@@ -70,11 +70,11 @@
 
 <Story id="fui_card_appearance" name="Appearance" let:args>
 	<App {theme}>
-		<div class="flex flex-col gap-4 justify-center items-center w-full h-full">
+		<div class="flex h-full w-full flex-col items-center justify-center gap-4">
 			<Card {...args} class="w-[400px]" appearance="filled">
 				<CardHeader>
 					<img
-						class="w-12 h-12 rounded-md image"
+						class="image h-12 w-12 rounded-md"
 						src="https://raw.githubusercontent.com/microsoft/fluentui/master/packages/react-components/react-card/stories/assets/app_logo.svg"
 						alt="App name logo"
 					/>
@@ -94,7 +94,7 @@
 			<Card {...args} class="w-[400px]" appearance="filled-alternative">
 				<CardHeader>
 					<img
-						class="w-12 h-12 rounded-md image"
+						class="image h-12 w-12 rounded-md"
 						src="https://raw.githubusercontent.com/microsoft/fluentui/master/packages/react-components/react-card/stories/assets/app_logo.svg"
 						alt="App name logo"
 					/>
@@ -114,7 +114,7 @@
 			<Card {...args} class="w-[400px]" appearance="outline">
 				<CardHeader>
 					<img
-						class="w-12 h-12 rounded-md image"
+						class="image h-12 w-12 rounded-md"
 						src="https://raw.githubusercontent.com/microsoft/fluentui/master/packages/react-components/react-card/stories/assets/app_logo.svg"
 						alt="App name logo"
 					/>
@@ -134,7 +134,7 @@
 			<Card {...args} class="w-[400px]" appearance="subtle">
 				<CardHeader>
 					<img
-						class="w-12 h-12 rounded-md image"
+						class="image h-12 w-12 rounded-md"
 						src="https://raw.githubusercontent.com/microsoft/fluentui/master/packages/react-components/react-card/stories/assets/app_logo.svg"
 						alt="App name logo"
 					/>

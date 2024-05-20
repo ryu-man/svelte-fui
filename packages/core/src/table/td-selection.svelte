@@ -29,7 +29,7 @@
 	export let subtle = false;
 	export let hidden = rowContext.header;
 
-	function onCheckboxChange(ev: Event) {
+	function onchange_checkbox(ev: Event) {
 		const currentTarget = ev.currentTarget as HTMLInputElement;
 
 		console.log(currentTarget.checked);
@@ -47,7 +47,7 @@
 		}
 	}
 
-	function onRadioChange(ev: Event) {
+	function onchange_radio(ev: Event) {
 		const currentTarget = ev.currentTarget as HTMLInputElement;
 
 		$allRows$.forEach((d) => d.selected$.set(false));
@@ -59,9 +59,9 @@
 
 <svelte:element this={element} class={classnames('fui-table-cell-selection', $size$, { subtle, hidden })}>
 	{#if type === 'checkbox'}
-		<Checkbox checked={$checked$} on:change={onCheckboxChange} />
+		<Checkbox checked={$checked$} on:change={onchange_checkbox} />
 	{:else}
-		<Radio checked={$checked$} name="selected-row" on:change={onRadioChange} />
+		<Radio checked={$checked$} name="selected-row" on:change={onchange_radio} />
 	{/if}
 </svelte:element>
 

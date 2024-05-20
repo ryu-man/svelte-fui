@@ -9,13 +9,13 @@
 	export let disabled = false;
 
 	$: orientation = vertical ? 'vertical' : 'horizontal';
-	$: stepPercent = step > 1 ? (step * 100) / max : 100;
+	$: step_percent = step > 1 ? (step * 100) / max : 100;
 	$: progress = (value * 100) / max;
 </script>
 
 <div
 	class={classnames('fui-slider', orientation, { disabled })}
-	style="--direction: {vertical ? '0deg' : '90deg'}; --progress: {progress}%; --steps-percent: {stepPercent}%;"
+	style="--direction: {vertical ? '0deg' : '90deg'}; --progress: {progress}%; --steps-percent: {step_percent}%;"
 >
 	<input class={classnames('fui-slider-input', orientation)} id="" type="range" {min} {max} {step} {disabled} bind:value />
 	<div class={classnames('fui-slider-rail', orientation)} />

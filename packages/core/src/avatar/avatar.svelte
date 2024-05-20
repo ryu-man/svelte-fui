@@ -6,21 +6,7 @@
 	export let ariaLabel: string | undefined = undefined;
 	export let alt: string | undefined = undefined;
 	export let src: string | ComponentType;
-	export let size:
-		| '16'
-		| '20'
-		| '24'
-		| '28'
-		| '32'
-		| '36'
-		| '40'
-		| '48'
-		| '56'
-		| '64'
-		| '72'
-		| '96'
-		| '120'
-		| '128' = '32';
+	export let size: '16' | '20' | '24' | '28' | '32' | '36' | '40' | '48' | '56' | '64' | '72' | '96' | '120' | '128' = '32';
 
 	export let color:
 		| 'neutral'
@@ -62,15 +48,15 @@
 	let klass = '';
 	export { klass as class };
 
-	$: activeOrInactive = active === 'active' || active === 'inactive';
-	$: ringStyle = activeAppearance === 'ring' || activeAppearance === 'ring-shadow';
+	$: active_or_inactive = active === 'active' || active === 'inactive';
+	$: ring_style = activeAppearance === 'ring' || activeAppearance === 'ring-shadow';
 	$: _badge = badge ? (+size > 64 ? 'lg' : true) : false;
 </script>
 
 <span
 	class={classnames(
 		'fui-avatar',
-		{ size, 'active-or-inactive': activeOrInactive, badge: _badge },
+		{ size, 'active-or-inactive': active_or_inactive, badge: _badge },
 		active === 'active' ? activeAppearance : '',
 		shape,
 		color,
@@ -85,14 +71,7 @@
 		<img class="fui-avatar-image" {alt} role="presentation" aria-hidden="true" {src} />
 	{:else}
 		<span aria-hidden="true" class="fui-avatar-icon">
-			<svg
-				fill="currentColor"
-				aria-hidden="true"
-				width="1em"
-				height="1em"
-				viewBox="0 0 20 20"
-				xmlns="http://www.w3.org/2000/svg"
-			>
+			<svg fill="currentColor" aria-hidden="true" width="1em" height="1em" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
 				<svelte:component this={src} />
 			</svg>
 		</span>
@@ -185,7 +164,7 @@
 	}
 
 	.fui-avatar {
-		@apply relative inline-block rounded-full align-middle font-base text-base-300 font-semibold;
+		@apply font-base text-base-300 relative inline-block rounded-full align-middle font-semibold;
 
 		flex-shrink: 0;
 		width: 32px;
@@ -515,13 +494,10 @@
 		/**  ****************************************************************/
 
 		&.active-or-inactive {
-			transform: perspective(
-				1px
-			); /* Work-around for text pixel snapping at        the end of the animation */
+			transform: perspective(1px); /* Work-around for text pixel snapping at        the end of the animation */
 			transition-property: transform, opacity;
 			transition-duration: theme(transitionDuration.ultra-slow), theme(transitionDuration.faster);
-			transition-timing-function: theme(transitionTimingFunction.easy-ease-max),
-				theme(transitionTimingFunction.linear);
+			transition-timing-function: theme(transitionTimingFunction.easy-ease-max), theme(transitionTimingFunction.linear);
 
 			@media screen and (prefers-reduced-motion: reduce) {
 				transition-duration: 0.01ms;
@@ -533,8 +509,7 @@
 				border-radius: inherit;
 				transition-property: margin, opacity;
 				transition-duration: theme(transitionDuration.ultra-slow), theme(transitionDuration.slower);
-				transition-timing-function: theme(transitionTimingFunction.easy-ease-max),
-					theme(transitionTimingFunction.linear);
+				transition-timing-function: theme(transitionTimingFunction.easy-ease-max), theme(transitionTimingFunction.linear);
 
 				@media screen and (prefers-reduced-motion: reduce) {
 					transition-duration: 0.01ms;
@@ -551,17 +526,7 @@
 					border-style: solid;
 					border-color: currentColor;
 
-					&:is(
-							.size-12,
-							.size-16,
-							.size-20,
-							.size-24,
-							.size-28,
-							.size-32,
-							.size-36,
-							.size-40,
-							.size-48
-						) {
+					&:is(.size-12, .size-16, .size-20, .size-24, .size-28, .size-32, .size-36, .size-40, .size-48) {
 						@apply ring-thick;
 					}
 					&:is(.size-56, .size-64) {
@@ -598,14 +563,12 @@
 		&.inactive {
 			opacity: 0.8;
 			transform: scale(0.875);
-			transition-timing-function: theme(transitionTimingFunction.decelerate-min),
-				theme(transitionTimingFunction.linear);
+			transition-timing-function: theme(transitionTimingFunction.decelerate-min), theme(transitionTimingFunction.linear);
 
 			&::before {
 				@apply m-0;
 				opacity: 0;
-				transition-timing-function: theme(transitionTimingFunction.decelerate-min),
-					theme(transitionTimingFunction.linear);
+				transition-timing-function: theme(transitionTimingFunction.decelerate-min), theme(transitionTimingFunction.linear);
 			}
 		}
 

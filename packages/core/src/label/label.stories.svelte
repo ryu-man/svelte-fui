@@ -5,14 +5,14 @@
 	import { webDarkTheme, webLightTheme } from '@svelte-fui/themes';
 	import { onMount } from 'svelte';
 
-	const argDefaults = {
+	const arg_defaults = {
 		disabled: false,
 		required: false,
 		size: 'md',
 		weight: 'regular'
 	};
 
-	const argTypes = {
+	const arg_types = {
 		disabled: {
 			type: 'boolean',
 			defaultValue: false,
@@ -64,9 +64,9 @@
 	});
 </script>
 
-<Meta title="Components/Label" component={Label} {argTypes} />
+<Meta title="Components/Label" component={Label} argTypes={arg_types} />
 
-<Story id="fui_label" name="Label" args={argDefaults} let:args>
+<Story id="fui_label" name="Label" args={arg_defaults} let:args>
 	<App {theme}>
 		<div class="flex items-center justify-center w-full h-full">
 			<Label {...args}>This is an example of the Text component's usage.</Label>

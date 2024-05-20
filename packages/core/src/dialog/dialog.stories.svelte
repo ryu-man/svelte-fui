@@ -10,7 +10,7 @@
 	import DialogHeader from './dialog-header.svelte';
 	import Dialog from './dialog-root.svelte';
 
-	const defaultValues = {
+	const default_values = {
 		open: false,
 		type: 'modal'
 	};
@@ -47,21 +47,21 @@
 		};
 	});
 
-	function onClickHandler() {
+	function onclick_open_dialog() {
 		openDialog = !openDialog;
 	}
 
-	function onCancelClickHandler() {
+	function onclick_cancel() {
 		openDialog = false;
 	}
 </script>
 
 <Meta title="Components/Dialog" component={Dialog} {argTypes} />
 
-<Story id="dialog" name="Dialog" args={defaultValues} let:args>
+<Story id="dialog" name="Dialog" args={default_values} let:args>
 	<App {theme}>
 		<div class="flex h-full w-full items-center justify-center">
-			<Button on:click={onClickHandler}>Open Dialog</Button>
+			<Button on:click={onclick_open_dialog}>Open Dialog</Button>
 		</div>
 
 		<Dialog bind:open={openDialog} {...args}>
@@ -76,7 +76,7 @@
 				</DialogContent>
 
 				<DialogActions>
-					<Button on:click={onCancelClickHandler}>Cancel</Button>
+					<Button on:click={onclick_cancel}>Cancel</Button>
 					<Button>Ok</Button>
 				</DialogActions>
 			</DialogBody>
@@ -84,10 +84,10 @@
 	</App>
 </Story>
 
-<Story id="dialog_long_content" name="Scrolling Long Content" args={defaultValues} let:args>
+<Story id="dialog_long_content" name="Scrolling Long Content" args={default_values} let:args>
 	<App {theme}>
 		<div class="flex h-full w-full items-center justify-center">
-			<Button on:click={onClickHandler}>Open Dialog</Button>
+			<Button on:click={onclick_open_dialog}>Open Dialog</Button>
 		</div>
 
 		<Dialog bind:open={openDialog} {...args}>
@@ -158,7 +158,7 @@
 				</DialogContent>
 
 				<DialogActions>
-					<Button on:click={onCancelClickHandler}>Cancel</Button>
+					<Button on:click={onclick_cancel}>Cancel</Button>
 					<Button>Ok</Button>
 				</DialogActions>
 			</DialogBody>

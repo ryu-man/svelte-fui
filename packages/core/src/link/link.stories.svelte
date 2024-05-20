@@ -1,13 +1,13 @@
 <script lang="ts">
-	import { Meta, Story } from '@storybook/addon-svelte-csf';
-	import type { ArgTypes } from '@storybook/svelte';
+	import { onMount } from 'svelte';
 	import { App } from '@svelte-fui/core';
 	import { CalendarMonthFilled, CalendarMonthRegular } from '@svelte-fui/icons';
 	import { webDarkTheme, webLightTheme } from '@svelte-fui/themes';
-	import { onMount } from 'svelte';
+	import { Meta, Story } from '@storybook/addon-svelte-csf';
+	import type { ArgTypes } from '@storybook/svelte';
 	import Link from './Link.svelte';
 
-	const defaultValues = {
+	const default_values = {
 		appearance: 'default',
 		disabled: false,
 		inline: false,
@@ -15,7 +15,7 @@
 		href: 'https://svelte.dev/'
 	};
 
-	const argTypes = {
+	const arg_types = {
 		as: {
 			type: 'string',
 			options: ['a', 'button'],
@@ -60,13 +60,12 @@
 	});
 </script>
 
-<Meta title="Components/Link" component={Link} {argTypes} />
+<Meta title="Components/Link" component={Link} argTypes={arg_types} />
 
-<Story id="link" name="Link" args={defaultValues} let:args>
+<Story id="link" name="Link" args={default_values} let:args>
 	<App {theme}>
 		<div class="flex h-full w-full flex-col items-center justify-center gap-4">
-			
-            <p> Hello World ! <Link {...args}>Svelte is more than a Framework !</Link></p>
+			<p>Hello World ! <Link {...args}>Svelte is more than a Framework !</Link></p>
 		</div>
 	</App>
 </Story>

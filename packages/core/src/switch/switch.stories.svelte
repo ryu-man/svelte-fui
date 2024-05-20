@@ -1,13 +1,13 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
-	import { Meta, Story } from '@storybook/addon-svelte-csf';
-	import type { ArgTypes } from '@storybook/svelte';
 	import { App, Label, Switch } from '@svelte-fui/core';
 	import { webDarkTheme, webLightTheme } from '@svelte-fui/themes';
+	import { Meta, Story } from '@storybook/addon-svelte-csf';
+	import type { ArgTypes } from '@storybook/svelte';
 
-	const defaultValues = {};
+	const default_values = {};
 
-	const argTypes = {} satisfies ArgTypes;
+	const arg_types = {} satisfies ArgTypes;
 
 	let theme = webLightTheme;
 
@@ -28,12 +28,12 @@
 	});
 </script>
 
-<Meta title="Components/Switch" component={Switch} {argTypes} />
+<Meta title="Components/Switch" component={Switch} argTypes={arg_types} />
 
-<Story id="fui_switch" name="Switch" args={defaultValues} let:args>
+<Story id="fui_switch" name="Switch" args={default_values} let:args>
 	<App {theme}>
-		<div class="flex flex-col gap-4 items-center justify-center w-full h-full">
-			<div class="flex gap-4 items-start">
+		<div class="flex h-full w-full flex-col items-center justify-center gap-4">
+			<div class="flex items-start gap-4">
 				<Switch {...args} />
 
 				<Switch {...args} position="before">

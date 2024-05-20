@@ -12,14 +12,14 @@
 	$: dispatch('change', open);
 
 	onMount(() => {
-		document.addEventListener('keyup', dismissDialogOnEscapeKeyUpHandler);
+		document.addEventListener('keyup', dismiss_dialog_on_escape);
 
 		return () => {
-			document.removeEventListener('keyup', dismissDialogOnEscapeKeyUpHandler);
+			document.removeEventListener('keyup', dismiss_dialog_on_escape);
 		};
 	});
 
-	function dismissDialogOnClickHandler() {
+	function onclick_dismiss_dialog() {
 		dispatch('backdrop-click', { open, type });
 
 		if (type === 'alert') return;
@@ -27,7 +27,7 @@
 		open = false;
 	}
 
-	function dismissDialogOnEscapeKeyUpHandler(e: KeyboardEvent) {
+	function dismiss_dialog_on_escape(e: KeyboardEvent) {
 		if (type === 'alert' || !(e.key === 'Escape')) return;
 
 		open = false;
@@ -37,7 +37,7 @@
 <Portal target={$appElement$}>
 	{#if open}
 		{#if type === 'modal'}
-			<div aria-hidden="true" class="fui-dialog-surface-backdrop" on:click={dismissDialogOnClickHandler} />
+			<div aria-hidden="true" class="fui-dialog-surface-backdrop" on:click={onclick_dismiss_dialog} />
 		{/if}
 
 		<div tabindex="-1" aria-modal="true" role="dialog" aria-labelledby="dialog-title-277" data-tabster="" class="fui-dialog-surface">

@@ -48,7 +48,7 @@
 		node.type = type;
 	}
 
-	function onInputHandler(e: InputEvent) {
+	function oninput(e: InputEvent) {
 		const currentTarget = e.currentTarget as HTMLInputElement;
 		valueAsNumber = currentTarget.valueAsNumber;
 		valueAsDate = currentTarget.valueAsDate;
@@ -68,7 +68,7 @@
 		aria-label={ariaLabel}
 		aria-describedby={ariaDescribedby}
 		aria-invalid={ariaInvalid}
-		on:input={onInputHandler}
+		on:input={oninput}
 		on:input
 		on:blur
 		on:keydown

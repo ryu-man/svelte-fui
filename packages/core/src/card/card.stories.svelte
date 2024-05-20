@@ -6,7 +6,7 @@
 	import { Meta, Story } from '@storybook/addon-svelte-csf';
 	import type { ArgTypes } from '@storybook/svelte';
 
-	const argDefaults = {
+	const arg_defaults = {
 		selected: false,
 		interactive: false,
 		alternative: false,
@@ -15,7 +15,7 @@
 		appearance: 'filled'
 	};
 
-	const argTypes = {
+	const arg_types = {
 		appearance: {
 			type: 'string',
 			defaultValue: 'filled',
@@ -77,7 +77,7 @@
 
 <Meta title="Components/Card" component={Card} />
 
-<Story id="fui_card" name="Card" args={argDefaults} {argTypes} let:args>
+<Story id="fui_card" name="Card" args={arg_defaults} argTypes={arg_types} let:args>
 	<App {theme}>
 		<div class="flex h-full w-full flex-col items-center justify-center gap-4">
 			<Card {...args} class="w-[720px] max-w-[100%]">

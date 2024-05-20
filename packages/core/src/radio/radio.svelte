@@ -16,12 +16,12 @@
 	$: position = $layout$ === 'stacked-horizontal' ? 'below' : 'after';
 	$: isVertical = position === 'below';
 
-	function onClickHandler() {
+	function onclick() {
 		value$.set(value);
 	}
 </script>
 
-<span class={classnames('fui-radio', { vertical: isVertical })} on:click={onClickHandler} on:click>
+<span class={classnames('fui-radio', { vertical: isVertical })} on:click={onclick} on:click>
 	<input
 		type="radio"
 		{id}

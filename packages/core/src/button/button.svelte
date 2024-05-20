@@ -25,20 +25,20 @@
 	/** Obtains a bound DOM reference to the button or anchor element. */
 	export let element: HTMLElement = null;
 
-	const forwardEvents = createEventForwarder(get_current_component());
+	const forward_events = createEventForwarder(get_current_component());
 
 	let hover = false;
-	function onMouseEnterHandler() {
+	function onmouseenter() {
 		hover = true;
 	}
-	function onMouseLeaveHandler() {
+	function onmouseleave() {
 		hover = false;
 	}
 </script>
 
 <svelte:element
 	this={href && !disabled ? 'a' : 'button'}
-	use:forwardEvents
+	use:forward_events
 	bind:this={element}
 	role={href && !disabled ? 'button' : undefined}
 	href={href && !disabled ? href : undefined}
@@ -68,8 +68,8 @@
 	on:mouseleave
 	on:mousedown
 	on:mouseup
-	on:mouseenter={onMouseEnterHandler}
-	on:mouseleave={onMouseLeaveHandler}
+	on:mouseenter={onmouseenter}
+	on:mouseleave={onmouseleave}
 >
 	<slot {hover} />
 </svelte:element>

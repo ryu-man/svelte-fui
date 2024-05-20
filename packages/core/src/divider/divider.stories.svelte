@@ -1,19 +1,19 @@
 <script lang="ts">
-	import { Meta, Story } from '@storybook/addon-svelte-csf';
-	import type { ArgTypes } from '@storybook/svelte';
+	import { onMount } from 'svelte';
 	import { App, Icon, Text } from '@svelte-fui/core';
 	import { webDarkTheme, webLightTheme } from '@svelte-fui/themes';
-	import { onMount } from 'svelte';
-	import Divider  from './Divider.svelte';
+	import { Meta, Story } from '@storybook/addon-svelte-csf';
+	import type { ArgTypes } from '@storybook/svelte';
+	import Divider from './Divider.svelte';
 
-	const defaultValues = {
+	const default_values = {
 		appearance: 'default',
 		alignContent: 'center',
 		vertical: false,
 		inset: false
 	};
 
-	const argTypes = {
+	const arg_types = {
 		appearance: {
 			type: 'string',
 			options: ['strong', 'brand', 'subtl', 'default'],
@@ -47,12 +47,12 @@
 	});
 </script>
 
-<Meta title="Components/Divider" component={Divider} {argTypes} />
+<Meta title="Components/Divider" component={Divider} argTypes={arg_types} />
 
-<Story id="fui_divider" name="Divider" args={defaultValues} let:args>
+<Story id="fui_divider" name="Divider" args={default_values} let:args>
 	<App {theme}>
-		<div class="flex flex-col gap-4 items-center justify-center w-full h-full">
-			<div class="flex flex-col gap-4 w-full">
+		<div class="flex h-full w-full flex-col items-center justify-center gap-4">
+			<div class="flex w-full flex-col gap-4">
 				<div class="flex h-[48px]">
 					<Divider {...args} />
 				</div>

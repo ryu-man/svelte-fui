@@ -1,9 +1,9 @@
 <script lang="ts">
 	import { getFluentRootContext } from '@svelte-fui/core';
 	import Portal from 'svelte-portal/src/Portal.svelte';
-	import { classnames } from '../internal';
-	import Listbox from './listbox.svelte';
 	import { setComboboxContext } from './context';
+	import Listbox from './listbox.svelte';
+	import { classnames } from '../internal';
 
 	const { appElement$ } = getFluentRootContext();
 
@@ -23,7 +23,7 @@
 	let invalid = false;
 
 	const { selectedId$, selectedValue$, selectedData$ } = setComboboxContext({
-		onOptionClick: onOptionClickHandler
+		onOptionClick: onclick_option
 	});
 
 	selectedId$.set(value);
@@ -34,7 +34,7 @@
 	function onToggleListBoxHandler() {
 		collapsed = !collapsed;
 	}
-	function onOptionClickHandler({ id, value, selected }) {
+	function onclick_option({ id, value, selected }) {
 		collapsed = true;
 	}
 </script>

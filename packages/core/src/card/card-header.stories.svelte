@@ -6,14 +6,14 @@
 	import { webDarkTheme, webLightTheme } from '@svelte-fui/themes';
 	import { onMount } from 'svelte';
 
-	const argDefaults = {
+	const arg_defaults = {
 		disabled: false,
 		required: false,
 		size: 'md',
 		weight: 'regular'
 	};
 
-	const argTypes = {
+	const arg_types = {
 		appearance: {
 			type: 'string',
 			defaultValue: 'filled',

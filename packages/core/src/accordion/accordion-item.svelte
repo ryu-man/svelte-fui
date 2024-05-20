@@ -33,16 +33,16 @@
 	});
 
 	function setup(node: HTMLDivElement) {
-		node.addEventListener('accordion-header-click', onClickHandler, { capture: true });
+		node.addEventListener('accordion-header-click', onclick, { capture: true });
 
 		return {
 			destroy() {
-				node.removeEventListener('accordion-header-click', onClickHandler);
+				node.removeEventListener('accordion-header-click', onclick);
 			}
 		};
 	}
 
-	function onClickHandler() {
+	function onclick() {
 		if ($multiple$) {
 			if ((($selectedValue$ as any[]).length > 1 || $collapsible$) && $active$) {
 				selectedValue$.update((v) => {

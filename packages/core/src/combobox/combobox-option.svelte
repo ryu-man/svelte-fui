@@ -19,7 +19,7 @@
 
 	$: selected = id === $selectedId$;
 
-	function onClickHandler(e: Event) {
+	function onclick(e: Event) {
 		if (disabled) return;
 
 		if (!selected) {
@@ -49,7 +49,7 @@
 	{tabindex}
 	class={classnames('fui-option', { active, selected, disabled }, klass)}
 	data-id={id}
-	on:click={onClickHandler}
+	on:click={onclick}
 	on:keypress={() => {}}
 >
 	<Icon class={classnames('fui-option__check-icon', { selected })} src={CheckmarkRegular} />
