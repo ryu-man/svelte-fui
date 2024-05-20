@@ -9,7 +9,7 @@
 	let klass = '';
 	export { klass as class };
 
-	function onClickHandler(e: Event) {
+	function onclick(e: Event) {
 		if (disabled) {
 			e.preventDefault();
 		}
@@ -23,7 +23,7 @@
 	{disabled}
 	tabindex="0"
 	class={classnames('fui-link', appearance, { inline, disabled }, klass)}
-	on:click={onClickHandler}
+	on:click={onclick}
 	on:click
 >
 	<slot />

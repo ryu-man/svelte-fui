@@ -3,18 +3,18 @@ import { type Writable, writable } from 'svelte/store';
 
 const key = 'fui_fluent_app_context';
 
-export type FluentAppContext = {
+export type FluentRootContext = {
 	themeElement$: Writable<HTMLElement | undefined>;
 	appElement$: Writable<HTMLElement | undefined>;
 };
 
-const builders: Record<keyof FluentAppContext, () => any> = {
+const builders: Record<keyof FluentRootContext, () => any> = {
 	themeElement$: () => writable(undefined),
 	appElement$: () => writable(undefined)
 };
 
-function buildContext(context: Partial<FluentAppContext> = {}) {
-	const keys: Set<keyof FluentAppContext> = new Set(['themeElement$', 'appElement$']);
+function buildContext(context: Partial<FluentRootContext> = {}) {
+	const keys: Set<keyof FluentRootContext> = new Set(['themeElement$', 'appElement$']);
 
 	Object.keys(context).forEach((key) => keys.delete(key));
 
@@ -22,13 +22,13 @@ function buildContext(context: Partial<FluentAppContext> = {}) {
 		context[key] = builders[key]();
 	}
 
-	return context as FluentAppContext;
+	return context as FluentRootContext;
 }
 
-export function getFluentAppContext() {
-	return getContext(key) as FluentAppContext;
+export function getFluentRootContext() {
+	return getContext(key) as FluentRootContext;
 }
 
-export function setFluentAppContext(context: Record<string, unknown> = {}): FluentAppContext {
+export function setFluentRootContext(context: Record<string, unknown> = {}): FluentRootContext {
 	return setContext(key, buildContext(context));
 }

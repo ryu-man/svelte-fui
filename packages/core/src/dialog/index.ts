@@ -1,5 +1,5 @@
-export { default as Dialog } from './Dialog.svelte';
-export { default as DialogActions } from './DialogActions.svelte';
-export { default as DialogBody } from './DialogBody.svelte';
-export { default as DialogContent } from './DialogContent.svelte';
-export { default as DialogHeader } from './DialogHeader.svelte';
+export { default as Dialog } from './dialog-root.svelte';
+export { default as DialogActions } from './dialog-actions.svelte';
+export { default as DialogBody } from './dialog-body.svelte';
+export { default as DialogContent } from './dialog-content.svelte';
+export { default as DialogHeader } from './dialog-header.svelte';

@@ -12,5 +12,5 @@ export function applyTheme(element: HTMLElement, styleElement: HTMLStyleElement,
 		styleElement.sheet.deleteRule(0);
 	}
 	
-	styleElement.sheet.insertRule(`.fui-app.${classname} { ${vars} }`, 0);
+	styleElement.sheet.insertRule(`.fui-root.${classname} { ${vars} }`, 0);
 }
