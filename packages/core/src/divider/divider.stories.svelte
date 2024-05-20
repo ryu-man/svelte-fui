@@ -1,10 +1,9 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
-	import { App, Icon, Text } from '@svelte-fui/core';
+	import { App, Divider } from '@svelte-fui/core';
 	import { webDarkTheme, webLightTheme } from '@svelte-fui/themes';
 	import { Meta, Story } from '@storybook/addon-svelte-csf';
 	import type { ArgTypes } from '@storybook/svelte';
-	import Divider from './Divider.svelte';
 
 	const default_values = {
 		appearance: 'default',
