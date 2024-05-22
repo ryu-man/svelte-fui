@@ -1,16 +1,10 @@
-<script lang="ts">
-	import { Meta, Story } from '@storybook/addon-svelte-csf';
-	import type { ArgTypes } from '@storybook/svelte';
-	import { App, Button, Icon } from '@svelte-fui/core';
+<script context="module" lang="ts">
+	import { onMount } from 'svelte';
+	import { Button, FluentRoot, Icon } from '@svelte-fui/core';
 	import { CalendarMonthFilled, CalendarMonthRegular } from '@svelte-fui/icons';
 	import { webDarkTheme, webLightTheme } from '@svelte-fui/themes';
-	import { onMount } from 'svelte';
-
-	const defaultValues = {
-		size: 'md',
-		appearance: 'secondary',
-		shape: 'rounded'
-	};
+	import { Story } from '@storybook/addon-svelte-csf';
+	import type { ArgTypes } from '@storybook/svelte';
 
 	const argTypes = {
 		size: {
@@ -36,6 +30,17 @@
 		}
 	} satisfies ArgTypes;
 
+	const default_args: Partial<Record<keyof typeof argTypes, any>> = { size: 'md', appearance: 'secondary', shape: 'rounded' };
+
+	export const meta = {
+		title: 'Components/Button',
+		component: Button,
+		argTypes,
+		tags: ['!autodocs']
+	};
+</script>
+
+<script lang="ts">
 	let theme = webLightTheme;
 
 	onMount(() => {
@@ -55,11 +60,9 @@
 	});
 </script>
 
-<Meta title="Components/Button" component={Button} {argTypes} />
-
-<Story id="button" name="Button" args={defaultValues} let:args>
-	<App {theme}>
-		<div class="flex flex-col gap-4 items-center justify-center w-full h-full">
+<Story id="button" name="Button" args={default_args} let:args>
+	<FluentRoot {theme}>
+		<div class="flex h-full w-full flex-col items-center justify-center gap-4">
 			<div class="flex gap-4">
 				<Button {...args}>Fluent UI for Svelte</Button>
 
@@ -75,5 +78,5 @@
 
 			<Button {...args} class="w-[280px]">Long text wraps after it hits the max width of the component</Button>
 		</div>
-	</App>
+	</FluentRoot>
 </Story>

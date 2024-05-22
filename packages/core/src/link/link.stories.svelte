@@ -1,13 +1,12 @@
-<script lang="ts">
+<script context="module" lang="ts">
 	import { onMount } from 'svelte';
-	import { App } from '@svelte-fui/core';
-	import { CalendarMonthFilled, CalendarMonthRegular } from '@svelte-fui/icons';
+	import { FluentRoot } from '@svelte-fui/core';
 	import { webDarkTheme, webLightTheme } from '@svelte-fui/themes';
-	import { Meta, Story } from '@storybook/addon-svelte-csf';
+	import { Story } from '@storybook/addon-svelte-csf';
 	import type { ArgTypes } from '@storybook/svelte';
 	import Link from './Link.svelte';
 
-	const default_values = {
+	const default_args = {
 		appearance: 'default',
 		disabled: false,
 		inline: false,
@@ -41,6 +40,15 @@
 		}
 	} satisfies ArgTypes;
 
+	export const meta = {
+		title: 'Components/Link',
+		component: Link,
+		argTypes: arg_types,
+		tags: ['!autodocs']
+	};
+</script>
+
+<script lang="ts">
 	let theme = webLightTheme;
 
 	onMount(() => {
@@ -60,12 +68,10 @@
 	});
 </script>
 
-<Meta title="Components/Link" component={Link} argTypes={arg_types} />
-
-<Story id="link" name="Link" args={default_values} let:args>
-	<App {theme}>
+<Story id="link" name="Link" args={default_args} let:args>
+	<FluentRoot {theme}>
 		<div class="flex h-full w-full flex-col items-center justify-center gap-4">
 			<p>Hello World ! <Link {...args}>Svelte is more than a Framework !</Link></p>
 		</div>
-	</App>
+	</FluentRoot>
 </Story>

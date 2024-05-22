@@ -1,23 +1,22 @@
-<script lang="ts">
+<script context="module" lang="ts">
 	import { onMount } from 'svelte';
-	import { flip } from 'svelte/animate';
-	import { App, Icon } from '@svelte-fui/core';
+	import { FluentRoot, Icon } from '@svelte-fui/core';
 	import { DocumentPdfRegular, DocumentRegular, EditRegular, FolderRegular, OpenRegular, PeopleRegular, VideoRegular } from '@svelte-fui/icons';
 	import { webDarkTheme, webLightTheme } from '@svelte-fui/themes';
-	import { Meta, Story } from '@storybook/addon-svelte-csf';
+	import { Story } from '@storybook/addon-svelte-csf';
 	import type { ArgTypes } from '@storybook/svelte';
 	import Table from './table-root.svelte';
-	import Td from './td.svelte';
 	import TdSelection from './td-selection.svelte';
+	import Td from './td.svelte';
 	import Th from './th.svelte';
 	import Tr from './tr/tr.svelte';
 
-	const defaultValues = {
+	const default_args = {
 		size: 'md',
 		sortable: false
 	};
 
-	const argTypes = {
+	const arg_types = {
 		size: {
 			type: 'string',
 			options: ['xs', 'sm', 'md'],
@@ -30,6 +29,15 @@
 		}
 	} satisfies ArgTypes;
 
+	export const meta = {
+		title: 'Components/Table',
+		component: Table,
+		argTypes: arg_types,
+		tags: ['!autodocs']
+	};
+</script>
+
+<script lang="ts">
 	let theme = webLightTheme;
 
 	const data = [
@@ -100,13 +108,10 @@
 	});
 
 	let selectedItems = [];
-	$: console.log(selectedItems);
 </script>
 
-<Meta title="Components/Table" component={Table} {argTypes} />
-
-<Story id="table" name="Table" args={defaultValues} let:args>
-	<App {theme}>
+<Story id="table" name="Table" args={default_args} let:args>
+	<FluentRoot {theme}>
 		<Table {...args} {data} bind:selectedItems let:data>
 			<thead>
 				<Tr header>
@@ -135,5 +140,5 @@
 				{/each}
 			</tbody>
 		</Table>
-	</App>
+	</FluentRoot>
 </Story>

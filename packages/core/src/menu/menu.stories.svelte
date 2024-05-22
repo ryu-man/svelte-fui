@@ -1,32 +1,38 @@
-<script context="module">
-	import { Story, Meta } from '@storybook/addon-svelte-csf';
+<script context="module" lang="ts">
+	import { onMount } from 'svelte';
 	import { FluentRoot, Icon } from '@svelte-fui/core';
 	import {
-		EditRegular,
-		TableInsertColumnRegular,
-		ColumnEditRegular,
-		ArrowUpRegular,
+		AlertRegular,
 		ArrowDownRegular,
-		DeleteRegular,
-		ScreenshotRegular,
-		ChevronRightRegular,
-		LaptopRegular,
+		ArrowUpRegular,
 		BrightnessLowRegular,
-		AlertRegular
+		ChevronRightRegular,
+		ColumnEditRegular,
+		DeleteRegular,
+		EditRegular,
+		LaptopRegular,
+		ScreenshotRegular,
+		TableInsertColumnRegular
 	} from '@svelte-fui/icons';
-	import { Menu } from '.';
-	import { onMount } from 'svelte';
 	import { webDarkTheme, webLightTheme } from '@svelte-fui/themes';
+	import { Menu } from '.';
+	import { Story } from '@storybook/addon-svelte-csf';
+	import type { ArgTypes } from '@storybook/svelte';
 
-	// export const meta = {
-	// 	title: 'UI/Menu',
-	// 	component: Menu.Root
-	// };
+	const arg_types = {} satisfies ArgTypes;
+
+	const default_args: Partial<Record<keyof typeof arg_types, any>> = {};
+
+	export const meta = {
+		title: 'Components/Menu',
+		component: Menu.Root,
+		argTypes: arg_types,
+		tags: ['!autodocs']
+	};
 </script>
 
 <script lang="ts">
 	let menu_ref_element: HTMLButtonElement;
-	let open = true;
 
 	let theme = webLightTheme;
 
@@ -45,15 +51,9 @@
 			schemeMedia.removeEventListener('change', handler);
 		};
 	});
-
-	function onclick() {
-		open = !open;
-	}
 </script>
 
-<Meta title="Components/Menu" component={Menu.Root} />
-
-<Story id="menu" name="Menu">
+<Story id="menu" name="Menu" args={default_args}>
 	<FluentRoot {theme}>
 		<div class="flex h-full w-full items-center justify-center">
 			<button

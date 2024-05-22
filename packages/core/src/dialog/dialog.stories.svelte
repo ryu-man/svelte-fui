@@ -1,17 +1,12 @@
-<script lang="ts">
+<script context="module" lang="ts">
 	import { onMount } from 'svelte';
-	import { App, Button } from '@svelte-fui/core';
+	import { Button, FluentRoot } from '@svelte-fui/core';
 	import { webDarkTheme, webLightTheme } from '@svelte-fui/themes';
 	import { Dialog } from '.';
-	import { Meta, Story } from '@storybook/addon-svelte-csf';
+	import { Story } from '@storybook/addon-svelte-csf';
 	import type { ArgTypes } from '@storybook/svelte';
 
-	const default_values = {
-		open: false,
-		type: 'modal'
-	};
-
-	const argTypes = {
+	const arg_types = {
 		open: {
 			type: 'boolean'
 		},
@@ -24,6 +19,20 @@
 		}
 	} satisfies ArgTypes;
 
+	const default_args: Partial<Record<keyof typeof arg_types, any>> = {
+		open: false,
+		type: 'modal'
+	};
+
+	export const meta = {
+		title: 'Components/Dialog',
+		component: Dialog,
+		argTypes: arg_types,
+		tags: ['!autodocs']
+	};
+</script>
+
+<script lang="ts">
 	let theme = webLightTheme;
 	let openDialog = false;
 
@@ -52,10 +61,8 @@
 	}
 </script>
 
-<Meta title="Components/Dialog" component={Dialog} {argTypes} />
-
-<Story id="dialog" name="Dialog" args={default_values} let:args>
-	<App {theme}>
+<Story id="dialog" name="Dialog" args={default_args} let:args>
+	<FluentRoot {theme}>
 		<div class="flex h-full w-full items-center justify-center">
 			<Button on:click={onclick_open_dialog}>Open Dialog</Button>
 		</div>
@@ -75,11 +82,11 @@
 				<Button>Ok</Button>
 			</Dialog.Actions>
 		</Dialog.Root>
-	</App>
+	</FluentRoot>
 </Story>
 
-<Story id="dialog_long_content" name="Scrolling Long Content" args={default_values} let:args>
-	<App {theme}>
+<Story id="dialog_long_content" name="Scrolling Long Content" args={default_args} let:args>
+	<FluentRoot {theme}>
 		<div class="flex h-full w-full items-center justify-center">
 			<Button on:click={onclick_open_dialog}>Open Dialog</Button>
 		</div>
@@ -155,5 +162,5 @@
 				<Button>Ok</Button>
 			</Dialog.Actions>
 		</Dialog.Root>
-	</App>
+	</FluentRoot>
 </Story>

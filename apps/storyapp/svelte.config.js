@@ -1,5 +1,5 @@
 import adapter from '@sveltejs/adapter-auto';
-import { vitePreprocess } from '@sveltejs/kit/vite';
+import { vitePreprocess } from '@sveltejs/vite-plugin-svelte';
 import path from 'path';
 
 /** @type {import('@sveltejs/kit').Config} */
@@ -17,7 +17,7 @@ const config = {
 			'@svelte-fui/core': path.resolve('../../packages/core/src'),
 			'@svelte-fui/tailwindcss': path.resolve('../../packages/tailwindcss/src'),
 			'@svelte-fui/theme': path.resolve('../../packages/theme/src'),
-			'@svelte-fui/themes': path.resolve('../../packages/themes/src'),
+			'@svelte-fui/themes': path.resolve('../../packages/themes/src')
 		}
 	}
 };

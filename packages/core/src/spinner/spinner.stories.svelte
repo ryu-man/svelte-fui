@@ -1,41 +1,23 @@
-<script lang="ts">
+<script context="module" lang="ts">
 	import { onMount } from 'svelte';
-	import { App, Spinner } from '@svelte-fui/core';
+	import { FluentRoot, Spinner } from '@svelte-fui/core';
 	import { webDarkTheme, webLightTheme } from '@svelte-fui/themes';
-	import { Meta, Story } from '@storybook/addon-svelte-csf';
+	import { Story } from '@storybook/addon-svelte-csf';
 	import type { ArgTypes } from '@storybook/svelte';
 
-	const default_values = {
-		size: 'md',
-		appearance: 'primary',
-		vertical: false,
-		reverse: false,
-		delay: 0
+	const default_args = {};
+
+	const arg_types = {} satisfies ArgTypes;
+
+	export const meta = {
+		title: 'Components/Spinner',
+		component: Spinner,
+		argTypes: arg_types,
+		tags: ['!autodocs']
 	};
+</script>
 
-	const arg_types = {
-		size: {
-			type: 'string',
-			options: ['xt', 'tn', 'xs', 'sm', 'md', 'lg', 'xl', 'hg'],
-			control: {
-				type: 'select'
-			}
-		},
-		appearance: {
-			type: 'string',
-			options: ['primary', 'inverted'],
-			control: {
-				type: 'select'
-			}
-		},
-		vertical: {
-			type: 'boolean'
-		},
-		reverse: {
-			type: 'boolean'
-		}
-	} satisfies ArgTypes;
-
+<script lang="ts">
 	let theme = webLightTheme;
 
 	onMount(() => {
@@ -55,12 +37,10 @@
 	});
 </script>
 
-<Meta title="Components/Spinner" component={Spinner} argTypes={arg_types} />
-
-<Story id="spinner" name="Spinner" args={default_values} let:args>
-	<App {theme}>
+<Story id="spinner" name="Spinner" args={default_args} let:args>
+	<FluentRoot {theme}>
 		<div class="flex h-full w-full flex-col items-center justify-center gap-4">
 			<Spinner {...args}>Loding Data...</Spinner>
 		</div>
-	</App>
+	</FluentRoot>
 </Story>

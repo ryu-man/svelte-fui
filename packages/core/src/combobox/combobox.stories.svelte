@@ -1,9 +1,23 @@
-<script lang="ts">
-	import { Meta, Story } from '@storybook/addon-svelte-csf';
-	import { App, Combobox, Input, Option } from '@svelte-fui/core';
-	import { webDarkTheme, webLightTheme } from '@svelte-fui/themes';
+<script context="module" lang="ts">
 	import { onMount } from 'svelte';
+	import { Combobox, FluentRoot, Option } from '@svelte-fui/core';
+	import { webDarkTheme, webLightTheme } from '@svelte-fui/themes';
+	import { Story } from '@storybook/addon-svelte-csf';
+	import type { ArgTypes } from '@storybook/svelte';
 
+	const arg_types = {} satisfies ArgTypes;
+
+	const default_args: Partial<Record<keyof typeof arg_types, any>> = {};
+
+	export const meta = {
+		title: 'Components/Combobox',
+		component: Combobox,
+		argTypes: arg_types,
+		tags: ['!autodocs']
+	};
+</script>
+
+<script lang="ts">
 	let theme = webLightTheme;
 
 	onMount(() => {
@@ -23,11 +37,9 @@
 	});
 </script>
 
-<Meta title="Components/Combobox" component={Combobox} />
-
-<Story id="combobox" name="Combobox" args={{}} let:args>
-	<App {theme}>
-		<div class="flex items-center justify-center w-full h-full">
+<Story id="combobox" name="Combobox" args={default_args} let:args>
+	<FluentRoot {theme}>
+		<div class="flex h-full w-full items-center justify-center">
 			<Combobox {...args}>
 				<Option id="ar">Arabic</Option>
 				<Option>English</Option>
@@ -35,5 +47,5 @@
 				<Option disabled>Frensh</Option>
 			</Combobox>
 		</div>
-	</App>
+	</FluentRoot>
 </Story>

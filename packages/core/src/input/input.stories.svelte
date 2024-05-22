@@ -1,10 +1,24 @@
-<script lang="ts">
-	import { Meta, Story } from '@storybook/addon-svelte-csf';
-	import { App, Icon, Input } from '@svelte-fui/core';
+<script context="module" lang="ts">
+	import { onMount } from 'svelte';
+	import { FluentRoot, Icon, Input } from '@svelte-fui/core';
 	import { MicRegular, PersonRegular } from '@svelte-fui/icons';
 	import { webDarkTheme, webLightTheme } from '@svelte-fui/themes';
-	import { onMount } from 'svelte';
+	import { Story } from '@storybook/addon-svelte-csf';
+	import type { ArgTypes } from '@storybook/svelte';
 
+	const arg_types = {} satisfies ArgTypes;
+
+	const default_args: Partial<Record<keyof typeof arg_types, any>> = {};
+
+	export const meta = {
+		title: 'Components/Input',
+		component: Input,
+		argTypes: arg_types,
+		tags: ['!autodocs']
+	};
+</script>
+
+<script lang="ts">
 	let theme = webLightTheme;
 
 	onMount(() => {
@@ -24,20 +38,18 @@
 	});
 </script>
 
-<Meta title="Components/Input" component={Input} />
-
-<Story id="input" name="Input" args={{}} let:args>
-	<App {theme}>
-		<div class="flex items-center justify-center w-full h-full">
+<Story id="input" name="Input" args={default_args} let:args>
+	<FluentRoot {theme}>
+		<div class="flex h-full w-full items-center justify-center">
 			<Input {...args} />
 		</div>
-	</App>
+	</FluentRoot>
 </Story>
 
 <Story id="slots" name="Slots" args={{}} let:args>
-	<App {theme}>
-		<div class="flex flex-col items-center justify-center gap-4 w-full h-full">
-			<div class="flex flex-col w-[400px]">
+	<FluentRoot {theme}>
+		<div class="flex h-full w-full flex-col items-center justify-center gap-4">
+			<div class="flex w-[400px] flex-col">
 				<label for="" class="full-name-input">Full name</label>
 				<Input id="full-name-input" {...args}>
 					<Icon slot="before" src={PersonRegular} />
@@ -45,7 +57,7 @@
 				<span>An input with a decorative icon in the <code>before</code> slot.</span>
 			</div>
 
-			<div class="flex flex-col w-[400px]">
+			<div class="flex w-[400px] flex-col">
 				<label for="" class="full-name-input">First name</label>
 				<Input id="first-name-input" {...args}>
 					<Icon slot="after" src={MicRegular} />
@@ -53,7 +65,7 @@
 				<span>An input with a button in the <code>after</code> slot.</span>
 			</div>
 
-			<div class="flex flex-col w-[400px]">
+			<div class="flex w-[400px] flex-col">
 				<label for="" class="amount">Amount to pay</label>
 				<Input id="amount" {...args}>
 					<span slot="before">$</span>
@@ -64,5 +76,5 @@
 				>
 			</div>
 		</div>
-	</App>
+	</FluentRoot>
 </Story>

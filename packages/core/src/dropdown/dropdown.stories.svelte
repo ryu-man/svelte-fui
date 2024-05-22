@@ -1,13 +1,12 @@
-<script lang="ts">
+<script context="module" lang="ts">
 	import { onMount } from 'svelte';
-	import { App, Icon, InputSkin } from '@svelte-fui/core';
-	import { CalendarMonthFilled, CalendarMonthRegular } from '@svelte-fui/icons';
+	import { FluentRoot, InputSkin } from '@svelte-fui/core';
 	import { webDarkTheme, webLightTheme } from '@svelte-fui/themes';
 	import { Dropdown } from '.';
-	import { Meta, Story } from '@storybook/addon-svelte-csf';
+	import { Story } from '@storybook/addon-svelte-csf';
 	import type { ArgTypes } from '@storybook/svelte';
 
-	const default_values = {
+	const default_args = {
 		size: 'md',
 		appearance: 'outline',
 		shape: 'rounded'
@@ -37,6 +36,15 @@
 		}
 	} satisfies ArgTypes;
 
+	export const meta = {
+		title: 'Components/Dropdown',
+		component: Dropdown.Root,
+		argTypes: arg_types,
+		tags: ['!autodocs']
+	};
+</script>
+
+<script lang="ts">
 	let theme = webLightTheme;
 	let language = '';
 
@@ -64,10 +72,8 @@
 	];
 </script>
 
-<Meta title="Components/Dropdown" component={Dropdown.Root} argTypes={arg_types} />
-
-<Story id="dropdown" name="Dropdown" args={default_values} let:args>
-	<App {theme}>
+<Story id="dropdown" name="Dropdown" args={default_args} let:args>
+	<FluentRoot {theme}>
 		<div class="flex h-full w-full flex-col items-center justify-center gap-4">
 			<div class="flex flex-col gap-4">
 				<Dropdown.Root bind:value={language}>
@@ -79,7 +85,7 @@
 								<span>Select a language</span>
 							{/if}
 
-							<Dropdown.Arrow/>
+							<Dropdown.Arrow />
 						</InputSkin>
 					</Dropdown.Trigger>
 
@@ -96,5 +102,5 @@
 				</div>
 			</div>
 		</div>
-	</App>
+	</FluentRoot>
 </Story>

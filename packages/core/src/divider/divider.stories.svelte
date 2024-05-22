@@ -1,11 +1,11 @@
-<script lang="ts">
+<script context="module" lang="ts">
 	import { onMount } from 'svelte';
-	import { App, Divider } from '@svelte-fui/core';
+	import { Divider, FluentRoot } from '@svelte-fui/core';
 	import { webDarkTheme, webLightTheme } from '@svelte-fui/themes';
-	import { Meta, Story } from '@storybook/addon-svelte-csf';
+	import { Story } from '@storybook/addon-svelte-csf';
 	import type { ArgTypes } from '@storybook/svelte';
 
-	const default_values = {
+	const default_args = {
 		appearance: 'default',
 		alignContent: 'center',
 		vertical: false,
@@ -27,6 +27,15 @@
 		}
 	} satisfies ArgTypes;
 
+	export const meta = {
+		title: 'Components/Divider',
+		component: Divider,
+		argTypes: arg_types,
+		tags: ['!autodocs']
+	};
+</script>
+
+<script lang="ts">
 	let theme = webLightTheme;
 
 	onMount(() => {
@@ -46,10 +55,8 @@
 	});
 </script>
 
-<Meta title="Components/Divider" component={Divider} argTypes={arg_types} />
-
-<Story id="fui_divider" name="Divider" args={default_values} let:args>
-	<App {theme}>
+<Story id="fui_divider" name="Divider" args={default_args} let:args>
+	<FluentRoot {theme}>
 		<div class="flex h-full w-full flex-col items-center justify-center gap-4">
 			<div class="flex w-full flex-col gap-4">
 				<div class="flex h-[48px]">
@@ -67,5 +74,5 @@
 				</div>
 			</div>
 		</div>
-	</App>
+	</FluentRoot>
 </Story>

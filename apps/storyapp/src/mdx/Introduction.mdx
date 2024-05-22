@@ -2,9 +2,10 @@ import { Meta } from '@storybook/blocks';
 
 <Meta title="Fluent UI/Introduction" />
 
-<div class="title">Fluent UI for Svelte</div>
+<div className="title">Fluent UI for Svelte</div>
 
-    This project aims to integrate Microsoft's Fluent UI version 9 into the Svelte framework, offering
+<div className="description"> 
+	This project aims to integrate Microsoft's Fluent UI version 9 into the Svelte framework, offering
     a seamless and modern user interface experience. Fluent UI is a design system developed by
     Microsoft that provides a set of reusable components, icons, and styles for building user
     interfaces that align with Microsoft's Fluent Design System.
@@ -16,6 +17,7 @@ import { Meta } from '@storybook/blocks';
 
     Fluent UI for Svelte is built using TailwindCSS for TailwindCSS, you can easily integrate Fluent
     UI preset on your TailwindCSS configuration and access Fluent UI tokens using TailwindCSS classes
+</div>
 
 # Getting Started
 
@@ -33,12 +35,12 @@ npm install @svelte-fui/core
 
 ```html
 <script>
-	import { App, Button } from '@svelte-fui/core';
+	import { FluentRoot, Button } from '@svelte-fui/core';
 </script>
 
-<App>
+<FluentRoot>
 	<button>Hello World!</button>
-</App>
+</FluentRoot>
 ```
 
 # Integrate TailwindCSS preset
@@ -73,10 +75,10 @@ pnpm install @svelte-fui/themes
 npm install @svelte-fui/themes
 ```
 
-```js
+```html
 <script>
-  import { webLightTheme, webDarkTheme } from '@svelte-fui/themes';
-  import { App, Button } from '@svelte-fui/core';
+	import { webLightTheme, webDarkTheme } from '@svelte-fui/themes';
+	import { FluentRoot, Button } from '@svelte-fui/core';
 
 	let theme = webLightTheme;
 
@@ -97,16 +99,26 @@ npm install @svelte-fui/themes
 	});
 </script>
 
-<App {theme}>
-	<Button>Fluent UI for Svelte</Button>
-</App>
+<FluentRoot {theme}>
+	<button>Fluent UI for Svelte</button>
+</FluentRoot>
 ```
 
 <style>
 	{`
+	* {
+		font-size: 1rem;
+	}
+
+	.description {
+		font-size: 1rem;
+		font-weight: 500;
+	}
+
     .title {
-      font-size: 4em;
+      font-size: 4rem;
       font-weight: 700;
     }
+
   `}
 </style>

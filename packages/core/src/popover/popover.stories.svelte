@@ -1,12 +1,19 @@
-<script context="module">
-	import { Story, Meta } from '@storybook/addon-svelte-csf';
+<script context="module" lang="ts">
 	import { FluentRoot } from '@svelte-fui/core';
-	import { Popover, setPopoverContext } from '.';
+	import { Popover } from '.';
+	import { Story } from '@storybook/addon-svelte-csf';
+	import type { ArgTypes } from '@storybook/svelte';
 
-	// export const meta = {
-	// 	title: 'Components/Popover',
-	// 	component: Popover
-	// };
+	const arg_types = {} satisfies ArgTypes;
+
+	const default_args: Partial<Record<keyof typeof arg_types, any>> = {};
+
+	export const meta = {
+		title: 'Components/Popover',
+		component: Popover,
+		argTypes: arg_types,
+		tags: ['!autodocs']
+	};
 </script>
 
 <script lang="ts">
@@ -19,9 +26,7 @@
 	}
 </script>
 
-<Meta title="Components/Popover" component={Popover} />
-
-<Story id="popover" name="Popover">
+<Story id="popover" name="Popover" args={default_args}>
 	<FluentRoot>
 		<button
 			class="flex aspect-square h-12 items-center justify-center rounded-xl border border-neutral-200 bg-neutral-100"
