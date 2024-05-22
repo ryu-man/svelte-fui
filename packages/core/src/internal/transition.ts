@@ -1,0 +1,8 @@
+export const DURATION = {
+	QUICK: 50,
+	FAST: 100,
+	NORMAL: 200,
+	SMOOTH: 300,
+	SLOW: 400,
+	DRAGGING: 500
+};
