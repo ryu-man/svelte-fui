@@ -18,7 +18,7 @@
 	role="separator"
 	aria-orientation="horizontal"
 	aria-labelledby={id}
-	class={classnames('fui-divider', appearance, alignContent, { vertical, inset, childless }, klass)}
+	class={classnames('fui-divider', 'flex flex-grow items-center text-center', appearance, alignContent, { vertical, inset, childless }, klass)}
 	{style}
 >
 	<div {id} class="fui-divider-wrapper">
@@ -28,7 +28,7 @@
 
 <style lang="postcss">
 	.fui-divider {
-		@apply relative box-border flex flex-grow items-center text-center font-base text-base-200 font-regular leading-base-200;
+		@apply font-base text-base-200  font-regular leading-base-200 relative box-border;
 
 		--content-spacing: theme(spacing.m);
 		--inset-spacing: theme(spacing.m);
@@ -36,11 +36,11 @@
 		--min-start-end-length: theme(spacing.s);
 
 		&::before {
-			@apply box-border flex flex-grow border-b-thin;
+			@apply border-b-thin box-border flex flex-grow;
 			content: '';
 		}
 		&::after {
-			@apply box-border flex flex-grow border-b-thin;
+			@apply border-b-thin box-border flex flex-grow;
 			content: '';
 		}
 
