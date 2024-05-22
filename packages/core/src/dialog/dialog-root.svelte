@@ -1,15 +1,28 @@
 <script lang="ts">
-	import Portal from 'svelte-portal/src/Portal.svelte';
-	import { createEventDispatcher, onMount } from 'svelte';
-	import { getFluentRootContext } from '../app';
+	import { createEventDispatcher, onMount, tick } from 'svelte';
+	import { getBackdropContext, getFluentRootContext } from '@svelte-fui/core';
+	import { portal } from '@svelte-fui/core/actions/portal';
+	import { nanoid } from 'nanoid';
 
 	const dispatch = createEventDispatcher();
-	const { appElement$ } = getFluentRootContext();
+
+	const { overlayElement } = getFluentRootContext();
+	const backdrop_context = getBackdropContext();
+
+	const backdrop_id = nanoid(8);
 
 	export let open = false;
 	export let type: 'modal' | 'non-modal' | 'alert' = 'modal';
 
 	$: dispatch('change', open);
+
+	$: is_modal = type === 'modal';
+
+	$: if (is_modal && open) {
+		tick().then(() => backdrop_context.openBackdrop(backdrop_id));
+	} else {
+		backdrop_context.closeBackdrop(backdrop_id);
+	}
 
 	onMount(() => {
 		document.addEventListener('keyup', dismiss_dialog_on_escape);
@@ -34,58 +47,53 @@
 	}
 </script>
 
-<Portal target={$appElement$}>
-	{#if open}
-		{#if type === 'modal'}
-			<div aria-hidden="true" class="fui-dialog-surface-backdrop" on:click={onclick_dismiss_dialog} />
+{#if $overlayElement}
+	<div class="fui-dialog w-full h-full pointer-events-auto" use:portal={{ target: $overlayElement }}>
+		{#if open}
+			<div tabindex="-1" aria-modal="true" role="dialog" aria-labelledby="dialog-title-277" data-tabster="" class="fui-dialog-surface">
+				<!-- <i
+					 tabindex="0"
+					 role="none"
+					 data-tabster-dummy=""
+					 aria-hidden="true"
+					 style="position: fixed; height: 1px; width: 1px; opacity: 0.001; z-index: -1; content-visibility: hidden; top: 0px; left: 0px;"
+				 /> -->
+
+				<slot />
+
+				<!-- <i
+					 tabindex="0"
+					 role="none"
+					 data-tabster-dummy=""
+					 aria-hidden="true"
+					 style="position: fixed; height: 1px; width: 1px; opacity: 0.001; z-index: -1; content-visibility: hidden; top: 0px; left: 0px;"
+				 /> -->
+			</div>
 		{/if}
-
-		<div tabindex="-1" aria-modal="true" role="dialog" aria-labelledby="dialog-title-277" data-tabster="" class="fui-dialog-surface">
-			<!-- <i
-				tabindex="0"
-				role="none"
-				data-tabster-dummy=""
-				aria-hidden="true"
-				style="position: fixed; height: 1px; width: 1px; opacity: 0.001; z-index: -1; content-visibility: hidden; top: 0px; left: 0px;"
-			/> -->
-
-			<slot />
-
-			<!-- <i
-				tabindex="0"
-				role="none"
-				data-tabster-dummy=""
-				aria-hidden="true"
-				style="position: fixed; height: 1px; width: 1px; opacity: 0.001; z-index: -1; content-visibility: hidden; top: 0px; left: 0px;"
-			/> -->
-		</div>
-	{/if}
-</Portal>
+	</div>
+{/if}
 
 <style lang="postcss">
-	.fui-dialog-surface-backdrop {
-		@apply fixed inset-0;
-
-		background-color: rgba(0, 0, 0, 0.4);
-	}
-
 	.fui-dialog-surface {
-		@apply bg-neutral-background-1 text-neutral-foreground-1 border-transparent-stroke border-thin absolute inset-0 m-auto box-border block select-none rounded-xl p-6;
+		@apply bg-neutral-background-1 text-neutral-foreground-1 border-transparent-stroke border-thin absolute inset-0 m-auto box-border grid select-none rounded-xl;
 
 		--dialog-height: 98vh;
+
+		grid-template-columns: 1fr;
+		grid-template-rows: auto 1fr auto;
+		grid-template-areas: 'header' 'body' 'actions';
 
 		user-select: unset;
 		visibility: unset;
 		overflow: unset;
 
-		&::backdrop {
-			background-color: rgba(0, 0, 0, 0.4);
-		}
 		position: fixed;
 		height: fit-content;
 		max-width: 600px;
 		max-height: var(--dialog-height);
 		box-shadow: theme(boxShadow.64);
+
+		gap: 8px;
 	}
 	.fui-dialog-surface :global(.fui-dialog-title) {
 	}

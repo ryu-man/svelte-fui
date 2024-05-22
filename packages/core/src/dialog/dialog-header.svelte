@@ -2,7 +2,7 @@
 	export let as = 'div';
 </script>
 
-<svelte:element this={as} class="fui-dialog-title" id="dialog-title-277">
+<svelte:element this={as} class="fui-dialog-title px-6 pt-6" id="dialog-title-277">
 	<slot />
 </svelte:element>
 

@@ -1,11 +1,14 @@
 <script lang="ts">
-	import { classnames } from '../internal';
+	import { classnames } from '@svelte-fui/core/internal';
 
 	export let position: 'start' | 'end' = 'end';
 	export let fluid = false;
+
+	let klass = '';
+	export { klass as class };
 </script>
 
-<div class={classnames('fui-dialog-actions', position, { fluid })}>
+<div class={classnames('fui-dialog-actions px-6 pb-6', position, { fluid }, klass)}>
 	<slot />
 </div>
 

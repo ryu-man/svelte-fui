@@ -1,5 +1,11 @@
-export { default as Dialog } from './dialog-root.svelte';
-export { default as DialogActions } from './dialog-actions.svelte';
-export { default as DialogBody } from './dialog-body.svelte';
-export { default as DialogContent } from './dialog-content.svelte';
-export { default as DialogHeader } from './dialog-header.svelte';
+import { default as DialogActions } from './dialog-actions.svelte';
+import { default as DialogBody } from './dialog-body.svelte';
+import { default as DialogHeader } from './dialog-header.svelte';
+import { default as DialogRoot } from './dialog-root.svelte';
+
+export const Dialog = {
+	Root: DialogRoot,
+	Actions: DialogActions,
+	Body: DialogBody,
+	Header: DialogHeader
+};
