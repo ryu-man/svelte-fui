@@ -14,9 +14,9 @@ export default defineConfig({
   resolve:{
     alias:{
 			'@svelte-fui/core': path.resolve('./src'),
-			'@svelte-fui/theme': path.resolve('../theme'),
-			'@svelte-fui/themes': path.resolve('../themes'),
-			'@svelte-fui/tailwindcss': path.resolve('../tailwindcss')
+			'@svelte-fui/theme': path.resolve('../theme/src'),
+			'@svelte-fui/themes': path.resolve('../themes/src'),
+			'@svelte-fui/tailwindcss': path.resolve('../tailwindcss/src')
     }
   }
 })
