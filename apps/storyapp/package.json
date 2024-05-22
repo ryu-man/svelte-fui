@@ -13,7 +13,7 @@
 		"lint": "prettier --plugin-search-dir . --check . && eslint .",
 		"preview": "vite preview",
 		"storybook:build": "svelte-kit sync && storybook build",
-		"storybook:dev": "storybook dev -p 6006"
+		"storybook:dev": "storybook dev -p 6006 --no-open"
 	},
 	"devDependencies": {
 		"@storybook/addon-essentials": "^7.0.7",
