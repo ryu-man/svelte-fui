@@ -1,6 +1,6 @@
 import { nanoid } from 'nanoid';
 
-export function guard<R, S, T>(value: R, resolve: () => S, reject: () => T) {
+export function safe<R, S, T>(value: R, resolve: () => S, reject: () => T) {
 	if (!value) {
 		return reject();
 	}
