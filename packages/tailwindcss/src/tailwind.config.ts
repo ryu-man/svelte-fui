@@ -99,7 +99,8 @@ const config = {
 				md: '4px',
 				lg: '6px',
 				xl: '8px',
-				circular: '9999px'
+				circular: '9999px',
+				inherit: 'inherit'
 			},
 			strokeWidth: {
 				thin: '1px',
