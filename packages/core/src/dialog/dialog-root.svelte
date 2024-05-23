@@ -65,7 +65,17 @@
 			on:click={onclick_dismiss_dialog}
 			on:keyup={() => {}}
 		>
-			<div class={classnames('fui-dialog-surface', klass)} {...$$restProps} tabindex="-1" aria-modal="true" role="dialog" data-tabster="">
+			<div
+				class={classnames(
+					'fui-dialog-surface bg-neutral-background-1 text-neutral-foreground-1 border-transparent-stroke border-thin shadow-64 m-auto box-border gap-2 rounded-xl',
+					klass
+				)}
+				{...$$restProps}
+				tabindex="-1"
+				aria-modal="true"
+				role="dialog"
+				data-tabster=""
+			>
 				<!-- <i
 					 tabindex="0"
 					 role="none"
@@ -90,26 +100,12 @@
 
 <style lang="postcss">
 	.fui-dialog-surface {
-		@apply bg-neutral-background-1 text-neutral-foreground-1 border-transparent-stroke border-thin absolute inset-0 m-auto box-border grid select-none rounded-xl;
+		@apply absolute inset-0  flex flex-col;
 
 		--dialog-height: 98vh;
 
-		grid-template-columns: 1fr;
-		grid-template-rows: auto 1fr auto;
-		grid-template-areas: 'header' 'body' 'actions';
-
-		user-select: unset;
-		visibility: unset;
-		overflow: unset;
-
-		position: fixed;
 		height: fit-content;
 		max-width: 600px;
 		max-height: var(--dialog-height);
-		box-shadow: theme(boxShadow.64);
-
-		gap: 8px;
-	}
-	.fui-dialog-surface :global(.fui-dialog-title) {
 	}
 </style>

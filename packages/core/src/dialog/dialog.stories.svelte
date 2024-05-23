@@ -77,7 +77,7 @@
 				ullamcorper ex varius. Duis euismod quis enim vitae posuere. Nulla lacus magna, mollis ac sapien vel, maximus ornare nulla.
 			</Dialog.Body>
 
-			<Dialog.Actions>
+			<Dialog.Actions class="justify-end">
 				<Button on:click={onclick_cancel}>Cancel</Button>
 				<Button>Ok</Button>
 			</Dialog.Actions>
