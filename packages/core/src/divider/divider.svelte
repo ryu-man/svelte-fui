@@ -1,14 +1,16 @@
 <script lang="ts">
 	import { classnames } from '@svelte-fui/core/internal';
+	import type { DividerProps } from './types';
 
-	export let appearance: 'strong' | 'brand' | 'subtl' | 'default' = 'default';
-	export let vertical = false;
-	export let inset = false;
-	export let alignContent: 'center' | 'start' | 'end' = 'center';
+	type $$Props = DividerProps;
 
-	export let id: string | undefined = undefined;
-	export let style: string = '';
-	let klass = '';
+	export let appearance: $$Props['appearance'] = 'default';
+	export let vertical: $$Props['vertical'] = false;
+	export let inset: $$Props['inset'] = false;
+	export let alignContent: $$Props['alignContent'] = 'center';
+
+	export let id: $$Props['id'] = undefined;
+	let klass: $$Props['class'] = '';
 	export { klass as class };
 
 	$: childless = !$$slots.default;
@@ -19,7 +21,6 @@
 	aria-orientation="horizontal"
 	aria-labelledby={id}
 	class={classnames('fui-divider', 'flex flex-grow items-center text-center', appearance, alignContent, { vertical, inset, childless }, klass)}
-	{style}
 >
 	<div {id} class="fui-divider-wrapper">
 		<slot />
