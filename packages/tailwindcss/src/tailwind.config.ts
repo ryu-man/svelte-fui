@@ -190,6 +190,9 @@ const config = {
 
 				...colorsTheme
 			},
+			screens: {
+				xs: '480px'
+			},
 			transitionDuration: durations,
 			transitionDelay: timingFunctions,
 			transitionTimingFunction: timingFunctions
