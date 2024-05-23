@@ -2,7 +2,11 @@
 	import { createEventDispatcher, onMount, tick } from 'svelte';
 	import { getBackdropContext, getFluentRootContext } from '@svelte-fui/core';
 	import { portal } from '@svelte-fui/core/actions/portal';
+	import { classnames } from '@svelte-fui/core/internal';
 	import { nanoid } from 'nanoid';
+	import type { DialogProps } from './types';
+
+	type $$Props = DialogProps;
 
 	const dispatch = createEventDispatcher();
 
@@ -11,8 +15,10 @@
 
 	const backdrop_id = nanoid(8);
 
-	export let open = false;
-	export let type: 'modal' | 'non-modal' | 'alert' = 'modal';
+	export let open: $$Props['open'] = false;
+	export let type: $$Props['type'] = 'modal';
+	let klass: $$Props['class'] = '';
+	export { klass as class };
 
 	$: dispatch('change', open);
 
@@ -59,7 +65,7 @@
 			on:click={onclick_dismiss_dialog}
 			on:keyup={() => {}}
 		>
-			<div tabindex="-1" aria-modal="true" role="dialog" aria-labelledby="dialog-title-277" data-tabster="" class="fui-dialog-surface">
+			<div class={classnames('fui-dialog-surface', klass)} {...$$restProps} tabindex="-1" aria-modal="true" role="dialog" data-tabster="">
 				<!-- <i
 					 tabindex="0"
 					 role="none"
