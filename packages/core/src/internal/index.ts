@@ -220,7 +220,8 @@ export function createEventForwarder(component: SvelteComponent, exclude: string
 const custom_tw_merge = extendTailwindMerge({
 	  extend:{
 		theme: {
-			spacing: Object.keys(tailwindcssConfig.theme.extend.spacing)
+			spacing: Object.keys(tailwindcssConfig.theme.extend.spacing),
+			borderWidth: Object.keys(tailwindcssConfig.theme.extend.borderWidth),
 		}
 	  }
 })
