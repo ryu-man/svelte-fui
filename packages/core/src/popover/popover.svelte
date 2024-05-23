@@ -6,16 +6,18 @@
 	import { popover } from '@svelte-fui/core/actions/popover';
 	import { classnames } from '@svelte-fui/core/internal';
 	import { getSharedContext } from '@svelte-fui/core/internal/context';
-	import { type Alignment, type Placement } from '@floating-ui/dom';
 	import { type PopoverContext, setPopoverContext } from './context';
+	import type { PopoverProps } from './types';
+
+	type $$Props = PopoverProps;
 
 	const dispatch = createEventDispatcher();
 
 	const { overlayElement } = getFluentRootContext();
 
-	export let id: string | undefined = undefined;
-	export let open = false;
-	export let referenceElement: HTMLElement | undefined = undefined;
+	export let id: $$Props['id'] = undefined;
+	export let open: $$Props['open'] = false;
+	export let referenceElement: $$Props['referenceElement'] = undefined;
 
 	const popoverContext = Object.assign(
 		setPopoverContext({
@@ -25,10 +27,10 @@
 		getSharedContext<PopoverContext>('popover', id ?? '')
 	);
 
-	export let placements: Placement[] | undefined = undefined;
-	export let alignment: Alignment | undefined = undefined;
-	export let offset = 8;
-	let klass = '';
+	export let placements: $$Props['placements'] = undefined;
+	export let alignment: $$Props['alignment'] = undefined;
+	export let offset: $$Props['offset'] = 8;
+	let klass: $$Props['class'] = '';
 	export { klass as class };
 
 	const open_store = popoverContext.open;
