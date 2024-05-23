@@ -1,29 +1,32 @@
 <script lang="ts">
 	import { get_current_component } from 'svelte/internal';
-	import { classnames, createEventForwarder } from '../internal';
+	import { classnames, createEventForwarder } from '@svelte-fui/core/internal';
+	import type { ButtonProps } from './types';
 
-	export let shape: 'rounded' | 'circular' | 'square' = 'rounded';
-	export let appearance: 'subtle' | 'outline' | 'secondary' | 'primary' | 'transparent' | undefined = 'secondary';
-	export let size: 'sm' | 'md' | 'lg' = 'md';
+	type $$Props = ButtonProps;
+
+	export let shape: $$Props['shape'] = 'rounded';
+	export let appearance: $$Props['appearance'] = 'secondary';
+	export let size: $$Props['size'] = 'md';
 
 	/** @restProps {button | a} */
 	/** Specifies the visual styling of the button. */
 	// export let variant: 'standard' | 'accent' | 'hyperlink' = 'standard';
 
 	/** Sets an href value and converts the button element into an anchor/ */
-	export let href = '';
+	export let href: $$Props['href'] = '';
 
 	/** Controls whether the button is intended for user interaction, and styles it accordingly. */
-	export let disabled = false;
+	export let disabled: $$Props['disabled'] = false;
 
-	export let icon: boolean = false;
+	export let icon: $$Props['icon'] = false;
 
 	/** Specifies a custom class name for the button. */
-	let klass = '';
+	let klass: $$Props['class'] = '';
 	export { klass as class };
 
 	/** Obtains a bound DOM reference to the button or anchor element. */
-	export let element: HTMLElement = null;
+	export let element: $$Props['element'] = undefined;
 
 	const forward_events = createEventForwarder(get_current_component());
 

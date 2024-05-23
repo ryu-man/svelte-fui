@@ -1,25 +1,28 @@
 <script lang="ts">
 	import { classnames } from '@svelte-fui/core/internal';
 	import Button from '../button.svelte';
+	import type { ButtonProps } from '../types';
 
-	export let shape: 'rounded' | 'circular' | 'square' = 'rounded';
-	export let appearance: 'subtle' | 'outline' | 'secondary' | 'primary' | 'transparent' | undefined = 'secondary';
-	export let size: 'sm' | 'md' | 'lg' = 'md';
+	type $$Props = ButtonProps;
+
+	export let shape: $$Props['shape'] = 'rounded';
+	export let appearance: $$Props['appearance'] = 'secondary';
+	export let size: $$Props['size'] = 'md';
 
 	/** @restProps {button | a} */
 	/** Specifies the visual styling of the button. */
 	// export let variant: 'standard' | 'accent' | 'hyperlink' = 'standard';
 
 	/** Sets an href value and converts the button element into an anchor/ */
-	export let href = '';
+	export let href: $$Props['href'] = '';
 
 	/** Controls whether the button is intended for user interaction; and styles it accordingly. */
-	export let disabled = false;
+	export let disabled: $$Props['disabled'] = false;
 
-	export let icon: boolean = false;
+	export let icon: $$Props['icon'] = false;
 
 	/** Specifies a custom class name for the button. */
-	let klass = '';
+	let klass: $$Props['class'] = '';
 	export { klass as class };
 </script>
 
@@ -50,7 +53,7 @@
 	}
 
 	.fui-compound-button-inner {
-		@apply flex h-auto flex-nowrap gap-3 ;
+		@apply flex h-auto flex-nowrap gap-3;
 
 		--fui-compound-body-secondary-color: theme('colors.neutral-foreground-2');
 		--fui-icon-size: 40px;
