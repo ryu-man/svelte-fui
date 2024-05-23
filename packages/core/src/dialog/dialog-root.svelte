@@ -32,7 +32,11 @@
 		};
 	});
 
-	function onclick_dismiss_dialog() {
+	function onclick_dismiss_dialog(ev: Event) {
+		if (ev.currentTarget !== ev.target) {
+			return;
+		}
+
 		dispatch('backdrop-click', { open, type });
 
 		if (type === 'alert') return;
@@ -48,8 +52,13 @@
 </script>
 
 {#if $overlayElement}
-	<div class="fui-dialog w-full h-full pointer-events-auto" use:portal={{ target: $overlayElement }}>
-		{#if open}
+	{#if open}
+		<div
+			class="fui-dialog pointer-events-auto h-full w-full"
+			use:portal={{ target: $overlayElement }}
+			on:click={onclick_dismiss_dialog}
+			on:keyup={() => {}}
+		>
 			<div tabindex="-1" aria-modal="true" role="dialog" aria-labelledby="dialog-title-277" data-tabster="" class="fui-dialog-surface">
 				<!-- <i
 					 tabindex="0"
@@ -69,8 +78,8 @@
 					 style="position: fixed; height: 1px; width: 1px; opacity: 0.001; z-index: -1; content-visibility: hidden; top: 0px; left: 0px;"
 				 /> -->
 			</div>
-		{/if}
-	</div>
+		</div>
+	{/if}
 {/if}
 
 <style lang="postcss">
