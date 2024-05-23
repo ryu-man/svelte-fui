@@ -26,7 +26,7 @@
 
 	export const meta = {
 		title: 'Components/Dialog',
-		component: Dialog,
+		component: Dialog.Root,
 		argTypes: arg_types,
 		tags: ['!autodocs']
 	};
