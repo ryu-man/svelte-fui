@@ -5,6 +5,7 @@ import MenuRoot from './menu-root.svelte';
 import MenuTrigger from './menu-trigger.svelte';
 
 export * from './context-root';
+export  * from './types'
 
 export const Menu = {
 	Root: MenuRoot,

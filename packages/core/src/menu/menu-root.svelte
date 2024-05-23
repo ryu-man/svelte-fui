@@ -2,19 +2,17 @@
 	import { onDestroy } from 'svelte';
 	import { type Writable, writable } from 'svelte/store';
 	import { fly } from 'svelte/transition';
-	import { getFluentRootContext } from '@svelte-fui/core';
 	import { classnames } from '@svelte-fui/core/internal';
 	import { getSharedContext, setSharedContext } from '@svelte-fui/core/internal/context';
 	import { DURATION } from '@svelte-fui/core/internal/transition';
 	import { Popover } from '@svelte-fui/core/popover';
-	import { type Placement } from '@floating-ui/dom';
 	import { getMenuContext, setMenuContext } from './context-root';
+	import type { MenuRootProps } from './types';
 
-	const { overlayElement } = getFluentRootContext();
+	type $$Props = MenuRootProps;
 
-	export let open = false;
-	export let id: string | undefined = undefined;
-	export let discover = true;
+	export let open: $$Props['open'] = false;
+	export let id: $$Props['id'] = '';
 
 	const menu_context_parent = getMenuContext();
 	let is_submenu = !!menu_context_parent;
@@ -41,12 +39,13 @@
 	const menu_trigger_element_parent =
 		getSharedContext<Writable<HTMLElement>>('menu', 'trigger') ?? setSharedContext(menu_context_trigger_element_store, 'menu', 'trigger');
 
-	export let offset = is_submenu ? 4 : 8;
-	export let placements: Placement[] | undefined = is_submenu
+	export let discover: $$Props['discover'] = true;
+	export let offset: $$Props['offset'] = is_submenu ? 4 : 8;
+	export let placements: $$Props['placements'] = is_submenu
 		? ['right-end', 'right-start', 'left-end', 'left-start']
 		: ['bottom-start', 'bottom-end', 'top-start', 'top-end'];
 
-	let klass = '';
+	let klass: $$Props['class'] = '';
 	export { klass as class };
 
 	onDestroy(() => {

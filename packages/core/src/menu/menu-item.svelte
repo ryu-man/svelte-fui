@@ -2,19 +2,20 @@
 	import { onDestroy, onMount } from 'svelte';
 	import { type Writable, writable } from 'svelte/store';
 	import { classnames } from '@svelte-fui/core/internal';
-	import { getSharedContext, setSharedContext } from '@svelte-fui/core/internal/context';
+	import { setSharedContext } from '@svelte-fui/core/internal/context';
 	import { nanoid } from 'nanoid';
+	import { setMenuItemContext } from './context-item';
 	import { type MenuContext, getMenuContext } from './context-root';
-	import { getMenuItemContext, setMenuItemContext } from './context-item';
-	import { colorsTheme } from '../tailwindcss/colors_theme';
+	import type { MenuItemProps } from './types';
+
+	type $$Props = MenuItemProps;
 
 	const menu_context = getMenuContext();
-	const menu_item_parent_context = getMenuItemContext();
 
-	export let id = nanoid(8);
-	export let open = false;
+	export let id: $$Props['id'] = nanoid(8);
+	export let open: $$Props['open'] = false;
 
-	const menu_item_context = setMenuItemContext({
+	setMenuItemContext({
 		id: writable(id),
 		open: writable(open),
 		close
@@ -28,7 +29,7 @@
 
 	const menu_items_active = menu_context?.itemsActive as Writable<Set<string>>;
 
-	let klass = '';
+	let klass: $$Props['class'] = '';
 	export { klass as class };
 
 	if (open) {

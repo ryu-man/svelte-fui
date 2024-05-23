@@ -1,8 +1,10 @@
 <script lang="ts">
-	import { Divider } from '@svelte-fui/core';
 	import { classnames } from '@svelte-fui/core/internal';
+	import type { MenuGroupProps } from './types';
 
-	let klass = '';
+	type $$Props = MenuGroupProps;
+
+	let klass: $$Props['class'] = '';
 	export { klass as class };
 </script>
 
