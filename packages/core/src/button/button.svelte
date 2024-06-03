@@ -47,17 +47,17 @@
 	href={href && !disabled ? href : undefined}
 	class={classnames(
 		'fds-button',
-		'px-m gap-sNudge font-base text-base-300 leading-base-300 flex justify-center rounded-md py-[5px] font-semibold',
+		'px-m gap-sNudge font-base h-xxxl text-base-300 min-h-xxl leading-base-300 flex justify-center rounded-md py-[5px] font-semibold',
 		appearance,
 		shape,
 		size,
-		icon && 'inline-flex',
-		size === 'md' && icon && 'h-xl text-base-500 aspect-square min-h-[32px] px-[1px] py-[1px]',
-		size === 'sm' && 'px-s text-base-200 font-regular leading-base-200 min-w-[64px] py-[3px]',
-		size === 'sm' && icon && 'min-h-[24px] min-w-[24px] p-[1px]',
-		size === 'lg' && 'px-m text-base-400 leading-base-400 min-w-[96px] py-[8px]',
-		size === 'lg' && icon && 'min-h-[40px] min-w-[40px] p-[7px]',
-		shape === 'circular' && 'rounded-ful',
+		icon && 'inline-flex aspect-square',
+		size === 'md' && icon && 'text-base-500  aspect-square px-[1px] py-[1px]',
+		size === 'sm' && 'px-s text-base-200 font-regular leading-base-200 min-h-[24px] w-[24px] min-w-[64px] py-[3px]',
+		size === 'sm' && icon && 'p-[1px]',
+		size === 'lg' && 'px-m text-base-400 leading-base-400 h-[40px] min-h-[40px] min-w-[96px] py-[8px]',
+		size === 'lg' && icon && 'p-[7px]',
+		shape === 'circular' && 'rounded-full',
 		shape === 'square' && 'rounded-none',
 		klass
 	)}

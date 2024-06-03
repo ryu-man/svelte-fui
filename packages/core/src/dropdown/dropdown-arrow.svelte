@@ -15,8 +15,8 @@
 </script>
 
 <div
-	class={classnames('dropdown-arrow text-neutral-stroke-accessible ml-auto aspect-square h-full p-[2px] pl-4')}
-	style:transform="rotate({$rotation * 180}deg) translate(-8px, 0)"
+	class={classnames('dropdown-arrow text-neutral-stroke-accessible ml-auto aspect-square h-full p-[2px]', klass)}
+	style:transform="rotate({$rotation * 180}deg)"
 	data-owner-id={$id_store}
 >
 	<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 9" fill="none">
