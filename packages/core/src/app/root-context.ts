@@ -10,6 +10,15 @@ export type FluentRootContext = {
 	overlayElement: Writable<HTMLElement | undefined>;
 	screens: Readable<Record<string, string>>;
 	activeScreen: Readable<[key: string, value: string]>;
+	layouts: Writable<
+		Record<
+			string,
+			{
+				element: HTMLElement;
+				id: string;
+			}
+		>
+	>;
 };
 
 export function getFluentRootContext() {

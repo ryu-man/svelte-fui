@@ -1,20 +1,19 @@
 <script lang="ts">
-	import { createEventDispatcher, onMount } from 'svelte';
+	import { tick } from 'svelte';
 	import { readonly, writable } from 'svelte/store';
+	import { Layout } from '@svelte-fui/core';
 	import type { Theme } from '@svelte-fui/theme';
 	import { webLightTheme } from '@svelte-fui/themes';
-	import { type BackdropContext, setBackdropContext } from './backdrop-context';
+	import { setBackdropContext } from './backdrop-context';
+	import RootBackdropLayer from './root-backdrop-layer.svelte';
 	import { setFluentRootContext } from './root-context';
-	import RootOverlay from './root-overlay.svelte';
 	import './root.css';
 	import { applyTheme } from './utils';
-
-	const dispatch = createEventDispatcher();
 
 	export let theme: Theme = webLightTheme;
 	export let screens: Record<string, string> = {};
 
-	const backdrop_context: BackdropContext = setBackdropContext({
+	setBackdropContext({
 		dependencies: new Set(),
 		open: writable(false),
 		openBackdrop(id) {
@@ -34,12 +33,13 @@
 
 	const active_screen_store = writable<[string, string]>(['xs', '0px']);
 
-	const { appElement$, rootElement } = setFluentRootContext({
+	const { rootElement } = setFluentRootContext({
 		activeScreen: readonly(active_screen_store),
 		screens: readonly(screens_store),
 		rootElement: writable(),
 		overlayElement: writable(),
-		appElement$: writable()
+		appElement$: writable(),
+		layouts: writable({})
 	});
 
 	function theming(node: HTMLDivElement, theme: Theme) {
@@ -61,9 +61,14 @@
 </script>
 
 <div class="fui-root" bind:this={$rootElement} use:theming={theme}>
-	<slot />
+	{#await tick() then _}
+		<!-- promise was fulfilled -->
+		<slot />
+	{/await}
 
-	<RootOverlay />
+	<RootBackdropLayer />
+	<Layout id="overlay" class="z-10" />
+	<Layout id="toasts" class="z-10" />
 </div>
 
 <style lang="postcss">

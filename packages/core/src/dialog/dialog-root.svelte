@@ -10,7 +10,7 @@
 
 	const dispatch = createEventDispatcher();
 
-	const { overlayElement } = getFluentRootContext();
+	const { layouts } = getFluentRootContext();
 	const backdrop_context = getBackdropContext();
 
 	const backdrop_id = nanoid(8);
@@ -57,11 +57,11 @@
 	}
 </script>
 
-{#if $overlayElement}
+{#if $layouts['overlay'].element}
 	{#if open}
 		<div
 			class="fui-dialog pointer-events-auto h-full w-full"
-			use:portal={{ target: $overlayElement }}
+			use:portal={{ target: $layouts['overlay'].element }}
 			on:click={onclick_dismiss_dialog}
 			on:keyup={() => {}}
 		>

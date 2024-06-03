@@ -13,7 +13,7 @@
 
 	const dispatch = createEventDispatcher();
 
-	const { overlayElement } = getFluentRootContext();
+	const { layouts } = getFluentRootContext();
 
 	export let id: $$Props['id'] = undefined;
 	export let open: $$Props['open'] = false;
@@ -56,14 +56,14 @@
 	}
 </script>
 
-{#if $overlayElement && $reference_element_store && open}
+{#if $layouts['overlay'].element && $reference_element_store && open}
 	<div
 		class={classnames('fui-popover pointer-events-auto h-min w-min', klass)}
 		data-dx={dx}
 		data-dy={dy}
 		use:popover={{
 			reference: referenceElement,
-			target: $overlayElement,
+			target: $layouts['overlay'].element,
 			allowedPlacements: placements,
 			alignment,
 			offset,
