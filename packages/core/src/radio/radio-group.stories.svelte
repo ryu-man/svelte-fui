@@ -1,20 +1,20 @@
-<script lang="ts">
-	import { Meta, Story } from '@storybook/addon-svelte-csf';
-	import type { ArgTypes } from '@storybook/svelte';
-	import { App } from '@svelte-fui/core';
-	import { webDarkTheme, webLightTheme } from '@svelte-fui/themes';
+<script context="module" lang="ts">
 	import { onMount } from 'svelte';
-	import Radio from './radio.svelte';
+	import { FluentRoot } from '@svelte-fui/core';
+	import { webDarkTheme, webLightTheme } from '@svelte-fui/themes';
+	import { Story } from '@storybook/addon-svelte-csf';
+	import type { ArgTypes } from '@storybook/svelte';
 	import RadioGroup from './radio-group.svelte';
+	import Radio from './radio.svelte';
 
-	const argDefaults = {
+	const default_args = {
 		disabled: false,
 		required: false,
 		size: 'md',
 		weight: 'regular'
 	};
 
-	const argTypes = {
+	const arg_types = {
 		disabled: {
 			type: 'boolean',
 			defaultValue: false,
@@ -39,6 +39,15 @@
 		}
 	} satisfies ArgTypes;
 
+	export const meta = {
+		title: 'Components/Radio',
+		component: RadioGroup,
+		argTypes: arg_types,
+		tags: ['!autodocs']
+	};
+</script>
+
+<script lang="ts">
 	let theme = webLightTheme;
 
 	onMount(() => {
@@ -58,11 +67,9 @@
 	});
 </script>
 
-<Meta title="Components/Radio" component={RadioGroup} {argTypes} />
-
-<Story id="fui_radio_group" name="RadioGroup" args={argDefaults} let:args>
-	<App {theme}>
-		<div class="flex items-center justify-center w-full h-full">
+<Story id="fui_radio_group" name="RadioGroup" args={default_args} let:args>
+	<FluentRoot {theme}>
+		<div class="flex h-full w-full items-center justify-center">
 			<RadioGroup {...args} name="fav_fruit">
 				<Radio value="apple" on:change={(e) => console.log(e)}>Apple</Radio>
 				<Radio value="orange" on:change={(e) => console.log(e)}>Orange</Radio>
@@ -70,5 +77,5 @@
 				<Radio value="pear" on:change={(e) => console.log(e)}>Pear</Radio>
 			</RadioGroup>
 		</div>
-	</App>
+	</FluentRoot>
 </Story>

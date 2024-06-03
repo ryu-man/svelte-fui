@@ -1,11 +1,11 @@
-<script lang="ts">
-	import { Meta, Story } from '@storybook/addon-svelte-csf';
-	import type { ArgTypes } from '@storybook/svelte';
-	import { App, Button, Tooltip } from '@svelte-fui/core';
-	import { webDarkTheme, webLightTheme } from '@svelte-fui/themes';
+<script context="module" lang="ts">
 	import { onMount } from 'svelte';
+	import { Button, FluentRoot, Tooltip } from '@svelte-fui/core';
+	import { webDarkTheme, webLightTheme } from '@svelte-fui/themes';
+	import { Story } from '@storybook/addon-svelte-csf';
+	import type { ArgTypes } from '@storybook/svelte';
 
-	const arg_defaults = {
+	const default_args = {
 		disabled: false,
 		required: false,
 		size: 'md',
@@ -45,6 +45,15 @@
 		}
 	} satisfies ArgTypes;
 
+	export const meta = {
+		title: 'Components/Tooltip',
+		component: Tooltip,
+		argTypes: arg_types,
+		tags: ['!autodocs']
+	};
+</script>
+
+<script lang="ts">
 	let theme = webLightTheme;
 
 	onMount(() => {
@@ -64,16 +73,14 @@
 	});
 </script>
 
-<Meta title="Components/Tooltip" component={Tooltip} />
-
-<Story id="fui_tooltip" name="Tooltip" let:args>
-	<App {theme}>
-		<div class="flex items-center justify-center w-full h-full">
+<Story id="fui_tooltip" name="Tooltip" args={default_args} let:args>
+	<FluentRoot {theme}>
+		<div class="flex h-full w-full items-center justify-center">
 			<Tooltip {...args}>
 				<Button>Hello Svelte land</Button>
 
 				<span slot="content">Hello from the other side! [slotted]</span>
 			</Tooltip>
 		</div>
-	</App>
+	</FluentRoot>
 </Story>

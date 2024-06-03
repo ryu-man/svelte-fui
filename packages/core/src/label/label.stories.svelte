@@ -1,11 +1,11 @@
-<script lang="ts">
-	import { Meta, Story } from '@storybook/addon-svelte-csf';
-	import type { ArgTypes } from '@storybook/svelte';
-	import { App, Label } from '@svelte-fui/core';
-	import { webDarkTheme, webLightTheme } from '@svelte-fui/themes';
+<script context="module" lang="ts">
 	import { onMount } from 'svelte';
+	import { FluentRoot, Label } from '@svelte-fui/core';
+	import { webDarkTheme, webLightTheme } from '@svelte-fui/themes';
+	import { Story } from '@storybook/addon-svelte-csf';
+	import type { ArgTypes } from '@storybook/svelte';
 
-	const arg_defaults = {
+	const default_args = {
 		disabled: false,
 		required: false,
 		size: 'md',
@@ -45,6 +45,15 @@
 		}
 	} satisfies ArgTypes;
 
+	export const meta = {
+		title: 'Components/Label',
+		component: Label,
+		argTypes: arg_types,
+		tags: ['!autodocs']
+	};
+</script>
+
+<script lang="ts">
 	let theme = webLightTheme;
 
 	onMount(() => {
@@ -64,12 +73,10 @@
 	});
 </script>
 
-<Meta title="Components/Label" component={Label} argTypes={arg_types} />
-
-<Story id="fui_label" name="Label" args={arg_defaults} let:args>
-	<App {theme}>
-		<div class="flex items-center justify-center w-full h-full">
+<Story id="fui_label" name="Label" args={default_args} let:args>
+	<FluentRoot {theme}>
+		<div class="flex h-full w-full items-center justify-center">
 			<Label {...args}>This is an example of the Text component's usage.</Label>
 		</div>
-	</App>
+	</FluentRoot>
 </Story>

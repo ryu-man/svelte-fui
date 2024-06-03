@@ -1,15 +1,34 @@
 <script lang="ts">
-	import Portal from 'svelte-portal/src/Portal.svelte';
-	import { createEventDispatcher, onMount } from 'svelte';
-	import { getFluentRootContext } from '../app';
+	import { createEventDispatcher, onMount, tick } from 'svelte';
+	import { getBackdropContext, getFluentRootContext } from '@svelte-fui/core';
+	import { portal } from '@svelte-fui/core/actions/portal';
+	import { classnames } from '@svelte-fui/core/internal';
+	import { nanoid } from 'nanoid';
+	import type { DialogProps } from './types';
+
+	type $$Props = DialogProps;
 
 	const dispatch = createEventDispatcher();
-	const { appElement$ } = getFluentRootContext();
 
-	export let open = false;
-	export let type: 'modal' | 'non-modal' | 'alert' = 'modal';
+	const { overlayElement } = getFluentRootContext();
+	const backdrop_context = getBackdropContext();
+
+	const backdrop_id = nanoid(8);
+
+	export let open: $$Props['open'] = false;
+	export let type: $$Props['type'] = 'modal';
+	let klass: $$Props['class'] = '';
+	export { klass as class };
 
 	$: dispatch('change', open);
+
+	$: is_modal = type === 'modal';
+
+	$: if (is_modal && open) {
+		tick().then(() => backdrop_context.openBackdrop(backdrop_id));
+	} else {
+		backdrop_context.closeBackdrop(backdrop_id);
+	}
 
 	onMount(() => {
 		document.addEventListener('keyup', dismiss_dialog_on_escape);
@@ -19,7 +38,11 @@
 		};
 	});
 
-	function onclick_dismiss_dialog() {
+	function onclick_dismiss_dialog(ev: Event) {
+		if (ev.currentTarget !== ev.target) {
+			return;
+		}
+
 		dispatch('backdrop-click', { open, type });
 
 		if (type === 'alert') return;
@@ -34,59 +57,55 @@
 	}
 </script>
 
-<Portal target={$appElement$}>
+{#if $overlayElement}
 	{#if open}
-		{#if type === 'modal'}
-			<div aria-hidden="true" class="fui-dialog-surface-backdrop" on:click={onclick_dismiss_dialog} />
-		{/if}
+		<div
+			class="fui-dialog pointer-events-auto h-full w-full"
+			use:portal={{ target: $overlayElement }}
+			on:click={onclick_dismiss_dialog}
+			on:keyup={() => {}}
+		>
+			<div
+				class={classnames(
+					'fui-dialog-surface bg-neutral-background-1 text-neutral-foreground-1 border-transparent-stroke border-thin shadow-64 m-auto box-border gap-2 rounded-xl',
+					klass
+				)}
+				{...$$restProps}
+				tabindex="-1"
+				aria-modal="true"
+				role="dialog"
+				data-tabster=""
+			>
+				<!-- <i
+					 tabindex="0"
+					 role="none"
+					 data-tabster-dummy=""
+					 aria-hidden="true"
+					 style="position: fixed; height: 1px; width: 1px; opacity: 0.001; z-index: -1; content-visibility: hidden; top: 0px; left: 0px;"
+				 /> -->
 
-		<div tabindex="-1" aria-modal="true" role="dialog" aria-labelledby="dialog-title-277" data-tabster="" class="fui-dialog-surface">
-			<!-- <i
-				tabindex="0"
-				role="none"
-				data-tabster-dummy=""
-				aria-hidden="true"
-				style="position: fixed; height: 1px; width: 1px; opacity: 0.001; z-index: -1; content-visibility: hidden; top: 0px; left: 0px;"
-			/> -->
+				<slot />
 
-			<slot />
-
-			<!-- <i
-				tabindex="0"
-				role="none"
-				data-tabster-dummy=""
-				aria-hidden="true"
-				style="position: fixed; height: 1px; width: 1px; opacity: 0.001; z-index: -1; content-visibility: hidden; top: 0px; left: 0px;"
-			/> -->
+				<!-- <i
+					 tabindex="0"
+					 role="none"
+					 data-tabster-dummy=""
+					 aria-hidden="true"
+					 style="position: fixed; height: 1px; width: 1px; opacity: 0.001; z-index: -1; content-visibility: hidden; top: 0px; left: 0px;"
+				 /> -->
+			</div>
 		</div>
 	{/if}
-</Portal>
+{/if}
 
 <style lang="postcss">
-	.fui-dialog-surface-backdrop {
-		@apply fixed inset-0;
-
-		background-color: rgba(0, 0, 0, 0.4);
-	}
-
 	.fui-dialog-surface {
-		@apply bg-neutral-background-1 text-neutral-foreground-1 border-transparent-stroke border-thin absolute inset-0 m-auto box-border block select-none rounded-xl p-6;
+		@apply absolute inset-0  flex flex-col;
 
 		--dialog-height: 98vh;
 
-		user-select: unset;
-		visibility: unset;
-		overflow: unset;
-
-		&::backdrop {
-			background-color: rgba(0, 0, 0, 0.4);
-		}
-		position: fixed;
 		height: fit-content;
 		max-width: 600px;
 		max-height: var(--dialog-height);
-		box-shadow: theme(boxShadow.64);
-	}
-	.fui-dialog-surface :global(.fui-dialog-title) {
 	}
 </style>

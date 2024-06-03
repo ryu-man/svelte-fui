@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { setFieldContext } from './context';
-	import type { State } from './types,';
+	import type { FieldState } from './types,';
 	import { setSharedContext } from '../context';
 	import { CheckmarkCircleFilled, ErrorCircleFilled, WarningFilled } from '../icons';
 	import { classnames } from '../internal';
@@ -10,7 +10,7 @@
 	export let orientation: 'horizontal' | 'vertical' = 'vertical';
 	export let size: 'sm' | 'md' | 'lg' = 'md';
 	export let validationMessage = '';
-	export let state: State = validationMessage ? 'error' : 'none';
+	export let state: FieldState = validationMessage ? 'error' : 'none';
 
 	const validation_message_icons = {
 		error: ErrorCircleFilled,

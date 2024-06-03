@@ -1,12 +1,12 @@
-<script lang="ts">
-	import { Meta, Story } from '@storybook/addon-svelte-csf';
-	import type { ArgTypes } from '@storybook/svelte';
-	import { App, Button, Card, CardFooter, CardHeader, CardPreview, Icon, Text } from '@svelte-fui/core';
+<script context="module" lang="ts">
+	import { onMount } from 'svelte';
+	import { Card, CardHeader, FluentRoot, Icon, Text } from '@svelte-fui/core';
 	import { MoreHorizontalFilled } from '@svelte-fui/icons';
 	import { webDarkTheme, webLightTheme } from '@svelte-fui/themes';
-	import { onMount } from 'svelte';
+	import { Story } from '@storybook/addon-svelte-csf';
+	import type { ArgTypes } from '@storybook/svelte';
 
-	const arg_defaults = {
+	const default_args = {
 		disabled: false,
 		required: false,
 		size: 'md',
@@ -47,6 +47,15 @@
 		}
 	} satisfies ArgTypes;
 
+	export const meta = {
+		title: 'Components/Card',
+		component: Card,
+		argTypes: arg_types,
+		tags: ['!autodocs']
+	};
+</script>
+
+<script lang="ts">
 	let theme = webLightTheme;
 
 	onMount(() => {
@@ -66,14 +75,12 @@
 	});
 </script>
 
-<Meta title="Components/Card" component={Card} />
-
-<Story id="fui_card_header" name="Header" let:args>
-	<App {theme}>
-		<div class="flex flex-col gap-4 justify-center items-center w-full h-full">
+<Story id="fui_card_header" name="Header" args={default_args} let:args>
+	<FluentRoot {theme}>
+		<div class="flex h-full w-full flex-col items-center justify-center gap-4">
 			<CardHeader>
 				<img
-					class="w-12 h-12 rounded-md image"
+					class="image h-12 w-12 rounded-md"
 					src="https://raw.githubusercontent.com/microsoft/fluentui/master/packages/react-components/react-card/stories/assets/app_logo.svg"
 					alt="App name logo"
 				/>
@@ -83,5 +90,5 @@
 				<Icon class="action" src={MoreHorizontalFilled} />
 			</CardHeader>
 		</div>
-	</App>
+	</FluentRoot>
 </Story>

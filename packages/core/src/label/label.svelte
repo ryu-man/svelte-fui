@@ -1,54 +1,50 @@
 <script lang="ts">
-	import { getSharedContext } from '../context';
-	import { classnames } from '../internal';
+	import { classnames } from '@svelte-fui/core/internal';
+	import type { LabelProps } from './types';
 
-	const sharedContext$ = getSharedContext<{  size: 'sm' | 'md' | 'lg' }>('label') || {};
+	type $$Props = LabelProps;
 
-	export let disabled = false;
-	export let required = false;
-	export let size: 'sm' | 'md' | 'lg' = $sharedContext$.size || 'md';
-	export let weight: 'regular' | 'semibold' = 'regular';
+	export let disabled: $$Props['disabled'] = false;
+	export let required: $$Props['required'] = false;
+	export let size: $$Props['size'] = 'md';
 
-	let klass = '';
+	let klass: $$Props['class'] = '';
 	export { klass as class };
 </script>
 
-<label class={classnames('fui-label', { disabled, required }, size, weight, klass)} {...$$restProps}>
+<label
+	class={classnames(
+		'fui-label font-base',
+		{ disabled, required },
+		klass,
+		size === 'sm' && 'text-base-200 leading-base-200',
+		size === 'md' && 'text-base-300 leading-base-300',
+		size === 'lg' && 'text-base-400 leading-base-400 font-semibold'
+	)}
+	{...$$restProps}
+>
 	<slot />
 </label>
 
 <style lang="postcss">
 	.fui-label {
-		@apply font-base;
-		color: var(--fui-colorNeutralForeground1);
+		@apply text-neutral-foreground-1;
 
 		&.disabled {
-			color: var(--fui-colorNeutralForegroundDisabled);
+			@apply text-neutral-foreground-disabled;
 
 			&.required {
-				color: var(--fui-colorNeutralForegroundDisabled);
+				@apply text-neutral-foreground-disabled;
 			}
 		}
 
 		&.required {
-			color: var(--fui-colorPaletteRedForeground3);
-			padding-left: theme(spacing.xs); /* TODO: Once spacing tokens are added, change this to Horizontal XS */
+			@apply pl-xs text-palette-red-foreground-3;
 		}
 		/* 
 		&.requiredDisabled {
-		} */
-
-		&.sm {
-			@apply text-base-200 leading-base-200;
-		}
-
-		&.md {
-			@apply text-base-300 leading-base-300;
-		}
-
-		&.lg {
-			@apply text-base-400 leading-base-400 font-semibold;
-		}
+		} 
+		*/
 
 		&.semibold {
 			@apply font-semibold;

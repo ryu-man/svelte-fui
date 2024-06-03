@@ -1,14 +1,23 @@
-<script lang="ts">
-	import { Meta, Story } from '@storybook/addon-svelte-csf';
-	import type { ArgTypes } from '@storybook/svelte';
-	import { App, Slider } from '@svelte-fui/core';
-	import { webDarkTheme, webLightTheme } from '@svelte-fui/themes';
+<script context="module" lang="ts">
 	import { onMount } from 'svelte';
+	import { FluentRoot, Slider } from '@svelte-fui/core';
+	import { webDarkTheme, webLightTheme } from '@svelte-fui/themes';
+	import { Story } from '@storybook/addon-svelte-csf';
+	import type { ArgTypes } from '@storybook/svelte';
 
-	const defaultValues = {};
+	const default_args = {};
 
-	const argTypes = {} satisfies ArgTypes;
+	const arg_types = {} satisfies ArgTypes;
 
+	export const meta = {
+		title: 'Components/Slider',
+		component: Slider,
+		argTypes: arg_types,
+		tags: ['!autodocs']
+	};
+</script>
+
+<script lang="ts">
 	let theme = webLightTheme;
 
 	onMount(() => {
@@ -28,14 +37,12 @@
 	});
 </script>
 
-<Meta title="Components/Slider" component={Slider} {argTypes} />
-
-<Story id="fui_slider" name="Slider" args={defaultValues} let:args>
-	<App {theme}>
+<Story id="fui_slider" name="Slider" args={default_args} let:args>
+	<FluentRoot {theme}>
 		<div class="flex h-full w-full flex-col items-center justify-center gap-4">
 			<div class="flex items-start gap-4">
 				<Slider {...args} />
 			</div>
 		</div>
-	</App>
+	</FluentRoot>
 </Story>

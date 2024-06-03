@@ -1,19 +1,9 @@
-<script lang="ts">
-	import { onMount } from 'svelte';
-	import { App, Button, Icon } from '@svelte-fui/core';
-	import { CalendarMonthFilled, CalendarMonthRegular } from '@svelte-fui/icons';
-	import { webDarkTheme, webLightTheme } from '@svelte-fui/themes';
-	import { CompoundButton } from '.';
-	import { Meta, Story } from '@storybook/addon-svelte-csf';
+<script context="module" lang="ts">
+	import { Button, FluentRoot, Icon } from '@svelte-fui/core';
+	import { Story } from '@storybook/addon-svelte-csf';
 	import type { ArgTypes } from '@storybook/svelte';
 
-	const defaultValues = {
-		size: 'md',
-		appearance: 'secondary',
-		shape: 'rounded'
-	};
-
-	const argTypes = {
+	const arg_types = {
 		size: {
 			type: 'string',
 			options: ['sm', 'md', 'lg'],
@@ -37,6 +27,28 @@
 		}
 	} satisfies ArgTypes;
 
+	const default_args: Partial<Record<keyof typeof arg_types, any>> = { size: 'md', appearance: 'secondary', shape: 'rounded' };
+
+	export const meta = {
+		title: 'Components/Button',
+		component: Button,
+		argTypes: arg_types,
+		tags: ['!autodocs']
+	};
+</script>
+
+<script lang="ts">
+	import { onMount } from 'svelte';
+	import { CalendarMonthFilled, CalendarMonthRegular } from '@svelte-fui/icons';
+	import { webDarkTheme, webLightTheme } from '@svelte-fui/themes';
+	import { CompoundButton } from '.';
+
+	const defaultValues = {
+		size: 'md',
+		appearance: 'secondary',
+		shape: 'rounded'
+	};
+
 	let theme = webLightTheme;
 
 	onMount(() => {
@@ -56,10 +68,8 @@
 	});
 </script>
 
-<Meta title="Components/Button" component={CompoundButton.Root} {argTypes} />
-
-<Story id="compound_button" name="Compound Button" args={defaultValues} let:args>
-	<App {theme}>
+<Story id="compound_button" name="Compound Button" args={default_args} let:args>
+	<FluentRoot {theme}>
 		<div class="flex h-full w-full items-center justify-center gap-4">
 			<CompoundButton.Root {...args}>
 				<Icon src={CalendarMonthFilled} />
@@ -70,8 +80,8 @@
 			</CompoundButton.Root>
 
 			<CompoundButton.Root {...args} icon>
-				<Icon src={CalendarMonthFilled} />	
+				<Icon src={CalendarMonthFilled} />
 			</CompoundButton.Root>
 		</div>
-	</App>
+	</FluentRoot>
 </Story>

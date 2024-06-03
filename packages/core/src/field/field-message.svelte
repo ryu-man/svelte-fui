@@ -1,34 +1,28 @@
 <script lang="ts">
 	import type { ComponentType } from 'svelte/internal';
-	import { Icon } from '../icon';
-	import { classnames } from '../internal';
+	import { classnames } from '@svelte-fui/core/internal';
 	import { getFieldContext } from './context';
 
-	const { state$, icon$ } = getFieldContext();
+	const { state$ } = getFieldContext();
 
-	export let icon: ComponentType | undefined = $icon$;
 	export let id: string | undefined = undefined;
+	export let open = false;
 	let klass = '';
 	export { klass as class };
-
-	let iconSize = '12px';
 </script>
 
-<div
-	{id}
-	class={classnames('fui-field-validation-message', $state$, { icon: !!icon, 'secondary-text': !!$$slots.default }, klass)}
-	style:--icon-size={iconSize}
->
-	{#if icon}
-		<!-- content here -->
-		<Icon class={classnames('fui-field-validation-message-icon', $state$)} src={icon} size={iconSize} ariaHidden />
-	{/if}
-	<slot><!-- optional fallback --></slot>
-</div>
+{#if open}
+	<div
+		{id}
+		class={classnames('fui-field-validation-message font-regular text-base-200 gap-1', $state$, { 'secondary-text': !!$$slots.default }, klass)}
+	>
+		<slot />
+	</div>
+{/if}
 
 <style lang="postcss">
 	.fui-field-validation-message {
-		@apply font-regular text-base-200 flex items-center text-left;
+		@apply flex items-center text-left;
 	}
 
 	.fui-field-validation-message.secondary-text {
@@ -53,13 +47,13 @@
 
 		vertical-align: -1px;
 	}
-	.fui-field-validation-message :global(.fui-field-validation-message-icon.error) {
+	.fui-field-validation-message:global(.error) {
 		@apply !text-palette-red-foreground-1;
 	}
-	.fui-field-validation-message :global(.fui-field-validation-message-icon.warning) {
+	.fui-field-validation-message:global(.warning) {
 		@apply !text-palette-dark-orange-foreground-1;
 	}
-	.fui-field-validation-message :global(.fui-field-validation-message-icon.success) {
+	.fui-field-validation-message:global(.success) {
 		@apply !text-palette-green-foreground-1;
 	}
 </style>

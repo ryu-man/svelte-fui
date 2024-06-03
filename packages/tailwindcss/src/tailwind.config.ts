@@ -1,3 +1,4 @@
+import defaultTheme from 'tailwindcss/defaultTheme';
 import { brandOffice, brandTeams, brandWeb } from '@svelte-fui/theme/global/brandColors';
 import {
 	anchor,
@@ -73,6 +74,8 @@ import { colorsTheme } from './colors_theme.js';
 import { typography } from './typography.js';
 import { tailwindColorify } from './utils/index.js';
 
+export { defaultTheme };
+
 /** @type {import('tailwindcss').Config} */
 const config = {
 	content: [],
@@ -99,7 +102,8 @@ const config = {
 				md: '4px',
 				lg: '6px',
 				xl: '8px',
-				circular: '9999px'
+				circular: '9999px',
+				inherit: 'inherit'
 			},
 			strokeWidth: {
 				thin: '1px',
@@ -188,6 +192,9 @@ const config = {
 				...tailwindColorify('brand-web', brandWeb),
 
 				...colorsTheme
+			},
+			screens: {
+				xs: '480px'
 			},
 			transitionDuration: durations,
 			transitionDelay: timingFunctions,

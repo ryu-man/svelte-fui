@@ -1,12 +1,12 @@
-<script lang="ts">
+<script context="module" lang="ts">
 	import { onMount } from 'svelte';
-	import { App, Button, Card, CardFooter, CardHeader, CardPreview, Icon } from '@svelte-fui/core';
+	import { Button, Card, CardFooter, CardHeader, CardPreview, FluentRoot, Icon } from '@svelte-fui/core';
 	import { ArrowReplyRegular, ShareRegular } from '@svelte-fui/icons';
 	import { webDarkTheme, webLightTheme } from '@svelte-fui/themes';
-	import { Meta, Story } from '@storybook/addon-svelte-csf';
+	import { Story } from '@storybook/addon-svelte-csf';
 	import type { ArgTypes } from '@storybook/svelte';
 
-	const arg_defaults = {
+	const default_args = {
 		selected: false,
 		interactive: false,
 		alternative: false,
@@ -56,6 +56,15 @@
 		}
 	} satisfies ArgTypes;
 
+	export const meta = {
+		title: 'Components/Card',
+		component: Card,
+		argTypes: arg_types,
+		tags: ['!autodocs']
+	};
+</script>
+
+<script lang="ts">
 	let theme = webLightTheme;
 
 	onMount(() => {
@@ -75,10 +84,8 @@
 	});
 </script>
 
-<Meta title="Components/Card" component={Card} />
-
-<Story id="fui_card" name="Card" args={arg_defaults} argTypes={arg_types} let:args>
-	<App {theme}>
+<Story id="fui_card" name="Card" args={default_args} argTypes={arg_types} let:args>
+	<FluentRoot {theme}>
 		<div class="flex h-full w-full flex-col items-center justify-center gap-4">
 			<Card {...args} class="w-[720px] max-w-[100%]">
 				<CardHeader>
@@ -151,5 +158,5 @@
 				</CardFooter>
 			</Card> -->
 		</div>
-	</App>
+	</FluentRoot>
 </Story>

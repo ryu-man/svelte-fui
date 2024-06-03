@@ -1,17 +1,25 @@
-<script lang="ts">
+<script context="module" lang="ts">
 	import { onMount } from 'svelte';
-	import { App, Field, FieldMessage, Input } from '@svelte-fui/core';
-	import { AddCircleFilled } from '@svelte-fui/icons';
+	import {
+		Field,
+		FieldMessage,
+		FieldMessageError,
+		FieldMessageInfo,
+		FieldMessageSuccess,
+		FieldMessageWarning,
+		FluentRoot,
+		Input
+	} from '@svelte-fui/core';
 	import { webDarkTheme, webLightTheme } from '@svelte-fui/themes';
-	import { Meta, Story } from '@storybook/addon-svelte-csf';
+	import { Story } from '@storybook/addon-svelte-csf';
 	import type { ArgTypes } from '@storybook/svelte';
 
-	const defaultValues = {
+	const default_args = {
 		size: 'md',
 		orientation: 'vertical'
 	};
 
-	const argTypes = {
+	const arg_types = {
 		label: {
 			type: 'string'
 		},
@@ -32,6 +40,15 @@
 		}
 	} satisfies ArgTypes;
 
+	export const meta = {
+		title: 'Components/Field',
+		component: Field,
+		argTypes: arg_types,
+		tags: ['!autodocs']
+	};
+</script>
+
+<script lang="ts">
 	let theme = webLightTheme;
 
 	onMount(() => {
@@ -51,36 +68,35 @@
 	});
 </script>
 
-<Meta title="Components/Field" component={Field} {argTypes} />
-
-<Story id="field" name="Field" args={defaultValues} let:args>
-	<App {theme}>
+<Story id="field" name="Field" args={default_args} let:args>
+	<FluentRoot {theme}>
 		<div class="flex h-full w-full flex-col items-center justify-center gap-4">
 			<div class="flex w-[90%] flex-col gap-4">
 				<Field {...args} label="Example Field" state="error">
 					<Input />
-					<FieldMessage>This an error message</FieldMessage>
+					<FieldMessageError open>This an error message</FieldMessageError>
 				</Field>
 
 				<Field {...args} label="Example Field" state="warning">
 					<Input />
-					<FieldMessage>This a warning message</FieldMessage>
+					<FieldMessageWarning open>This a warning message</FieldMessageWarning>
 				</Field>
 
 				<Field {...args} label="Example Field" state="success">
 					<Input />
-					<FieldMessage>This a success message</FieldMessage>
+					<FieldMessageSuccess open>This a success message</FieldMessageSuccess>
 				</Field>
 
 				<Field {...args} label="Example Field" state="none">
 					<Input />
-					<FieldMessage>This a simple message</FieldMessage>
+					<FieldMessage open>This a simple message</FieldMessage>
 				</Field>
+
 				<Field {...args} label="Example Field" state="none">
 					<Input />
-					<FieldMessage icon={AddCircleFilled}>This a simple message</FieldMessage>
+					<FieldMessageInfo open>This an info message</FieldMessageInfo>
 				</Field>
 			</div>
 		</div>
-	</App>
+	</FluentRoot>
 </Story>

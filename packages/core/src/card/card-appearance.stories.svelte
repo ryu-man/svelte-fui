@@ -1,12 +1,12 @@
-<script lang="ts">
+<script context="module" lang="ts">
 	import { onMount } from 'svelte';
-	import { App, Button, Card, CardFooter, CardHeader, CardPreview, Icon } from '@svelte-fui/core';
+	import { Card, CardHeader, FluentRoot, Icon } from '@svelte-fui/core';
 	import { MoreHorizontalFilled } from '@svelte-fui/icons';
 	import { webDarkTheme, webLightTheme } from '@svelte-fui/themes';
-	import { Meta, Story } from '@storybook/addon-svelte-csf';
+	import { Story } from '@storybook/addon-svelte-csf';
 	import type { ArgTypes } from '@storybook/svelte';
 
-	const arg_defaults = {
+	const default_args = {
 		disabled: false,
 		required: false,
 		size: 'md',
@@ -47,6 +47,15 @@
 		}
 	} satisfies ArgTypes;
 
+	export const meta = {
+		title: 'Components/Card',
+		component: Card,
+		argTypes: arg_types,
+		tags: ['!autodocs']
+	};
+</script>
+
+<script lang="ts">
 	let theme = webLightTheme;
 
 	onMount(() => {
@@ -66,10 +75,8 @@
 	});
 </script>
 
-<Meta title="Components/Card" component={Card} />
-
-<Story id="fui_card_appearance" name="Appearance" let:args>
-	<App {theme}>
+<Story id="fui_card_appearance" name="Appearance" args={default_args} let:args>
+	<FluentRoot {theme}>
 		<div class="flex h-full w-full flex-col items-center justify-center gap-4">
 			<Card {...args} class="w-[400px]" appearance="filled">
 				<CardHeader>
@@ -151,5 +158,5 @@
 				<p class="body-1">Donut chocolate bar oat cake. Dragée tiramisu lollipop bear claw. Marshmallow pastry jujubes toffee sugar plum.</p>
 			</Card>
 		</div>
-	</App>
+	</FluentRoot>
 </Story>

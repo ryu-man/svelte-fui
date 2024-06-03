@@ -1,9 +1,25 @@
-<script lang="ts">
-	import { Meta, Story } from '@storybook/addon-svelte-csf';
-	import { App, Avatar } from '@svelte-fui/core';
+<script context="module" lang="ts">
+	import { onMount } from 'svelte';
+	import { Story } from '@storybook/addon-svelte-csf';
+	import type { ArgTypes } from '@storybook/svelte';
+
+	import { FluentRoot, Avatar } from '@svelte-fui/core';
 	import { PersonRegular } from '@svelte-fui/icons';
 	import { webDarkTheme, webLightTheme } from '@svelte-fui/themes';
-	import { onMount } from 'svelte';
+
+	const arg_types = {} satisfies ArgTypes;
+
+	const default_args: Partial<Record<keyof typeof arg_types, any>> = {};
+
+	export const meta = {
+		title: 'Components/Avatar',
+		component: Avatar,
+		argTypes: arg_types,
+		tags: ['!autodocs'],
+	};
+</script>
+
+<script lang="ts">
 
 	let theme = webLightTheme;
 
@@ -24,12 +40,10 @@
 	});
 </script>
 
-<Meta title="Components/Avatar" component={Avatar} />
-
-<Story id="avatar" name="Avatar" let:args>
-	<App {theme}>
-		<div class="flex items-center justify-center w-full h-full">
+<Story id="avatar" name="Avatar" args={default_args} let:args>
+	<FluentRoot {theme}>
+		<div class="flex h-full w-full items-center justify-center">
 			<Avatar {...args} src={PersonRegular} />
 		</div>
-	</App>
+	</FluentRoot>
 </Story>

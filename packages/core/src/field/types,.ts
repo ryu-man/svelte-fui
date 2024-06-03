@@ -1,1 +1,1 @@
-export type State = 'none' | 'error' | 'warning' | 'success' | undefined;
+export type FieldState = 'none' | 'error' | 'warning' | 'success' | undefined;

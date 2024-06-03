@@ -28,21 +28,7 @@
         "allowJs": true,
         "checkJs": true,
         "isolatedModules": true,
-        "moduleResolution": "bundler",
-        "paths": {
-            "@svelte-fui/core/*": [
-                "./packages/core/src/*"
-            ],
-            "@svelte-fui/tailwindcss/*": [
-                "./packages/tailwindcss/src/*"
-            ],
-            "@svelte-fui/theme/*": [
-                "./packages/theme/src/*"
-            ],
-            "@svelte-fui/themes/*": [
-                "./packages/themes/src/*"
-            ]
-        }
+        "moduleResolution": "bundler"
     },
     "include": [
         "./packages/*"

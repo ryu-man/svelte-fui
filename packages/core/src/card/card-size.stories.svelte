@@ -1,12 +1,11 @@
-<script lang="ts">
-	import { Meta, Story } from '@storybook/addon-svelte-csf';
-	import type { ArgTypes } from '@storybook/svelte';
-	import { App, Button, Card, CardFooter, CardHeader, CardPreview, Icon, Text } from '@svelte-fui/core';
-	import { MoreHorizontalFilled } from '@svelte-fui/icons';
-	import { webDarkTheme, webLightTheme } from '@svelte-fui/themes';
+<script context="module" lang="ts">
 	import { onMount } from 'svelte';
+	import { Card, CardHeader, FluentRoot, Text } from '@svelte-fui/core';
+	import { webDarkTheme, webLightTheme } from '@svelte-fui/themes';
+	import { Story } from '@storybook/addon-svelte-csf';
+	import type { ArgTypes } from '@storybook/svelte';
 
-	const arg_defaults = {
+	const default_args = {
 		disabled: false,
 		required: false,
 		size: 'md',
@@ -47,6 +46,15 @@
 		}
 	} satisfies ArgTypes;
 
+	export const meta = {
+		title: 'Components/Card',
+		component: Card,
+		argTypes: arg_types,
+		tags: ['!autodocs']
+	};
+</script>
+
+<script lang="ts">
 	let theme = webLightTheme;
 
 	onMount(() => {
@@ -66,20 +74,18 @@
 	});
 </script>
 
-<Meta title="Components/Card" component={Card} />
-
-<Story id="fui_card_size" name="Size" let:args>
-	<App {theme}>
-		<div class="flex flex-col gap-4 justify-center items-center w-full h-full">
+<Story id="fui_card_size" name="Size" args={default_args} let:args>
+	<FluentRoot {theme}>
+		<div class="flex h-full w-full flex-col items-center justify-center gap-4">
 			<Card {...args} class="w-[400px]" appearance="filled" size="sm">
-				<div class="flex gap-xs">
+				<div class="gap-xs flex">
 					<img
-						class="rounded-md h-8"
+						class="h-8 rounded-md"
 						src="https://raw.githubusercontent.com/microsoft/fluentui/master/packages/react-components/react-card/stories/assets/logo.svg"
 						alt="Application one logo"
 					/>
 					<img
-						class="rounded-md h-8"
+						class="h-8 rounded-md"
 						src="https://raw.githubusercontent.com/microsoft/fluentui/master/packages/react-components/react-card/stories/assets/logo2.svg"
 						alt="Application two logo"
 					/>
@@ -89,11 +95,11 @@
 					<span class="caption-1 description text-neutral-foreground-3">By Microsoft</span>
 				</CardHeader>
 
-				<div class="flex justify-between items-center text-base-300 leading-base-300">
+				<div class="text-base-300 leading-base-300 flex items-center justify-between">
 					<span>Automated</span>
 					<span>3290</span>
 				</div>
 			</Card>
 		</div>
-	</App>
+	</FluentRoot>
 </Story>

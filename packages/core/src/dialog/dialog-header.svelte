@@ -1,18 +1,11 @@
 <script lang="ts">
+	import { classnames } from '@svelte-fui/core/internal';
+
 	export let as = 'div';
+	let klass = '';
+	export { klass as class };
 </script>
 
-<svelte:element this={as} class="fui-dialog-title" id="dialog-title-277">
+<svelte:element this={as} class={classnames('fui-dialog-title subtitle-1 m-0 px-6 pt-6', klass)}>
 	<slot />
 </svelte:element>
-
-<style lang="postcss">
-	.fui-dialog-title {
-		@apply subtitle-1 m-0;
-
-		grid-row-start: 1;
-		grid-row-end: 1;
-		grid-column-start: 1;
-		grid-column-end: 3;
-	}
-</style>

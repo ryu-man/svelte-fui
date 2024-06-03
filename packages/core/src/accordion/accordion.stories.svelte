@@ -1,15 +1,41 @@
-<script lang="ts">
+<script context="module" lang="ts">
 	import { onMount } from 'svelte';
-	import { App, Icon } from '@svelte-fui/core';
+	import { FluentRoot, Icon } from '@svelte-fui/core';
 	import { AddRegular } from '@svelte-fui/icons';
 	import { webDarkTheme, webLightTheme } from '@svelte-fui/themes';
-	import { Meta, Story } from '@storybook/addon-svelte-csf';
+	import { Story } from '@storybook/addon-svelte-csf';
 	import type { ArgTypes } from '@storybook/svelte';
 	import AccordionHeader from './accordion-header.svelte';
 	import AccordionItem from './accordion-item.svelte';
 	import AccordionPanel from './accordion-panel.svelte';
 	import Accordion from './accordion-root.svelte';
 
+	const arg_types = {
+		collapsible: {
+			control: 'boolean'
+		},
+		multiple: {
+			control: 'boolean'
+		},
+		value: {
+			type: 'string'
+		}
+	} satisfies ArgTypes;
+
+	const default_args: Partial<Record<keyof typeof arg_types, any>> = {
+		collapsible: false,
+		multiple: false
+	};
+
+	export const meta = {
+		title: 'Components/Accordion',
+		component: Accordion,
+		argTypes: arg_types,
+		tags: ['!autodocs']
+	};
+</script>
+
+<script lang="ts">
 	let theme = webLightTheme;
 
 	onMount(() => {
@@ -28,30 +54,11 @@
 		};
 	});
 
-	const argTypes = {
-		collapsible: {
-			control: 'boolean'
-		},
-		multiple: {
-			control: 'boolean'
-		},
-		value: {
-			type: 'string'
-		}
-	} satisfies ArgTypes;
-
-	const defaultArgs: Partial<Record<keyof typeof argTypes, any>> = {
-		collapsible: false,
-		multiple: false
-	};
-
 	let value = '';
 </script>
 
-<Meta title="Components/Accordion" component={Accordion} {argTypes} />
-
-<Story id="accordion" name="Accordion" args={defaultArgs} let:args>
-	<App {theme}>
+<Story id="accordion" name="Accordion" args={default_args} let:args>
+	<FluentRoot {theme}>
 		<div class="flex h-full w-full flex-col items-center justify-center">
 			<Accordion class="w-full" {...args} bind:value>
 				<AccordionItem value="item-1">
@@ -85,5 +92,5 @@
 				<div>Selected item is: {value}</div>
 			</div>
 		</div>
-	</App>
+	</FluentRoot>
 </Story>
