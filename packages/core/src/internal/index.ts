@@ -9,7 +9,7 @@ import { bubble, listen } from "svelte/internal";
 import { tabbable } from "tabbable";
 import { createFocusTrap } from "focus-trap";
 
-import { tailwindcssConfig } from '../../../tailwindcss/src'
+import { tailwindcssConfig, defaultTheme } from '../../../tailwindcss/src'
 
 // export { default as FlyoutSurface } from "./Flyout/FlyoutSurface.svelte";
 // export { default as TooltipSurface } from "./Tooltip/TooltipSurface.svelte";
@@ -220,7 +220,7 @@ export function createEventForwarder(component: SvelteComponent, exclude: string
 const custom_tw_merge = extendTailwindMerge({
 	  extend:{
 		theme: {
-			spacing: Object.keys(tailwindcssConfig.theme.extend.spacing),
+			spacing: [...new Set([...Object.keys(defaultTheme.spacing ?? {}),...Object.keys(tailwindcssConfig.theme.extend.spacing ?? {})])],
 			borderWidth: Object.keys(tailwindcssConfig.theme.extend.borderWidth),
 		}
 	  }

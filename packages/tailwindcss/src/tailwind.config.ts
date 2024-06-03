@@ -1,3 +1,4 @@
+import defaultTheme from 'tailwindcss/defaultTheme';
 import { brandOffice, brandTeams, brandWeb } from '@svelte-fui/theme/global/brandColors';
 import {
 	anchor,
@@ -72,6 +73,8 @@ import { timingFunctions } from '@svelte-fui/theme/global/timingFunctions';
 import { colorsTheme } from './colors_theme.js';
 import { typography } from './typography.js';
 import { tailwindColorify } from './utils/index.js';
+
+export { defaultTheme };
 
 /** @type {import('tailwindcss').Config} */
 const config = {
