@@ -26,7 +26,11 @@
 </script>
 
 <button
-	class={classnames('fui-input-skin pl-mNudge gap-xxs inline-flex', { size, underline, disabled, invalid: ariaInvalid && !disabled }, klass)}
+	class={classnames(
+		'fui-input-skin pl-mNudge gap-xxs inline-flex',
+		{ size, underline, disabled, invalid: ariaInvalid && !disabled },
+		klass
+	)}
 	{id}
 >
 	<slot />

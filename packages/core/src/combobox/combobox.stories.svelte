@@ -1,6 +1,6 @@
 <script context="module" lang="ts">
 	import { onMount } from 'svelte';
-	import { Combobox, FluentRoot, Option } from '@svelte-fui/core';
+	import { Combobox, FluentRoot } from '@svelte-fui/core';
 	import { webDarkTheme, webLightTheme } from '@svelte-fui/themes';
 	import { Story } from '@storybook/addon-svelte-csf';
 	import type { ArgTypes } from '@storybook/svelte';
@@ -39,13 +39,24 @@
 
 <Story id="combobox" name="Combobox" args={default_args} let:args>
 	<FluentRoot {theme}>
-		<div class="flex h-full w-full items-center justify-center">
-			<Combobox {...args}>
-				<Option id="ar">Arabic</Option>
-				<Option>English</Option>
-				<Option>Italian</Option>
-				<Option disabled>Frensh</Option>
-			</Combobox>
+		<div class="flex h-full w-full flex-col items-center justify-center gap-4">
+			<div class="flex flex-col gap-4">
+				<Combobox.Root {...args}>
+					<Combobox.Trigger placeholder="Select a language..." />
+					<Combobox.Menu>
+						<Combobox.Item value="ar">Arabic</Combobox.Item>
+						<Combobox.Item value="en">English</Combobox.Item>
+						<Combobox.Item value="sp">Spanish</Combobox.Item>
+						<Combobox.Item value="it">Italian</Combobox.Item>
+						<Combobox.Item value="fr" disabled>Frensh</Combobox.Item>
+					</Combobox.Menu>
+				</Combobox.Root>
+
+				<!-- <div class="flex justify-between">
+					<span>Selected language:</span>
+					<span>{language}</span>
+				</div> -->
+			</div>
 		</div>
 	</FluentRoot>
 </Story>

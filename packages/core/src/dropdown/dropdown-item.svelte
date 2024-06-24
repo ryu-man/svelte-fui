@@ -3,7 +3,7 @@
 	import { classnames } from '@svelte-fui/core/internal';
 	import { type DropdownContext, getDropdownContext } from './context';
 
-	type CustomEventDetail<T extends Event> = { event: T; context: DropdownContext };
+	type CustomEventDetail<T extends Event, R = any> = { event: T; context: DropdownContext<R> };
 	type DropddownItemEvents = {
 		click: CustomEventDetail<Event>;
 	};
@@ -43,8 +43,8 @@
 			dropdown_value.set(value);
 			dropdown_text.set(element.innerText.trim());
 			dropdown_data.set(data);
-			dropdown_context.closeDropdownMenu();
-			dropdown_context.onChange({
+
+			dropdown_context?.onChange({
 				value,
 				data,
 				text: element.innerText
@@ -55,7 +55,7 @@
 
 <button
 	class={classnames(
-		'fui-dropdown-item text-neutral-foreground-1 before:bg-neutral-foreground-1 first:rounded-t-inherit last:rounded-b-inherit flex px-4 py-1.5 before:opacity-0 before:transition-opacity before:duration-100 hover:before:opacity-5 active:before:opacity-10',
+		'fui-dropdown-item text-neutral-foreground-1 first:rounded-t-inherit last:rounded-b-inherit flex px-4 py-1.5 before:opacity-0 before:transition-opacity before:duration-100 hover:before:opacity-5 active:before:opacity-10',
 		is_active && 'before:bg-brand-background before:opacity-60 hover:before:opacity-70 active:before:opacity-80',
 		klass
 	)}

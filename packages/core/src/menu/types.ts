@@ -5,7 +5,7 @@ export type MenuRootProps = HTMLAttributes<HTMLDivElement> & {
 	open?: boolean;
 	discover?: boolean;
 	offset?: number;
-	placements: Placement[];
+	placements?: Placement[];
 };
 
 export type MenuItemProps = HTMLAttributes<HTMLButtonElement> & {

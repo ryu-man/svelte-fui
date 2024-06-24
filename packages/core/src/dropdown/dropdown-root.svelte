@@ -1,14 +1,14 @@
-<script lang="ts">
-	import { createEventDispatcher, tick } from 'svelte';
+<script lang="ts" generics="T">
+	import { createEventDispatcher } from 'svelte';
 	import { writable } from 'svelte/store';
 	import { classnames } from '@svelte-fui/core/internal';
-	import { setSharedContext } from '@svelte-fui/core/internal/context';
+	import { mergeContext, setSharedContext } from '@svelte-fui/core/internal/context';
 	import { fid } from '@svelte-fui/core/internal/utils';
 	import type { MenuContext } from '@svelte-fui/core/menu';
-	import { type DropdownContext, getDropdownContext, setDropdownContext } from './context';
+	import { getDropdownContext, setDropdownContext } from './context';
 	import type { DropdownProps } from './types';
 
-	type $$Props = DropdownProps;
+	type $$Props = DropdownProps<T>;
 
 	const dispatch = createEventDispatcher();
 
@@ -20,26 +20,30 @@
 	let klass = '';
 	export { klass as class };
 
-	const context = setDropdownContext(
-		Object.assign<DropdownContext, DropdownContext>(
+	const context = setDropdownContext<T>(
+		mergeContext(
 			{
 				id: writable(fid('dropdown')),
 				open: writable(open),
 				value: writable(value),
-				data: writable(data),
+				data: writable<T>(data),
 				text: writable(''),
 				triggerElement: writable(),
-				openDropdownMenu() {
-					open_store.set(true);
+				openMenu(timeout = 0) {
+					setTimeout(() => open_store.set(true), timeout);
 				},
-				closeDropdownMenu() {
-					open_store.set(false);
+				closeMenu(timeout = 0) {
+					setTimeout(() => open_store.set(false), timeout);
 				},
 				onChange(props) {
-					dispatch('change', props);
+					const should_continue = dispatch('change', props);
+
+					if (should_continue) {
+						context.closeMenu();
+					}
 				}
 			},
-			getDropdownContext() ?? {}
+			getDropdownContext<T>()
 		)
 	);
 
@@ -60,10 +64,6 @@
 	$: data = $data_store;
 
 	let client_width = 0;
-
-	function onClick() {
-		open = !open;
-	}
 </script>
 
 <div class={classnames('fui-dropdown', 'w-full', klass)} bind:clientWidth={client_width} data-id={$id_store}>

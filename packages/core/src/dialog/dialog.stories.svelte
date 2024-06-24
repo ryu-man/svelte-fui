@@ -1,8 +1,7 @@
 <script context="module" lang="ts">
 	import { onMount } from 'svelte';
-	import { Button, FluentRoot } from '@svelte-fui/core';
+	import { Button, FluentRoot, Dialog } from '@svelte-fui/core';
 	import { webDarkTheme, webLightTheme } from '@svelte-fui/themes';
-	import { Dialog } from '.';
 	import { Story } from '@storybook/addon-svelte-csf';
 	import type { ArgTypes } from '@storybook/svelte';
 

@@ -6,9 +6,10 @@
 	import { DURATION } from '@svelte-fui/core/internal/transition';
 	import { Menu } from '@svelte-fui/core/menu';
 	import { type Placement } from '@floating-ui/dom';
-	import { getDropdownContext } from './context';
+	import { getComboboxContext } from './context';
 
 	const root_context = getFluentRootContext();
+	const overlay_element_store = root_context.overlayElement;
 
 	if (!root_context.overlayElement) {
 		console.error('Overlay element is necessary for the Dropdown menu to work properly, make sure to use Dropdown component within a CAS App');
@@ -20,12 +21,7 @@
 	let klass = '';
 	export { klass as class };
 
-	const dropdown_context = getDropdownContext();
-
-	if (!dropdown_context) {
-		throw new Error('<dropdown-menu> dropdown context was not found!');
-	}
-
+	const dropdown_context = getComboboxContext();
 	const open_store = dropdown_context.open;
 	const reference_element_store = dropdown_context.triggerElement;
 
@@ -78,17 +74,3 @@
 		<slot />
 	</div>
 </Menu.Root>
-
-<style lang="postcss">
-	.fui-dropdown-menu {
-		@apply pointer-events-auto absolute left-0 top-0;
-
-		& > div {
-			overflow: visible;
-			&.overflow {
-				overflow-y: scroll;
-				overflow-y: overlay;
-			}
-		}
-	}
-</style>
