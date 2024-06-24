@@ -13,6 +13,7 @@
 	const text_store = dropdown_context.text;
 	const trigger_element_store = dropdown_context.triggerElement;
 
+	
 	let klass = '';
 	export { klass as class };
 

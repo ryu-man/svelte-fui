@@ -78,3 +78,25 @@ export function dropzone(node: HTMLElement, { onDrop, onDragEnter, onDragLeave, 
 		}
 	};
 }
+
+export function frame(node: HTMLElement) {
+	const resize = (node: HTMLElement) => {
+		const parentElement = node.parentElement;
+
+		if (!parentElement) return;
+
+		parentElement.style.width = `${node.clientWidth}px`;
+		parentElement.style.height = `${node.clientHeight}px`;
+	};
+
+	const observer = new ResizeObserver(() => resize(node));
+	observer.observe(node);
+
+	resize(node)
+
+	return {
+		destroy() {
+			observer.disconnect;
+		}
+	};
+}

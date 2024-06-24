@@ -20,3 +20,7 @@ export function getSharedContext<T>(id = '', ...segments: string[]) {
 export function setSharedContext<T>(context: T, id = '', ...segments: string[]) {
 	return setFluentContext(context, 'shared', id, ...segments);
 }
+
+export function mergeContext<T>(...contexts: (T | undefined)[]) {
+	return contexts.filter(Boolean).reduce<T>((acc, val) => ({ ...acc, ...val }), {} as T);
+}

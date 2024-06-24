@@ -1,4 +1,11 @@
-export { default as Combobox } from './combobox-root.svelte';
-export { default as ComboboxListbox } from './listbox.svelte';
-export { default as Listbox } from './listbox.svelte';
-export { default as Option } from './combobox-option.svelte';
+import { Dropdown } from '@svelte-fui/core';
+import ComboboxRoot from './combobox-root.svelte';
+import ComboboxTrigger from './combobox-trigger.svelte';
+
+export const Combobox = {
+	Root: ComboboxRoot,
+	Menu: Dropdown.Menu,
+	Item: Dropdown.Item,
+	Trigger: ComboboxTrigger,
+	Arrow: Dropdown.Arrow
+};

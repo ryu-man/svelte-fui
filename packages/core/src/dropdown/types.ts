@@ -1,11 +1,11 @@
 import type { HTMLInputAttributes } from 'svelte/elements';
 
-export type DropdownProps = HTMLInputAttributes & {
+export type DropdownProps<T> = HTMLInputAttributes & {
 	open?: boolean;
 	value?: string;
-	data?: unknown;
+	data?: T;
 	class?: string;
-	id?: string
+	id?: string;
 };
 
 export type DropdownTriggerProps = {

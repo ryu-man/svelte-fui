@@ -61,7 +61,6 @@
 		"lodash-es": "^4.17.21",
 		"nanoid": "^4.0.2",
 		"svelte": "^4.0.0",
-		"svelte-portal": "^2.2.0",
 		"tabbable": "^6.1.1"
 	},
 	"dependencies": {
@@ -73,7 +72,6 @@
 		"gsap": "^3.12.5",
 		"lodash-es": "^4.17.21",
 		"nanoid": "^4.0.2",
-		"svelte-portal": "^2.2.0",
 		"tabbable": "^6.1.1",
 		"tailwind-merge": "^2.0.0"
 	},

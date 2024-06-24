@@ -1,29 +1,29 @@
-import { getContext, setContext } from 'svelte';
 import type { Writable } from 'svelte/store';
+import { getFluentContext, setFluentContext } from '../internal/context';
 
-const SVELTE_FUI_DROPDOWN_CONTEXT_KEY = 'svelte-fui-dropdown-context-key';
+export const dropdownNamespace = 'dropdown';
 
-type OnChangeProps = {
+type OnChangeProps<T> = {
 	value: string;
 	text: string;
-	data: unknown;
+	data: T;
 };
-export type DropdownContext = {
+export type DropdownContext<T> = {
 	id: Writable<string>;
 	open: Writable<boolean>;
 	value: Writable<string | undefined>;
-	data: Writable<unknown>;
+	data: Writable<T | undefined>;
 	text: Writable<string | undefined>;
 	triggerElement: Writable<HTMLElement>;
-	openDropdownMenu: () => void;
-	closeDropdownMenu: () => void;
-	onChange: (props: OnChangeProps) => void;
+	openMenu: (delay?: number) => void;
+	closeMenu: (delay?: number) => void;
+	onChange: (props: OnChangeProps<T>) => void;
 };
 
-export function getDropdownContext<T = DropdownContext>(): T {
-	return getContext(SVELTE_FUI_DROPDOWN_CONTEXT_KEY);
+export function getDropdownContext<T>() {
+	return getFluentContext<DropdownContext<T>>(dropdownNamespace);
 }
 
-export function setDropdownContext<T = DropdownContext>(context: T) {
-	return setContext(SVELTE_FUI_DROPDOWN_CONTEXT_KEY, context);
+export function setDropdownContext<T>(context: DropdownContext<T>) {
+	return setFluentContext(context, dropdownNamespace);
 }
