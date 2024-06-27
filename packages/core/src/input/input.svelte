@@ -57,11 +57,15 @@
 </script>
 
 <InputSkin class={classnames('fui-input', { size, underline, disabled, invalid: ariaInvalid && !disabled })} {id}>
-	<slot name="before" />
+	{#if $$slots.before}
+		<div class="flex h-full items-center">
+			<slot name="before" />
+		</div>
+	{/if}
 
 	<input
 		use:setInputType={type}
-		class={classnames('px-xxs text-neutral-foreground-1 leading-inherit border-none bg-transparent', klass)}
+		class={classnames('px-xxs text-neutral-foreground-1 leading-inherit flex-1 border-none bg-transparent', klass)}
 		{id}
 		{name}
 		{placeholder}
@@ -80,7 +84,11 @@
 		on:click
 	/>
 
-	<slot name="after" />
+	{#if $$slots.after}
+		<div class="flex h-full items-center">
+			<slot name="after" />
+		</div>
+	{/if}
 </InputSkin>
 
 <style lang="postcss">
