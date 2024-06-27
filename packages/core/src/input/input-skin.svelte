@@ -27,7 +27,7 @@
 
 <button
 	class={classnames(
-		'fui-input-skin pl-mNudge gap-xxs inline-flex',
+		'fui-input-skin px-mNudge gap-xxs inline-flex',
 		{ size, underline, disabled, invalid: ariaInvalid && !disabled },
 		klass
 	)}
