@@ -55,7 +55,7 @@
 
 <button
 	class={classnames(
-		'fui-dropdown-item text-neutral-foreground-1 first:rounded-t-inherit last:rounded-b-inherit flex px-4 py-1.5 before:opacity-0 before:transition-opacity before:duration-100 hover:before:opacity-5 active:before:opacity-10',
+		'fui-dropdown-item text-neutral-foreground-1 first:rounded-t-inherit last:rounded-b-inherit before:bg-neutral-foreground-1 flex px-4 py-1.5 before:opacity-0 before:transition-opacity before:duration-100 hover:before:opacity-5 active:before:opacity-10 cursor-pointer',
 		is_active && 'before:bg-brand-background before:opacity-60 hover:before:opacity-70 active:before:opacity-80',
 		klass
 	)}
@@ -73,6 +73,7 @@
 
 		&::before {
 			@apply rounded-inherit pointer-events-none absolute inset-0 z-[-1];
+			content: '';
 		}
 	}
 
