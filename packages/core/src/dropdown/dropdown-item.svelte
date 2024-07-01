@@ -55,7 +55,9 @@
 
 <button
 	class={classnames(
-		'fui-dropdown-item text-neutral-foreground-1 first:rounded-t-inherit last:rounded-b-inherit before:bg-neutral-foreground-1 flex px-4 py-1.5 before:opacity-0 before:transition-opacity before:duration-100 hover:before:opacity-5 active:before:opacity-10 cursor-pointer',
+		'fui-dropdown-item text-neutral-foreground-1 first:rounded-t-inherit last:rounded-b-inherit before:bg-neutral-foreground-1 flex px-4 py-1.5 before:opacity-0 before:transition-opacity before:duration-100',
+		!disabled && 'cursor-pointer hover:before:opacity-5 active:before:opacity-10',
+		disabled && 'opacity-50',
 		is_active && 'before:bg-brand-background before:opacity-60 hover:before:opacity-70 active:before:opacity-80',
 		klass
 	)}
