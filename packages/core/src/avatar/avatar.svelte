@@ -1,6 +1,7 @@
 <script lang="ts">
 	import type { ComponentType } from 'svelte';
-	import { classnames } from '../internal';
+	import { Icon } from '@svelte-fui/core';
+	import { classnames } from '@svelte-fui/core/internal';
 
 	export let id: string | undefined = undefined;
 	export let ariaLabel: string | undefined = undefined;
@@ -70,11 +71,9 @@
 		<span class="fui-avatar-initials">KA</span>
 		<img class="fui-avatar-image" {alt} role="presentation" aria-hidden="true" {src} />
 	{:else}
-		<span aria-hidden="true" class="fui-avatar-icon">
-			<svg fill="currentColor" aria-hidden="true" width="1em" height="1em" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-				<svelte:component this={src} />
-			</svg>
-		</span>
+		<Icon aria-hidden="true" class="fui-avatar-icon text-current p-[6px]">
+			<svelte:component this={src} />
+		</Icon>
 	{/if}
 </span>
 
