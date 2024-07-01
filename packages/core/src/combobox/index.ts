@@ -1,4 +1,4 @@
-import { Dropdown } from '@svelte-fui/core';
+import { Dropdown } from '@svelte-fui/core/dropdown';
 import ComboboxRoot from './combobox-root.svelte';
 import ComboboxTrigger from './combobox-trigger.svelte';
 

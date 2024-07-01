@@ -1,7 +1,6 @@
 <script context="module" lang="ts">
 	import { onMount } from 'svelte';
 	import { FluentRoot, Icon, Input } from '@svelte-fui/core';
-	import { MicRegular, PersonRegular } from '@svelte-fui/icons';
 	import { webDarkTheme, webLightTheme } from '@svelte-fui/themes';
 	import { Story } from '@storybook/addon-svelte-csf';
 	import type { ArgTypes } from '@storybook/svelte';

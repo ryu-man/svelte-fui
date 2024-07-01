@@ -2,11 +2,11 @@
 	import { onMount } from 'svelte';
 	import { spring } from 'svelte/motion';
 	import { derived } from 'svelte/store';
-	import { ArrowUpRegular } from '@svelte-fui/icons';
+	import { Icon } from '@svelte-fui/core/icon';
+	import { classnames } from '@svelte-fui/core/internal';
+	import ArrowUpRegular from 'virtual:icons/fluent/arrow-up-24-regular';
 	import { getTableContext } from './context';
 	import type { SortingDirection } from './type';
-	import { Icon } from '../icon';
-	import { classnames } from '../internal';
 
 	const { sortable$, sorting$ } = getTableContext();
 
@@ -74,7 +74,9 @@
 
 		{#if sortable && $activeSort$}
 			<div class="fui-table-header-cell-sorting-icon" style:transform="rotate({$rotate$ * 180}deg)">
-				<Icon class="sort-icon" src={ArrowUpRegular} />
+				<Icon>
+					<ArrowUpRegular />
+				</Icon>
 			</div>
 		{/if}
 	</div>

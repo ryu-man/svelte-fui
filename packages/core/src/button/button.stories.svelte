@@ -1,10 +1,11 @@
 <script context="module" lang="ts">
 	import { onMount } from 'svelte';
 	import { Button, FluentRoot, Icon } from '@svelte-fui/core';
-	import { CalendarMonthFilled, CalendarMonthRegular } from '@svelte-fui/icons';
 	import { webDarkTheme, webLightTheme } from '@svelte-fui/themes';
 	import { Story } from '@storybook/addon-svelte-csf';
 	import type { ArgTypes } from '@storybook/svelte';
+	import CalendarMonthFilled from 'virtual:icons/fluent/calendar-month-24-filled';
+	import CalendarMonthRegular from 'virtual:icons/fluent/calendar-month-24-regular';
 
 	const argTypes = {
 		size: {
@@ -63,16 +64,28 @@
 <Story id="button" name="Button" args={default_args} let:args>
 	<FluentRoot {theme}>
 		<div class="flex h-full w-full flex-col items-center justify-center gap-4">
-			<div class="flex gap-4">
-				<Button {...args}>Fluent UI for Svelte</Button>
+			<div class="flex w-fit gap-4">
+				<Button {...args} class="whitespace-nowrap">Fluent UI for Svelte</Button>
 
-				<Button {...args} let:hover>
+				<Button {...args} class="whitespace-nowrap" let:hover>
 					Fluent UI for Svelte
-					<Icon src={hover ? CalendarMonthFilled : CalendarMonthRegular} />
+					<Icon class="h-full">
+						{#if hover}
+							<CalendarMonthFilled />
+						{:else}
+							<CalendarMonthRegular />
+						{/if}
+					</Icon>
 				</Button>
 
 				<Button {...args} icon let:hover>
-					<Icon src={hover ? CalendarMonthFilled : CalendarMonthRegular} />
+					<Icon class="h-full">
+						{#if hover}
+							<CalendarMonthFilled />
+						{:else}
+							<CalendarMonthRegular />
+						{/if}
+					</Icon>
 				</Button>
 			</div>
 

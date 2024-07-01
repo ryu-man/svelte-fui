@@ -1,10 +1,10 @@
 <script context="module" lang="ts">
 	import { onMount } from 'svelte';
 	import { Card, CardHeader, FluentRoot, Icon } from '@svelte-fui/core';
-	import { MoreHorizontalFilled } from '@svelte-fui/icons';
 	import { webDarkTheme, webLightTheme } from '@svelte-fui/themes';
 	import { Story } from '@storybook/addon-svelte-csf';
 	import type { ArgTypes } from '@storybook/svelte';
+	import MoreHorizontalFilled from 'virtual:icons/fluent/more-horizontal-24-filled';
 
 	const default_args = {
 		disabled: false,
@@ -91,7 +91,9 @@
 					<span class="caption-1 description">Developer</span>
 
 					<!-- <Button slot="action"> -->
-					<Icon class="action" src={MoreHorizontalFilled} />
+					<Icon class="action">
+						<MoreHorizontalFilled />
+					</Icon>>
 					<!-- </Button> -->
 				</CardHeader>
 
@@ -111,7 +113,9 @@
 					<span class="caption-1 description">Developer</span>
 
 					<!-- <Button slot="action"> -->
-					<Icon class="action" src={MoreHorizontalFilled} />
+					<Icon class="action">
+						<MoreHorizontalFilled />
+					</Icon>
 					<!-- </Button> -->
 				</CardHeader>
 
@@ -131,7 +135,9 @@
 					<span class="caption-1 description">Developer</span>
 
 					<!-- <Button slot="action"> -->
-					<Icon class="action" src={MoreHorizontalFilled} />
+					<Icon class="action">
+						<MoreHorizontalFilled />
+					</Icon>
 					<!-- </Button> -->
 				</CardHeader>
 
@@ -151,7 +157,9 @@
 					<span class="caption-1 description">Developer</span>
 
 					<!-- <Button slot="action"> -->
-					<Icon class="action" src={MoreHorizontalFilled} />
+					<Icon class="action">
+						<MoreHorizontalFilled />
+					</Icon>
 					<!-- </Button> -->
 				</CardHeader>
 

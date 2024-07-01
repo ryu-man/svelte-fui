@@ -1,7 +1,9 @@
 <script context="module" lang="ts">
 	import { onMount } from 'svelte';
 	import { Button, FluentRoot, Icon } from '@svelte-fui/core';
-	import { CalendarMonthFilled, CalendarMonthRegular } from '@svelte-fui/icons';
+	import CalendarMonthFilled from 'virtual:icons/fluent/calendar-month-24-filled';
+	import CalendarMonthRegular from 'virtual:icons/fluent/calendar-month-24-regular';
+	
 	import { webDarkTheme, webLightTheme } from '@svelte-fui/themes';
 	import { MenuButton } from '.';
 	import { Story } from '@storybook/addon-svelte-csf';
@@ -67,7 +69,13 @@
 			<div class="flex gap-4">
 				<MenuButton.Root>
 					<MenuButton.Button let:hover>
-						<Icon src={hover ? CalendarMonthFilled : CalendarMonthRegular} />
+						<Icon class="h-full">
+							{#if hover}
+								<CalendarMonthFilled />
+							{:else}
+								<CalendarMonthRegular />
+							{/if}
+						</Icon>
 						<div>New</div>
 					</MenuButton.Button>
 

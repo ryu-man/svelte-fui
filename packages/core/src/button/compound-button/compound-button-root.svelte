@@ -42,21 +42,18 @@
 	on:click
 	on:dblclick
 >
-	<div class="fui-compound-button-inner">
+	<div class={classnames('fui-compound-button-inner', 'gap-3', icon && 'gap-0')}>
 		<slot />
 	</div>
 </Button>
 
 <style lang="postcss">
-	:global(.fui-compound-button) {
-		/* @apply !p-0; */
-	}
-
 	.fui-compound-button-inner {
-		@apply flex h-auto flex-nowrap gap-3;
+		@apply grid;
+
+		grid-template-columns: auto 1fr;
 
 		--fui-compound-body-secondary-color: theme('colors.neutral-foreground-2');
-		--fui-icon-size: 40px;
 
 		&:hover {
 			--fui-compound-body-secondary-color: theme('colors.neutral-foreground-2-hover');

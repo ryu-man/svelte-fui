@@ -1,10 +1,16 @@
 <script context="module" lang="ts">
 	import { onMount } from 'svelte';
 	import { FluentRoot, Icon } from '@svelte-fui/core';
-	import { DocumentPdfRegular, DocumentRegular, EditRegular, FolderRegular, OpenRegular, PeopleRegular, VideoRegular } from '@svelte-fui/icons';
 	import { webDarkTheme, webLightTheme } from '@svelte-fui/themes';
 	import { Story } from '@storybook/addon-svelte-csf';
 	import type { ArgTypes } from '@storybook/svelte';
+	import DocumentRegular from 'virtual:icons/fluent/document-24-regular';
+	import DocumentPdfRegular from 'virtual:icons/fluent/document-pdf-24-regular';
+	import EditRegular from 'virtual:icons/fluent/edit-24-regular';
+	import FolderRegular from 'virtual:icons/fluent/folder-regular';
+	import OpenRegular from 'virtual:icons/fluent/open-24-regular';
+	import PeopleRegular from 'virtual:icons/fluent/people-24-regular';
+	import VideoRegular from 'virtual:icons/fluent/video-24-regular';
 	import Table from './table-root.svelte';
 	import TdSelection from './td-selection.svelte';
 	import Td from './td.svelte';
@@ -127,13 +133,19 @@
 					<Tr appearance="none" data={item}>
 						<TdSelection type="radio" />
 						<Td class="flex items-center gap-2">
-							<Icon src={item.file.icon} />
+							<Icon>
+								<svelte:component this={item.file.icon} />
+							</Icon>
+
 							<span>{item.file.desc}</span>
 						</Td>
 						<Td>{item.author}</Td>
 						<Td>{item.last_updated}</Td>
 						<Td class="flex items-center gap-2">
-							<Icon src={item.last_update.icon} />
+							<Icon>
+								<svelte:component this={item.file.icon} />
+							</Icon>
+
 							{item.last_update.desc}
 						</Td>
 					</Tr>

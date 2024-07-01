@@ -8,16 +8,13 @@
 	export { klass as class };
 </script>
 
-<span class={classnames('fui-icon h-6 text-current', klass)} {...$$restProps}>
+<div class={classnames('fui-icon h-6 text-current', klass)} {...$$restProps}>
 	<slot />
-</span>
+</div>
 
 <style lang="postcss">
 	.fui-icon {
-		display: inline-block;
-	}
-	.fui-icon {
-		@apply flex aspect-square items-center justify-center leading-none;
+		@apply inline-flex aspect-square items-center justify-center leading-none;
 	}
 
 	.fui-icon :global(svg) {
