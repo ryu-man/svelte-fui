@@ -7,7 +7,7 @@
 	import DocumentRegular from 'virtual:icons/fluent/document-24-regular';
 	import DocumentPdfRegular from 'virtual:icons/fluent/document-pdf-24-regular';
 	import EditRegular from 'virtual:icons/fluent/edit-24-regular';
-	import FolderRegular from 'virtual:icons/fluent/folder-regular';
+	import FolderRegular from 'virtual:icons/fluent/folder-24-regular';
 	import OpenRegular from 'virtual:icons/fluent/open-24-regular';
 	import PeopleRegular from 'virtual:icons/fluent/people-24-regular';
 	import VideoRegular from 'virtual:icons/fluent/video-24-regular';
