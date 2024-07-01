@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { Icon } from '@svelte-fui/core';
-	import { CheckmarkFilled } from '../icons';
-	import { classnames } from '../internal';
+	import { classnames } from '@svelte-fui/core/internal';
+	import CheckmarkFilled from 'virtual:icons/fluent/checkmark-24-filled';
 
 	/** Controls whether the checkbox is checked or not. */
 	export let checked = false;
@@ -44,7 +44,9 @@
 	<input class="fui-checkbox-input" type="checkbox" {id} {checked} on:change />
 	<div class={classnames('fui-checkbox-indicator', { size, disabled, circular })} aria-hidden="true">
 		{#if checked}
-			<Icon src={CheckmarkFilled} />
+			<Icon class="p-[5px]">
+				<CheckmarkFilled />
+			</Icon>
 		{/if}
 	</div>
 </span>
