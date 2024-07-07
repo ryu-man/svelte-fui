@@ -1,10 +1,11 @@
 <script context="module" lang="ts">
 	import { onMount } from 'svelte';
 	import { FluentRoot, Icon, Input } from '@svelte-fui/core';
-	import { MicRegular, PersonRegular } from '@svelte-fui/icons';
 	import { webDarkTheme, webLightTheme } from '@svelte-fui/themes';
 	import { Story } from '@storybook/addon-svelte-csf';
 	import type { ArgTypes } from '@storybook/svelte';
+	import MicRegularIcon from 'virtual:icons/fluent/mic-48-regular';
+	import PersonRegularIcon from 'virtual:icons/fluent/person-48-regular';
 
 	const arg_types = {} satisfies ArgTypes;
 
@@ -52,7 +53,9 @@
 			<div class="flex w-[400px] flex-col">
 				<label for="" class="full-name-input">Full name</label>
 				<Input id="full-name-input" {...args}>
-					<Icon slot="before" src={PersonRegular} />
+					<Icon slot="before">
+						<PersonRegularIcon />
+					</Icon>
 				</Input>
 				<span>An input with a decorative icon in the <code>before</code> slot.</span>
 			</div>
@@ -60,7 +63,9 @@
 			<div class="flex w-[400px] flex-col">
 				<label for="" class="full-name-input">First name</label>
 				<Input id="first-name-input" {...args}>
-					<Icon slot="after" src={MicRegular} />
+					<Icon slot="after">
+						<MicRegularIcon />
+					</Icon>
 				</Input>
 				<span>An input with a button in the <code>after</code> slot.</span>
 			</div>

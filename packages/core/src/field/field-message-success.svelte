@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { Icon } from '@svelte-fui/core/icon';
-	import { CheckmarkCircleFilled } from '@svelte-fui/icons';
+	import CheckmarkCircleFilled from 'virtual:icons/fluent/checkmark-circle-24-filled';
 	import FieldMessage from './field-message.svelte';
 
 	let klass = '';
@@ -8,6 +8,8 @@
 </script>
 
 <FieldMessage {...$$restProps}>
-	<Icon src={CheckmarkCircleFilled} />
+	<Icon class="h-full">
+		<CheckmarkCircleFilled />
+	</Icon>
 	<slot />
 </FieldMessage>

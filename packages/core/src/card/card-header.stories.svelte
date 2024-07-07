@@ -1,10 +1,10 @@
 <script context="module" lang="ts">
 	import { onMount } from 'svelte';
 	import { Card, CardHeader, FluentRoot, Icon, Text } from '@svelte-fui/core';
-	import { MoreHorizontalFilled } from '@svelte-fui/icons';
 	import { webDarkTheme, webLightTheme } from '@svelte-fui/themes';
 	import { Story } from '@storybook/addon-svelte-csf';
 	import type { ArgTypes } from '@storybook/svelte';
+	import MoreHorizontalFilled from 'virtual:icons/fluent/more-horizontal-24-filled';
 
 	const default_args = {
 		disabled: false,
@@ -87,7 +87,9 @@
 				<Text class="header" weight="semibold">Alert in Teams when a new document is uploaded in channel</Text>
 				<span class="caption-1 description text-neutral-foreground-3">By Microsoft</span>
 
-				<Icon class="action" src={MoreHorizontalFilled} />
+				<Icon class="action">
+					<MoreHorizontalFilled />
+				</Icon>
 			</CardHeader>
 		</div>
 	</FluentRoot>

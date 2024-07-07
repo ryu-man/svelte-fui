@@ -1,5 +1,4 @@
 <script lang="ts">
-	import { Button } from '@svelte-fui/core/button';
 	import { Dropdown } from '@svelte-fui/core/dropdown';
 	import { classnames } from '@svelte-fui/core/internal';
 

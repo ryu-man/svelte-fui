@@ -1,11 +1,10 @@
 <script context="module" lang="ts">
 	import { onMount } from 'svelte';
+	import { Avatar, FluentRoot } from '@svelte-fui/core';
+	import { webDarkTheme, webLightTheme } from '@svelte-fui/themes';
 	import { Story } from '@storybook/addon-svelte-csf';
 	import type { ArgTypes } from '@storybook/svelte';
-
-	import { FluentRoot, Avatar } from '@svelte-fui/core';
-	import { PersonRegular } from '@svelte-fui/icons';
-	import { webDarkTheme, webLightTheme } from '@svelte-fui/themes';
+	import PersonRegular from 'virtual:icons/fluent/person-24-regular';
 
 	const arg_types = {} satisfies ArgTypes;
 
@@ -15,12 +14,11 @@
 		title: 'Components/Avatar',
 		component: Avatar,
 		argTypes: arg_types,
-		tags: ['!autodocs'],
+		tags: ['!autodocs']
 	};
 </script>
 
 <script lang="ts">
-
 	let theme = webLightTheme;
 
 	onMount(() => {

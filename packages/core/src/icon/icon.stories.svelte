@@ -1,8 +1,8 @@
 <script context="module" lang="ts">
 	import { FluentRoot, Icon } from '@svelte-fui/core';
-	import { AccessibilityCheckmarkFilled } from '@svelte-fui/icons';
 	import { Story } from '@storybook/addon-svelte-csf';
 	import type { ArgTypes } from '@storybook/svelte';
+	import AlertRegularIcon from 'virtual:icons/fluent/alert-48-regular';
 
 	const arg_types = {} satisfies ArgTypes;
 
@@ -22,7 +22,9 @@
 <Story id="icon" name="Icon" args={default_args} let:args>
 	<FluentRoot>
 		<div class="flex h-full w-full items-center justify-center">
-			<Icon {...args} src={AccessibilityCheckmarkFilled} size="24em" fill="red" />
+			<Icon {...args} class="">
+				<AlertRegularIcon />
+			</Icon>
 		</div>
 	</FluentRoot>
 </Story>

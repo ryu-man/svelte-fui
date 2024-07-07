@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { Icon } from '@svelte-fui/core/icon';
-	import { WarningFilled } from '@svelte-fui/icons';
+	import WarningFilled from 'virtual:icons/fluent/warning-24-filled';
 	import FieldMessage from './field-message.svelte';
 
 	let klass = '';
@@ -8,6 +8,8 @@
 </script>
 
 <FieldMessage {...$$restProps}>
-	<Icon src={WarningFilled} />
+	<Icon class="h-full">
+		<WarningFilled />
+	</Icon>
 	<slot />
 </FieldMessage>

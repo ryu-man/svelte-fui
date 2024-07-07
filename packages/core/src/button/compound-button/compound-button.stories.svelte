@@ -39,9 +39,10 @@
 
 <script lang="ts">
 	import { onMount } from 'svelte';
-	import { CalendarMonthFilled, CalendarMonthRegular } from '@svelte-fui/icons';
 	import { webDarkTheme, webLightTheme } from '@svelte-fui/themes';
 	import { CompoundButton } from '.';
+	import CalendarMonthFilled from 'virtual:icons/fluent/calendar-month-24-filled';
+	import CalendarMonthRegular from 'virtual:icons/fluent/calendar-month-24-regular';
 
 	const defaultValues = {
 		size: 'md',
@@ -72,7 +73,9 @@
 	<FluentRoot {theme}>
 		<div class="flex h-full w-full items-center justify-center gap-4">
 			<CompoundButton.Root {...args}>
-				<Icon src={CalendarMonthFilled} />
+				<Icon class="h-full">
+					<CalendarMonthFilled />
+				</Icon>
 				<CompoundButton.Body>
 					<div>Example</div>
 					<CompoundButton.SecondaryContent>Secondary content</CompoundButton.SecondaryContent>
@@ -80,7 +83,9 @@
 			</CompoundButton.Root>
 
 			<CompoundButton.Root {...args} icon>
-				<Icon src={CalendarMonthFilled} />
+				<Icon class="h-full">
+					<CalendarMonthFilled />
+				</Icon>
 			</CompoundButton.Root>
 		</div>
 	</FluentRoot>

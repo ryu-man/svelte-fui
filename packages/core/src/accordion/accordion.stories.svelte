@@ -1,10 +1,10 @@
 <script context="module" lang="ts">
 	import { onMount } from 'svelte';
 	import { FluentRoot, Icon } from '@svelte-fui/core';
-	import { AddRegular } from '@svelte-fui/icons';
 	import { webDarkTheme, webLightTheme } from '@svelte-fui/themes';
 	import { Story } from '@storybook/addon-svelte-csf';
 	import type { ArgTypes } from '@storybook/svelte';
+	import AddRegularIcon from 'virtual:icons/fluent/add-24-regular';
 	import AccordionHeader from './accordion-header.svelte';
 	import AccordionItem from './accordion-item.svelte';
 	import AccordionPanel from './accordion-panel.svelte';
@@ -62,11 +62,11 @@
 		<div class="flex h-full w-full flex-col items-center justify-center">
 			<Accordion class="w-full" {...args} bind:value>
 				<AccordionItem value="item-1">
-					<AccordionHeader position="start" as="h1">
-						Accordion Header 1
-						<span class="icon pl-2">
-							<Icon src={AddRegular} />
-						</span>
+					<AccordionHeader class="items-center gap-2" position="start" as="h1">
+						<div>Accordion Header 1</div>
+						<Icon class="h-5">
+							<AddRegularIcon />
+						</Icon>
 					</AccordionHeader>
 					<AccordionPanel>Accordion Header 1</AccordionPanel>
 				</AccordionItem>

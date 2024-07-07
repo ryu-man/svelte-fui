@@ -1,7 +1,9 @@
 <script lang="ts">
 	import { tweened } from 'svelte/motion';
-	import { classnames } from '../internal';
+	import { Icon } from '@svelte-fui/core';
+	import ChevronRightIcon from 'virtual:icons/fluent/chevron-right-24-regular';
 	import { getAccordionContext, getAccordionItemContext } from './context';
+	import { classnames } from '../internal';
 
 	export let icon = false;
 	export let inline = false;
@@ -41,21 +43,11 @@
 			<!-- content here -->
 			<span class={classnames('fui-accordion-header-expand-icon', position)} aria-hidden="true">
 				<slot name="expand-icon">
-					<svg
-						class=""
-						fill="currentColor"
-						aria-hidden="true"
-						width="1em"
-						height="1em"
-						viewBox="0 0 20 20"
-						xmlns="http://www.w3.org/2000/svg"
-						style:transform="rotate({$rotate$ * 90}deg)"
-					>
-						<path
-							d="M7.65 4.15c.2-.2.5-.2.7 0l5.49 5.46c.21.22.21.57 0 .78l-5.49 5.46a.5.5 0 0 1-.7-.7L12.8 10 7.65 4.85a.5.5 0 0 1 0-.7Z"
-							fill="currentColor"
-						/>
-					</svg>
+					<Icon class="h-full">
+						<div class="h-full w-full" style:transform="rotate({$rotate$ * 90}deg)">
+							<ChevronRightIcon />
+						</div>
+					</Icon>
 				</slot>
 			</span>
 		{/if}
@@ -73,21 +65,11 @@
 			<!-- content here -->
 			<span class={classnames('fui-accordion-header-expand-icon', position)} aria-hidden="true">
 				<slot name="expand-icon">
-					<svg
-						class=""
-						fill="currentColor"
-						aria-hidden="true"
-						width="1em"
-						height="1em"
-						viewBox="0 0 20 20"
-						xmlns="http://www.w3.org/2000/svg"
-						style="transform: rotate(0deg);"
-					>
-						<path
-							d="M7.65 4.15c.2-.2.5-.2.7 0l5.49 5.46c.21.22.21.57 0 .78l-5.49 5.46a.5.5 0 0 1-.7-.7L12.8 10 7.65 4.85a.5.5 0 0 1 0-.7Z"
-							fill="currentColor"
-						/>
-					</svg>
+					<Icon class="">
+						<div class="h-full w-full" style:transform="rotate(0deg)">
+							<ChevronRightIcon />
+						</div>
+					</Icon>
 				</slot>
 			</span>
 		{/if}
@@ -147,8 +129,5 @@
 			flex-shrink: 1;
 			flex-basis: 0%;
 		}
-	}
-	.fui-accordion-header :global(.icon) {
-		@apply pr-s leading-base-500 text-base-500 flex h-full items-center;
 	}
 </style>

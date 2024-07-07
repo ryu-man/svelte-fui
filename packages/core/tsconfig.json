@@ -9,6 +9,8 @@
 		"skipLibCheck": true,
 		"sourceMap": true,
 		"strict": true,
+		"module": "ES2020",
+		"moduleResolution": "Bundler",
 		"paths": {
 			"@svelte-fui/core": ["./src"],
 			"@svelte-fui/core/*": ["./src/*"]
