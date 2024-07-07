@@ -1,22 +1,16 @@
-import { defineConfig } from 'vite'
-import path from 'path'
-import pkg from './package.json'
+import { sveltekit } from '@sveltejs/kit/vite';
+import { defineConfig } from 'vitest/config';
+import Icons from 'unplugin-icons/vite'
 
-// https://vitejs.dev/config/
 export default defineConfig({
-  build:{
-    lib:{
-      formats:['es'],
-      entry: './src/index.ts',
-      name: pkg.name
-    }
-  },
-  resolve:{
-    alias:{
-			'@svelte-fui/core': path.resolve('./src'),
-			'@svelte-fui/theme': path.resolve('../theme/src'),
-			'@svelte-fui/themes': path.resolve('../themes/src'),
-			'@svelte-fui/tailwindcss': path.resolve('../tailwindcss/src')
-    }
-  }
-})
+	plugins: [
+		sveltekit(),
+		Icons({
+			compiler: 'svelte',
+			autoInstall: true
+		})
+	],
+	test: {
+		include: ['src/**/*.{test,spec}.{js,ts}']
+	}
+});

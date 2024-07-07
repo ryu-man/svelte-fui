@@ -1,7 +1,17 @@
 <script context="module" lang="ts">
 	import { onMount } from 'svelte';
-	import { Button, Card, CardFooter, CardHeader, CardPreview, FluentRoot, Icon } from '@svelte-fui/core';
-	import { ArrowReplyRegular, ShareRegular } from '@svelte-fui/icons';
+	import {
+		Button,
+		Card,
+		CardFooter,
+		CardHeader,
+		CardPreview,
+		FluentRoot,
+		Icon
+	} from '@svelte-fui/core';
+	import ArrowReplyRegular from 'virtual:icons/fluent/arrow-reply-24-regular';
+	import ShareRegular from 'virtual:icons/fluent/share-24-regular';
+
 	import { webDarkTheme, webLightTheme } from '@svelte-fui/themes';
 	import { Story } from '@storybook/addon-svelte-csf';
 	import type { ArgTypes } from '@storybook/svelte';
@@ -115,11 +125,15 @@
 				</CardPreview>
 				<CardFooter>
 					<Button>
-						<Icon src={ArrowReplyRegular} />
+						<Icon>
+							<ArrowReplyRegular />
+						</Icon>
 						Reply
 					</Button>
 					<Button>
-						<Icon src={ShareRegular} />
+						<Icon>
+							<ShareRegular />
+						</Icon>
 						Share
 					</Button>
 				</CardFooter>

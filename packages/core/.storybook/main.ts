@@ -1,15 +1,23 @@
 import type { StorybookConfig } from '@storybook/sveltekit';
 import { mergeConfig, searchForWorkspaceRoot } from 'vite';
-import path from 'path';
 
+import { join, dirname, resolve } from 'path';
+
+/**
+ * This function is used to resolve the absolute path of a package.
+ * It is needed in projects that use Yarn PnP or are set up within a monorepo.
+ */
+function getAbsolutePath(value: string): any {
+	return dirname(require.resolve(join(value, 'package.json')));
+}
 const config: StorybookConfig = {
-	stories: ['../src/**/*.mdx', '../../../packages/core/src/**/*.stories.@(js|jsx|ts|tsx|svelte)'],
+	stories: ['../src/**/*.mdx', '../src/**/*.stories.@(js|jsx|mjs|ts|tsx|svelte)'],
 	addons: [
 		'@storybook/addon-links',
 		'@storybook/addon-essentials',
+		'@chromatic-com/storybook',
 		'@storybook/addon-interactions',
-		'@storybook/addon-svelte-csf',
-		'@chromatic-com/storybook'
+		'@storybook/addon-svelte-csf'
 	],
 	framework: {
 		name: '@storybook/sveltekit',
@@ -40,13 +48,13 @@ const config: StorybookConfig = {
 				fs: {
 					allow: [
 						...currentFsAllow,
-						path.resolve(cwd, 'src/lib'),
-						path.resolve(cwd, 'src/routes'),
-						path.resolve(cwd, '.svelte-kit'),
-						path.resolve(cwd, 'src'),
-						path.resolve(cwd, '.node_modules'),
-						path.resolve(cwd, '.storybook'),
-						path.resolve(cwd, 'tailwind.config.js')
+						resolve(cwd, 'src/lib'),
+						resolve(cwd, 'src/routes'),
+						resolve(cwd, '.svelte-kit'),
+						resolve(cwd, 'src'),
+						resolve(cwd, '.node_modules'),
+						resolve(cwd, '.storybook'),
+						resolve(cwd, 'tailwind.config.js')
 					]
 				}
 			}

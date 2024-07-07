@@ -1,57 +1,58 @@
-# @svelte-fui/core
+# create-svelte
 
-`@svelte-fui/core` is a comprehensive UI library that seamlessly brings the elegant Microsoft Fluent Design System to your web applications. It offers an intuitive and extensive collection of components and tools, meticulously crafted with the power of TailwindCSS, making it effortless to create stunning and modern user interfaces.
+Everything you need to build a Svelte library, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/main/packages/create-svelte).
 
-With @svelte-fui/core at your disposal, developers can effortlessly design beautiful, responsive layouts that captivate users and elevate their web experiences to new heights.
+Read more about creating a library [in the docs](https://kit.svelte.dev/docs/packaging).
 
-# Usage
+## Creating a project
 
-To begin, install the `@svelte-fui/core` package into your project.
-
-```shell
-// pnpm
-pnpm install @svelte-fui/core
-
-//npm
-npm install @svelte-fui/core
-```
-
-To build UIs using `@svelte-fui/core` components, it is necessary to place the `App` component at the highest level of your application or route (in the case of Sveltekit). Import the UI component and include the theme as children of the `App` component.
-
-```html
-<script>
-	import { App, Button } from '@svelte-fui/core';
-</script>
-
-<App>
-	<button>Hello World!</button>
-</App>
-```
-
-**Note: For TailwindCSS users**
-
-If you're a TailwindCSS enthusiast and want to incorporate Fluent UI tokens into your app for creating custom components that align with the Fluent Design system, You can easily integrate the `fuiPreset` export by `@svelte-ui/tailwindcss` into your tailwindcss configuration. Simply follow the instructions listed below.
-
-First, let's make sure the package is installed.
+If you're seeing this, you've probably already done this step. Congrats!
 
 ```bash
-// pnpm
-pnpm install @svelte-fui/tailwindcss
+# create a new project in the current directory
+npm create svelte@latest
 
-//npm
-npm install @svelte-fui/tailwindcss
+# create a new project in my-app
+npm create svelte@latest my-app
 ```
 
-Next up, we just need to make the necessary change to our `taindindcss.config.js` file.
+## Developing
 
-```js
-// tailwindcss.config.js
-import { fuiPreset } from '@svelte-fui/tailwindcss';
+Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
 
-/** @type {import('tailwindcss').Config} */
-export default {
-	presets: [fuiPreset],
-	content: ['./src/**/*.{html,js,svelte, stories.svelte, ts}']
-	// other configurations goes here
-};
+```bash
+npm run dev
+
+# or start the server and open the app in a new browser tab
+npm run dev -- --open
+```
+
+Everything inside `src/lib` is part of your library, everything inside `src/routes` can be used as a showcase or preview app.
+
+## Building
+
+To build your library:
+
+```bash
+npm run package
+```
+
+To create a production version of your showcase app:
+
+```bash
+npm run build
+```
+
+You can preview the production build with `npm run preview`.
+
+> To deploy your app, you may need to install an [adapter](https://kit.svelte.dev/docs/adapters) for your target environment.
+
+## Publishing
+
+Go into the `package.json` and give your package the desired name through the `"name"` option. Also consider adding a `"license"` field and point it to a `LICENSE` file which you can create from a template (one popular option is the [MIT license](https://opensource.org/license/mit/)).
+
+To publish your library to [npm](https://www.npmjs.com):
+
+```bash
+npm publish
 ```
