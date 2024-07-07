@@ -1,10 +1,11 @@
 {
-  "extends": "../../tsconfig.json",
-  "compilerOptions": {},
-  "include": [
-    "src/**/*.d.ts",
-    "src/**/*.ts",
-    "src/**/*.js",
-    "src/**/*.svelte"
-  ]
+	"compilerOptions": {
+		"target": "ES6", // Or another suitable ECMAScript target
+		"module": "ESNext", // Or your preferred module system (e.g., 'ES2020', 'ESNext')
+		"declaration": true, // This is the key to generate .d.ts files
+		"outDir": "./dist", // Optional: Specify the output directory
+		"rootDir": "./src", // Optional: Specify where your source .ts files live
+		"moduleResolution": "Bundler"
+	},
+	"include": ["./src/**/*.ts", "src/**/*.js"] // Make sure it includes the path to your TypeScript source files
 }

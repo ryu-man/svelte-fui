@@ -5,7 +5,7 @@
 	"type": "module",
 	"sideEffects": false,
 	"scripts": {
-		"build": "svelte-package -i ./src"
+		"build": "npx tsc"
 	},
 	"files": [
 		"./dist"

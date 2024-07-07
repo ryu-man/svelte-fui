@@ -5,7 +5,7 @@
 	"sideEffects": false,
 	"scripts": {
 		"build:core": "cd packages/core && pnpm run build",
-		"build:storybook": "cd packages/core && pnpm run storybook:build",
+		"build:storybook": "pnpm run build:theme && pnpm run build:themes && pnpm run build:tailwindcss && cd packages/core && pnpm run storybook:build",
 		"build:tailwindcss": "cd packages/tailwindcss && pnpm run build",
 		"build:theme": "cd packages/theme && pnpm run build",
 		"build:themes": "cd packages/themes && pnpm run build"

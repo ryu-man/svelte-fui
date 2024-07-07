@@ -28,7 +28,8 @@
         "allowJs": true,
         "checkJs": true,
         "isolatedModules": true,
-        "moduleResolution": "bundler"
+        "moduleResolution": "bundler",
+        "composite": true
     },
     "include": [
         "./packages/*"

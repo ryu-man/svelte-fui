@@ -5,7 +5,7 @@
 	"type": "module",
 	"sideEffects": false,
 	"scripts": {
-		"build": "svelte-package -i ./src"
+		"build": "npx tsc"
 	},
 	"author": "",
 	"license": "MIT",
@@ -14,17 +14,13 @@
 		"!dist/**/*.stories.svelte"
 	],
 	"devDependencies": {
-		"@sveltejs/package": "^2.0.2",
-		"@sveltejs/vite-plugin-svelte": "^2.0.3",
-		"@tsconfig/svelte": "^4.0.1",
-		"svelte": "^4.0.0",
-		"svelte-check": "^2.10.3",
+		"tailwindcss": "^3.3.1",
 		"tslib": "^2.5.0",
 		"typescript": "^5.0.2",
 		"vite": "^5.1.0"
 	},
 	"dependencies": {
-		"@svelte-fui/theme": "^0.1.3"
+		"@svelte-fui/theme": "workspace:^"
 	},
 	"peerDependencies": {
 		"@svelte-fui/theme": "^0.1.3"
