@@ -9,7 +9,7 @@ import { bubble, listen } from "svelte/internal";
 import { tabbable } from "tabbable";
 import { createFocusTrap } from "focus-trap";
 
-import { tailwindcssConfig, defaultTheme } from '../../../tailwindcss/src'
+import { tailwindcssConfig, defaultTheme } from '@svelte-fui/tailwindcss'
 
 // export { default as FlyoutSurface } from "./Flyout/FlyoutSurface.svelte";
 // export { default as TooltipSurface } from "./Tooltip/TooltipSurface.svelte";
