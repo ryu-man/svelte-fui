@@ -9,3 +9,21 @@ export function animate(node: HTMLElement | SVGElement, vars: gsap.TweenVars) {
 		}
 	};
 }
+
+export type AnimateFromToParams = {
+	from?: gsap.TweenVars;
+	to?: gsap.TweenVars;
+};
+
+export function animateFromTo(
+	node: HTMLElement | SVGElement,
+	{ from = {} }: AnimateFromToParams = {}
+) {
+	gsap.set(node, { ...from });
+
+	return {
+		update({ from = {}, to = {} }: AnimateFromToParams = {}) {
+			gsap.fromTo(node, { ...from }, { ...to });
+		}
+	};
+}
