@@ -5,8 +5,13 @@ export const FUI_MENU_NAMESPACE = 'menu';
 
 export type MenuContext = {
 	open: Writable<boolean>;
-	triggerElement: Writable<HTMLElement>;
+	triggerElement: Writable<HTMLElement|undefined>;
 	itemsActive: Writable<Set<string>>;
+	elements: {
+		trigger: Writable<HTMLElement|undefined>;
+		menu: Writable<HTMLElement|undefined>;
+		anchor: Writable<HTMLElement|undefined>;
+	};
 	close(): void;
 };
 
