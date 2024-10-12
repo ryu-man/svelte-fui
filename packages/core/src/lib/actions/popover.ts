@@ -33,7 +33,10 @@ function animate_default(node: PopoverElement, params: ComputePositionReturn) {
 	node.style.transform = `translate(${params.x}px, ${params.y}px)`;
 }
 
-export function popover(node: HTMLElement, { animate = animate_default, ...params }: PopoverParams) {
+export function popover(
+	node: HTMLElement,
+	{ animate = animate_default, ...params }: PopoverParams
+) {
 	node.hidden = true;
 
 	if (!params.reference) {
@@ -46,7 +49,7 @@ export function popover(node: HTMLElement, { animate = animate_default, ...param
 	}
 
 	// This function is used to keep a reference of the `autoUpdate` cleanup function
-	let cleanup: (() => void) | undefined = undefined;
+	let cleanup: () => void = () => {};
 	let onmount_cleanup: (() => void) | void = undefined;
 
 	// This function is responsible of applying position calculation on the element and notify caller
@@ -62,6 +65,7 @@ export function popover(node: HTMLElement, { animate = animate_default, ...param
 		onMount: async () => {
 			await positionate(node, params);
 
+			cleanup();
 			// Keep position updated
 			cleanup = autoUpdate(params.reference, node, async () => {
 				portal_action.update(params.target);
