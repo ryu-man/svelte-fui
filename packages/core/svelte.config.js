@@ -14,10 +14,7 @@ const config = {
 		// See https://kit.svelte.dev/docs/adapters for more information about adapters.
 		adapter: adapter(),
 		alias: {
-			'@svelte-fui/core': path.resolve('./src/lib'),
-			'@svelte-fui/theme': path.resolve('../theme/src'),
-			'@svelte-fui/themes': path.resolve('../themes/src'),
-			'@svelte-fui/tailwindcss': path.resolve('../tailwindcss/src')
+			'@svelte-fui/core': path.resolve('./src/lib')
 		}
 	}
 };
