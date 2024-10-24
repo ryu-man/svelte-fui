@@ -33,7 +33,6 @@
 
 	export let required = false;
 
-	// const forwardEvents = createEventForwarder(get_current_component());
 	function onclick(e: Event) {
 		if (disabled) return;
 		checked = !checked;

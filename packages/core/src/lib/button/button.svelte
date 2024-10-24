@@ -1,6 +1,5 @@
 <script lang="ts">
-	import { get_current_component } from 'svelte/internal';
-	import { classnames, createEventForwarder } from '@svelte-fui/core/internal';
+	import { classnames } from '@svelte-fui/core/internal';
 	import type { ButtonProps } from './types';
 
 	type $$Props = ButtonProps;
@@ -28,8 +27,6 @@
 	/** Obtains a bound DOM reference to the button or anchor element. */
 	export let element: $$Props['element'] = undefined;
 
-	const forward_events = createEventForwarder(get_current_component());
-
 	let hover = false;
 	function onmouseenter() {
 		hover = true;
@@ -41,7 +38,6 @@
 
 <svelte:element
 	this={href && !disabled ? 'a' : 'button'}
-	use:forward_events
 	bind:this={element}
 	role={href && !disabled ? 'button' : undefined}
 	href={href && !disabled ? href : undefined}

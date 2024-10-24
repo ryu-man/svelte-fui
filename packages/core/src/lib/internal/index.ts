@@ -1,15 +1,12 @@
 import { type ClassValue, clsx } from 'clsx';
-import { extendTailwindMerge  } from 'tailwind-merge';
+import { extendTailwindMerge } from 'tailwind-merge';
 
-import type { SvelteComponent } from "svelte";
-import type { Options as FocusTrapOptions } from "focus-trap";
+import type { Options as FocusTrapOptions } from 'focus-trap';
 
-import { bubble, listen } from "svelte/internal";
+import { tabbable } from 'tabbable';
+import { createFocusTrap } from 'focus-trap';
 
-import { tabbable } from "tabbable";
-import { createFocusTrap } from "focus-trap";
-
-import { tailwindcssConfig, defaultTheme } from '@svelte-fui/tailwindcss'
+import { tailwindcssConfig, defaultTheme } from '@svelte-fui/tailwindcss';
 
 // export { default as FlyoutSurface } from "./Flyout/FlyoutSurface.svelte";
 // export { default as TooltipSurface } from "./Tooltip/TooltipSurface.svelte";
@@ -23,7 +20,7 @@ interface ExternalMouseEventOptions {
 }
 export function externalMouseEvents(
 	node: HTMLElement,
-	options: ExternalMouseEventOptions = { type: "click", stopPropagation: false }
+	options: ExternalMouseEventOptions = { type: 'click', stopPropagation: false }
 ) {
 	const { type, stopPropagation } = options;
 	const handleEvent = (event: MouseEvent) => {
@@ -64,7 +61,7 @@ export function uid(prefix: string) {
 		prefix +
 		String.fromCharCode(Math.floor(Math.random() * 26) + 97) +
 		Math.random().toString(16).slice(2) +
-		Date.now().toString(16).split(".")[0]
+		Date.now().toString(16).split('.')[0]
 	);
 }
 
@@ -88,39 +85,39 @@ export function arrowNavigation(
 
 		if (tabOrder.length < 0) return;
 		if (
-			key === "ArrowUp" ||
-			key === "ArrowDown" ||
-			key === "Home" ||
-			key === "End" ||
-			(key === "Tab" && options.preventTab)
+			key === 'ArrowUp' ||
+			key === 'ArrowDown' ||
+			key === 'Home' ||
+			key === 'End' ||
+			(key === 'Tab' && options.preventTab)
 		) {
 			event.preventDefault();
 			if (options.stopPropagation) event.stopPropagation();
 		}
 
-		if (key === "ArrowUp") {
+		if (key === 'ArrowUp') {
 			if (tabOrder[0] === activeElement) {
 				tabOrder[tabOrder.length - 1].focus();
 			} else if (tabOrder.includes(<HTMLElement>activeElement)) {
 				tabOrder[activeIndex - 1].focus();
 			}
-		} else if (key === "ArrowDown") {
+		} else if (key === 'ArrowDown') {
 			if (tabOrder[tabOrder.length - 1] === activeElement) {
 				tabOrder[0].focus();
 			} else if (tabOrder.includes(<HTMLElement>activeElement)) {
 				tabOrder[activeIndex + 1].focus();
 			}
-		} else if (key === "Home") {
+		} else if (key === 'Home') {
 			tabOrder[0].focus();
-		} else if (key === "End") {
+		} else if (key === 'End') {
 			tabOrder[tabOrder.length - 1].focus();
 		}
 	};
 
-	node.addEventListener("keydown", handleKeyDown);
+	node.addEventListener('keydown', handleKeyDown);
 
 	return {
-		destroy: () => node.removeEventListener("keydown", handleKeyDown)
+		destroy: () => node.removeEventListener('keydown', handleKeyDown)
 	};
 }
 
@@ -131,100 +128,19 @@ export function getCSSDuration(property) {
 	return parseFloat(duration) * (/\ds$/.test(duration) ? 1000 : 1) || 0;
 }
 
-// Function for forwarding DOM events to the component's declaration
-// Adapted from rgossiaux/svelte-headlessui which is modified from hperrin/svelte-material-ui
-export function createEventForwarder(component: SvelteComponent, exclude: string[] = []) {
-	type EventCallback = (event: any) => void;
-
-	// This is our pseudo $on function. It is defined on component mount.
-	let $on: (eventType: string, callback: EventCallback) => () => void;
-
-	// This is a list of events bound before mount.
-	let events: [string, EventCallback][] = [];
-
-	// Monkeypatch SvelteComponent.$on with our own forward-compatible version
-	component.$on = (eventType: string, callback: EventCallback) => {
-		let destructor = () => {};
-		if (exclude.includes(eventType)) {
-			// Bail out of the event forwarding and run the normal Svelte $on() code
-			const callbacks =
-				component.$$.callbacks[eventType] || (component.$$.callbacks[eventType] = []);
-			callbacks.push(callback);
-			return () => {
-				const index = callbacks.indexOf(callback);
-				if (index !== -1) callbacks.splice(index, 1);
-			};
-		}
-		if ($on) {
-			destructor = $on(eventType, callback); // The event was bound programmatically.
-		} else {
-			events.push([eventType, callback]); // The event was bound before mount by Svelte.
-		}
-		return () => destructor();
-	};
-
-	return (node: HTMLElement | SVGElement) => {
-		const destructors: (() => void)[] = [];
-		const forwardDestructors: { [k: string]: () => void } = {};
-		const forward = (e: Event) => bubble(component, e);
-
-		// This function is responsible for listening and forwarding
-		// all bound events.
-		$on = (eventType, callback) => {
-			let handler = callback;
-			// DOM addEventListener options argument.
-			let options: boolean | AddEventListenerOptions = false;
-
-			// Listen for the event directly, with the given options.
-			const off = listen(node, eventType, handler, options);
-			const destructor = () => {
-				off();
-				const idx = destructors.indexOf(destructor);
-				if (idx > -1) {
-					destructors.splice(idx, 1);
-				}
-			};
-
-			destructors.push(destructor);
-
-			// Forward the event from Svelte.
-			if (!(eventType in forwardDestructors)) {
-				forwardDestructors[eventType] = listen(node, eventType, forward);
-			}
-
-			return destructor;
-		};
-
-		// Listen to all the events added before mount.
-		for (const event of events) {
-			$on(event[0], event[1]);
-		}
-
-		return {
-			destroy: () => {
-				// Remove all event listeners.
-				for (const destructor of destructors) {
-					destructor();
-				}
-
-				// Remove all event forwarders.
-				for (let entry of Object.entries(forwardDestructors)) {
-					entry[1]();
-				}
-			}
-		};
-	};
-}
-
-
 const custom_tw_merge = extendTailwindMerge({
-	  extend:{
+	extend: {
 		theme: {
-			spacing: [...new Set([...Object.keys(defaultTheme.spacing ?? {}),...Object.keys(tailwindcssConfig.theme.extend.spacing ?? {})])],
-			borderWidth: Object.keys(tailwindcssConfig.theme.extend.borderWidth),
+			spacing: [
+				...new Set([
+					...Object.keys(defaultTheme.spacing ?? {}),
+					...Object.keys(tailwindcssConfig.theme.extend.spacing ?? {})
+				])
+			],
+			borderWidth: Object.keys(tailwindcssConfig.theme.extend.borderWidth)
 		}
-	  }
-})
+	}
+});
 
 export function classnames(...args: ClassValue[]): string {
 	return custom_tw_merge(clsx(...args));

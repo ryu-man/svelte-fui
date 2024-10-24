@@ -1,5 +1,4 @@
 <script lang="ts">
-	import type { ComponentType } from 'svelte/internal';
 	import { classnames } from '@svelte-fui/core/internal';
 	import { getFieldContext } from './context';
 
