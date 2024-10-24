@@ -110,11 +110,14 @@ importers:
       '@storybook/test':
         specifier: 8.1.2
         version: 8.1.2(vitest@1.6.0)
+      '@svelte-fui/tailwindcss':
+        specifier: workspace:^
+        version: link:../tailwindcss
       '@svelte-fui/theme':
-        specifier: ^0.1.0
+        specifier: workspace:^
         version: link:../theme
       '@svelte-fui/themes':
-        specifier: ^0.1.0
+        specifier: workspace:^
         version: link:../themes
       '@sveltejs/adapter-auto':
         specifier: ^3.0.0
