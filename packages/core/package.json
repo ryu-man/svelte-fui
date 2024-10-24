@@ -49,6 +49,21 @@
 		"storybook:build": "svelte-kit sync && storybook build",
 		"storybook:dev": "storybook dev -p 6006 --no-open"
 	},
+	"dependencies": {
+		"@floating-ui/dom": "^1.4.3",
+		"@iconify-json/fluent": "^1.1.57",
+		"@svelte-fui/theme": "^0.1.0",
+		"@svelte-fui/themes": "^0.1.0",
+		"@svelte-fui/tailwindcss": "^0.1.7",
+		"clsx": "^2.0.0",
+		"gsap": "^3.12.5",
+		"focus-trap": "^7.4.0",
+		"lodash-es": "^4.17.21",
+		"nanoid": "^4.0.2",
+		"svelte": "^4.0.0",
+		"tabbable": "^6.1.1",
+		"unplugin-icons": "^0.19.0"
+	},
 	"peerDependencies": {
 		"@floating-ui/dom": "^1.4.3",
 		"@iconify-json/fluent": "^1.1.57",
