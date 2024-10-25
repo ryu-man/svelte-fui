@@ -1,6 +1,6 @@
 {
 	"name": "@svelte-fui/core",
-	"version": "1.0.0-alpha.8",
+	"version": "1.0.0-alpha.9",
 	"sideEffects": false,
 	"description": "An implementation of Microsoft Fluent UI v9 for Svelte framework",
 	"author": "ryu-man",
@@ -37,7 +37,8 @@
 		"dev": "vite dev",
 		"build": "vite build && npm run package",
 		"preview": "vite preview",
-		"package": "svelte-kit sync && svelte-package && publint",
+		"package": "svelte-kit sync && svelte-package && pnpm tailwindcss:compile && publint",
+		"tailwindcss:compile": "npx tailwindcss -i ./src/lib/app/root.css -o ./dist/app/root-compiled.css",
 		"prepublishOnly": "npm run package",
 		"test": "npm run test:integration && npm run test:unit",
 		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
