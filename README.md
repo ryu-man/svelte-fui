@@ -25,10 +25,12 @@ To use Fluent design for Sveltekit app you have to make `App` component at the t
 ```html
 <script>
 	import { App, Button } from '@svelte-fui/core';
+	// Uncomment the file import if you want to use the library outside a tailwindcss project
+	//import '@svelte-fui/core/styles/compiled';
 </script>
 
 <App>
-	<button>Hello World!</button>
+	<Button>Hello World!</Button>
 </App>
 ```
 
@@ -88,7 +90,7 @@ npm install @svelte-fui/themes
 	let theme = webLightTheme;
 
 	onMount(() => {
-		function handler(schemeMedia: MediaQueryListEvent) {
+		function handler(schemeMedia) {
 			theme = schemeMedia.matches ? webLightTheme : webDarkTheme;
 		}
 
