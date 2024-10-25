@@ -4,7 +4,7 @@
 	import { derived } from 'svelte/store';
 	import { Icon } from '@svelte-fui/core/icon';
 	import { classnames } from '@svelte-fui/core/internal';
-	import ArrowUpRegular from 'virtual:icons/fluent/arrow-up-24-regular';
+	import ArrowUpRegular from '@svelte-fui/core/icons/arrow-up-regular.svelte';
 	import { getTableContext } from './context';
 	import type { SortingDirection } from './type';
 

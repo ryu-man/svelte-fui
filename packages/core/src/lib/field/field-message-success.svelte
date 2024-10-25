@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { Icon } from '@svelte-fui/core/icon';
-	import CheckmarkCircleFilled from 'virtual:icons/fluent/checkmark-circle-24-filled';
+	import CheckmarkCircleFilled from '@svelte-fui/core/icons/checkmark-circle-filled.svelte';
 	import FieldMessage from './field-message.svelte';
 
 	let klass = '';

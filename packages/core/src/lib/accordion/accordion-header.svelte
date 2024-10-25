@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { tweened } from 'svelte/motion';
 	import { Icon } from '@svelte-fui/core';
-	import ChevronRightIcon from 'virtual:icons/fluent/chevron-right-24-regular';
+	import ChevronRightIcon from '@svelte-fui/core/icons/chevron-right.svelte';
 	import { getAccordionContext, getAccordionItemContext } from './context';
 	import { classnames } from '../internal';
 

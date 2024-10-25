@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { Icon } from '@svelte-fui/core/icon';
-	import InfoFilled from 'virtual:icons/fluent/info-24-filled';
+	import InfoFilled from '@svelte-fui/core/icons/info-filled.svelte';
 	import FieldMessage from './field-message.svelte';
 </script>
 

@@ -3,7 +3,7 @@
 	import { getDropdownContext } from './context';
 	import { classnames } from '@svelte-fui/core/internal';
 	import { Icon } from '@svelte-fui/core';
-	import ChevronDownRegular from 'virtual:icons/fluent/chevron-down-24-regular';
+	import ChevronDownRegular from '@svelte-fui/core/icons/chevron-down-regular.svelte';
 
 	const context = getDropdownContext();
 	const id_store = context.id;

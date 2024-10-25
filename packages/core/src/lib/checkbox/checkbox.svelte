@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { Icon } from '@svelte-fui/core';
 	import { classnames } from '@svelte-fui/core/internal';
-	import CheckmarkFilled from 'virtual:icons/fluent/checkmark-24-filled';
+	import CheckmarkFilled from '@svelte-fui/core/icons/checkmark-filled.svelte';
 
 	/** Controls whether the checkbox is checked or not. */
 	export let checked = false;

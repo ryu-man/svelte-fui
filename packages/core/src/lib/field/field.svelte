@@ -2,7 +2,9 @@
 	import { setFieldContext } from './context';
 	import type { FieldState } from './types,';
 	import { setSharedContext } from '../context';
-	import { CheckmarkCircleFilled, ErrorCircleFilled, WarningFilled } from '../icons';
+	import CheckmarkCircleFilled from '@svelte-fui/core/icons/checkmark-circle-filled.svelte';
+	import ErrorCircleFilled from '@svelte-fui/core/icons/error-circle-filled.svelte';
+	import WarningFilled from '@svelte-fui/core/icons/warning-filled.svelte';
 	import { classnames } from '../internal';
 	import { Label } from '../label';
 
@@ -19,10 +21,16 @@
 		none: undefined
 	};
 
-	const sharedContext$ = setSharedContext({ input: { invalid: state === 'error', size }, label: { size } });
+	const sharedContext$ = setSharedContext({
+		input: { invalid: state === 'error', size },
+		label: { size }
+	});
 	$: sharedContext$.set({ input: { invalid: state === 'error', size }, label: { size } });
 
-	const { icon$, state$ } = setFieldContext({ state, icon: validation_message_icons[state || 'none'] });
+	const { icon$, state$ } = setFieldContext({
+		state,
+		icon: validation_message_icons[state || 'none']
+	});
 
 	$: icon$.set(validation_message_icons[state || 'none']);
 	$: state$.set(state);
