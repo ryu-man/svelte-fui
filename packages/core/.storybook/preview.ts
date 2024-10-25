@@ -1,6 +1,6 @@
 import type { Preview } from '@storybook/svelte';
 import './global.css';
-// import 'svelte-fui/app/app.css'
+import '../src/lib/styles/root.css';
 
 const preview: Preview = {
     parameters: {

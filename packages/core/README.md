@@ -19,6 +19,10 @@ To use Fluent design for Sveltekit app you have to make `App` component at the t
 ```html
 <script>
 	import { App, Button } from '@svelte-fui/core';
+	
+	// This is ude in tailwindcss project or you can ignore and use your tailwindcss setup stylesheet, it should work fine
+	import '@svelte-fui/core/styles/root';
+
 	// Uncomment the file import if you want to use the library outside a tailwindcss project
 	//import '@svelte-fui/core/styles/compiled';
 </script>

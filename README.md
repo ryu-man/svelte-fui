@@ -1,6 +1,6 @@
 # Svelte Fluent UI
 
-The primary objective of this exciting project is to seamlessly integrate Microsoft's highly anticipated Fluent UI version 9 with the powerful Svelte framework. By combining these cutting-edge technologies, we aim to deliver a truly exceptional user interface experience that is not only visually stunning but also incredibly intuitive and user-friendly. 
+The primary objective of this exciting project is to seamlessly integrate Microsoft's highly anticipated Fluent UI version 9 with the powerful Svelte framework. By combining these cutting-edge technologies, we aim to deliver a truly exceptional user interface experience that is not only visually stunning but also incredibly intuitive and user-friendly.
 
 Fluent UI, originally developed by Microsoft for the React library, is a comprehensive design system offering a vast collection of reusable components, meticulously crafted icons, and stylish themes that effortlessly align with Microsoft's acclaimed Fluent Design System.
 
@@ -25,19 +25,22 @@ To use Fluent design for Sveltekit app you have to make `App` component at the t
 ```html
 <script>
 	import { App, Button } from '@svelte-fui/core';
+
+	// This is ude in tailwindcss project or you can ignore and use your tailwindcss setup stylesheet, it should work fine
+	import '@svelte-fui/core/styles/root';
+
 	// Uncomment the file import if you want to use the library outside a tailwindcss project
 	//import '@svelte-fui/core/styles/compiled';
 </script>
 
 <App>
-	<Button>Hello World!</Button>
+	<button>Hello World!</button>
 </App>
 ```
 
-# Using FUI preset fot TailwindCSS 
+# Using FUI preset fot TailwindCSS
 
 This will allow you to integrate FUI tokens into your TailwindCSS config.
-
 
 ```bash
 // pnpm
@@ -49,7 +52,6 @@ npm install @svelte-fui/tailwindcss
 
 ```js
 // tailwindcss.config.js
-
 import { fuiPreset } from '@svelte-fui/tailwindcss';
 
 /** @type {import('tailwindcss').Config} */
@@ -64,15 +66,16 @@ Now in your `.svelte` file you can use FUI tokens as tw classes:
 ```html
 <!-- src/routes/+page.svelte -->
 <script>
-  // some logic goes here
+	// some logic goes here
 </script>
 
 <!--  -->
 
 <div class="bg-neutral-background-1 text-neutral-foreground-1 font-base-400">
-    <!-- UI contents goes here -->
+	<!-- UI contents goes here -->
 </div>
 ```
+
 # Use Pre-Defined Themes
 
 ```bash
@@ -82,10 +85,11 @@ pnpm install @svelte-fui/themes
 //npm
 npm install @svelte-fui/themes
 ```
+
 ```html
 <script>
-  import { webLightTheme, webDarkTheme } from '@svelte-fui/themes';
-  import { App, Button } from '@svelte-fui/core';
+	import { App, Button } from '@svelte-fui/core';
+	import { webDarkTheme, webLightTheme } from '@svelte-fui/themes';
 
 	let theme = webLightTheme;
 
@@ -107,6 +111,6 @@ npm install @svelte-fui/themes
 </script>
 
 <App {theme}>
-	<Button>Fluent UI for Svelte</Button>
+	<button>Fluent UI for Svelte</button>
 </App>
 ```

@@ -7,7 +7,6 @@
 	import { setBackdropContext } from './backdrop-context';
 	import RootBackdropLayer from './root-backdrop-layer.svelte';
 	import { setFluentRootContext } from './root-context';
-	import './root.css';
 	import { applyTheme } from './utils';
 
 	export let theme: Theme = webLightTheme;

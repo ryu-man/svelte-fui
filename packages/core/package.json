@@ -38,7 +38,7 @@
 		"build": "vite build && npm run package",
 		"preview": "vite preview",
 		"package": "svelte-kit sync && svelte-package && pnpm tailwindcss:compile && publint",
-		"tailwindcss:compile": "npx tailwindcss -i ./src/lib/app/root.css -o ./dist/app/root-compiled.css",
+		"tailwindcss:compile": "npx tailwindcss -i ./src/lib/styles/root.css -o ./dist/styles/root-compiled.css",
 		"prepublishOnly": "npm run package",
 		"test": "npm run test:integration && npm run test:unit",
 		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
@@ -108,7 +108,6 @@
 		"unplugin-icons": "^0.19.0",
 		"vite": "^5.0.11",
 		"vitest": "^1.2.0"
-
 	},
 	"svelte": "./dist/index.js",
 	"types": "./dist/index.d.ts",
@@ -119,9 +118,13 @@
 			"svelte": "./dist/index.js",
 			"default": "./dist/index.js"
 		},
+		"./styles/root": {
+			"svelte": "./dist/styles/root.css",
+			"default": "./dist/styles/root.css"
+		},
 		"./styles/compiled": {
-			"svelte": "./dist/app/root-compiled.css",
-			"default": "./dist/app/root-compiled.css"
+			"svelte": "./dist/styles/root-compiled.css",
+			"default": "./dist/styles/root-compiled.css"
 		}
 	},
 	"eslintConfig": {
