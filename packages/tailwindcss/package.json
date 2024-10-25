@@ -1,6 +1,6 @@
 {
 	"name": "@svelte-fui/tailwindcss",
-	"version": "0.1.7",
+	"version": "0.1.8",
 	"description": "",
 	"type": "module",
 	"sideEffects": false,
