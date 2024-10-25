@@ -52,7 +52,6 @@
 	},
 	"dependencies": {
 		"@floating-ui/dom": "^1.4.3",
-		"@iconify-json/fluent": "^1.1.57",
 		"@svelte-fui/theme": "^0.1.0",
 		"@svelte-fui/themes": "^0.1.0",
 		"@svelte-fui/tailwindcss": "^0.1.7",
