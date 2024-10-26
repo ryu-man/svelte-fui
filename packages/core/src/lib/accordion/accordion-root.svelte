@@ -1,39 +1,100 @@
-<script lang="ts">
-	import { createEventDispatcher, onMount } from 'svelte';
-	import { writable } from 'svelte/store';
+<script lang="ts" generics="T">
+	import { nanoid } from 'nanoid';
+	import { setAccordionContext, type AccordionContext } from './context';
+	import type { AccordionRootProps } from './types';
 	import { classnames } from '../internal';
-	import { setAccordionContext } from './context';
 
-	const dispatch = createEventDispatcher();
+	let {
+		class: klass = '',
+		value = $bindable(undefined),
+		values = $bindable([]),
+		data = $bindable([]),
+		multiple = false,
+		collapsible = false,
+		children
+	}: AccordionRootProps<T> = $props();
 
-	export let value: string | number | string[] | number[] | undefined = undefined;
-	export let collapsible = false;
-	export let multiple: boolean = Array.isArray(value);
-	let klass = '';
-	export { klass as class };
+	let items: AccordionContext<T>['derived']['data']['items']['all'] = $state({});
 
-	const collapsible$ = writable(collapsible);
-	const multiple$ = writable(multiple);
+	$effect(() => {
+		data = values.map((d) => items[d].data).filter(Boolean) as T[];
+	});
 
-	const { selectedValue$ } = setAccordionContext({ collapsible$, multiple$ });
+	const context_derived: AccordionContext<T>['derived'] = $derived({
+		data: {
+			items: {
+				all: items,
+				active: values.map((d) => items[d])
+			},
+			collapsible,
+			multiple,
+			value,
+			values
+		}
+	});
 
-	selectedValue$.set(value);
+	const context = setAccordionContext({
+		id: nanoid(),
+		get derived() {
+			return context_derived;
+		},
+		events: {
+			onchange: (ev: Event) => {}
+		},
+		methods: {
+			open(vals) {
+				const unique_values = new Set(values);
 
-	onMount(() =>
-		selectedValue$.subscribe((val) => {
-			value = val;
-			dispatch('change', val);
-		})
-	);
+				for (const val of vals) {
+					unique_values.add(val);
+				}
 
-	$: selectedValue$.set(value);
-	$: collapsible$.set(collapsible);
-	$: multiple$.set(multiple);
+				values = [...unique_values];
+			},
+			close(vals) {
+				const unique_values = new Set(values);
+
+				for (const val of vals) {
+					unique_values.delete(val);
+				}
+
+				values = [...unique_values];
+			},
+			toggle(vals) {
+				const unique_values = new Set(values);
+
+				for (const val of vals) {
+					if (unique_values.has(val)) {
+						unique_values.delete(val);
+					} else {
+						unique_values.add(val);
+					}
+				}
+
+				values = [...unique_values];
+				console.log('toggle');
+			},
+			mount(value, item) {
+				items[value] = {
+					data: item.data,
+					value: item.value
+				};
+			},
+			unmount(value) {
+				delete items[value];
+			},
+			setCollapsible(value) {
+				collapsible = value;
+			},
+			setMultiple(value) {
+				multiple = value;
+			}
+		}
+	});
 </script>
 
 <div class={classnames('fui-accordion', klass)}>
-	<slot />
+	{#if children}
+		{@render children({ context })}
+	{/if}
 </div>
-
-<style lang="postcss">
-</style>

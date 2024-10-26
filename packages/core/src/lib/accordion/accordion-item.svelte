@@ -1,92 +1,66 @@
-<script lang="ts">
-	import { onMount } from 'svelte';
-	import { derived } from 'svelte/store';
+<script lang="ts" generics="T">
+	import { nanoid } from 'nanoid';
 	import { getAccordionContext, setAccordionItemContext } from './context';
+	import type { AccordionItemRootProps } from './types';
 	import { classnames } from '../internal';
 
-	export let value: string = crypto.randomUUID();
-	export let data: unknown | undefined = undefined;
-	let klass = '';
-	export { klass as class };
+	let {
+		class: klass = '',
+		value = crypto.randomUUID(),
+		data = undefined,
+		disabled = false,
+		children
+	}: AccordionItemRootProps<T> = $props();
 
-	const { items$, selectedValue$, selectedData$, collapsible$, multiple$ } = getAccordionContext();
-	const { active$ } = setAccordionItemContext({
-		active$: derived(selectedValue$, (selectedValue) => {
-			if (Array.isArray(selectedValue)) {
-				return selectedValue.includes(value);
-			} else {
-				return selectedValue === value;
-			}
-		})
+	const context_accordion_root = getAccordionContext();
+
+	const multiple = $derived(context_accordion_root.derived.data.multiple);
+	const collapsible = $derived(context_accordion_root.derived.data.collapsible);
+	const values = $derived(context_accordion_root.derived.data.values);
+
+	const active = $derived(!disabled && values.includes(value));
+
+	const context_derived = $derived({
+		value,
+		data,
+		active,
+		disabled
 	});
 
-	onMount(() => {
-		items$.update((val) => {
-			val[value] = {
-				value,
-				selected: false,
-				data
-			};
+	const context_item = setAccordionItemContext({
+		id: nanoid(),
+		parent: () => context_accordion_root,
+		get derived() {
+			return context_derived;
+		},
+		methods: {
+			close() {
+				context_accordion_root.methods.close([value]);
+			},
+			open() {
+				context_accordion_root.methods.open([value]);
+			},
+			toggle() {
+				context_accordion_root.methods.toggle([value]);
+			}
+		}
+	});
 
-			return { ...val };
+	$effect(() => {
+		return context_accordion_root.methods.mount(value, {
+			data,
+			value
 		});
 	});
-
-	function setup(node: HTMLDivElement) {
-		node.addEventListener('accordion-header-click', onclick, { capture: true });
-
-		return {
-			destroy() {
-				node.removeEventListener('accordion-header-click', onclick);
-			}
-		};
-	}
-
-	function onclick() {
-		if ($multiple$) {
-			if ((($selectedValue$ as any[]).length > 1 || $collapsible$) && $active$) {
-				selectedValue$.update((v) => {
-					const _v = Array.isArray(v) ? v : [v];
-					const set = new Set([...(_v as any[]), value]);
-					set.delete(value);
-
-					return [...set];
-				});
-				selectedData$.set((v) => {
-					const _v = Array.isArray(v) ? v : [v];
-					const set = new Set([...(_v as any[]), data]);
-					set.delete(data);
-
-					return [...set];
-				});
-			} else {
-				selectedValue$.update((v) => {
-					const _v = Array.isArray(v) ? v : [v];
-					return [...new Set([...(_v as any[]), value])];
-				});
-				selectedData$.set((v) => {
-					const _v = Array.isArray(v) ? v : [v];
-					return [...new Set([...(_v as any[]), data])];
-				});
-			}
-		} else {
-			if ($collapsible$ && $active$) {
-				selectedValue$.set('');
-				selectedData$.set(undefined);
-				return;
-			}
-
-			selectedValue$.set(value);
-			selectedData$.set(data);
-		}
-	}
 </script>
 
-<div class={classnames("fui-accordion-item", klass)} use:setup>
-	<slot />
+<div class={classnames('fui-accordion-item', klass)}>
+	{#if children}
+		{@render children({
+			context: {
+				item: context_item,
+				root: context_accordion_root
+			}
+		})}
+	{/if}
 </div>
-
-<style lang="postcss">
-	.fui-accordion-item {
-	}
-</style>

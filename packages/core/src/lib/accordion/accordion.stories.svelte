@@ -1,14 +1,10 @@
-<script context="module" lang="ts">
+<script module lang="ts">
 	import { onMount } from 'svelte';
-	import { FluentRoot, Icon } from '@svelte-fui/core';
-	import { webDarkTheme, webLightTheme } from '@svelte-fui/themes';
-	import { Story } from '@storybook/addon-svelte-csf';
+	import { defineMeta } from '@storybook/addon-svelte-csf';
 	import type { ArgTypes } from '@storybook/svelte';
-	import AddRegularIcon from 'virtual:icons/fluent/add-24-regular';
-	import AccordionHeader from './accordion-header.svelte';
-	import AccordionItem from './accordion-item.svelte';
-	import AccordionPanel from './accordion-panel.svelte';
-	import Accordion from './accordion-root.svelte';
+	import { FluentRoot } from '@svelte-fui/core';
+	import { webDarkTheme, webLightTheme } from '@svelte-fui/themes';
+	import { Accordion as AccordionComponent, AccordionItem } from '.';
 
 	const arg_types = {
 		collapsible: {
@@ -27,16 +23,14 @@
 		multiple: false
 	};
 
-	export const meta = {
+	const { Story } = defineMeta({
 		title: 'Components/Accordion',
-		component: Accordion,
-		argTypes: arg_types,
-		tags: ['!autodocs']
-	};
+		component: AccordionComponent
+	});
 </script>
 
 <script lang="ts">
-	let theme = webLightTheme;
+	let theme = $state(webLightTheme);
 
 	onMount(() => {
 		function handler(e: MediaQueryListEvent) {
@@ -54,43 +48,65 @@
 		};
 	});
 
-	let value = '';
+	let values: string[] = $state([]);
+
+	$effect(() => {
+		console.log(values);
+	});
 </script>
 
-<Story id="accordion" name="Accordion" args={default_args} let:args>
-	<FluentRoot {theme}>
-		<div class="flex h-full w-full flex-col items-center justify-center">
-			<Accordion class="w-full" {...args} bind:value>
-				<AccordionItem value="item-1">
-					<AccordionHeader class="items-center gap-2" position="start" as="h1">
-						<div>Accordion Header 1</div>
-						<Icon class="h-5">
-							<AddRegularIcon />
-						</Icon>
-					</AccordionHeader>
-					<AccordionPanel>Accordion Header 1</AccordionPanel>
-				</AccordionItem>
+<Story id="accordion" name="Accordion" args={default_args}>
+	{#snippet children(args)}
+		<FluentRoot {theme}>
+			<div class="flex h-full w-full flex-col items-center justify-center">
+				<AccordionComponent
+					class="w-full"
+					{...args}
+					bind:values
+					multiple={args.multiple}
+					collapsible={args.collapsible}
+				>
+					<AccordionItem.Root value="item-1" disabled>
+						<AccordionItem.Header class="gap-2" as="h1">
+							<div>Accordion Header 1</div>
 
-				<AccordionItem value="item-2">
-					<AccordionHeader size="lg" as="h1">Accordion Header 2</AccordionHeader>
-					<AccordionPanel>Accordion Header 2</AccordionPanel>
-				</AccordionItem>
+							<AccordionItem.Indicator />
+						</AccordionItem.Header>
+						<AccordionItem.Body>Accordion Body 1</AccordionItem.Body>
+					</AccordionItem.Root>
 
-				<AccordionItem value="item-3">
-					<AccordionHeader size="xl" as="h1">Accordion Header 3</AccordionHeader>
-					<AccordionPanel>
-						Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec nibh leo, sollicitudin euismod nibh ac, fermentum congue neque. Nullam
-						consequat porttitor leo in condimentum. Proin at neque sit amet felis luctus faucibus eu id neque. Quisque ligula diam, tristique vel
-						tempus nec, laoreet quis nunc. Cras placerat dolor nec purus pellentesque cursus. Nunc vulputate lectus in dui pharetra ornare. Donec
-						gravida ac velit eu auctor. In sollicitudin, diam in elementum ultrices, dolor arcu pretium nisi, ac rhoncus velit mi sit amet nisi. Etiam
-						iaculis pretium erat, vitae scelerisque nibh sodales vitae.
-					</AccordionPanel>
-				</AccordionItem>
-			</Accordion>
+					<AccordionItem.Root value="item-2">
+						<AccordionItem.Header class="gap-2" as="h1">
+							<div>Accordion Header 2</div>
+							<AccordionItem.Indicator />
+						</AccordionItem.Header>
 
-			<div class="mt-8">
-				<div>Selected item is: {value}</div>
+						<AccordionItem.Body>Accordion Body 2</AccordionItem.Body>
+					</AccordionItem.Root>
+
+					<AccordionItem.Root value="item-3">
+						<AccordionItem.Header class="gap-2" as="h1">
+							<div>Accordion Header 3</div>
+							<AccordionItem.Indicator />
+						</AccordionItem.Header>
+
+						<AccordionItem.Body>
+							Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec nibh leo, sollicitudin
+							euismod nibh ac, fermentum congue neque. Nullam consequat porttitor leo in
+							condimentum. Proin at neque sit amet felis luctus faucibus eu id neque. Quisque ligula
+							diam, tristique vel tempus nec, laoreet quis nunc. Cras placerat dolor nec purus
+							pellentesque cursus. Nunc vulputate lectus in dui pharetra ornare. Donec gravida ac
+							velit eu auctor. In sollicitudin, diam in elementum ultrices, dolor arcu pretium nisi,
+							ac rhoncus velit mi sit amet nisi. Etiam iaculis pretium erat, vitae scelerisque nibh
+							sodales vitae.
+						</AccordionItem.Body>
+					</AccordionItem.Root>
+				</AccordionComponent>
+
+				<div class="mt-8">
+					<div>Selected item is: {values}</div>
+				</div>
 			</div>
-		</div>
-	</FluentRoot>
+		</FluentRoot>
+	{/snippet}
 </Story>
