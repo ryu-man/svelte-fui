@@ -3,19 +3,17 @@ import './global.css';
 import '../src/lib/styles/root.css';
 
 const preview: Preview = {
-    parameters: {
+	parameters: {
 		backgrounds: {
 			default: 'light'
 		},
 		controls: {
 			matchers: {
 				color: /(background|color)$/i,
-				date: /Date$/
+				date: /Date$/i
 			}
 		}
-	},
-
-    tags: ['autodocs']
+	}
 };
 
 export default preview;
