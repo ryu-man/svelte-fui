@@ -8,23 +8,44 @@
 	// 	'tab-only': 'unlimited'
 	// } as const;
 
-	export let appearance: 'filled' | 'subtle' | 'outline' | 'filled-alternative' = 'filled';
+	// export let appearance: 'filled' | 'subtle' | 'outline' | 'filled-alternative' = 'filled';
 
-	export let orientation: 'horizontal' | 'vertical' = 'vertical';
-	export let size: 'sm' | 'md' | 'lg' = 'md';
-	export let interactive = false;
-	export let alternative = false;
-	export let selected = false;
+	// export let orientation: 'horizontal' | 'vertical' = 'vertical';
+	// export let size: 'sm' | 'md' | 'lg' = 'md';
+	// export let interactive = false;
+	// export let alternative = false;
+	// export let selected = false;
 	// export let focusMode: 'off' | 'no-tab' | 'tab-exit' | 'tab-only' = 'off';
-	export let style: string = '';
-	let klass: string = '';
-	export { klass as class };
+	// export let style: string = '';
+	// let klass: string = '';
+	// export { klass as class };
+
+	let {
+		class: klass = '',
+		appearance = 'filled',
+		orientation = 'vertical',
+		size = 'md',
+		interactive = false,
+		alternative = false,
+		selected = false,
+		children
+	} = $props();
 
 	// $: tabBehaviour = interactive ? 'no-tab' : focusMap[focusMode];
 </script>
 
-<div class={classnames('fui-card', { interactive, alternative, selected }, appearance, orientation,size, klass)} {style} role="group">
-	<slot />
+<div
+	class={classnames(
+		'fui-card',
+		{ interactive, alternative, selected },
+		appearance,
+		orientation,
+		size,
+		klass
+	)}
+	role="group"
+>
+	{@render children?.()}
 </div>
 
 <style lang="postcss">
