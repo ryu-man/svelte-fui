@@ -1,32 +1,29 @@
 <script lang="ts">
+	import type { HTMLAttributes } from 'svelte/elements';
 	import { classnames } from '../internal';
+	import type { LinkProps } from './types';
 
-	export let href = '';
-	export let as: 'a' | 'button' = href ? 'a' : 'button';
-	export let appearance: 'subtle' | 'default' = 'default';
-	export let disabled = false;
-	export let inline = false;
-	let klass = '';
-	export { klass as class };
+	let {
+		class: klass = '',
+		appearance = 'default',
+		disabled = false,
+		inline = false,
+		href = undefined,
+		children,
+		...restProps
+	}: HTMLAttributes<HTMLElement> & LinkProps = $props();
 
-	function onclick(e: Event) {
-		if (disabled) {
-			e.preventDefault();
-		}
-	}
+	const as = $derived(href ? 'a' : 'button');
 </script>
 
 <svelte:element
 	this={as}
-	{...$$restProps}
+	class={classnames('fui-link', appearance, { inline, disabled }, klass)}
 	{href}
 	{disabled}
-	tabindex="0"
-	class={classnames('fui-link', appearance, { inline, disabled }, klass)}
-	on:click={onclick}
-	on:click
+	{...restProps}
 >
-	<slot />
+	{@render children?.()}
 </svelte:element>
 
 <style lang="postcss">
