@@ -1,60 +1,71 @@
 <script lang="ts">
-	import { Label } from '@svelte-fui/core';
+	import type { HTMLAttributes } from 'svelte/elements';
 	import { nanoid } from 'nanoid';
 	import { getRadioGroupContext } from './context';
 	import { classnames } from '../internal';
+	import type { RadioProps } from './types';
 
-	const { disabled$, required$, value$, name$, layout$ } = getRadioGroupContext();
+	const context_radio_group = getRadioGroupContext();
 
-	export let id: string | undefined = nanoid();
-	export let name: string | undefined = nanoid();
-	export let value: string | undefined = undefined;
+	let {
+		class: klass = '',
+		id = nanoid(),
+		checked = $bindable(false),
+		name,
+		value,
+		onclick,
+		onchange,
+		...restProps
+	}: RadioProps & HTMLAttributes<HTMLInputElement> = $props();
 
-	export let checked = false;
+	const group_name = $derived(context_radio_group?.derived?.data?.name);
+	const position = $derived(
+		context_radio_group?.derived?.data?.layout === 'stacked-horizontal' ? 'below' : 'after'
+	);
+	const is_vertical = $derived(position === 'below');
 
-	$: _name = $name$ || name;
-	$: position = $layout$ === 'stacked-horizontal' ? 'below' : 'after';
-	$: isVertical = position === 'below';
-
-	function onclick() {
-		value$.set(value);
-	}
+	const disabled = $derived(context_radio_group?.derived?.data?.disabled ?? false);
+	const required = $derived(context_radio_group?.derived?.data?.required ?? false);
 </script>
 
-<span class={classnames('fui-radio', { vertical: isVertical })} on:click={onclick} on:click>
+<div
+	class={classnames(
+		'fui-radio relative inline-flex items-center',
+		is_vertical && 'flex-col items-center',
+		{ vertical: is_vertical },
+		klass
+	)}
+	aria-label={restProps['aria-label']}
+	aria-labelledby={restProps['aria-labelledby']}
+>
 	<input
 		type="radio"
 		{id}
-		name={_name}
+		name={group_name ?? name}
 		class="fui-radio-input"
-		class:below={isVertical}
+		class:below={is_vertical}
 		{value}
-		disabled={$disabled$}
-		required={$required$}
-		on:change
+		{disabled}
+		{required}
+		{onchange}
 	/>
 	<div aria-hidden="true" class="fui-radio-indicator">
-		<svg fill="currentColor" class="" aria-hidden="true" width="1em" height="1em" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"
+		<svg
+			fill="currentColor"
+			class=""
+			aria-hidden="true"
+			width="1em"
+			height="1em"
+			viewBox="0 0 20 20"
+			xmlns="http://www.w3.org/2000/svg"
 			><path d="M10 2a8 8 0 1 0 0 16 8 8 0 0 0 0-16Z" fill="currentColor" />
 		</svg>
 	</div>
-
-	{#if $$slots.default}
-		<Label for={id} class={classnames('fui-radio-label', position)}>
-			<slot />
-		</Label>
-	{/if}
-</span>
+</div>
 
 <style lang="postcss">
 	.fui-radio {
-		@apply relative inline-flex items-center;
-
 		--indicator-size: 16px;
-
-		&.vertical {
-			@apply flex-col items-center;
-		}
 	}
 
 	.fui-radio-indicator {
