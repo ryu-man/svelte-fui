@@ -1,15 +1,22 @@
 <script lang="ts">
 	import { classnames } from '@svelte-fui/core/internal';
+	import type { DialogFooterProps } from './types';
+	import { getDialogContext } from './context';
 
-	export let position: 'start' | 'end' = 'end';
-	export let fluid = false;
+	const context_dropdown = getDialogContext();
 
-	let klass = '';
-	export { klass as class };
+	// export let position: 'start' | 'end' = 'end';
+	// export let fluid = false;
+
+	let { class: klass = '', children }: DialogFooterProps = $props();
 </script>
 
 <div
-	class={classnames('fui-dialog-actions max-xs:flex-col max-xs:self-stretch box-border flex h-fit gap-2 px-6 pb-6', position, { fluid }, klass)}
+	bind:this={context_dropdown.state.elements.footer}
+	class={classnames(
+		'fui-dialog-actions max-xs:flex-col max-xs:self-stretch box-border flex h-fit gap-2 px-6 pb-6',
+		klass
+	)}
 >
-	<slot />
+	{@render children?.({ context: context_dropdown })}
 </div>
