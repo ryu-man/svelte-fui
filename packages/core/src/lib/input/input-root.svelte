@@ -1,43 +1,47 @@
 <script lang="ts">
-	import { type Writable, writable } from 'svelte/store';
+	import type { HTMLAttributes } from 'svelte/elements';
 	import { classnames } from '@svelte-fui/core/internal';
-	import { getSharedContext } from '@svelte-fui/core/internal/context';
-	import type { ExternalContext, InputSize, InputType } from './types';
+	import type { InputRootProps } from './types';
 
-	const sharedContext$ = getSharedContext<Writable<ExternalContext>>('input') || writable({});
-
-	/** Determines whether the textbox can be typed in or not. */
-	export let readonly = false;
-
-	/** Controls whether the TextBox is intended for user interaction, and styles it accordingly. */
-	export let disabled = false;
-
-	export let size: InputSize = $sharedContext$.size || 'md';
-
-	export let underline = false;
-
-	export let ariaInvalid = $sharedContext$.invalid || false;
-
-	/** Specifies a custom class name for the TextBox container. */
-	let klass = '';
-	export { klass as class };
-
-	export let id: string | undefined = undefined;
+	let {
+		class: klass = '',
+		disabled = false,
+		size = 'md',
+		underline = false,
+		id = undefined,
+		appearance = 'outline',
+		as = 'button',
+		children,
+		...restProps
+	}: HTMLAttributes<HTMLButtonElement> & InputRootProps = $props();
 </script>
 
-<button
+<svelte:element
+	this={as}
 	class={classnames(
-		'fui-input-skin px-mNudge gap-xxs inline-flex',
-		{ size, underline, disabled, invalid: ariaInvalid && !disabled },
+		'fui-input-root px-mNudge gap-xxs inline-flex',
+		appearance,
+		{
+			size,
+			underline,
+			disabled,
+			invalid: !!restProps['aria-invalid'] && !disabled,
+			outlineInteractive: appearance === 'outline' && !disabled,
+			underlineInteractive: appearance === 'underline' && !disabled,
+			filledInteractive:
+				(appearance === 'filled-darker' || appearance === 'filled-lighter') && !disabled
+		},
 		klass
 	)}
 	{id}
+	{disabled}
+	{...restProps}
 >
-	<slot />
-</button>
+	{@render children?.()}
+</svelte:element>
 
 <style lang="postcss">
-	.fui-input-skin {
+	.fui-input-root {
 		@apply body-1 relative;
 
 		--field-height-sm: 24px;
@@ -89,6 +93,7 @@
 			gap: 0 theme(spacing.sNudge);
 		}
 		&.outline {
+			@apply outline-none;
 			/* included in rootBaseStyles */
 		}
 		&.outlineInteractive {
@@ -184,9 +189,6 @@
 			/* ...shorthands.borderColor(tokens.colorNeutralStrokeDisabled); */
 
 			@media (forced-colors: active) {
-				/* color: graytext; */
-				border-color: graytext;
-				/* ...shorthands.borderColor('GrayText'); */
 			}
 
 			/* remove the focus border */
@@ -202,7 +204,7 @@
 
 	/* This is all for the bottom focus border.
 	It's supposed to be 2px flat all the way across and match the radius of the field's corners. */
-	.fui-input-skin::after {
+	.fui-input-root::after {
 		@apply duration-ultra-fast ease-accelerate-mid;
 		box-sizing: border-box;
 		content: '';
@@ -238,13 +240,13 @@
 		}
 	}
 
-	.fui-input-skin:focus,
-	.fui-input-skin:focus-within:active::after {
+	.fui-input-root:focus,
+	.fui-input-root:focus-within:active::after {
 		border-bottom-color: var(--fui-colorCompoundBrandStrokePressed);
 	}
 
-	.fui-input-skin:focus::after,
-	.fui-input-skin:focus-within::after {
+	.fui-input-root:focus::after,
+	.fui-input-root:focus-within::after {
 		@apply duration-normal ease-decelerate-mid;
 		transform: scaleX(1);
 		transition-property: transform;
@@ -252,8 +254,8 @@
 		/* transition-delay: var(--fui-curveDecelerateMid); */
 		transition-delay: theme('transitionTimingFunction.decelerate-mid');
 	}
-	.fui-input-skin:focus,
-	.fui-input-skin:focus-within {
+	.fui-input-root:focus,
+	.fui-input-root:focus-within {
 		outline: 2px solid transparent;
 	}
 </style>
