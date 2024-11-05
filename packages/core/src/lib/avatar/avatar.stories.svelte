@@ -1,8 +1,8 @@
 <script context="module" lang="ts">
 	import { onMount } from 'svelte';
-	import { Avatar, FluentRoot } from '@svelte-fui/core';
+	import { Avatar as AvatarComponent, FluentRoot } from '@svelte-fui/core';
 	import { webDarkTheme, webLightTheme } from '@svelte-fui/themes';
-	import { Story } from '@storybook/addon-svelte-csf';
+	import { defineMeta } from '@storybook/addon-svelte-csf';
 	import type { ArgTypes } from '@storybook/svelte';
 	import PersonRegular from 'virtual:icons/fluent/person-24-regular';
 
@@ -10,12 +10,11 @@
 
 	const default_args: Partial<Record<keyof typeof arg_types, any>> = {};
 
-	export const meta = {
+	const { Story } = defineMeta({
 		title: 'Components/Avatar',
-		component: Avatar,
-		argTypes: arg_types,
-		tags: ['!autodocs']
-	};
+		component: AvatarComponent,
+		argTypes: arg_types
+	});
 </script>
 
 <script lang="ts">
@@ -38,10 +37,12 @@
 	});
 </script>
 
-<Story id="avatar" name="Avatar" args={default_args} let:args>
-	<FluentRoot {theme}>
-		<div class="flex h-full w-full items-center justify-center">
-			<Avatar {...args} src={PersonRegular} />
-		</div>
-	</FluentRoot>
+<Story id="avatar" name="Avatar" args={default_args}>
+	{#snippet children(args)}
+		<FluentRoot {theme}>
+			<div class="flex h-full w-full items-center justify-center">
+				<AvatarComponent {...args} src={PersonRegular} />
+			</div>
+		</FluentRoot>
+	{/snippet}
 </Story>

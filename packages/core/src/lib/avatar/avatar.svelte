@@ -1,63 +1,29 @@
 <script lang="ts">
-	import type { ComponentType } from 'svelte';
 	import { Icon } from '@svelte-fui/core';
 	import { classnames } from '@svelte-fui/core/internal';
+	import type { AvatarProps } from './types';
 
-	export let id: string | undefined = undefined;
-	export let ariaLabel: string | undefined = undefined;
-	export let alt: string | undefined = undefined;
-	export let src: string | ComponentType;
-	export let size: '16' | '20' | '24' | '28' | '32' | '36' | '40' | '48' | '56' | '64' | '72' | '96' | '120' | '128' = '32';
+	let {
+		class: klass = '',
+		color = 'neutral',
+		badge = false,
+		shape = 'circular',
+		active = 'unset',
+		activeAppearance = 'ring',
+		alt,
+		ariaLabel,
+		src,
+		id
+	}: AvatarProps = $props();
 
-	export let color:
-		| 'neutral'
-		| 'brand'
-		| 'dark-red'
-		| 'cranberry'
-		| 'red'
-		| 'pumpkin'
-		| 'peach'
-		| 'marigold'
-		| 'gold'
-		| 'brass'
-		| 'brown'
-		| 'forest'
-		| 'seafoam'
-		| 'dark-green'
-		| 'light-teal'
-		| 'teal'
-		| 'steel'
-		| 'blue'
-		| 'royal-blue'
-		| 'cornflower'
-		| 'navy'
-		| 'lavender'
-		| 'purple'
-		| 'grape'
-		| 'lilac'
-		| 'pink'
-		| 'magenta'
-		| 'plum'
-		| 'beige'
-		| 'mink'
-		| 'platinum'
-		| 'anchor' = 'neutral';
-	export let badge: boolean = false;
-	export let shape: 'circular' | 'square' = 'circular';
-	export let active: 'active' | 'inactive' | 'unset' = 'unset';
-	export let activeAppearance: 'ring' | 'shadow' | 'ring-shadow' = 'ring';
-	let klass = '';
-	export { klass as class };
-
-	$: active_or_inactive = active === 'active' || active === 'inactive';
-	$: ring_style = activeAppearance === 'ring' || activeAppearance === 'ring-shadow';
-	$: _badge = badge ? (+size > 64 ? 'lg' : true) : false;
+	const active_or_inactive = $derived(active === 'active' || active === 'inactive');
+	const ring_style = $derived(activeAppearance === 'ring' || activeAppearance === 'ring-shadow');
 </script>
 
 <span
 	class={classnames(
 		'fui-avatar',
-		{ size, 'active-or-inactive': active_or_inactive, badge: _badge },
+		{ 'active-or-inactive': active_or_inactive, badge: badge },
 		active === 'active' ? activeAppearance : '',
 		shape,
 		color,
@@ -71,8 +37,10 @@
 		<span class="fui-avatar-initials">KA</span>
 		<img class="fui-avatar-image" {alt} role="presentation" aria-hidden="true" {src} />
 	{:else}
+		{@const Component = src}
+		
 		<Icon aria-hidden="true" class="fui-avatar-icon text-current p-[6px]">
-			<svelte:component this={src} />
+			<Component />
 		</Icon>
 	{/if}
 </span>
@@ -493,10 +461,13 @@
 		/**  ****************************************************************/
 
 		&.active-or-inactive {
-			transform: perspective(1px); /* Work-around for text pixel snapping at        the end of the animation */
+			transform: perspective(
+				1px
+			); /* Work-around for text pixel snapping at        the end of the animation */
 			transition-property: transform, opacity;
 			transition-duration: theme(transitionDuration.ultra-slow), theme(transitionDuration.faster);
-			transition-timing-function: theme(transitionTimingFunction.easy-ease-max), theme(transitionTimingFunction.linear);
+			transition-timing-function: theme(transitionTimingFunction.easy-ease-max),
+				theme(transitionTimingFunction.linear);
 
 			@media screen and (prefers-reduced-motion: reduce) {
 				transition-duration: 0.01ms;
@@ -508,7 +479,8 @@
 				border-radius: inherit;
 				transition-property: margin, opacity;
 				transition-duration: theme(transitionDuration.ultra-slow), theme(transitionDuration.slower);
-				transition-timing-function: theme(transitionTimingFunction.easy-ease-max), theme(transitionTimingFunction.linear);
+				transition-timing-function: theme(transitionTimingFunction.easy-ease-max),
+					theme(transitionTimingFunction.linear);
 
 				@media screen and (prefers-reduced-motion: reduce) {
 					transition-duration: 0.01ms;
@@ -525,7 +497,17 @@
 					border-style: solid;
 					border-color: currentColor;
 
-					&:is(.size-12, .size-16, .size-20, .size-24, .size-28, .size-32, .size-36, .size-40, .size-48) {
+					&:is(
+							.size-12,
+							.size-16,
+							.size-20,
+							.size-24,
+							.size-28,
+							.size-32,
+							.size-36,
+							.size-40,
+							.size-48
+						) {
 						@apply ring-thick;
 					}
 					&:is(.size-56, .size-64) {
@@ -562,12 +544,14 @@
 		&.inactive {
 			opacity: 0.8;
 			transform: scale(0.875);
-			transition-timing-function: theme(transitionTimingFunction.decelerate-min), theme(transitionTimingFunction.linear);
+			transition-timing-function: theme(transitionTimingFunction.decelerate-min),
+				theme(transitionTimingFunction.linear);
 
 			&::before {
 				@apply m-0;
 				opacity: 0;
-				transition-timing-function: theme(transitionTimingFunction.decelerate-min), theme(transitionTimingFunction.linear);
+				transition-timing-function: theme(transitionTimingFunction.decelerate-min),
+					theme(transitionTimingFunction.linear);
 			}
 		}
 
