@@ -2,21 +2,20 @@
 	import type { HTMLAttributes } from 'svelte/elements';
 	import { classnames } from '@svelte-fui/core/internal';
 
-	type $$Props = HTMLAttributes<HTMLSpanElement>;
-
-	let klass: $$Props['class'] = '';
-	export { klass as class };
+	let { class: klass = '', children, ...restProps }: HTMLAttributes<HTMLDivElement> = $props();
 </script>
 
-<div class={classnames('fui-icon h-6 text-current', klass)} {...$$restProps}>
-	<slot />
+<div
+	class={classnames(
+		'fui-icon h-6 text-current inline-flex aspect-square items-center justify-center leading-none',
+		klass
+	)}
+	{...restProps}
+>
+	{@render children?.()}
 </div>
 
 <style lang="postcss">
-	.fui-icon {
-		@apply inline-flex aspect-square items-center justify-center leading-none;
-	}
-
 	.fui-icon :global(svg) {
 		@apply aspect-square h-full w-auto leading-none;
 	}
