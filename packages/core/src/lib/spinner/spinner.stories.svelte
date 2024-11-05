@@ -1,20 +1,19 @@
-<script context="module" lang="ts">
+<script module lang="ts">
 	import { onMount } from 'svelte';
-	import { FluentRoot, Spinner } from '@svelte-fui/core';
+	import { FluentRoot, Spinner as SpinnerFui } from '@svelte-fui/core';
 	import { webDarkTheme, webLightTheme } from '@svelte-fui/themes';
-	import { Story } from '@storybook/addon-svelte-csf';
+	import { defineMeta } from '@storybook/addon-svelte-csf';
 	import type { ArgTypes } from '@storybook/svelte';
 
 	const default_args = {};
 
 	const arg_types = {} satisfies ArgTypes;
 
-	export const meta = {
+	const { Story } = defineMeta({
 		title: 'Components/Spinner',
-		component: Spinner,
-		argTypes: arg_types,
-		tags: ['!autodocs']
-	};
+		component: SpinnerFui.Root,
+		argTypes: arg_types
+	});
 </script>
 
 <script lang="ts">
@@ -37,10 +36,15 @@
 	});
 </script>
 
-<Story id="spinner" name="Spinner" args={default_args} let:args>
-	<FluentRoot {theme}>
-		<div class="flex h-full w-full flex-col items-center justify-center gap-4">
-			<Spinner {...args}>Loding Data...</Spinner>
-		</div>
-	</FluentRoot>
+<Story id="spinner" name="Spinner" args={default_args}>
+	{#snippet children(args)}
+		<FluentRoot {theme}>
+			<div class="flex h-full w-full flex-col items-center justify-center gap-4">
+				<SpinnerFui.Root {...args}>
+					<SpinnerFui.Ring />
+					<SpinnerFui.Label>Loding Data...</SpinnerFui.Label>
+				</SpinnerFui.Root>
+			</div>
+		</FluentRoot>
+	{/snippet}
 </Story>

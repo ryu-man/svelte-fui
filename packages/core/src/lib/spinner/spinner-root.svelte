@@ -1,28 +1,25 @@
 <script lang="ts">
-	import SpinnerDefaultIcon from './spinner-default-icon.svelte';
 	import { classnames } from '../internal';
 	import { Label } from '../label';
+	import type { SpinnerRootProps } from './types';
 
-	export let delay = 0;
-	export let size: 'xt' | 'tn' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'hg' = 'md';
-	// export let labelPosition: 'before' | 'after' | 'above' | 'below' = 'after';
-	export let appearance: 'primary' | 'inverted' = 'primary';
-	export let vertical = false;
-	export let reverse = false;
+	let {
+		class: klass = '',
+		appearance = 'primary',
+		delay = 0,
+		reverse = false,
+		size = 'md',
+		vertical = false,
+		children
+	}: SpinnerRootProps = $props();
 </script>
 
-<div role="progressbar" class={classnames('fui-spinner', size, appearance, { vertical, reverse })} style:--animation-delay="{delay}ms">
-	<span class="fui-spinner-spinner">
-		<slot name="spinner">
-			<SpinnerDefaultIcon />
-		</slot>
-	</span>
-
-	{#if $$slots.default}
-		<Label class="fui-spinner-label">
-			<slot />
-		</Label>
-	{/if}
+<div
+	role="progressbar"
+	class={classnames('fui-spinner', size, appearance, { vertical, reverse })}
+	style:--animation-delay="{delay}ms"
+>
+	{@render children?.()}
 </div>
 
 <style lang="postcss">
@@ -76,7 +73,8 @@
 		--fui-spinner-width: var(--size-md);
 		--fui-spinner-height: var(--size-md);
 		--fui-spinner-circle-r: var(--r-md);
-		--fui-spinner-circle-stroke-width: theme(strokeWidth.thick) @apply flex items-center justify-center gap-[8px] leading-[0];
+		--fui-spinner-circle-stroke-width: theme(strokeWidth.thick) @apply flex items-center
+			justify-center gap-[8px] leading-[0];
 
 		@media screen and (prefers-reduced-motion: reduce) {
 			--animation-duration: 0.01ms;
@@ -139,17 +137,6 @@
 		--fui-spinner-height: var(--size-hg);
 		--fui-spinner-circle-r: var(--r-hg);
 		--fui-spinner-circle-stroke-width: theme(strokeWidth.thickest);
-	}
-
-	.fui-spinner-spinner:focus {
-		@apply outline-transparent;
-	}
-
-	.fui-spinner-spinner :global(svg) {
-		@apply bg-transparent;
-
-		width: var(--fui-spinner-width);
-		height: var(--fui-spinner-height);
 	}
 
 	.fui-spinner.inverted {
