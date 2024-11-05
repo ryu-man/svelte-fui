@@ -1,18 +1,47 @@
-import type { Writable } from 'svelte/store';
-import { getFluentContext, setFluentContext } from '@svelte-fui/core/internal/context';
+import {
+	getFluentContext,
+	setFluentContext,
+	type FluentContext
+} from '@svelte-fui/core/internal/context';
 
 export const FUI_MENU_NAMESPACE = 'menu';
 
-export type MenuContext = {
-	open: Writable<boolean>;
-	triggerElement: Writable<HTMLElement|undefined>;
-	itemsActive: Writable<Set<string>>;
-	elements: {
-		trigger: Writable<HTMLElement|undefined>;
-		menu: Writable<HTMLElement|undefined>;
-		anchor: Writable<HTMLElement|undefined>;
+export type ContextMenuItem<T> = {
+	value: () => string;
+	data: () => T | undefined;
+	isSelected: () => boolean;
+	isDisabled: () => boolean;
+	innerText: () => string;
+};
+
+export type MenuContext = FluentContext & {
+	parent: () => MenuContext | undefined;
+	readonly state: {
+		data: {};
+		elements: {
+			trigger?: HTMLElement;
+			indicator?: HTMLElement;
+			overlay?: HTMLElement;
+		};
 	};
-	close(): void;
+	readonly derived: {
+		data: {
+			open: boolean;
+		};
+		elements: {
+			trigger?: HTMLElement;
+			indicator?: HTMLElement;
+			overlay?: HTMLElement;
+		};
+	};
+	events: {
+		onchange: <T = MenuContext>(params: { context: T }) => void;
+	};
+	methods: {
+		open: () => void;
+		close: () => void;
+		toggle: () => void;
+	};
 };
 
 export function getMenuContext() {
