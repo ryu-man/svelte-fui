@@ -1,17 +1,8 @@
-<script context="module" lang="ts">
+<script module lang="ts">
 	import { onMount } from 'svelte';
-	import {
-		Field,
-		FieldMessage,
-		FieldMessageError,
-		FieldMessageInfo,
-		FieldMessageSuccess,
-		FieldMessageWarning,
-		FluentRoot,
-		Input
-	} from '@svelte-fui/core';
+	import { Field as FieldFui, FluentRoot, Input } from '@svelte-fui/core';
 	import { webDarkTheme, webLightTheme } from '@svelte-fui/themes';
-	import { Story } from '@storybook/addon-svelte-csf';
+	import { defineMeta } from '@storybook/addon-svelte-csf';
 	import type { ArgTypes } from '@storybook/svelte';
 
 	const default_args = {
@@ -40,12 +31,11 @@
 		}
 	} satisfies ArgTypes;
 
-	export const meta = {
+	const { Story } = defineMeta({
 		title: 'Components/Field',
-		component: Field,
-		argTypes: arg_types,
-		tags: ['!autodocs']
-	};
+		component: FieldFui.Root,
+		argTypes: arg_types
+	});
 </script>
 
 <script lang="ts">
@@ -68,35 +58,71 @@
 	});
 </script>
 
-<Story id="field" name="Field" args={default_args} let:args>
-	<FluentRoot {theme}>
-		<div class="flex h-full w-full flex-col items-center justify-center gap-4">
-			<div class="flex w-[90%] flex-col gap-4">
-				<Field {...args} label="Example Field" state="error">
-					<Input />
-					<FieldMessageError open>This an error message</FieldMessageError>
-				</Field>
+<Story id="field" name="Field" args={default_args}>
+	{#snippet children(args)}
+		<FluentRoot {theme}>
+			<div class="flex h-full w-full flex-col items-center justify-center gap-4">
+				<div class="flex w-[90%] flex-col gap-4">
+					<FieldFui.Root {...args} state="error" open>
+						<FieldFui.Label>Example Field</FieldFui.Label>
+						<Input.Root>
+							<Input.Element />
+						</Input.Root>
 
-				<Field {...args} label="Example Field" state="warning">
-					<Input />
-					<FieldMessageWarning open>This a warning message</FieldMessageWarning>
-				</Field>
+						<FieldFui.Message>
+							<FieldFui.IconError />
+							<div>This an error message</div>
+						</FieldFui.Message>
+					</FieldFui.Root>
 
-				<Field {...args} label="Example Field" state="success">
-					<Input />
-					<FieldMessageSuccess open>This a success message</FieldMessageSuccess>
-				</Field>
+					<FieldFui.Root {...args} state="warning" open>
+						<FieldFui.Label>Example Field</FieldFui.Label>
+						<Input.Root>
+							<Input.Element />
+						</Input.Root>
 
-				<Field {...args} label="Example Field" state="none">
-					<Input />
-					<FieldMessage open>This a simple message</FieldMessage>
-				</Field>
+						<FieldFui.Message open>
+							<FieldFui.IconWarning />
+							<div>This a warning message</div>
+						</FieldFui.Message>
+					</FieldFui.Root>
 
-				<Field {...args} label="Example Field" state="none">
-					<Input />
-					<FieldMessageInfo open>This an info message</FieldMessageInfo>
-				</Field>
+					<FieldFui.Root {...args} state="success" open>
+						<FieldFui.Label>Example Field</FieldFui.Label>
+						<Input.Root>
+							<Input.Element />
+						</Input.Root>
+
+						<FieldFui.Message open>
+							<FieldFui.IconSuccess />
+							<div>This a success message</div>
+						</FieldFui.Message>
+					</FieldFui.Root>
+
+					<FieldFui.Root {...args} state="none" open>
+						<FieldFui.Label>Example Field</FieldFui.Label>
+
+						<Input.Root>
+							<Input.Element />
+						</Input.Root>
+
+						<FieldFui.Message open>This a simple message</FieldFui.Message>
+					</FieldFui.Root>
+
+					<FieldFui.Root {...args} state="none" open>
+						<FieldFui.Label>Example Field</FieldFui.Label>
+
+						<Input.Root>
+							<Input.Element />
+						</Input.Root>
+
+						<FieldFui.Message>
+							<FieldFui.IconInfo />
+							<div>This an info message</div>
+						</FieldFui.Message>
+					</FieldFui.Root>
+				</div>
 			</div>
-		</div>
-	</FluentRoot>
+		</FluentRoot>
+	{/snippet}
 </Story>
