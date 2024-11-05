@@ -1,59 +1,56 @@
 <script lang="ts">
+	import type { HTMLAttributes } from 'svelte/elements';
+
 	import { Icon } from '@svelte-fui/core';
 	import { classnames } from '@svelte-fui/core/internal';
 	import CheckmarkFilled from '@svelte-fui/core/icons/checkmark-filled.svelte';
 
-	/** Controls whether the checkbox is checked or not. */
-	export let checked = false;
+	import type { CheckboxProps } from './types';
 
-	/** Controls whether the checkbox is in an indeterminate state. */
-	export let indeterminate = false;
-
-	/** Sets the input element's native value attribute for usage in forms. */
-	export let value: any = undefined;
-
-	/** Controls whether the checkbox is intended for user interaction, and styles it accordingly. */
-	export let disabled = false;
-
-	/** Specifies a custom class name for the checkbox. */
-	let klass = '';
-	export { klass as class };
-
-	export let id: any = undefined;
-
-	/** Obtains a bound DOM reference to the checkbox's <input /> element. */
-	export let inputElement: HTMLInputElement = null;
-
-	/** Obtains a bound DOM reference to the checkbox's outer container element. */
-	export let containerElement: HTMLLabelElement = null;
-
-	export let size: 'md' | 'lg' = 'md';
-
-	export let circular = false;
-
-	export let required = false;
+	let {
+		class: klass = '',
+		checked = $bindable(false),
+		indeterminate = false,
+		disabled = false,
+		circular = false,
+		required = false,
+		size = 'md',
+		value,
+		id,
+		...restProps
+	}: HTMLAttributes<HTMLInputElement> & CheckboxProps = $props();
 
 	function onclick(e: Event) {
 		if (disabled) return;
+
 		checked = !checked;
 	}
 </script>
 
-<span class={classnames('fui-checkbox', { disabled }, klass)} data-checked={checked} on:click={onclick} on:keypress={() => {}}>
-	<input class="fui-checkbox-input" type="checkbox" {id} {checked} on:change />
-	<div class={classnames('fui-checkbox-indicator', { size, disabled, circular })} aria-hidden="true">
+<button
+	class={classnames(
+		'fui-checkbox inline-flex relative cursor-pointer align-middle',
+		{ disabled },
+		klass
+	)}
+	data-checked={checked}
+	{onclick}
+>
+	<input class="fui-checkbox-input" type="checkbox" {id} {checked} {disabled} {...restProps} />
+	<div
+		class={classnames('fui-checkbox-indicator', { size, disabled, circular })}
+		aria-hidden="true"
+	>
 		{#if checked}
 			<Icon class="p-[5px]">
 				<CheckmarkFilled />
 			</Icon>
 		{/if}
 	</div>
-</span>
+</button>
 
 <style lang="postcss">
 	.fui-checkbox {
-		@apply relative inline-flex cursor-pointer align-middle;
-
 		--indicator-size-md: 16px;
 		--indicator-size-lg: 20px;
 
