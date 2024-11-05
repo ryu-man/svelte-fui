@@ -1,14 +1,39 @@
-import { type Writable } from 'svelte/store';
-import { getFluentContext, setFluentContext } from '../internal/context';
+import { getFluentContext, setFluentContext, type FluentContext } from '../internal/context';
 
-const FUI_POPOVER_CONTEXT_ID = 'popover';
+export const FUI_POPOVER_CONTEXT_ID = 'popover';
 
-export type PopoverContext = {
-	open: Writable<boolean>;
-	referenceElement: Writable<HTMLElement | undefined>;
+export type PopoverContext = FluentContext & {
+	readonly state: {
+		data: {};
+		elements: {
+			overlay?: HTMLElement;
+			trigger?: HTMLElement;
+			indicator?: HTMLElement;
+		};
+	};
+	readonly derived: {
+		data: {
+			open: boolean;
+		};
+		elements: {
+			overlay?: HTMLElement;
+			trigger?: HTMLElement;
+			indicator?: HTMLElement;
+		};
+	};
+	events: {
+		onchange?: <T>(params: { context: T }) => void;
+	};
+	methods: {
+		open: () => void;
+		close: () => void;
+		toggle: () => void;
+	};
 };
 
-export function getPopoverContext(): PopoverContext | undefined {
+export function createPopoverContext() {}
+
+export function getPopoverContext(): PopoverContext {
 	return getFluentContext(FUI_POPOVER_CONTEXT_ID);
 }
 
