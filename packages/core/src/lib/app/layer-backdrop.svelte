@@ -12,5 +12,5 @@
 	<div
 		class="fui-backdrop bg-neutral-background-2 pointer-events-none h-full w-full"
 		use:animate={{ opacity: +$open, duration: DURATION.DRAGGING / 1000, ease: circOut }}
-	/>
+	></div>
 </Layout>

@@ -1,16 +1,22 @@
 <script lang="ts">
 	import { tick } from 'svelte';
-	import { readonly, writable } from 'svelte/store';
+	import { writable } from 'svelte/store';
+	import { nanoid } from 'nanoid';
 	import { Layout } from '@svelte-fui/core';
 	import type { Theme } from '@svelte-fui/theme';
-	import { webLightTheme } from '@svelte-fui/themes';
-	import { setBackdropContext } from './backdrop-context';
-	import RootBackdropLayer from './root-backdrop-layer.svelte';
-	import { setFluentRootContext } from './root-context';
-	import { applyTheme } from './utils';
 
-	export let theme: Theme = webLightTheme;
-	export let screens: Record<string, string> = {};
+	import { setBackdropContext } from './backdrop-context';
+	import RootBackdropLayer from './layer-backdrop.svelte';
+	import { setFluentRootContext, type FluentRootContext } from './root-context';
+	import { applyTheme } from './utils';
+	import type { RootProps } from './types';
+
+	let { screens = {}, theme, children }: RootProps = $props();
+
+	let viewport = $state({
+		width: 0,
+		height: 0
+	});
 
 	setBackdropContext({
 		dependencies: new Set(),
@@ -27,19 +33,77 @@
 		}
 	});
 
-	const screens_store = writable(screens);
-	$: screens_store.set(screens);
-
-	const active_screen_store = writable<[string, string]>(['xs', '0px']);
-
-	const { rootElement } = setFluentRootContext({
-		activeScreen: readonly(active_screen_store),
-		screens: readonly(screens_store),
-		rootElement: writable(),
-		overlayElement: writable(),
-		appElement$: writable(),
-		layouts: writable({})
+	const context_state: FluentRootContext['state'] = $state({
+		data: {
+			screens: {}
+		},
+		elements: {
+			layouts: {}
+		}
 	});
+
+	const context_derived: FluentRootContext['derived'] = $derived({
+		data: {
+			screens: {
+				all: screens,
+				active: screen(screens, viewport)
+			}
+		},
+		elements: {
+			root: context_state.elements.root,
+			app: context_state.elements.app,
+			layouts: { ...context_state.elements.layouts }
+		}
+	});
+
+	const context_root = setFluentRootContext({
+		id: nanoid(),
+		type: 'root',
+		get state() {
+			return context_state;
+		},
+		get derived() {
+			return context_derived;
+		}
+	});
+
+	$effect(() => {
+		const onresize = () => {
+			viewport = {
+				height: window.visualViewport?.height ?? 0,
+				width: window.visualViewport?.width ?? 0
+			};
+		};
+
+		window.addEventListener('resize', onresize);
+
+		onresize();
+
+		return () => {
+			window.removeEventListener('resize', onresize);
+		};
+	});
+
+	function screen(screens: Record<string, string>, viewport: { width: number; height: number }) {
+		const arr = Object.entries(screens)
+			.map(([key, value]) => {
+				return [key, parseInt(value)] as [string, number];
+			})
+			.sort((a, b) => a[1] - b[1]);
+
+		if (!arr.length) {
+			return undefined;
+		}
+
+		const screen = arr.filter((d) => d[1] < viewport.width).at(-1) ?? arr[0];
+
+		const data = {
+			name: screen[0],
+			width: screen[1]
+		};
+
+		return data;
+	}
 
 	function theming(node: HTMLDivElement, theme: Theme) {
 		const node_hashed_classname = node.classList.item(node.classList.length - 1);
@@ -59,13 +123,14 @@
 	}
 </script>
 
-<div class="fui-root" bind:this={$rootElement} use:theming={theme}>
+<div class="fui-root" bind:this={context_state.elements.root} use:theming={theme}>
 	{#await tick() then _}
 		<!-- promise was fulfilled -->
-		<slot />
+		{@render children?.({ context: context_root })}
 	{/await}
 
 	<RootBackdropLayer />
+	
 	<Layout id="overlay" class="z-10" />
 	<Layout id="toasts" class="z-10" />
 </div>
