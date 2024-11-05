@@ -1,26 +1,24 @@
-<script context="module" lang="ts">
-	import { onMount } from 'svelte';
-	import { Combobox, FluentRoot } from '@svelte-fui/core';
+<script module lang="ts">
+	import { Combobox as ComboboxFui, FluentRoot } from '@svelte-fui/core';
 	import { webDarkTheme, webLightTheme } from '@svelte-fui/themes';
-	import { Story } from '@storybook/addon-svelte-csf';
+	import { defineMeta } from '@storybook/addon-svelte-csf';
 	import type { ArgTypes } from '@storybook/svelte';
 
 	const arg_types = {} satisfies ArgTypes;
 
 	const default_args: Partial<Record<keyof typeof arg_types, any>> = {};
 
-	export const meta = {
+	const { Story } = defineMeta({
 		title: 'Components/Combobox',
-		component: Combobox,
-		argTypes: arg_types,
-		tags: ['!autodocs']
-	};
+		component: ComboboxFui.Root,
+		argTypes: arg_types
+	});
 </script>
 
 <script lang="ts">
-	let theme = webLightTheme;
+	let theme = $state(webLightTheme);
 
-	onMount(() => {
+	$effect(() => {
 		function handler(e: MediaQueryListEvent) {
 			theme = e.matches ? webLightTheme : webDarkTheme;
 		}
@@ -35,28 +33,48 @@
 			schemeMedia.removeEventListener('change', handler);
 		};
 	});
+
+	let value = $state('');
+
+	let selections: string[] = $state([]);
+
+	let languages_all = $state([
+		{ value: 'ar', name: 'Arabic' },
+		{ value: 'en', name: 'English' },
+		{ value: 'sp', name: 'Spanish' },
+		{ value: 'it', name: 'Italian' },
+		{ value: 'fr', name: 'Frensh' }
+	]);
+
+	const languages_filtered = $derived(
+		languages_all.filter((lang) => !value || lang.name.toLowerCase().includes(value.toLowerCase()))
+	);
 </script>
 
-<Story id="combobox" name="Combobox" args={default_args} let:args>
-	<FluentRoot {theme}>
-		<div class="flex h-full w-full flex-col items-center justify-center gap-4">
-			<div class="flex flex-col gap-4">
-				<Combobox.Root {...args}>
-					<Combobox.Trigger placeholder="Select a language..." />
-					<Combobox.Menu>
-						<Combobox.Item value="ar">Arabic</Combobox.Item>
-						<Combobox.Item value="en">English</Combobox.Item>
-						<Combobox.Item value="sp">Spanish</Combobox.Item>
-						<Combobox.Item value="it">Italian</Combobox.Item>
-						<Combobox.Item value="fr" disabled>Frensh</Combobox.Item>
-					</Combobox.Menu>
-				</Combobox.Root>
+<Story id="combobox" name="Combobox" args={default_args}>
+	{#snippet children(args)}
+		<FluentRoot {theme}>
+			<div class="flex h-full w-full flex-col items-center justify-center gap-4">
+				<div class="flex flex-col gap-4">
+					<ComboboxFui.Root {...args} multiple bind:values={selections}>
+						<ComboboxFui.Input placeholder="Select a language..." bind:value />
+						<ComboboxFui.Menu>
+							{#each languages_filtered as lang (lang.value)}
+								<!-- content here -->
+								<ComboboxFui.Item value={lang.value}>
+									<ComboboxFui.Checkbox />
+									<div>{lang.name}</div>
+								</ComboboxFui.Item>
+							{/each}
+						</ComboboxFui.Menu>
+					</ComboboxFui.Root>
 
-				<!-- <div class="flex justify-between">
-					<span>Selected language:</span>
-					<span>{language}</span>
-				</div> -->
+					<div class="flex justify-between">
+						<span>Selections:</span>
+						<span>{selections}</span>
+					</div>
+				</div>
 			</div>
-		</div>
-	</FluentRoot>
+		</FluentRoot>
+	{/snippet}
 </Story>

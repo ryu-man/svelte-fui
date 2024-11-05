@@ -1,14 +1,36 @@
-import type { DropdownContext } from '@svelte-fui/core/dropdown/context';
-import { getFluentContext, setFluentContext } from '@svelte-fui/core/internal/context';
+import type { DropdownContext } from '../dropdown/context-root';
+import { getFluentContext, setFluentContext } from '../internal/context';
 
-export const comboboxNamespace = 'dropdown';
+export const comboboxNamespace = 'combobox';
 
-export type ComboboxContext<T> = DropdownContext<T> & {};
+export type ContextDropdownItem<T> = {
+	value: () => string;
+	data: () => T | undefined;
+	isSelected: () => boolean;
+	isDisabled: () => boolean;
+	innerText: () => string;
+};
+
+export type ComboboxContext<T> = DropdownContext<T> & {
+	parent: <R>() => ComboboxContext<R> | undefined;
+
+	readonly state: {
+		data: {
+			input: {
+				value: string;
+			};
+		};
+	};
+
+	readonly derived: {
+		data: {};
+	};
+};
 
 export function getComboboxContext<T>() {
-	return getFluentContext(comboboxNamespace) as ComboboxContext<T>;
+	return getFluentContext<ComboboxContext<T>>(comboboxNamespace);
 }
 
-export function setComboboxContext<T>(context: ComboboxContext<T>): ComboboxContext<T> {
-	return setFluentContext<ComboboxContext<T>>(context, comboboxNamespace);
+export function setComboboxContext<T>(context: ComboboxContext<T>) {
+	return setFluentContext(context, comboboxNamespace);
 }
