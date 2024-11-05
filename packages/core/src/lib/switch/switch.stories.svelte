@@ -1,20 +1,19 @@
-<script context="module" lang="ts">
+<script module lang="ts">
 	import { onMount } from 'svelte';
-	import { FluentRoot, Label, Switch } from '@svelte-fui/core';
+	import { FluentRoot, Label, Switch as SwitchFui } from '@svelte-fui/core';
 	import { webDarkTheme, webLightTheme } from '@svelte-fui/themes';
-	import { Story } from '@storybook/addon-svelte-csf';
+	import { defineMeta } from '@storybook/addon-svelte-csf';
 	import type { ArgTypes } from '@storybook/svelte';
 
 	const default_args = {};
 
 	const arg_types = {} satisfies ArgTypes;
 
-	export const meta = {
+	const { Story } = defineMeta({
 		title: 'Components/Switch',
-		component: Switch,
-		argTypes: arg_types,
-		tags: ['!autodocs']
-	};
+		component: SwitchFui,
+		argTypes: arg_types
+	});
 </script>
 
 <script lang="ts">
@@ -37,22 +36,24 @@
 	});
 </script>
 
-<Story id="fui_switch" name="Switch" args={default_args} let:args>
-	<FluentRoot {theme}>
-		<div class="flex h-full w-full flex-col items-center justify-center gap-4">
-			<div class="flex items-start gap-4">
-				<Switch {...args} />
+<Story id="fui_switch" name="Switch" args={default_args}>
+	{#snippet children(args)}
+		<FluentRoot {theme}>
+			<div class="flex h-full w-full flex-col items-center justify-center gap-4">
+				<div class="flex items-start gap-4">
+					<SwitchFui {...args} />
 
-				<Switch {...args} position="before">
-					<Label>Enable Dark Theme</Label>
-				</Switch>
-				<Switch {...args} position="above">
-					<Label>Enable Dark Theme</Label>
-				</Switch>
-				<Switch {...args} position="after">
-					<Label>Enable Dark Theme</Label>
-				</Switch>
+					<SwitchFui {...args} position="before">
+						<Label>Enable Dark Theme</Label>
+					</SwitchFui>
+					<SwitchFui {...args} position="above">
+						<Label>Enable Dark Theme</Label>
+					</SwitchFui>
+					<SwitchFui {...args} position="after">
+						<Label>Enable Dark Theme</Label>
+					</SwitchFui>
+				</div>
 			</div>
-		</div>
-	</FluentRoot>
+		</FluentRoot>
+	{/snippet}
 </Story>

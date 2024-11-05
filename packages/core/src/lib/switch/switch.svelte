@@ -1,25 +1,44 @@
 <script lang="ts">
 	import { classnames } from '../internal';
+	import type { SwitchProps } from './types';
 
-	export let id: string | undefined = undefined;
-	export let checked = false;
-	export let position: 'before' | 'after' | 'above' = 'after';
-	export let required = false;
-	export let disabled = false;
-
-	let klass = '';
-	export { klass as class };
+	let {
+		class: klass = '',
+		position = 'before',
+		checked = false,
+		disabled = false,
+		readonly = false,
+		required = false,
+		id = undefined,
+		onchange
+	}: SwitchProps = $props();
 </script>
 
 <div class={classnames('fui-switch', { vertical: position === 'above' }, position, klass)}>
-	<input {id} role="switch" type="checkbox" class={classnames('fui-switch-input', position)} bind:checked {required} {disabled} on:change />
+	<input
+		{id}
+		role="switch"
+		type="checkbox"
+		class={classnames('fui-switch-input', position)}
+		bind:checked
+		{required}
+		{disabled}
+		{readonly}
+		{onchange}
+	/>
 	<div aria-hidden="true" class="fui-switch-indicator">
-		<svg fill="currentColor" class="" aria-hidden="true" width="1em" height="1em" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+		<svg
+			fill="currentColor"
+			class=""
+			aria-hidden="true"
+			width="1em"
+			height="1em"
+			viewBox="0 0 20 20"
+			xmlns="http://www.w3.org/2000/svg"
+		>
 			<path d="M10 2a8 8 0 1 0 0 16 8 8 0 0 0 0-16Z" fill="currentColor" />
 		</svg>
 	</div>
-
-	<slot />
 </div>
 
 <style lang="postcss">
@@ -36,7 +55,7 @@
 		}
 
 		&.before {
-			@apply inline-flex flex-row-reverse
+			@apply inline-flex flex-row-reverse;
 		}
 	}
 
@@ -110,7 +129,9 @@
 		&:checked {
 			& ~ .fui-switch-indicator {
 				> * {
-					transform: translateX(calc(var(--track-width) - var(--thumb-size) - var(--space-between-thumb-and-track)));
+					transform: translateX(
+						calc(var(--track-width) - var(--thumb-size) - var(--space-between-thumb-and-track))
+					);
 				}
 			}
 		}
