@@ -1,56 +1,47 @@
 import { getContext, setContext } from 'svelte';
 import { type Readable, type Writable, readonly, writable } from 'svelte/store';
 import { type RowStore } from './store';
-import type { SortingDirection, TableSize } from './type';
+import type { SortingDirection, TableSize } from './types';
+import { getFluentContext, setFluentContext, type FluentContext } from '../internal/context';
 
-export const SVELTE_FUI_TABLE_CONTEXT_KEY = 'svelte-fui-table-context-key';
+export const pathSegments = ['table'];
 
-export type TableContext = {
-	sortable$: Writable<boolean>;
-	size$: Writable<TableSize>;
-	sorting$: Writable<[key: (d: any) => any, direction: SortingDirection] | undefined>;
-	allRows$: Readable<RowStore[]>;
-	selectedKeys$: Readable<string[]>;
-	mountRow: <T>(store: RowStore<T>) => () => void;
+export type TableRow<T = any> = {
+	id: string;
+	data?: T;
 };
 
-export function getTableContext(): TableContext {
-	return getContext(SVELTE_FUI_TABLE_CONTEXT_KEY);
-}
+export type TableContext<T = any> = FluentContext & {
+	readonly state: {};
 
-export function setTableContext() {
-	const allRows$ = writable<any[]>([]);
-	const selectedKeys$ = writable<string[]>([]);
-
-	const context: TableContext = {
-		sortable$: writable(false),
-		size$: writable('md'),
-		sorting$: writable(undefined),
-		allRows$: readonly(allRows$),
-		selectedKeys$: readonly(selectedKeys$),
-		mountRow
+	readonly derived: {
+		data: {
+			size: TableSize;
+			values: string[];
+			rows: {
+				all: Map<string, TableRow<T>>;
+				selections: TableRow<T>[];
+			};
+		};
 	};
 
-	return setContext(SVELTE_FUI_TABLE_CONTEXT_KEY, context);
+	events: {
+		onchange: (ev: undefined, params: { context: TableContext<T> }) => any;
+	};
 
-	function mountRow<T>(store: RowStore<T>) {
-		allRows$.update((old) => [...old, store]);
+	methods: {
+		select: (values: string[]) => void;
+		unselect: (values: string[]) => void;
 
-		const unsubscribe = store.selected$.subscribe((value) => {
-			if (value) {
-				selectedKeys$.update((old) => [...new Set([...old, store.id])]);
-			} else {
-				selectedKeys$.update((old) => old.filter((d) => d !== store.id));
-			}
-		});
+		mount: (id: string, data?: T) => () => void;
+		unmount: (id: string) => void;
+	};
+};
 
-		return () => {
-			unsubscribe();
-			destroyRow(store.id);
-		};
-	}
+export function getTableContext<T>(): TableContext<T> {
+	return getFluentContext(...pathSegments);
+}
 
-	function destroyRow(id: string) {
-		allRows$.update((old) => old.filter((d) => d !== id));
-	}
+export function setTableContext<T>(context: TableContext<T>) {
+	return setFluentContext(context, ...pathSegments);
 }

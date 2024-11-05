@@ -6,79 +6,78 @@
 	import { classnames } from '@svelte-fui/core/internal';
 	import ArrowUpRegular from '@svelte-fui/core/icons/arrow-up-regular.svelte';
 	import { getTableContext } from './context';
-	import type { SortingDirection } from './type';
+	import type { SortingDirection } from './types';
 
-	const { sortable$, sorting$ } = getTableContext();
+	const context_table = getTableContext();
 
-	export let sortBy: ((d: any) => any) | undefined = undefined;
-	export let direction: SortingDirection = 'ascending';
-	let klass = '';
-	export { klass as class };
+	// export let sortBy: ((d: any) => any) | undefined = undefined;
+	// export let direction: SortingDirection = 'ascending';
+	// let klass = '';
+	// export { klass as class };
 
-	const activeSort$ = derived(sorting$, (val) => val && val[0] === sortBy);
+	let { class: klass = '', direction = 'asc', children } = $props();
 
-	const rotate$ = spring(0);
+	// const activeSort$ = derived(sorting$, (val) => val && val[0] === sortBy);
 
-	if (sortBy) {
-		sorting$.update((val) => {
-			if (!val) {
-				return [sortBy, direction];
-			}
+	// const rotate$ = spring(0);
 
-			return val;
-		});
-	}
+	// if (sortBy) {
+	// 	sorting$.update((val) => {
+	// 		if (!val) {
+	// 			return [sortBy, direction];
+	// 		}
 
-	$: sortable = $sortable$ && sortBy;
+	// 		return val;
+	// 	});
+	// }
 
-	onMount(() =>
-		sorting$.subscribe((val) => {
-			if (val) {
-				const [_key] = val;
-				if (sortBy === _key) {
-					if (direction === 'ascending') {
-						rotate$.set(0);
-					} else {
-						rotate$.set(1);
-					}
-				}
-			}
-		})
-	);
+	// $: sortable = $sortable$ && sortBy;
 
-	function onClickHandler() {
-		if (!$sortable$ || !sortBy) return;
+	// onMount(() =>
+	// 	sorting$.subscribe((val) => {
+	// 		if (val) {
+	// 			const [_key] = val;
+	// 			if (sortBy === _key) {
+	// 				if (direction === 'ascending') {
+	// 					rotate$.set(0);
+	// 				} else {
+	// 					rotate$.set(1);
+	// 				}
+	// 			}
+	// 		}
+	// 	})
+	// );
 
+	function onclick() {
+		// if (!$sortable$ || !sortBy) return;
 		// rotate$.update((val) => (d = Math.abs(val - 1)));
-
-		if (sortBy) {
-			// If the current Th is active sorting then we would switch the direct
-			// Else we would activate the sorting
-			if ($activeSort$) {
-				if (direction === 'ascending') {
-					direction = 'descending';
-				} else {
-					direction = 'ascending';
-				}
-			}
-
-			// Update sorting infos
-			sorting$.set([sortBy, direction]);
-		}
+		// if (sortBy) {
+		// If the current Th is active sorting then we would switch the direct
+		// Else we would activate the sorting
+		// if ($activeSort$) {
+		// if (direction === 'ascending') {
+		// direction = 'descending';
+		// } else {
+		// direction = 'ascending';
+		// }
+		// }
+		// Update sorting infos
+		// sorting$.set([sortBy, direction]);
+		// }
 	}
 </script>
 
-<th class={classnames('fui-table-header-cell', klass)} class:sortable on:click={onClickHandler}>
+<th class={classnames('fui-table-header-cell', klass)} {onclick}>
 	<div>
-		<slot />
+		{@render children?.({ context: context_table })}
 
-		{#if sortable && $activeSort$}
+		<!-- {#if sortable && $activeSort$}
 			<div class="fui-table-header-cell-sorting-icon" style:transform="rotate({$rotate$ * 180}deg)">
 				<Icon>
 					<ArrowUpRegular />
 				</Icon>
 			</div>
-		{/if}
+		{/if} -->
 	</div>
 </th>
 
