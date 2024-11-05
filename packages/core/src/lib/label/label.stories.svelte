@@ -1,8 +1,8 @@
-<script context="module" lang="ts">
+<script module lang="ts">
 	import { onMount } from 'svelte';
-	import { FluentRoot, Label } from '@svelte-fui/core';
+	import { FluentRoot, Label as LabelFui } from '@svelte-fui/core';
 	import { webDarkTheme, webLightTheme } from '@svelte-fui/themes';
-	import { Story } from '@storybook/addon-svelte-csf';
+	import { defineMeta } from '@storybook/addon-svelte-csf';
 	import type { ArgTypes } from '@storybook/svelte';
 
 	const default_args = {
@@ -45,12 +45,11 @@
 		}
 	} satisfies ArgTypes;
 
-	export const meta = {
+	const { Story } = defineMeta({
 		title: 'Components/Label',
-		component: Label,
-		argTypes: arg_types,
-		tags: ['!autodocs']
-	};
+		component: LabelFui,
+		argTypes: arg_types
+	});
 </script>
 
 <script lang="ts">
@@ -73,10 +72,12 @@
 	});
 </script>
 
-<Story id="fui_label" name="Label" args={default_args} let:args>
-	<FluentRoot {theme}>
-		<div class="flex h-full w-full items-center justify-center">
-			<Label {...args}>This is an example of the Text component's usage.</Label>
-		</div>
-	</FluentRoot>
+<Story id="fui_label" name="Label" args={default_args}>
+	{#snippet children(args)}
+		<FluentRoot {theme}>
+			<div class="flex h-full w-full items-center justify-center">
+				<LabelFui {...args}>This is an example of the Text component's usage.</LabelFui>
+			</div>
+		</FluentRoot>
+	{/snippet}
 </Story>

@@ -2,14 +2,14 @@
 	import { classnames } from '@svelte-fui/core/internal';
 	import type { LabelProps } from './types';
 
-	type $$Props = LabelProps;
-
-	export let disabled: $$Props['disabled'] = false;
-	export let required: $$Props['required'] = false;
-	export let size: $$Props['size'] = 'md';
-
-	let klass: $$Props['class'] = '';
-	export { klass as class };
+	let {
+		class: klass = '',
+		disabled = false,
+		required = false,
+		size,
+		children,
+		...restProps
+	}: LabelProps = $props();
 </script>
 
 <label
@@ -21,9 +21,9 @@
 		size === 'md' && 'text-base-300 leading-base-300',
 		size === 'lg' && 'text-base-400 leading-base-400 font-semibold'
 	)}
-	{...$$restProps}
+	{...restProps}
 >
-	<slot />
+	{@render children?.()}
 </label>
 
 <style lang="postcss">
