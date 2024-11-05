@@ -1,10 +1,11 @@
+import type { Snippet } from 'svelte';
 import type { HTMLAttributes } from 'svelte/elements';
 
 export type ButtonShape = 'rounded' | 'circular' | 'square';
 export type ButtonAppearance = 'subtle' | 'outline' | 'secondary' | 'primary' | 'transparent';
 export type ButtonSize = 'sm' | 'md' | 'lg';
 
-export type ButtonProps = HTMLAttributes<HTMLButtonElement> & {
+export type ButtonProps = Omit<HTMLAttributes<HTMLButtonElement>, 'children'> & {
 	shape?: ButtonShape;
 	appearance?: ButtonAppearance;
 	size?: ButtonSize;
@@ -23,4 +24,12 @@ export type ButtonProps = HTMLAttributes<HTMLButtonElement> & {
 
 	/** Obtains a bound DOM reference to the button or anchor element. */
 	element?: HTMLElement;
+
+	children?: Snippet<
+		[
+			{
+				hover: boolean;
+			}
+		]
+	>;
 };
