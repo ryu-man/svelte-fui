@@ -1,9 +1,10 @@
-<script context="module" lang="ts">
+<script module lang="ts">
 	import { onMount } from 'svelte';
-	import { Button, FluentRoot, Tooltip } from '@svelte-fui/core';
+	import { Button, FluentRoot, Tooltip as TooltipFui } from '@svelte-fui/core';
 	import { webDarkTheme, webLightTheme } from '@svelte-fui/themes';
-	import { Story } from '@storybook/addon-svelte-csf';
+	import { defineMeta } from '@storybook/addon-svelte-csf';
 	import type { ArgTypes } from '@storybook/svelte';
+	import Radio from '../radio/radio.svelte';
 
 	const default_args = {
 		disabled: false,
@@ -45,16 +46,15 @@
 		}
 	} satisfies ArgTypes;
 
-	export const meta = {
+	const { Story } = defineMeta({
 		title: 'Components/Tooltip',
-		component: Tooltip,
-		argTypes: arg_types,
-		tags: ['!autodocs']
-	};
+		component: TooltipFui.Root,
+		argTypes: arg_types
+	});
 </script>
 
 <script lang="ts">
-	let theme = webLightTheme;
+	let theme = $state(webLightTheme);
 
 	onMount(() => {
 		function handler(e: MediaQueryListEvent) {
@@ -73,14 +73,18 @@
 	});
 </script>
 
-<Story id="fui_tooltip" name="Tooltip" args={default_args} let:args>
-	<FluentRoot {theme}>
-		<div class="flex h-full w-full items-center justify-center">
-			<Tooltip {...args}>
-				<Button>Hello Svelte land</Button>
+<Story id="fui_tooltip" name="Tooltip" args={default_args}>
+	{#snippet children(args)}
+		<FluentRoot {theme}>
+			<div class="flex h-full w-full items-center justify-center">
+				<TooltipFui.Root {...args}>
+					<TooltipFui.Trigger>
+						<Button>Hello Svelte land</Button>
+					</TooltipFui.Trigger>
 
-				<span slot="content">Hello from the other side! [slotted]</span>
-			</Tooltip>
-		</div>
-	</FluentRoot>
+					<TooltipFui.Overlay>Hello from the other side! [slotted]</TooltipFui.Overlay>
+				</TooltipFui.Root>
+			</div>
+		</FluentRoot>
+	{/snippet}
 </Story>
