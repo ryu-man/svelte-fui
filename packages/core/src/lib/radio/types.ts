@@ -1,7 +1,7 @@
 import type { Snippet } from 'svelte';
 import type { RadioGroupContext } from './context';
 
-export type Layout = 'vertical' | 'horizontal' | 'stacked-horizontal';
+export type RadioGroupLayout = 'vertical' | 'horizontal' | 'stacked-horizontal';
 
 export type RadioProps = {
 	class?: string;
@@ -15,7 +15,7 @@ export type RadioGroupProps = {
 	class?: string;
 	name?: string;
 	value?: string;
-	layout?: Layout;
+	layout?: RadioGroupLayout;
 	disabled?: boolean;
 	required?: boolean;
 	children?: Snippet<

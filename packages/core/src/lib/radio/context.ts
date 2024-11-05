@@ -1,5 +1,5 @@
 import { getContext, setContext } from 'svelte';
-import type { Layout } from './types';
+import type { RadioGroupLayout } from './types';
 import type { FluentContext } from '../internal/context';
 
 export const FUI_RADIO_GROUP_CONTEXT_KEY = 'radio-group';
@@ -12,7 +12,7 @@ export type RadioGroupContext = FluentContext & {
 			required: boolean;
 			name?: string;
 			value?: string;
-			layout: Layout;
+			layout: RadioGroupLayout;
 		};
 	};
 	methods: {
