@@ -1,73 +1,144 @@
 <script lang="ts" generics="T">
-	import { createEventDispatcher } from 'svelte';
-	import { writable } from 'svelte/store';
-	import { classnames } from '@svelte-fui/core/internal';
-	import { mergeContext, setSharedContext } from '@svelte-fui/core/internal/context';
+	import { SvelteMap } from 'svelte/reactivity';
 	import { fid } from '@svelte-fui/core/internal/utils';
-	import type { MenuContext } from '@svelte-fui/core/menu';
-	import { getDropdownContext, setDropdownContext } from './context';
-	import type { DropdownProps } from './types';
 
-	type $$Props = DropdownProps<T>;
+	import {
+		dropdownNamespace,
+		getDropdownContext,
+		setDropdownContext,
+		type DropdownContext,
+		type ContextDropdownItem
+	} from './context-root';
+	import type { DropdownRootProps } from './types';
 
-	const dispatch = createEventDispatcher();
+	import { Popover } from '../popover';
 
-	export let open: $$Props['open'] = false;
-	export let value: $$Props['value'] = undefined;
-	export let name: $$Props['name'] = undefined;
-	export let data: $$Props['data'] = undefined;
-	export let id: string | undefined = undefined;
-	let klass = '';
-	export { klass as class };
+	let {
+		open = $bindable(false),
+		value = $bindable(undefined),
+		values = $bindable([]),
+		data = $bindable<T[]>([]),
+		context = $bindable(undefined),
+		multiple = false,
+		disabled = false,
+		id = undefined,
+		children
+	}: DropdownRootProps<T> = $props();
+	const context_parent = getDropdownContext();
 
-	const context = setDropdownContext<T>(
-		mergeContext(
-			{
-				id: writable(fid('dropdown')),
-				open: writable(open),
-				value: writable(value),
-				data: writable<T>(data),
-				text: writable(''),
-				triggerElement: writable(),
-				openMenu(timeout = 0) {
-					setTimeout(() => open_store.set(true), timeout);
-				},
-				closeMenu(timeout = 0) {
-					setTimeout(() => open_store.set(false), timeout);
-				},
-				onChange(props) {
-					const should_continue = dispatch('change', props);
+	const context_builder = () => {
+		if (context) {
+			return setDropdownContext(context);
+		}
 
-					if (should_continue) {
-						context.closeMenu();
-					}
+		let items: Map<string, ContextDropdownItem<T>> = new SvelteMap([]);
+
+		const context_state: DropdownContext<T>['state'] = $state({
+			data: {},
+			elements: {}
+		});
+
+		const context_derived: DropdownContext<T>['derived'] = $derived({
+			data: {
+				value,
+				values: values ?? [],
+				open: open ?? false,
+				multiple: multiple ?? false,
+				disabled: disabled ?? false,
+				data,
+				items: {
+					all: items,
+					active: values.map((d) => items.get(d)).filter(Boolean) as ContextDropdownItem<T>[]
 				}
 			},
-			getDropdownContext<T>()
-		)
-	);
+			elements: {
+				root: context_state.elements.root,
+				overlay: context_state.elements.overlay,
+				indicator: context_state.elements.indicator,
+				trigger: context_state.elements.trigger
+			}
+		});
 
-	setSharedContext<Partial<MenuContext>>({ triggerElement: context.triggerElement, open: context.open }, 'menu');
+		return setDropdownContext<T>({
+			id: fid(dropdownNamespace),
+			type: 'dropdown',
 
-	const id_store = context.id;
+			parent: <R,>() => context_parent as DropdownContext<R>,
+			get derived() {
+				return context_derived;
+			},
+			get state() {
+				return context_state;
+			},
+			events: {
+				onchange: () => {}
+			},
+			methods: {
+				open() {
+					open = true;
+				},
+				close() {
+					open = false;
+				},
+				toggle() {
+					open = !open;
+				},
+				mount(id, item) {
+					items.set(id, item);
 
-	const open_store = context.open;
-	$: open_store.set(!!open);
-	$: open = $open_store;
+					return () => this.unmount(id);
+				},
+				unmount(id) {
+					items.delete(id);
+				},
+				select(vals) {
+					const sequence = new Set(values);
 
-	const value_store = context.value;
-	$: value_store.set(value);
-	$: value = $value_store;
+					for (const value of vals) {
+						sequence.add(value);
+					}
 
-	const data_store = context.data;
-	$: data_store.set(data);
-	$: data = $data_store;
+					values = [...sequence];
+					value = values[0];
 
-	let client_width = 0;
+					data = values
+						.map((d) => context_dropdown.derived.data.items.all.get(d)?.data)
+						.filter(Boolean) as T[];
+
+					return values;
+				},
+				unselect(vals) {
+					const sequence = new Set(values);
+
+					for (const value of vals) {
+						sequence.delete(value);
+					}
+
+					values = [...sequence];
+					value = values[0];
+
+					data = values
+						.map((d) => context_dropdown.derived.data.items.all.get(d)?.data)
+						.filter(Boolean) as T[];
+
+					return values;
+				},
+				selected(value) {
+					return values.includes(value);
+				}
+			}
+		});
+	};
+
+	const context_dropdown = context_builder();
+
+	$effect(() => {
+		if (!context) {
+			context = context_dropdown;
+		}
+	});
 </script>
 
-<div class={classnames('fui-dropdown', 'w-full', klass)} bind:clientWidth={client_width} data-id={$id_store}>
-	<input type="text" hidden value={$value_store} {name} {...$$restProps} />
-
-	<slot />
-</div>
+<Popover.Root bind:open context={context_dropdown}>
+	{@render children?.({ context: context_dropdown })}
+</Popover.Root>

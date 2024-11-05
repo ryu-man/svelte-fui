@@ -1,13 +1,19 @@
-import { default as DropdownArrow } from './dropdown-arrow.svelte';
-import { default as DropdownItem } from './dropdown-item.svelte';
-import { default as DropdownMenu } from './dropdown-menu.svelte';
-import { default as DropdownRoot } from './dropdown-root.svelte';
-import { default as DropdownTrigger } from './dropdown-trigger.svelte';
+import DropdownCheckbox from './dropdown-checkbox.svelte';
+import DropdownIndicator from './dropdown-indicator.svelte';
+import DropdownInput from './dropdown-input.svelte';
+import DropdownItem from './dropdown-item.svelte';
+import DropdownMenu from './dropdown-menu.svelte';
+import DropdownRoot from './dropdown-root.svelte';
+import DropdownTrigger from './dropdown-trigger.svelte';
+
+export * from './types';
 
 export const Dropdown = {
 	Root: DropdownRoot,
 	Trigger: DropdownTrigger,
+	Input: DropdownInput,
 	Menu: DropdownMenu,
 	Item: DropdownItem,
-	Arrow: DropdownArrow
+	Checkbox: DropdownCheckbox,
+	Indicator: DropdownIndicator
 };
