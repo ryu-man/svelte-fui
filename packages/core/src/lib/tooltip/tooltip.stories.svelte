@@ -5,7 +5,10 @@
 		FluentRoot,
 		Link,
 		Tooltip as TooltipFui,
-		Input as InputFui
+		Input as InputFui,
+
+		Text
+
 	} from '@svelte-fui/core';
 	import { webDarkTheme, webLightTheme } from '@svelte-fui/themes';
 	import { defineMeta } from '@storybook/addon-svelte-csf';
@@ -90,6 +93,12 @@
 
 				<TooltipFui.Root {...args}>
 					<TooltipFui.Trigger as={Link} >Hello Svelte land</TooltipFui.Trigger>
+
+					<TooltipFui.Overlay>Hello from the other side! [slotted]</TooltipFui.Overlay>
+				</TooltipFui.Root>
+
+				<TooltipFui.Root {...args}>
+					<TooltipFui.Trigger as={Text} componentAs="h3">Hello Svelte land</TooltipFui.Trigger>
 
 					<TooltipFui.Overlay>Hello from the other side! [slotted]</TooltipFui.Overlay>
 				</TooltipFui.Root>

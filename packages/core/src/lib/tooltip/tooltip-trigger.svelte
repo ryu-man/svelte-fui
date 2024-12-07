@@ -15,6 +15,7 @@
 		delay = 200,
 		as = 'div',
 		element = $bindable(undefined),
+		componentAs,
 		children,
 		onpointerenter,
 		onpointerleave,
@@ -93,6 +94,7 @@
 	<Cmp
 		bind:element={element_middleware.current}
 		class={classnames('fui-toolip-container relative inline-flex', klass)}
+		as={componentAs}
 		{...restProps}
 	>
 		{@render children?.()}

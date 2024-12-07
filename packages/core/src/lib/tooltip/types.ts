@@ -33,8 +33,6 @@ export type TooltipOverlayProps = {
 	>;
 };
 
-export type ComponentProps<C> = C extends Component<infer Props> ? Props : Record<string, any>;
-
 export type TooltipTriggerProps<T extends Component> = PopoverTriggerProps<T> & {
 	delay?: number;
 	children?: Snippet<

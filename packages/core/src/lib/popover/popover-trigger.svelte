@@ -1,4 +1,5 @@
-<script lang="ts">
+<script lang="ts" generics="T extends Component">
+	import type { Component } from 'svelte';
 	import { classnames } from '../internal';
 	import { getPopoverContext } from './context';
 	import type { PopoverTriggerProps } from './types';
@@ -13,9 +14,10 @@
 		as = 'button',
 		element = $bindable(),
 		clientWidth = $bindable(),
+		componentAs = undefined,
 		onclick,
 		children = undefined
-	}: PopoverTriggerProps = $props();
+	}: PopoverTriggerProps<T> = $props();
 
 	$effect(() => {
 		element = context.state.elements.trigger;
@@ -49,6 +51,7 @@
 	<Component
 		bind:element={context.state.elements.trigger}
 		class={classnames('popover-trigger', klass)}
+		as={componentAs}
 		onclick={onclick_}
 		data-open={open}
 		data-owner-id={context.id}
