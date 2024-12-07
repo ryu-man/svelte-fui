@@ -1,6 +1,7 @@
 import { getFluentContext, setFluentContext, type FluentContext } from '../internal/context';
 
-export const dropdownItemSegments = ['dropdown', 'item'];
+export const dropdownItemNamespaceSegments = ['dropdown', 'item'];
+export const dropdownItemNamespace = dropdownItemNamespaceSegments.join('/');
 
 export type ContextDropdownItem<T> = {
 	value: () => string;
@@ -31,9 +32,9 @@ export type DropdownItemContext<T> = FluentContext & {
 };
 
 export function getDropdownItemContext<T>() {
-	return getFluentContext<DropdownItemContext<T>>(...dropdownItemSegments);
+	return getFluentContext<DropdownItemContext<T>>(...dropdownItemNamespaceSegments);
 }
 
 export function setDropdownItemContext<T>(context: DropdownItemContext<T>) {
-	return setFluentContext(context, ...dropdownItemSegments);
+	return setFluentContext(context, ...dropdownItemNamespaceSegments);
 }

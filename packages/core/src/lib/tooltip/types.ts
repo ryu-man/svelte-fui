@@ -1,9 +1,21 @@
-import type { Snippet } from 'svelte';
-import type { PopoverContext } from '../popover';
-import type { Placement } from '@floating-ui/dom';
+import type { Component, Snippet } from 'svelte';
+import type { Alignment, Placement } from '@floating-ui/dom';
+import type { TooltipContext } from './context';
+import type { PopoverTriggerProps } from '../popover';
 
 export type TooltipRootProps = {
-	children?: Snippet<[]>;
+	open: boolean;
+	placements?: Placement[];
+	alignment?: Alignment;
+	offset?: number;
+
+	children?: Snippet<
+		[
+			{
+				context: TooltipContext;
+			}
+		]
+	>;
 };
 
 export type TooltipOverlayProps = {
@@ -15,19 +27,23 @@ export type TooltipOverlayProps = {
 	children?: Snippet<
 		[
 			{
-				context: PopoverContext;
+				context: TooltipContext;
 			}
 		]
 	>;
 };
 
-export type TooltipTriggerProps = {
-	class?: string;
-	offset?: number;
-	appearance?: 'normal' | 'inverted';
-	id?: string;
+export type ComponentProps<C> = C extends Component<infer Props> ? Props : Record<string, any>;
+
+export type TooltipTriggerProps<T extends Component> = PopoverTriggerProps<T> & {
 	delay?: number;
-	children?: Snippet<[]>;
+	children?: Snippet<
+		[
+			{
+				context: TooltipContext;
+			}
+		]
+	>;
 
 	onpointerenter?: (ev: PointerEvent) => any;
 	onpointerleave?: (ev: PointerEvent) => any;

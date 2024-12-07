@@ -5,4 +5,5 @@ export type LinkProps = {
 	appearance?: 'subtle' | 'default';
 	disabled?: boolean;
 	inline?: boolean;
+	element?: HTMLElement
 };

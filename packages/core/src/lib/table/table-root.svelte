@@ -13,6 +13,7 @@
 		selections = $bindable([]),
 		size = 'md',
 		values = $bindable([]),
+		element = $bindable(undefined),
 		children
 	}: TableRoot<T> = $props();
 
@@ -95,7 +96,7 @@
 	// }
 </script>
 
-<table class={classnames('fui-table', klass)}>
+<table bind:this={element} class={classnames('fui-table', klass)}>
 	{@render children?.({ context: context_table })}
 </table>
 

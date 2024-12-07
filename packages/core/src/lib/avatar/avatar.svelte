@@ -13,7 +13,8 @@
 		alt,
 		ariaLabel,
 		src,
-		id
+		id,
+		element = $bindable(undefined)
 	}: AvatarProps = $props();
 
 	const active_or_inactive = $derived(active === 'active' || active === 'inactive');
@@ -21,6 +22,7 @@
 </script>
 
 <span
+	bind:this={element}
 	class={classnames(
 		'fui-avatar',
 		{ 'active-or-inactive': active_or_inactive, badge: badge },
@@ -38,7 +40,7 @@
 		<img class="fui-avatar-image" {alt} role="presentation" aria-hidden="true" {src} />
 	{:else}
 		{@const Component = src}
-		
+
 		<Icon aria-hidden="true" class="fui-avatar-icon text-current p-[6px]">
 			<Component />
 		</Icon>

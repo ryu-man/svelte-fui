@@ -11,6 +11,7 @@
 		id = undefined,
 		appearance = 'outline',
 		as = 'button',
+		element = $bindable(undefined),
 		children,
 		...restProps
 	}: HTMLAttributes<HTMLButtonElement> & InputRootProps = $props();
@@ -18,6 +19,7 @@
 
 <svelte:element
 	this={as}
+	bind:this={element}
 	class={classnames(
 		'fui-input-root px-mNudge gap-xxs inline-flex',
 		appearance,

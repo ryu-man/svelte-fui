@@ -8,22 +8,26 @@ export type CardRootProps = {
 	interactive?: boolean;
 	alternative?: boolean;
 	selected?: boolean;
+	element?: HTMLElement;
 	children?: Snippet<[]>;
 };
 
 export type CardHeaderProps = {
 	class?: string;
+	element?: HTMLElement;
 	children?: Snippet<[]>;
 };
 
 export type CardBodyProps = {
 	class?: string;
 	as?: 'div' | 'p';
+	element?: HTMLElement;
 	children?: Snippet<[]>;
 };
 
 export type CardFooterProps = {
 	class?: string;
+	element?: HTMLElement;
 	children?: Snippet<[]>;
 };
 
@@ -31,5 +35,6 @@ export type CardPreviewProps = {
 	class?: string;
 	src?: string;
 	alt?: string;
+	element?: HTMLElement;
 	children?: Snippet<[]>;
 };

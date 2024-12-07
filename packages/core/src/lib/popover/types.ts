@@ -1,12 +1,15 @@
+import type { Component, Snippet } from 'svelte';
 import type { HTMLAttributes } from 'svelte/elements';
 import type { Alignment, Placement } from '@floating-ui/dom';
-import type { Snippet } from 'svelte';
 import type { PopoverContext } from './context';
 
 export type PopoverRootProps = {
 	open?: boolean;
 	id?: string;
 	context?: PopoverContext;
+	placements?: Placement[];
+	alignment?: Alignment;
+	offset?: number;
 	children: Snippet<
 		[
 			{
@@ -18,9 +21,6 @@ export type PopoverRootProps = {
 
 export type PopoverOverlayProps = HTMLAttributes<HTMLDivElement> & {
 	class?: string;
-	placements?: Placement[];
-	alignment?: Alignment;
-	offset?: number;
 	onmount?: (
 		node: HTMLElement,
 		params: { open: boolean }
@@ -40,11 +40,13 @@ export type PopoverOverlayProps = HTMLAttributes<HTMLDivElement> & {
 	onclickoutside?: (ev: Event, params: { context: PopoverContext }) => void;
 };
 
-export type PopoverTriggerProps = {
+export type ComponentProps<C> = C extends Component<infer Props> ? Props : Record<string, any>;
+
+export type PopoverTriggerProps<T extends Component> = Omit<ComponentProps<T>, 'as'> & {
 	class?: string;
-	as?: 'button' | 'div';
 	element?: HTMLElement;
 	clientWidth?: number;
+	as?: string | T;
 	onclick?: (ev: Event, options: { context?: PopoverContext }) => void;
 	children?: Snippet<[{ context: PopoverContext }]>;
 };

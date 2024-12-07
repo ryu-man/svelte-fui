@@ -6,5 +6,6 @@ export type SwitchProps = {
 	required?: boolean;
 	disabled?: boolean;
 	readonly?: boolean;
+	element?: HTMLElement
     onchange?: HTMLDivElement['onchange']
 };

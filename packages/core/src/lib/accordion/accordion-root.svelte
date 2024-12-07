@@ -9,6 +9,7 @@
 		value = $bindable(undefined),
 		values = $bindable([]),
 		data = $bindable([]),
+		element = $bindable(undefined),
 		multiple = false,
 		collapsible = false,
 		children
@@ -18,6 +19,10 @@
 
 	$effect(() => {
 		data = values.map((d) => items[d].data).filter(Boolean) as T[];
+	});
+
+	const context_state: AccordionContext<T>['state'] = $state({
+		elements: {}
 	});
 
 	const context_derived: AccordionContext<T>['derived'] = $derived({
@@ -35,6 +40,9 @@
 
 	const context = setAccordionContext({
 		id: nanoid(),
+		get state() {
+			return context_state;
+		},
 		get derived() {
 			return context_derived;
 		},
@@ -93,7 +101,11 @@
 	});
 </script>
 
-<div class={classnames('fui-accordion', klass)}>
+<div
+	bind:this={element}
+	bind:this={context_state.elements.root}
+	class={classnames('fui-accordion', klass)}
+>
 	{#if children}
 		{@render children({ context })}
 	{/if}

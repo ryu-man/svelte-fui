@@ -15,6 +15,7 @@ export type TableRoot<T> = {
 	size?: TableSize;
 	values?: string[];
 	selections?: T[];
+	element?: HTMLElement
 	children?: Snippet<
 		[
 			{
@@ -29,6 +30,7 @@ export type TrProps<T> = {
 	id?: string;
 	data?: T;
 	appearance?: 'none' | 'neutral' | 'brand';
+	element?: HTMLElement
 	children?: Snippet<
 		[
 			{

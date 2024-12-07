@@ -1,6 +1,5 @@
 <script lang="ts">
 	import { circOut } from 'svelte/easing';
-	import { getFluentRootContext } from '@svelte-fui/core';
 	import { animate } from '@svelte-fui/core/actions/animation';
 	import { classnames } from '@svelte-fui/core/internal';
 	import { DURATION } from '@svelte-fui/core/internal/transition';
@@ -9,7 +8,6 @@
 	import { getDropdownContext } from './context-root';
 	import type { DropdownMenuProps } from './types';
 
-	const root_context = getFluentRootContext();
 	const context_dropdown = getDropdownContext();
 
 	if (!context_dropdown) {
@@ -19,13 +17,9 @@
 	const open = $derived(context_dropdown.derived.data.open);
 	const element_trigger = $derived(context_dropdown.state.elements.trigger);
 
-	const { layouts } = root_context;
-
 	let {
 		class: klass = '',
-		placements = ['bottom-start', 'top-start', 'bottom-end', 'top-end'],
-		offset = 8,
-		alignment = undefined,
+
 		children,
 		onclickoutside
 	}: DropdownMenuProps = $props();
@@ -64,13 +58,7 @@
 	}
 </script>
 
-<Popover.Overlay
-	class={classnames('fui-dropdown-menu-overlay')}
-	{placements}
-	{alignment}
-	{offset}
-	{onclickoutside}
->
+<Popover.Overlay class={classnames('fui-dropdown-menu-overlay')} {onclickoutside}>
 	{#snippet children({ dx, dy })}
 		<div
 			class={classnames(

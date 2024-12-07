@@ -7,11 +7,16 @@
 	const context_accordion_root = getAccordionItemContext();
 	const active = $derived(context_accordion_root.derived.active);
 
-	let { class: klass = '', children }: AccordionItemBodyProps = $props();
+	let {
+		class: klass = '',
+		element = $bindable(undefined),
+		children
+	}: AccordionItemBodyProps = $props();
 </script>
 
 {#if active}
 	<div
+		bind:this={element}
 		class={classnames('fui-accordion-item-body m-m my-0', klass)}
 		transition:slide={{ duration: 100 }}
 	>

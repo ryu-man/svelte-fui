@@ -2,10 +2,10 @@
 	import { classnames } from '../internal';
 	import type { CardFooterProps } from './types';
 
-	let { class: klass = '', children }: CardFooterProps = $props();
+	let { class: klass = '', element = $bindable(undefined), children }: CardFooterProps = $props();
 </script>
 
-<div class={classnames('fui-card-footer', klass)}>
+<div bind:this={element} class={classnames('fui-card-footer', klass)}>
 	{@render children?.()}
 </div>
 

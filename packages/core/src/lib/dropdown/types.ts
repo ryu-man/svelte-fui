@@ -1,10 +1,9 @@
-import type { HTMLInputAttributes } from 'svelte/elements';
-import type { PopoverOverlayProps } from '../popover';
+import type { PopoverOverlayProps, PopoverRootProps } from '../popover';
 import type { Snippet } from 'svelte';
 import type { DropdownContext } from './context-root';
 import type { InputRootProps } from '../input/types';
 
-export type DropdownRootProps<T> = {
+export type DropdownRootProps<T> = PopoverRootProps & {
 	open?: boolean;
 	multiple?: boolean;
 	value?: string;

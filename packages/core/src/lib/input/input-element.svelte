@@ -25,6 +25,7 @@
 		id,
 		name,
 		size,
+		element = $bindable(undefined),
 		before,
 		after,
 		oninput,
@@ -46,6 +47,7 @@
 </script>
 
 <input
+	bind:this={element}
 	{type}
 	class={classnames(
 		'px-xxs text-neutral-foreground-1 leading-inherit flex-1 border-none bg-transparent',

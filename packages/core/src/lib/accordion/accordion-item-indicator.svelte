@@ -9,10 +9,17 @@
 	const context_accordion_item = getAccordionItemContext();
 	const active = $derived(context_accordion_item.derived.active);
 
-	let { class: klass = '', children }: AccordionItemIndicatorProps = $props();
+	let {
+		class: klass = '',
+		element = $bindable(undefined),
+		children
+	}: AccordionItemIndicatorProps = $props();
 </script>
 
-<div class={classnames('fui-accordion-item-indicator pointer-events-none', klass)}>
+<div
+	bind:this={element}
+	class={classnames('fui-accordion-item-indicator pointer-events-none', klass)}
+>
 	{#if children}
 		<!-- content here -->
 		{@render children({ active })}

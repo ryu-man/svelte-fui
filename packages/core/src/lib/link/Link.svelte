@@ -9,6 +9,7 @@
 		disabled = false,
 		inline = false,
 		href = undefined,
+		element = $bindable(undefined),
 		children,
 		...restProps
 	}: HTMLAttributes<HTMLElement> & LinkProps = $props();
@@ -18,6 +19,7 @@
 
 <svelte:element
 	this={as}
+	bind:this={element}
 	class={classnames('fui-link', appearance, { inline, disabled }, klass)}
 	{href}
 	{disabled}

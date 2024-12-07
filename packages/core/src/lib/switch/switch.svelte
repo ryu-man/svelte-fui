@@ -10,11 +10,15 @@
 		readonly = false,
 		required = false,
 		id = undefined,
+		element = $bindable(undefined),
 		onchange
 	}: SwitchProps = $props();
 </script>
 
-<div class={classnames('fui-switch', { vertical: position === 'above' }, position, klass)}>
+<div
+	bind:this={element}
+	class={classnames('fui-switch', { vertical: position === 'above' }, position, klass)}
+>
 	<input
 		{id}
 		role="switch"

@@ -6,6 +6,7 @@
 	let {
 		class: klass = '',
 		as = 'button',
+		element = $bindable(undefined),
 		children,
 		onclick
 	}: AccordionItemHeaderProps<T> = $props();
@@ -53,6 +54,7 @@
 <!-- svelte-ignore a11y_no_static_element_interactions -->
 <svelte:element
 	this={as}
+	bind:this={element}
 	class={classnames(
 		'fui-accordion-header pr-m pl-mNudge body-1 relative box-border flex items-center w-full cursor-pointer',
 		{ disabled },

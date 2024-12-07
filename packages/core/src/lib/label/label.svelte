@@ -7,12 +7,14 @@
 		disabled = false,
 		required = false,
 		size,
+		element = $bindable(undefined),
 		children,
 		...restProps
 	}: LabelProps = $props();
 </script>
 
 <label
+	bind:this={element}
 	class={classnames(
 		'fui-label font-base',
 		{ disabled, required },

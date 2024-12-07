@@ -12,5 +12,6 @@ export type TextProps = {
 	truncate?: boolean;
 	weight?: 'meduim' | 'regular' | 'semibold' | 'bold';
 	wrap?: boolean;
+	element?: HTMLElement
     children?: Snippet<[]>
 };

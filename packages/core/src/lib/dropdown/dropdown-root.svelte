@@ -21,6 +21,9 @@
 		context = $bindable(undefined),
 		multiple = false,
 		disabled = false,
+		placements = ['bottom-start', 'top-start', 'bottom-end', 'top-end'],
+		offset = 8,
+		alignment = undefined,
 		id = undefined,
 		children
 	}: DropdownRootProps<T> = $props();
@@ -49,7 +52,10 @@
 				items: {
 					all: items,
 					active: values.map((d) => items.get(d)).filter(Boolean) as ContextDropdownItem<T>[]
-				}
+				},
+				alignment,
+				offset,
+				placements
 			},
 			elements: {
 				root: context_state.elements.root,

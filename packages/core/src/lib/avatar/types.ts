@@ -43,4 +43,5 @@ export type AvatarProps = {
 	shape?: 'circular' | 'square';
 	active?: 'active' | 'inactive' | 'unset';
 	activeAppearance?: 'ring' | 'shadow' | 'ring-shadow';
+	element?: HTMLElement
 };

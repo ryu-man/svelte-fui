@@ -7,4 +7,5 @@ export type LabelProps = HTMLAttributes<HTMLLabelElement> & {
 	required?: boolean;
 	size?: LabelSize;
 	class?: string;
+	element?: HTMLElement
 };

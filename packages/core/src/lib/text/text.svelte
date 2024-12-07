@@ -14,12 +14,14 @@
 		truncate = false,
 		weight = 'regular',
 		wrap = false,
+		element = $bindable(undefined),
 		children
 	}: TextProps = $props();
 </script>
 
 <svelte:element
 	this={as}
+	bind:this={element}
 	class={classnames(
 		'fui-text',
 		{ size, align, block, italic, strikethrough, truncate, weight, wrap },

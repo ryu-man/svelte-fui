@@ -15,7 +15,7 @@
 	// let klass = '';
 	// export { klass as class };
 
-	let { class: klass = '', direction = 'asc', children } = $props();
+	let { class: klass = '', direction = 'asc', element = $bindable(undefined), children } = $props();
 
 	// const activeSort$ = derived(sorting$, (val) => val && val[0] === sortBy);
 
@@ -67,7 +67,7 @@
 	}
 </script>
 
-<th class={classnames('fui-table-header-cell', klass)} {onclick}>
+<th bind:this={element} class={classnames('fui-table-header-cell', klass)} {onclick}>
 	<div>
 		{@render children?.({ context: context_table })}
 

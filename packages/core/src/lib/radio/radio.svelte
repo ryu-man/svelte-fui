@@ -11,6 +11,7 @@
 		class: klass = '',
 		id = nanoid(),
 		checked = $bindable(false),
+		element = $bindable(undefined),
 		name,
 		value,
 		onclick,
@@ -29,6 +30,7 @@
 </script>
 
 <div
+	bind:this={element}
 	class={classnames(
 		'fui-radio relative inline-flex items-center',
 		is_vertical && 'flex-col items-center',

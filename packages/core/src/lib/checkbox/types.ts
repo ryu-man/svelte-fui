@@ -20,4 +20,6 @@ export type CheckboxProps = {
 	circular?: boolean;
 
 	required?: boolean;
+
+	element?: HTMLElement;
 };

@@ -18,7 +18,14 @@
 	// let klass = '';
 	// export { klass as class };
 
-	let { class: klass = '', id = nanoid(8), appearance = 'none', data, children }: TrProps<T> = $props();
+	let {
+		class: klass = '',
+		id = nanoid(8),
+		appearance = 'none',
+		data,
+		element = $bindable(undefined),
+		children
+	}: TrProps<T> = $props();
 
 	const is_selected = $derived(context_table.derived.data.values.includes(id));
 	const is_header = $derived(false);
@@ -63,6 +70,7 @@
 </script>
 
 <tr
+	bind:this={element}
 	class={classnames(
 		'fui-table-row',
 		size,

@@ -9,7 +9,11 @@ type AccordionItem<T = any> = {
 
 export type AccordionContext<T = any> = {
 	id: string;
-	readonly state: {};
+	readonly state: {
+		elements: {
+			root?: HTMLElement;
+		};
+	};
 	readonly derived: {
 		data: {
 			value?: string;

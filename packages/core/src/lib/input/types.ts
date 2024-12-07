@@ -16,6 +16,7 @@ export type InputRootProps = {
 	id?: string;
 	appearance?: 'outline' | 'underline' | 'filled-darker' | 'filled-lighter';
 	as?: 'div' | 'button' | 'label';
+	element?: HTMLElement
 	children?: Snippet<
 		[
 			{
@@ -51,6 +52,8 @@ export type InputElementProps = {
 	underline?: boolean;
 
 	invalid?: boolean;
+
+	element?: HTMLInputElement
 
 	before?: Snippet<[]>;
 	after?: Snippet<[]>;

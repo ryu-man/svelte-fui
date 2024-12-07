@@ -5,4 +5,5 @@ export type SliderProps = {
 	step?: number;
 	vertical?: boolean;
 	disabled?: boolean;
+	element?: HTMLElement
 };

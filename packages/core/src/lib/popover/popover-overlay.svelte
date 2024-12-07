@@ -11,15 +11,15 @@
 	const context_popover = getPopoverContext();
 
 	const open = $derived(context_popover.derived.data.open);
+	const placements = $derived(context_popover.derived.data.placements);
+	const alignment = $derived(context_popover.derived.data.alignment);
+	const offset = $derived(context_popover.derived.data.offset);
 
 	const element_overlay = $derived(context_root?.derived?.elements?.layouts?.['overlay']?.element);
 	const element_trigger = $derived(context_popover?.derived?.elements?.trigger);
 
 	let {
 		class: klass = '',
-		placements,
-		alignment,
-		offset = 8,
 		children,
 		onmount = (node, params) => ({}),
 		onclickoutside,
@@ -42,7 +42,11 @@
 
 {#if element_overlay && element_trigger}
 	<div
-		class={classnames('fui-popover pointer-events-auto h-min w-min', klass)}
+		class={classnames(
+			'fui-popover-overlay pointer-events-auto h-min w-min',
+			klass,
+			!open && 'pointer-events-none'
+		)}
 		data-dx={dx}
 		data-dy={dy}
 		use:popover={{
@@ -70,7 +74,7 @@
 {/if}
 
 <style lang="postcss">
-	.fui-popover {
+	.fui-popover-overlay {
 		@apply absolute left-0 top-0;
 	}
 </style>

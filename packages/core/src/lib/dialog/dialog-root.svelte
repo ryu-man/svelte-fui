@@ -7,6 +7,7 @@
 	import type { DialogRootProps } from './types';
 	import { dialogNamespace, setDialogContext, type DialogContext } from './context';
 	import { fid } from '../internal/utils';
+	import { mount } from '../actions/dom';
 
 	const context_root = getFluentRootContext();
 	const element_overlay = $derived(context_root?.derived?.elements?.layouts?.['overlay']?.element);
@@ -19,6 +20,7 @@
 		class: klass = '',
 		type = 'modal',
 		open = $bindable(false),
+		element = $bindable(undefined),
 		onchange,
 		onbackdropclick,
 		children,
@@ -109,8 +111,11 @@
 	{#if open}
 		<!-- svelte-ignore a11y_no_static_element_interactions -->
 		<div
-			bind:this={context_state.elements.root}
 			class="fui-dialog pointer-events-auto h-full w-full"
+			use:mount={(node) => {
+				context_state.elements.root = node;
+				element = node;
+			}}
 			use:portal={{ target: element_overlay }}
 			onclick={onclick_dismiss_dialog}
 			onkeyup={() => {}}

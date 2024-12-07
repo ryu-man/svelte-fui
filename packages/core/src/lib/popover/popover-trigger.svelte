@@ -30,15 +30,29 @@
 	}
 </script>
 
-<!-- svelte-ignore a11y_no_static_element_interactions -->
-<svelte:element
-	this={as}
-	class={classnames('popover-trigger', klass)}
-	bind:this={context.state.elements.trigger}
-	bind:clientWidth
-	onclick={onclick_}
-	data-open={open}
-	data-owner-id={context.id}
->
-	{@render children?.({ context })}
-</svelte:element>
+{#if typeof as === 'string'}
+	<!-- svelte-ignore a11y_no_static_element_interactions -->
+	<svelte:element
+		this={as}
+		bind:this={context.state.elements.trigger}
+		bind:clientWidth
+		class={classnames('popover-trigger', klass)}
+		onclick={onclick_}
+		data-open={open}
+		data-owner-id={context.id}
+	>
+		{@render children?.({ context })}
+	</svelte:element>
+{:else}
+	{@const Component = as}
+
+	<Component
+		bind:element={context.state.elements.trigger}
+		class={classnames('popover-trigger', klass)}
+		onclick={onclick_}
+		data-open={open}
+		data-owner-id={context.id}
+	>
+		{@render children?.({ context })}
+	</Component>
+{/if}

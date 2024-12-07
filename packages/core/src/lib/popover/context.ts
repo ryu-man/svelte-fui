@@ -1,3 +1,4 @@
+import type { Alignment, Placement } from '@floating-ui/dom';
 import { getFluentContext, setFluentContext, type FluentContext } from '../internal/context';
 
 export const FUI_POPOVER_CONTEXT_ID = 'popover';
@@ -14,6 +15,9 @@ export type PopoverContext = FluentContext & {
 	readonly derived: {
 		data: {
 			open: boolean;
+			placements?: Placement[];
+			alignment?: Alignment;
+			offset?: number;
 		};
 		elements: {
 			overlay?: HTMLElement;

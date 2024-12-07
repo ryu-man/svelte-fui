@@ -10,6 +10,7 @@
 		step = 1,
 		value = 0,
 		vertical = false,
+		element = $bindable(undefined),
 		...restProps
 	}: HTMLAttributes<HTMLElement> & SliderProps = $props();
 
@@ -19,6 +20,7 @@
 </script>
 
 <div
+	bind:this={element}
 	class={classnames('fui-slider', orientation, { disabled })}
 	{...restProps}
 	style:--direction={vertical ? '0deg' : '90deg'}

@@ -6,11 +6,12 @@
 		class: klass = '',
 		src = undefined,
 		alt = undefined,
+		element = $bindable(undefined),
 		children
 	}: CardPreviewProps = $props();
 </script>
 
-<div class={classnames('fui-card-preview', klass)}>
+<div bind:this={element} class={classnames('fui-card-preview', klass)}>
 	<img {src} {alt} />
 	{@render children?.()}
 </div>

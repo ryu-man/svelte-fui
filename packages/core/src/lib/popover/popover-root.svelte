@@ -3,7 +3,15 @@
 	import type { PopoverRootProps } from './types';
 	import { nanoid } from 'nanoid';
 
-	let { id, context, open = $bindable(false), children }: PopoverRootProps = $props();
+	let {
+		id,
+		context,
+		open = $bindable(false),
+		alignment = 'start',
+		offset = 8,
+		placements = ['bottom', 'top'],
+		children
+	}: PopoverRootProps = $props();
 
 	const context_parent = getPopoverContext();
 
@@ -19,7 +27,10 @@
 
 		const context_derived: PopoverContext['derived'] = $derived({
 			data: {
-				open
+				open,
+				alignment,
+				offset,
+				placements
 			},
 			elements: {
 				overlay: context_state.elements.overlay,

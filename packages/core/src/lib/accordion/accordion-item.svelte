@@ -9,6 +9,7 @@
 		value = crypto.randomUUID(),
 		data = undefined,
 		disabled = false,
+		element = $bindable(undefined),
 		children
 	}: AccordionItemRootProps<T> = $props();
 
@@ -54,7 +55,7 @@
 	});
 </script>
 
-<div class={classnames('fui-accordion-item', klass)}>
+<div bind:this={element} class={classnames('fui-accordion-item', klass)}>
 	{#if children}
 		{@render children({
 			context: {

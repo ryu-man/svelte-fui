@@ -18,6 +18,7 @@ export type RadioGroupProps = {
 	layout?: RadioGroupLayout;
 	disabled?: boolean;
 	required?: boolean;
+	element?: HTMLElement
 	children?: Snippet<
 		[
 			{

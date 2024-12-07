@@ -28,6 +28,7 @@
 		interactive = false,
 		alternative = false,
 		selected = false,
+		element = $bindable(undefined),
 		children
 	} = $props();
 
@@ -35,6 +36,7 @@
 </script>
 
 <div
+	bind:this={element}
 	class={classnames(
 		'fui-card',
 		{ interactive, alternative, selected },

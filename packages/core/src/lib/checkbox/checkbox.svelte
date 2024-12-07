@@ -10,6 +10,7 @@
 	let {
 		class: klass = '',
 		checked = $bindable(false),
+		element = $bindable(undefined),
 		indeterminate = false,
 		disabled = false,
 		circular = false,
@@ -28,6 +29,7 @@
 </script>
 
 <button
+	bind:this={element}
 	class={classnames(
 		'fui-checkbox inline-flex relative cursor-pointer align-middle',
 		{ disabled },

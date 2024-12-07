@@ -1,11 +1,12 @@
 <script lang="ts">
 	import { nanoid } from 'nanoid';
-	import { classnames } from '../internal';
-	import { getPopoverContext, Popover } from '../popover';
 	import type { TooltipOverlayProps } from './types';
+	import { classnames } from '../internal';
+	import { Popover } from '../popover';
 	import { animate } from '../actions/animation';
+	import { getTooltipContext } from './context';
 
-	const context_popover = getPopoverContext();
+	const context_tooltip = getTooltipContext();
 
 	let {
 		class: klass = '',
@@ -15,7 +16,7 @@
 		children
 	}: TooltipOverlayProps = $props();
 
-	const open = $derived(context_popover.derived.data.open);
+	const open = $derived(context_tooltip.derived.data.open);
 </script>
 
 <Popover.Overlay
@@ -26,7 +27,7 @@
 	{#snippet children({ dy })}
 		<div
 			class={classnames(
-				'fui-tooltip-body w-auto font-base text-base-200 leading-base-200 pointer-events-none box-border cursor-default whitespace-nowrap rounded-md',
+				'fui-tooltip-content w-auto font-base text-base-200 leading-base-200 pointer-events-none box-border cursor-default whitespace-nowrap rounded-md',
 				{
 					inverted: appearance === 'inverted'
 				},
@@ -39,13 +40,13 @@
 				duration: 0.2
 			}}
 		>
-			{@render children?.({ context: context_popover })}
+			{@render children?.({ context: context_tooltip })}
 		</div>
 	{/snippet}
 </Popover.Overlay>
 
 <style lang="postcss">
-	:global(.fui-tooltip-body) {
+	:global(.fui-tooltip-content) {
 		border: 1px solid var(--fui-colorTransparentStroke);
 		background-color: var(--fui-colorNeutralBackground1);
 		color: var(--fui-colorNeutralForeground1);
