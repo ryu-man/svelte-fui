@@ -1,36 +1,85 @@
 <script lang="ts">
-	import { createEventDispatcher, onMount, tick } from 'svelte';
+	import { tick } from 'svelte';
 	import { getBackdropContext, getFluentRootContext } from '@svelte-fui/core';
 	import { portal } from '@svelte-fui/core/actions/portal';
 	import { classnames } from '@svelte-fui/core/internal';
 	import { nanoid } from 'nanoid';
-	import type { DialogProps } from './types';
+	import type { DialogRootProps } from './types';
+	import { dialogNamespace, setDialogContext, type DialogContext } from './context';
+	import { fid } from '../internal/utils';
+	import { mount } from '../actions/dom';
 
-	type $$Props = DialogProps;
+	const context_root = getFluentRootContext();
+	const element_overlay = $derived(context_root?.derived?.elements?.layouts?.['overlay']?.element);
 
-	const dispatch = createEventDispatcher();
-
-	const { layouts } = getFluentRootContext();
 	const backdrop_context = getBackdropContext();
 
 	const backdrop_id = nanoid(8);
 
-	export let open: $$Props['open'] = false;
-	export let type: $$Props['type'] = 'modal';
-	let klass: $$Props['class'] = '';
-	export { klass as class };
+	let {
+		class: klass = '',
+		type = 'modal',
+		open = $bindable(false),
+		element = $bindable(undefined),
+		onchange,
+		onbackdropclick,
+		children,
+		...restProps
+	}: DialogRootProps = $props();
 
-	$: dispatch('change', open);
+	const context_state: DialogContext['state'] = $state({
+		data: {},
+		elements: {}
+	});
 
-	$: is_modal = type === 'modal';
+	const context_derived: DialogContext['derived'] = $derived({
+		data: {
+			open,
+			type
+		},
+		elements: {
+			root: context_state.elements.root,
+			header: context_state.elements.header,
+			body: context_state.elements.body,
+			footer: context_state.elements.footer
+		}
+	});
 
-	$: if (is_modal && open) {
-		tick().then(() => backdrop_context.openBackdrop(backdrop_id));
-	} else {
-		backdrop_context.closeBackdrop(backdrop_id);
-	}
+	const context_dropdown = setDialogContext({
+		id: fid(dialogNamespace),
+		type: 'dialog',
+		get state() {
+			return context_state;
+		},
+		get derived() {
+			return context_derived;
+		},
+		methods: {
+			open: () => {
+				open = true;
+			},
+			close: () => {
+				open = false;
+			},
+			toggle: () => {
+				open = !open;
+			}
+		}
+	});
 
-	onMount(() => {
+	$effect(() => onchange?.({ open, type }));
+
+	const is_modal = $derived(type === 'modal');
+
+	$effect(() => {
+		if (is_modal && open) {
+			tick().then(() => backdrop_context.openBackdrop(backdrop_id));
+		} else {
+			backdrop_context.closeBackdrop(backdrop_id);
+		}
+	});
+
+	$effect(() => {
 		document.addEventListener('keyup', dismiss_dialog_on_escape);
 
 		return () => {
@@ -43,7 +92,8 @@
 			return;
 		}
 
-		dispatch('backdrop-click', { open, type });
+		// dispatch('backdrop-click', { open, type });
+		onbackdropclick?.({ open, type });
 
 		if (type === 'alert') return;
 
@@ -57,20 +107,25 @@
 	}
 </script>
 
-{#if $layouts['overlay'].element}
+{#if element_overlay}
 	{#if open}
+		<!-- svelte-ignore a11y_no_static_element_interactions -->
 		<div
 			class="fui-dialog pointer-events-auto h-full w-full"
-			use:portal={{ target: $layouts['overlay'].element }}
-			on:click={onclick_dismiss_dialog}
-			on:keyup={() => {}}
+			use:mount={(node) => {
+				context_state.elements.root = node;
+				element = node;
+			}}
+			use:portal={{ target: element_overlay }}
+			onclick={onclick_dismiss_dialog}
+			onkeyup={() => {}}
 		>
 			<div
 				class={classnames(
 					'fui-dialog-surface bg-neutral-background-1 text-neutral-foreground-1 border-transparent-stroke border-thin shadow-64 m-auto box-border gap-2 rounded-xl',
 					klass
 				)}
-				{...$$restProps}
+				{...restProps}
 				tabindex="-1"
 				aria-modal="true"
 				role="dialog"
@@ -84,7 +139,7 @@
 					 style="position: fixed; height: 1px; width: 1px; opacity: 0.001; z-index: -1; content-visibility: hidden; top: 0px; left: 0px;"
 				 /> -->
 
-				<slot />
+				{@render children?.({ context: context_dropdown })}
 
 				<!-- <i
 					 tabindex="0"

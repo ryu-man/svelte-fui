@@ -1,10 +1,10 @@
-<script context="module" lang="ts">
+<script module lang="ts">
 	import { onMount } from 'svelte';
 	import { FluentRoot } from '@svelte-fui/core';
 	import { webDarkTheme, webLightTheme } from '@svelte-fui/themes';
-	import { Story } from '@storybook/addon-svelte-csf';
+	import { defineMeta } from '@storybook/addon-svelte-csf';
 	import type { ArgTypes } from '@storybook/svelte';
-	import Link from './Link.svelte';
+	import LinkFui from './Link.svelte';
 
 	const default_args = {
 		appearance: 'default',
@@ -40,12 +40,11 @@
 		}
 	} satisfies ArgTypes;
 
-	export const meta = {
+	const { Story } = defineMeta({
 		title: 'Components/Link',
-		component: Link,
-		argTypes: arg_types,
-		tags: ['!autodocs']
-	};
+		component: LinkFui,
+		argTypes: arg_types
+	});
 </script>
 
 <script lang="ts">
@@ -68,10 +67,12 @@
 	});
 </script>
 
-<Story id="link" name="Link" args={default_args} let:args>
-	<FluentRoot {theme}>
-		<div class="flex h-full w-full flex-col items-center justify-center gap-4">
-			<p>Hello World ! <Link {...args}>Svelte is more than a Framework !</Link></p>
-		</div>
-	</FluentRoot>
+<Story id="link" name="Link" args={default_args}>
+	{#snippet children(args)}
+		<FluentRoot {theme}>
+			<div class="flex h-full w-full flex-col items-center justify-center gap-4">
+				<p>Hello World ! <LinkFui {...args}>Svelte is more than a Framework !</LinkFui></p>
+			</div>
+		</FluentRoot>
+	{/snippet}
 </Story>

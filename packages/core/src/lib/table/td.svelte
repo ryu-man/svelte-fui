@@ -1,15 +1,26 @@
 <script lang="ts">
 	import { classnames } from '../internal';
+	import { getTableContext } from './context';
 
-	export let truncate = false;
-	export let primary = false;
-	let klass = '';
-	export { klass as class };
+	const context_table = getTableContext();
+
+	// export let truncate = false;
+	// export let primary = false;
+	// let klass = '';
+	// export { klass as class };
+
+	let {
+		class: klass = '',
+		primary = false,
+		truncate = false,
+		element = $bindable(undefined),
+		children
+	} = $props();
 </script>
 
-<td class={classnames('fui-table-cell', { truncate, primary })}>
+<td bind:this={element} class={classnames('fui-table-cell', { truncate, primary })}>
 	<div class={klass}>
-		<slot />
+		{@render children?.({ context: context_table })}
 	</div>
 </td>
 

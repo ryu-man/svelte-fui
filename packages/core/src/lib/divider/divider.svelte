@@ -1,29 +1,36 @@
 <script lang="ts">
+	import type { HTMLAttributes } from 'svelte/elements';
 	import { classnames } from '@svelte-fui/core/internal';
 	import type { DividerProps } from './types';
 
-	type $$Props = DividerProps;
+	let {
+		class: klass = '',
+		appearance = 'default',
+		vertical = false,
+		inset = false,
+		alignContent = 'center',
+		id = undefined,
+		children
+	}: HTMLAttributes<HTMLButtonElement> & DividerProps = $props();
 
-	export let appearance: $$Props['appearance'] = 'default';
-	export let vertical: $$Props['vertical'] = false;
-	export let inset: $$Props['inset'] = false;
-	export let alignContent: $$Props['alignContent'] = 'center';
-
-	export let id: $$Props['id'] = undefined;
-	let klass: $$Props['class'] = '';
-	export { klass as class };
-
-	$: childless = !$$slots.default;
+	const childless = $derived(!children);
 </script>
 
 <div
 	role="separator"
 	aria-orientation="horizontal"
 	aria-labelledby={id}
-	class={classnames('fui-divider', 'flex flex-grow items-center text-center', appearance, alignContent, { vertical, inset, childless }, klass)}
+	class={classnames(
+		'fui-divider',
+		'flex flex-grow items-center text-center',
+		appearance,
+		alignContent,
+		{ vertical, inset, childless },
+		klass
+	)}
 >
 	<div {id} class="fui-divider-wrapper">
-		<slot />
+		{@render children?.()}
 	</div>
 </div>
 

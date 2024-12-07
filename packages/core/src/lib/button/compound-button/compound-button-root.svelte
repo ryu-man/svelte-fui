@@ -1,29 +1,23 @@
 <script lang="ts">
 	import { classnames } from '@svelte-fui/core/internal';
 	import Button from '../button.svelte';
-	import type { ButtonProps } from '../types';
-
-	type $$Props = ButtonProps;
-
-	export let shape: $$Props['shape'] = 'rounded';
-	export let appearance: $$Props['appearance'] = 'secondary';
-	export let size: $$Props['size'] = 'md';
+	import type { CompoundButtonRoot } from './types';
 
 	/** @restProps {button | a} */
 	/** Specifies the visual styling of the button. */
 	// export let variant: 'standard' | 'accent' | 'hyperlink' = 'standard';
 
-	/** Sets an href value and converts the button element into an anchor/ */
-	export let href: $$Props['href'] = '';
-
-	/** Controls whether the button is intended for user interaction; and styles it accordingly. */
-	export let disabled: $$Props['disabled'] = false;
-
-	export let icon: $$Props['icon'] = false;
-
-	/** Specifies a custom class name for the button. */
-	let klass: $$Props['class'] = '';
-	export { klass as class };
+	let {
+		class: klass = '',
+		icon = false,
+		disabled = false,
+		href = undefined,
+		size = 'md',
+		appearance = 'secondary',
+		shape = 'rounded',
+		children,
+		...restProps
+	}: CompoundButtonRoot = $props();
 </script>
 
 <Button
@@ -39,19 +33,23 @@
 	{href}
 	{disabled}
 	{icon}
-	on:click
-	on:dblclick
+	{...restProps}
 >
-	<div class={classnames('fui-compound-button-inner', 'gap-3', icon && 'gap-0')}>
-		<slot />
-	</div>
+	{#snippet children(args)}
+		<div class={classnames('fui-compound-button-inner', 'gap-3', icon && 'gap-0')}>
+			{@render children?.(args)}
+		</div>
+	{/snippet}
 </Button>
 
 <style lang="postcss">
 	.fui-compound-button-inner {
-		@apply grid;
+		@apply grid justify-items-start;
 
 		grid-template-columns: auto 1fr;
+		grid-template-rows: auto auto;
+
+		grid-template-areas: 'icon header' 'icon body';
 
 		--fui-compound-body-secondary-color: theme('colors.neutral-foreground-2');
 

@@ -1,24 +1,23 @@
-<script context="module" lang="ts">
+<script module lang="ts">
 	import { onMount } from 'svelte';
-	import { Checkbox, FluentRoot } from '@svelte-fui/core';
+	import { Checkbox as CheckboxFui, FluentRoot } from '@svelte-fui/core';
 	import { webDarkTheme, webLightTheme } from '@svelte-fui/themes';
-	import { Story } from '@storybook/addon-svelte-csf';
+	import { defineMeta } from '@storybook/addon-svelte-csf';
 	import type { ArgTypes } from '@storybook/svelte';
 
 	const arg_types = {} satisfies ArgTypes;
 
 	const default_args: Partial<Record<keyof typeof arg_types, any>> = {};
 
-	export const meta = {
+	const { Story } = defineMeta({
 		title: 'Components/Checkbox',
-		component: Checkbox,
-		argTypes: arg_types,
-		tags: ['!autodocs']
-	};
+		component: CheckboxFui,
+		argTypes: arg_types
+	});
 </script>
 
 <script lang="ts">
-	let theme = webLightTheme;
+	let theme = $state(webLightTheme);
 
 	onMount(() => {
 		function handler(e: MediaQueryListEvent) {
@@ -37,14 +36,16 @@
 	});
 </script>
 
-<Story id="input" name="Checkbox" args={default_args} let:args>
-	<FluentRoot {theme}>
-		<div class="flex h-full w-full flex-col items-center justify-center">
-			<Checkbox {...args} />
-			<label>
-				<Checkbox {...args} />
-				Hello World!
-			</label>
-		</div>
-	</FluentRoot>
+<Story id="fui_checkbox" name="Checkbox" args={default_args}>
+	{#snippet children(args)}
+		<FluentRoot {theme}>
+			<div class="flex h-full w-full flex-col items-center justify-center">
+				<CheckboxFui {...args} />
+				<label>
+					<CheckboxFui {...args} />
+					Hello World!
+				</label>
+			</div>
+		</FluentRoot>
+	{/snippet}
 </Story>

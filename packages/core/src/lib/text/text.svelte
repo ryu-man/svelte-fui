@@ -1,22 +1,35 @@
 <script lang="ts">
 	import { classnames } from '../internal';
+	import type { TextProps } from './types';
 
-	export let as: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'p' | 'pre' | 'span' = 'span';
-	export let align: 'center' | 'start' | 'justify' | 'end' = 'start';
-	export let block = false;
-	export let font: 'base' | 'numeric' | 'monospace' = 'base';
-	export let italic = false;
-	export let size: '100' | '200' | '300' | '400' | '500' | '600' | '700' | '800' | '900' | '1000' = '300';
-	export let strikethrough = false;
-	export let truncate = false;
-	export let weight: 'meduim' | 'regular' | 'semibold' | 'bold' = 'regular';
-	export let wrap = false;
-	let klass = '';
-	export { klass as class };
+	let {
+		class: klass = '',
+		as = 'span',
+		align = 'start',
+		block = false,
+		font = 'base',
+		italic = false,
+		size = '300',
+		strikethrough = false,
+		truncate = false,
+		weight = 'regular',
+		wrap = false,
+		element = $bindable(undefined),
+		children
+	}: TextProps = $props();
 </script>
 
-<svelte:element this={as} class={classnames('fui-text', { size, align, block, italic, strikethrough, truncate, weight, wrap }, font, klass)}>
-	<slot />
+<svelte:element
+	this={as}
+	bind:this={element}
+	class={classnames(
+		'fui-text',
+		{ size, align, block, italic, strikethrough, truncate, weight, wrap },
+		font,
+		klass
+	)}
+>
+	{@render children?.()}
 </svelte:element>
 
 <style lang="postcss">

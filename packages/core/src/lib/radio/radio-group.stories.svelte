@@ -1,10 +1,10 @@
-<script context="module" lang="ts">
+<script module lang="ts">
 	import { onMount } from 'svelte';
 	import { FluentRoot } from '@svelte-fui/core';
 	import { webDarkTheme, webLightTheme } from '@svelte-fui/themes';
-	import { Story } from '@storybook/addon-svelte-csf';
+	import { defineMeta } from '@storybook/addon-svelte-csf';
 	import type { ArgTypes } from '@storybook/svelte';
-	import RadioGroup from './radio-group.svelte';
+	import RadioGroupFui from './radio-group.svelte';
 	import Radio from './radio.svelte';
 
 	const default_args = {
@@ -39,16 +39,15 @@
 		}
 	} satisfies ArgTypes;
 
-	export const meta = {
+	const { Story } = defineMeta({
 		title: 'Components/Radio',
-		component: RadioGroup,
-		argTypes: arg_types,
-		tags: ['!autodocs']
-	};
+		component: RadioGroupFui,
+		argTypes: arg_types
+	});
 </script>
 
 <script lang="ts">
-	let theme = webLightTheme;
+	let theme = $state(webLightTheme);
 
 	onMount(() => {
 		function handler(e: MediaQueryListEvent) {
@@ -67,15 +66,32 @@
 	});
 </script>
 
-<Story id="fui_radio_group" name="RadioGroup" args={default_args} let:args>
-	<FluentRoot {theme}>
-		<div class="flex h-full w-full items-center justify-center">
-			<RadioGroup {...args} name="fav_fruit">
-				<Radio value="apple" on:change={(e) => console.log(e)}>Apple</Radio>
-				<Radio value="orange" on:change={(e) => console.log(e)}>Orange</Radio>
-				<Radio value="banana" on:change={(e) => console.log(e)}>Banana</Radio>
-				<Radio value="pear" on:change={(e) => console.log(e)}>Pear</Radio>
-			</RadioGroup>
-		</div>
-	</FluentRoot>
+<Story id="fui_radio_group" name="RadioGroup" args={default_args}>
+	{#snippet children(args)}
+		<FluentRoot {theme}>
+			<div class="flex h-full w-full items-center justify-center">
+				<RadioGroupFui {...args} name="fav_fruit">
+					<label class="flex items-center">
+						<Radio value="apple" onchange={(e) => console.log(e)}></Radio>
+						<div>Apple</div>
+					</label>
+
+					<label class="flex items-center">
+						<Radio value="orange" onchange={(e) => console.log(e)}>Orange</Radio>
+						<div>Orange</div>
+					</label>
+
+					<label class="flex items-center">
+						<Radio value="banana" onchange={(e) => console.log(e)}>Banana</Radio>
+						<div>Banana</div>
+					</label>
+
+					<label class="flex items-center">
+						<Radio value="pear" onchange={(e) => console.log(e)}></Radio>
+						<div>Pear</div>
+					</label>
+				</RadioGroupFui>
+			</div>
+		</FluentRoot>
+	{/snippet}
 </Story>

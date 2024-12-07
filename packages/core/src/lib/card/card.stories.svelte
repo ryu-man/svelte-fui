@@ -2,10 +2,7 @@
 	import { onMount } from 'svelte';
 	import {
 		Button,
-		Card,
-		CardFooter,
-		CardHeader,
-		CardPreview,
+		Card as CardFui,
 		FluentRoot,
 		Icon
 	} from '@svelte-fui/core';
@@ -13,7 +10,7 @@
 	import ShareRegular from 'virtual:icons/fluent/share-24-regular';
 
 	import { webDarkTheme, webLightTheme } from '@svelte-fui/themes';
-	import { Story } from '@storybook/addon-svelte-csf';
+	import { defineMeta } from '@storybook/addon-svelte-csf';
 	import type { ArgTypes } from '@storybook/svelte';
 
 	const default_args = {
@@ -66,16 +63,15 @@
 		}
 	} satisfies ArgTypes;
 
-	export const meta = {
+	const { Story } = defineMeta({
 		title: 'Components/Card',
-		component: Card,
-		argTypes: arg_types,
-		tags: ['!autodocs']
-	};
+		component: CardFui.Root,
+		argTypes: arg_types
+	});
 </script>
 
 <script lang="ts">
-	let theme = webLightTheme;
+	let theme = $state(webLightTheme);
 
 	onMount(() => {
 		function handler(e: MediaQueryListEvent) {
@@ -94,83 +90,52 @@
 	});
 </script>
 
-<Story id="fui_card" name="Card" args={default_args} argTypes={arg_types} let:args>
-	<FluentRoot {theme}>
-		<div class="flex h-full w-full flex-col items-center justify-center gap-4">
-			<Card {...args} class="w-[720px] max-w-[100%]">
-				<CardHeader>
-					<img
-						class="image"
-						src="https://raw.githubusercontent.com/microsoft/fluentui/master/packages/react-components/react-card/stories/assets/avatar_elvia.svg"
-						alt="Elvia Atkins avatar picture"
-					/>
+<Story id="fui_card" name="Card" args={default_args} argTypes={arg_types}>
+	{#snippet children(args)}
+		<FluentRoot {theme}>
+			<div class="flex h-full w-full flex-col items-center justify-center gap-4">
+				<CardFui.Root {...args} class="w-[720px] max-w-[100%]">
+					<CardFui.Header>
+						<img
+							class="image"
+							src="https://raw.githubusercontent.com/microsoft/fluentui/master/packages/react-components/react-card/stories/assets/avatar_elvia.svg"
+							alt="Elvia Atkins avatar picture"
+						/>
 
-					<span class="header">
-						<span class="font-bold">Elvia Atkins</span>
-						<span class="caption-1">mentioned you</span>
-					</span>
+						<span class="header">
+							<span class="font-bold">Elvia Atkins</span>
+							<span class="caption-1">mentioned you</span>
+						</span>
 
-					<span class="description caption-1"> 5h ago · About us - Overview </span>
-				</CardHeader>
+						<span class="description caption-1"> 5h ago · About us - Overview </span>
+					</CardFui.Header>
 
-				<CardPreview
-					src="https://raw.githubusercontent.com/microsoft/fluentui/master/packages/react-components/react-card/stories/assets/doc_template.png"
-					alt="Preview of a Word document: About Us - Overview"
-				>
-					<img
-						class="logo"
-						src="https://raw.githubusercontent.com/microsoft/fluentui/master/packages/react-components/react-card/stories/assets/word_logo.svg"
-						alt="Microsoft Word document"
-					/>
-				</CardPreview>
-				<CardFooter>
-					<Button>
-						<Icon>
-							<ArrowReplyRegular />
-						</Icon>
-						Reply
-					</Button>
-					<Button>
-						<Icon>
-							<ShareRegular />
-						</Icon>
-						Share
-					</Button>
-				</CardFooter>
-			</Card>
-
-			<!-- <Card {...args} class="w-[400px]">
-				<CardPreview
-					src="https://raw.githubusercontent.com/microsoft/fluentui/master/packages/react-components/react-card/stories/assets/sales_template.png"
-					alt="Sales Presentation Preview"
-				/>
-
-				<CardHeader>
-					<img
-						class="image"
-						src="https://raw.githubusercontent.com/microsoft/fluentui/master/packages/react-components/react-card/stories/assets/powerpoint_logo.svg"
-						alt="Microsoft PowerPoint logo"
-					/>
-
-					<span class="header body-1"><b>App Name</b></span>
-
-					<span class="description caption-1">Developer</span>
-
-					<Icon class="action" src={MoreHorizontalFilled} />
-				</CardHeader>
-
-				<p class="body-1">Donut chocolate bar oat cake. Dragée tiramisu lollipop bear claw. Marshmallow pastry jujubes toffee sugar plum.</p>
-				<CardFooter>
-					<Button appearance="primary">
-						<Icon src={OpenRegular} />
-						Open
-					</Button>
-					<Button>
-						<Icon src={ShareRegular} />
-						Share
-					</Button>
-				</CardFooter>
-			</Card> -->
-		</div>
-	</FluentRoot>
+					<CardFui.Preview
+						src="https://raw.githubusercontent.com/microsoft/fluentui/master/packages/react-components/react-card/stories/assets/doc_template.png"
+						alt="Preview of a Word document: About Us - Overview"
+					>
+						<img
+							class="logo"
+							src="https://raw.githubusercontent.com/microsoft/fluentui/master/packages/react-components/react-card/stories/assets/word_logo.svg"
+							alt="Microsoft Word document"
+						/>
+					</CardFui.Preview>
+					<CardFui.Footer>
+						<Button>
+							<Icon>
+								<ArrowReplyRegular />
+							</Icon>
+							Reply
+						</Button>
+						<Button>
+							<Icon>
+								<ShareRegular />
+							</Icon>
+							Share
+						</Button>
+					</CardFui.Footer>
+				</CardFui.Root>
+			</div>
+		</FluentRoot>
+	{/snippet}
 </Story>

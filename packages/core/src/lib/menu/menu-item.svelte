@@ -1,97 +1,113 @@
 <script lang="ts">
-	import { onDestroy, onMount } from 'svelte';
-	import { type Writable, writable } from 'svelte/store';
 	import { classnames } from '@svelte-fui/core/internal';
-	import { setSharedContext } from '@svelte-fui/core/internal/context';
 	import { nanoid } from 'nanoid';
-	import { setMenuItemContext } from './context-item';
-	import { type MenuContext, getMenuContext } from './context-root';
+	import { type MenuContext, getMenuContext, setMenuContext } from './context-root';
 	import type { MenuItemProps } from './types';
+	import { setPopoverContext } from '../popover';
 
-	type $$Props = MenuItemProps;
+	const context_menu = getMenuContext();
 
-	const menu_context = getMenuContext();
+	let {
+		class: klass = '',
+		id = nanoid(),
+		as = 'button',
+		open = false,
+		href,
+		children,
+		onclick,
+		onpointerenter,
+		onpointerleave
+	}: MenuItemProps = $props();
 
-	export let id: $$Props['id'] = nanoid(8);
-	export let open: $$Props['open'] = false;
-
-	setMenuItemContext({
-		id: writable(id),
-		open: writable(open),
-		close
+	const context_state: MenuContext['state'] = $state({
+		data: {},
+		elements: {}
 	});
 
-	const open_sub_store = writable(open);
-	$: open_sub_store.set(open);
-	$: open = $open_sub_store;
+	const context_derived: MenuContext['derived'] = $derived({
+		data: {
+			open: (open && context_menu.derived.data.open) ?? false
+		},
+		elements: {
+			trigger: context_state.elements.trigger
+		}
+	});
 
-	setSharedContext<Partial<MenuContext>>({ open: open_sub_store, close }, 'menu-sub');
-
-	const menu_items_active = menu_context?.itemsActive as Writable<Set<string>>;
-
-	let klass: $$Props['class'] = '';
-	export { klass as class };
-
-	if (open) {
-		menu_items_active.update((coll) => {
-			coll.clear();
-			coll.add(id);
-			return coll;
-		});
-	}
-
-	onMount(() =>
-		menu_items_active.subscribe((coll) => {
-			if (coll.has(id)) {
-				return;
+	const context_sub_menu = setMenuContext({
+		id: nanoid(),
+		type: 'sub-menu',
+		parent: () => context_menu,
+		get state() {
+			return context_state;
+		},
+		get derived() {
+			return context_derived;
+		},
+		events: {
+			onchange: (params) => {}
+		},
+		methods: {
+			open() {
+				open = true;
+			},
+			close() {
+				open = false;
+			},
+			toggle() {
+				open = !open;
 			}
-
-			close();
-		})
-	);
-
-	onDestroy(() => {
-		open = false;
+		}
 	});
 
-	function close() {
-		open = false;
-	}
+	setPopoverContext(context_sub_menu);
 
-	function onclick() {
-		if (!menu_context) {
+	function onclick_(ev: Event) {
+		onclick?.(ev, { context: context_menu });
+
+		if (ev.defaultPrevented) {
 			return;
 		}
 
-		menu_context.close();
+		if (!context_menu) {
+			return;
+		}
+
+		context_menu.methods.close();
 	}
 
-	function onpointerenter() {
-		menu_items_active.update((coll) => {
-			coll.clear();
-			coll.add(id);
-			return coll;
-		});
-		open_sub_store.set(true);
+	function onpointerenter_(ev: PointerEvent) {
+		onpointerenter?.(ev, { context: context_menu });
+
+		if (ev.defaultPrevented) {
+			return;
+		}
+
+		open = true;
 	}
 
-	function onpointerleave() {
-		// open_sub_store.set(false);
+	function onpointerleave_(ev: PointerEvent) {
+		onpointerleave?.(ev, { context: context_menu });
+
+		if (ev.defaultPrevented) {
+			return;
+		}
 	}
 </script>
 
-<button
+<svelte:element
+	this={as}
+	bind:this={context_state.elements.trigger}
 	class={classnames(
 		'fui-menu-item before:bg-neutral-foreground-1 duration-fast before:ease-easy-ease-max flex w-full cursor-pointer flex-nowrap items-center gap-1 whitespace-nowrap px-4 py-1 text-left before:opacity-0 before:transition-opacity hover:before:opacity-5 active:before:opacity-10',
 		klass
 	)}
-	on:click={onclick}
-	on:pointerenter={onpointerenter}
-	on:pointerleave={onpointerleave}
-	on:click
+	role={as === 'a' ? 'link' : 'button'}
+	onclick={onclick_}
+	onpointerenter={onpointerenter_}
+	onpointerleave={onpointerleave_}
 >
-	<slot />
-</button>
+	{@render children?.({ context: context_menu })}
+</svelte:element>
 
 <style lang="postcss">
 	.fui-menu-item {

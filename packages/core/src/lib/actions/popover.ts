@@ -113,8 +113,6 @@ async function calculate_position(node: PopoverElement, params: CalculatePositio
 				crossAxis: true,
 				allowedPlacements: params.allowedPlacements,
 				alignment: params.alignment,
-				elementContext: 'floating',
-				rootBoundary: 'viewport'
 			})
 		]
 	});

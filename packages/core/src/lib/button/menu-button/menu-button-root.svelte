@@ -1,11 +1,11 @@
 <script lang="ts">
-	import { Dropdown } from '@svelte-fui/core/dropdown';
-	import { classnames } from '@svelte-fui/core/internal';
+	import { Menu } from '@svelte-fui/core/menu';
 
-	let klass = '';
-	export { klass as class };
+	let { open = false, children } = $props();
 </script>
 
-<Dropdown.Root class={classnames('menu-button-root', klass)}>
-	<slot />
-</Dropdown.Root>
+<Menu.Root bind:open>
+	{#snippet children(args)}
+		{@render children?.(args)}
+	{/snippet}
+</Menu.Root>

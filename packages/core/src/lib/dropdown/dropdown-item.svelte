@@ -1,72 +1,128 @@
-<script lang="ts">
-	import { createEventDispatcher, onMount } from 'svelte';
+<script lang="ts" generics="T">
 	import { classnames } from '@svelte-fui/core/internal';
-	import { type DropdownContext, getDropdownContext } from './context';
+	import { getDropdownContext } from './context-root';
+	import type { DropdownItemProps } from './types';
+	import { setDropdownItemContext, type DropdownItemContext } from './context-item';
+	import { nanoid } from 'nanoid';
 
-	type CustomEventDetail<T extends Event, R = any> = { event: T; context: DropdownContext<R> };
-	type DropddownItemEvents = {
-		click: CustomEventDetail<Event>;
-	};
-
-	const dispatch = createEventDispatcher<DropddownItemEvents>();
-
-	export let value: string;
-	export let disabled = false;
-	export let data: unknown | undefined = undefined;
-	let klass = '';
-	export { klass as class };
-
-	let element: HTMLButtonElement;
-
-	const dropdown_context = getDropdownContext();
-	if (!dropdown_context) {
+	const context_dropdown = getDropdownContext<T>();
+	if (!context_dropdown) {
 		throw new Error('Make sure to use Dropdown menu component within a Dropdown menu component');
 	}
 
-	const dropdown_value = dropdown_context.value;
-	const dropdown_text = dropdown_context.text;
-	const dropdown_data = dropdown_context.data;
+	const dropdown_values = $derived(context_dropdown.derived.data.values);
 
-	$: is_active = value && value === $dropdown_value;
+	let {
+		class: klass = '',
+		value,
+		data = undefined,
+		disabled = false,
+		children,
+		onclick
+	}: DropdownItemProps<T> = $props();
 
-	onMount(() => {
-		if (is_active) {
-			dropdown_text.set(element.innerText.trim());
-			dropdown_data.set(data);
+	let element: HTMLButtonElement | undefined = $state();
+
+	const is_active = $derived(dropdown_values.includes(value));
+
+	const context_derived: DropdownItemContext<T>['derived'] = $derived({
+		data: {
+			active: is_active,
+			data,
+			value
+		},
+		elements: {}
+	});
+
+	const context_item = setDropdownItemContext({
+		id: nanoid(),
+		type: 'dropdown-item',
+		get state() {
+			return {
+				data: {},
+				elements: {}
+			};
+		},
+		get derived() {
+			return context_derived;
+		},
+		methods: {
+			select() {
+				context_dropdown.methods.select([value]);
+			},
+			unselect() {
+				context_dropdown.methods.unselect([value]);
+			}
 		}
 	});
 
-	function onclick(ev: Event) {
-		const should_continue = dispatch('click', { event: ev, context: dropdown_context }, { cancelable: true });
+	$effect(() => {
+		return context_dropdown.methods.mount(value, {
+			data() {
+				return data;
+			},
+			innerText() {
+				return element?.innerText ?? '';
+			},
+			isDisabled() {
+				return disabled;
+			},
+			isSelected() {
+				return is_active;
+			},
+			value() {
+				return value;
+			}
+		});
+	});
 
-		if (should_continue) {
-			dropdown_value.set(value);
-			dropdown_text.set(element.innerText.trim());
-			dropdown_data.set(data);
+	function onclick_(ev: Event) {
+		// Call onclick event
+		onclick?.(ev, { context: context_dropdown });
 
-			dropdown_context?.onChange({
-				value,
-				data,
-				text: element.innerText
-			});
+		// If preventDefault() is called then do nothing and return
+		if (ev.defaultPrevented) {
+			return;
 		}
+
+		const is_selected = context_dropdown.methods.selected(value);
+
+		// Unselect all items if dropdown in not in multiple mode
+		if (!context_dropdown.derived.data.multiple) {
+			context_dropdown.methods.unselect(context_dropdown.derived.data.values);
+		}
+
+		if (is_selected) {
+			context_dropdown.methods.unselect([value]);
+		} else {
+			// Select current value
+			context_dropdown.methods.select([value]);
+		}
+
+		if (!context_dropdown.derived.data.multiple) {
+			// Close dropdown if dropdown is not in multiple choice mode
+			context_dropdown.methods.close();
+		}
+
+		// Trigger change event
+		context_dropdown.events.onchange({ context: context_dropdown, type: '', value, data });
 	}
 </script>
 
 <button
 	class={classnames(
-		'fui-dropdown-item text-neutral-foreground-1 first:rounded-t-inherit last:rounded-b-inherit before:bg-neutral-foreground-1 flex px-4 py-1.5 before:opacity-0 before:transition-opacity before:duration-100',
-		!disabled && 'cursor-pointer hover:before:opacity-5 active:before:opacity-10',
+		'fui-dropdown-item text-neutral-foreground-1 first:rounded-t-inherit last:rounded-b-inherit flex gap-2 px-4 py-1.5 before:transition-opacity before:duration-100 before:bg-brand-background before:opacity-0',
+		!disabled && 'cursor-pointer hover:before:opacity-20 active:before:opacity-25',
 		disabled && 'opacity-50',
-		is_active && 'before:bg-brand-background before:opacity-60 hover:before:opacity-70 active:before:opacity-80',
+		is_active && 'before:opacity-50 hover:before:opacity-55 active:before:opacity-60',
 		klass
 	)}
 	data-active={is_active}
 	{disabled}
 	bind:this={element}
-	on:click={onclick}
+	onclick={onclick_}
 >
-	<slot />
+	{@render children?.({ context: dropdown_context, value, data, active: is_active })}
 </button>
 
 <style lang="postcss">

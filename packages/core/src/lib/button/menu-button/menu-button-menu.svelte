@@ -1,11 +1,12 @@
 <script lang="ts">
-	import { Dropdown } from '@svelte-fui/core/dropdown';
 	import { classnames } from '@svelte-fui/core/internal';
+	import { Menu } from '@svelte-fui/core/menu';
 
-	let klass = '';
-	export { klass as class };
+	let { class: klass = '', children } = $props();
 </script>
 
-<Dropdown.Menu class={classnames('menu-button-menu', klass)}>
-	<slot />
-</Dropdown.Menu>
+<Menu.Overlay class={classnames('menu-button-menu', klass)}>
+	{#snippet children(args)}
+		{@render children?.(args)}
+	{/snippet}
+</Menu.Overlay>

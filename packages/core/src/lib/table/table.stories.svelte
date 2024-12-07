@@ -1,8 +1,8 @@
-<script context="module" lang="ts">
+<script module lang="ts">
 	import { onMount } from 'svelte';
 	import { FluentRoot, Icon } from '@svelte-fui/core';
 	import { webDarkTheme, webLightTheme } from '@svelte-fui/themes';
-	import { Story } from '@storybook/addon-svelte-csf';
+	import { defineMeta } from '@storybook/addon-svelte-csf';
 	import type { ArgTypes } from '@storybook/svelte';
 	import DocumentRegular from 'virtual:icons/fluent/document-24-regular';
 	import DocumentPdfRegular from 'virtual:icons/fluent/document-pdf-24-regular';
@@ -11,7 +11,7 @@
 	import OpenRegular from 'virtual:icons/fluent/open-24-regular';
 	import PeopleRegular from 'virtual:icons/fluent/people-24-regular';
 	import VideoRegular from 'virtual:icons/fluent/video-24-regular';
-	import Table from './table-root.svelte';
+	import TableFui from './table-root.svelte';
 	import TdSelection from './td-selection.svelte';
 	import Td from './td.svelte';
 	import Th from './th.svelte';
@@ -35,16 +35,15 @@
 		}
 	} satisfies ArgTypes;
 
-	export const meta = {
+	const { Story } = defineMeta({
 		title: 'Components/Table',
-		component: Table,
-		argTypes: arg_types,
-		tags: ['!autodocs']
-	};
+		component: TableFui,
+		argTypes: arg_types
+	});
 </script>
 
 <script lang="ts">
-	let theme = webLightTheme;
+	let theme = $state(webLightTheme);
 
 	const data = [
 		{
@@ -113,44 +112,46 @@
 		};
 	});
 
-	let selectedItems = [];
+	let selectedItems = $state([]);
 </script>
 
-<Story id="table" name="Table" args={default_args} let:args>
-	<FluentRoot {theme}>
-		<Table {...args} {data} bind:selectedItems let:data>
-			<thead>
-				<Tr header>
-					<TdSelection type="radio" />
-					<Th sortBy={(d) => d.file.desc}>File</Th>
-					<Th sortBy={(d) => d.author}>Author</Th>
-					<Th sortBy={(d) => d.last_updated}>Last updated</Th>
-					<Th sortBy={(d) => d.last_update}>Last update</Th>
-				</Tr>
-			</thead>
-			<tbody>
-				{#each data as item (JSON.stringify(item))}
-					<Tr appearance="none" data={item}>
+<Story id="table" name="Table" args={default_args}>
+	{#snippet children(args)}
+		<FluentRoot {theme}>
+			<TableFui {...args} {data}>
+				<thead>
+					<Tr header>
 						<TdSelection type="radio" />
-						<Td class="flex items-center gap-2">
-							<Icon>
-								<svelte:component this={item.file.icon} />
-							</Icon>
-
-							<span>{item.file.desc}</span>
-						</Td>
-						<Td>{item.author}</Td>
-						<Td>{item.last_updated}</Td>
-						<Td class="flex items-center gap-2">
-							<Icon>
-								<svelte:component this={item.file.icon} />
-							</Icon>
-
-							{item.last_update.desc}
-						</Td>
+						<Th sortBy={(d) => d.file.desc}>File</Th>
+						<Th sortBy={(d) => d.author}>Author</Th>
+						<Th sortBy={(d) => d.last_updated}>Last updated</Th>
+						<Th sortBy={(d) => d.last_update}>Last update</Th>
 					</Tr>
-				{/each}
-			</tbody>
-		</Table>
-	</FluentRoot>
+				</thead>
+				<tbody>
+					{#each data as item (JSON.stringify(item))}
+						<Tr appearance="none" data={item}>
+							<TdSelection type="radio" />
+							<Td class="flex items-center gap-2">
+								<Icon>
+									<svelte:component this={item.file.icon} />
+								</Icon>
+
+								<span>{item.file.desc}</span>
+							</Td>
+							<Td>{item.author}</Td>
+							<Td>{item.last_updated}</Td>
+							<Td class="flex items-center gap-2">
+								<Icon>
+									<svelte:component this={item.file.icon} />
+								</Icon>
+
+								{item.last_update.desc}
+							</Td>
+						</Tr>
+					{/each}
+				</tbody>
+			</TableFui>
+		</FluentRoot>
+	{/snippet}
 </Story>

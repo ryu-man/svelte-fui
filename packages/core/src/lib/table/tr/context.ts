@@ -1,21 +1,29 @@
-import { getContext, setContext } from 'svelte';
+import {
+	getFluentContext,
+	setFluentContext,
+	type FluentContext
+} from '@svelte-fui/core/internal/context';
 
-export const SVELTE_FUI_TABLE_ROW_CONTEXT_KEY = 'svelte-fui::table-row-context-key';
+export const tableRowSegments = ['table', 'tr'];
 
-export type TableContext = {
-	id: string | undefined;
-	header: boolean;
-};
-
-export function getTableRowContext(): TableContext {
-	return getContext(SVELTE_FUI_TABLE_ROW_CONTEXT_KEY);
-}
-
-export function setTableRowContext() {
-	const context: TableContext = {
-		id: undefined,
-		header: false
+export type TableRowContext<T> = FluentContext & {
+	readonly state: {
+		data: {};
 	};
 
-	return setContext(SVELTE_FUI_TABLE_ROW_CONTEXT_KEY, context);
+	readonly derived: {
+		data: {
+			id: string;
+			header: boolean;
+			data?: T;
+		};
+	};
+};
+
+export function getTableRowContext(): TableRowContext<T> {
+	return getFluentContext(...tableRowSegments);
+}
+
+export function setTableRowContext(context: TableRowContext<T>) {
+	return setFluentContext(context, ...tableRowSegments);
 }

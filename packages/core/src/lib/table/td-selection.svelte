@@ -7,61 +7,69 @@
 	import { classnames } from '../internal';
 	import { Radio } from '../radio';
 
-	const { size$, allRows$, selectedKeys$ } = getTableContext();
-	const rowContext = getTableRowContext();
+	const context_table = getTableContext();
+	const context_row = getTableRowContext();
 
-	const row$ = $allRows$.find((d) => d.id === rowContext.id) as RowStore;
+	// const row$ = $allRows$.find((d) => d.id === context_row.id) as RowStore;
 
-	let checked$: Readable<boolean>;
+	// let checked$: Readable<boolean>;
 
-	if (rowContext.header) {
-		checked$ = derived([allRows$, selectedKeys$], ([rows, selected]) => {
-			return selected.length > 0 && rows.length === selected.length;
-		});
-	} else {
-		checked$ = row$.selected$;
-	}
+	// if (context_row.header) {
+	// 	checked$ = derived([allRows$, selectedKeys$], ([rows, selected]) => {
+	// 		return selected.length > 0 && rows.length === selected.length;
+	// 	});
+	// } else {
+	// 	checked$ = row$.selected$;
+	// }
 
-	const element = rowContext.header ? 'th' : 'td';
+	const element = context_row.header ? 'th' : 'td';
 
 	// export let checked: boolean | 'mixed' = false;
-	export let type: 'checkbox' | 'radio' = 'checkbox';
-	export let subtle = false;
-	export let hidden = rowContext.header;
+	// export let type: 'checkbox' | 'radio' = 'checkbox';
+	// export let subtle = false;
+	// export let hidden = context_row.header;
+
+	let {
+		class: klass = '',
+		type = 'checkbox',
+		subtle = false,
+		header = false,
+		checked = $bindable(false)
+	} = $props();
 
 	function onchange_checkbox(ev: Event) {
 		const currentTarget = ev.currentTarget as HTMLInputElement;
-
-		console.log(currentTarget.checked);
-		if (rowContext.header) {
-			if (currentTarget.checked) {
-				$allRows$.forEach((d) => d.selected$.set(true));
-			} else {
-				$allRows$.forEach((d) => d.selected$.set(false));
-			}
-			return;
-		}
-
-		if (row$) {
-			row$.selected$.set(currentTarget.checked);
-		}
+		// console.log(currentTarget.checked);
+		// if (context_row.header) {
+		// 	if (currentTarget.checked) {
+		// 		$allRows$.forEach((d) => d.selected$.set(true));
+		// 	} else {
+		// 		$allRows$.forEach((d) => d.selected$.set(false));
+		// 	}
+		// 	return;
+		// }
+		// if (row$) {
+		// 	row$.selected$.set(currentTarget.checked);
+		// }
 	}
 
 	function onchange_radio(ev: Event) {
 		const currentTarget = ev.currentTarget as HTMLInputElement;
+		// $allRows$.forEach((d) => d.selected$.set(false));
+		// if (row$) {
+		// 	row$.selected$.set(currentTarget.checked);
+		// }
 
-		$allRows$.forEach((d) => d.selected$.set(false));
-		if (row$) {
-			row$.selected$.set(currentTarget.checked);
-		}
+		context_table.methods.unselect(context_table.derived.data.values);
+		context_table.methods.select([context_row.derived.data.id]);
 	}
 </script>
 
-<svelte:element this={element} class={classnames('fui-table-cell-selection', $size$, { subtle, hidden })}>
+<svelte:element this={element} class={classnames('fui-table-cell-selection', { subtle, header })}>
 	{#if type === 'checkbox'}
-		<Checkbox checked={$checked$} on:change={onchange_checkbox} />
+		<Checkbox bind:checked onchange={onchange_checkbox} />
 	{:else}
-		<Radio checked={$checked$} name="selected-row" on:change={onchange_radio} />
+		<Radio bind:checked name="selected-row" onchange={onchange_radio} />
 	{/if}
 </svelte:element>
 

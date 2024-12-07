@@ -1,89 +1,142 @@
 <script lang="ts" generics="T">
-	import { createEventDispatcher } from 'svelte';
-	import { writable } from 'svelte/store';
-	import { classnames } from '@svelte-fui/core/internal';
-	import { mergeContext, setSharedContext } from '@svelte-fui/core/internal/context';
-	import { fid } from '@svelte-fui/core/internal/utils';
-	import type { MenuContext } from '@svelte-fui/core/menu';
-	import { type ComboboxContext, getComboboxContext, setComboboxContext } from './context';
+	import type { ComboboxRootProps } from './types';
+	import DropdownRoot from '../dropdown/dropdown-root.svelte';
+	import {
+		comboboxNamespace,
+		getComboboxContext,
+		setComboboxContext,
+		type ComboboxContext
+	} from './context';
+	import { fid } from '../internal/utils';
+	import type { ContextDropdownItem } from '../dropdown/context-root';
+	import { SvelteMap } from 'svelte/reactivity';
 
-	export let id: string | undefined = undefined;
-	export let disabled = false;
-	export let value: any = '';
-	export let data: T | undefined = undefined;
-	export let text = '';
-	export let open = false;
-	export let name: string | undefined = undefined;
+	let {
+		disabled = false,
+		multiple = false,
+		value = $bindable(undefined),
+		values = $bindable([]),
+		open = $bindable(false),
+		data = $bindable([]),
+		context,
+		children
+	}: ComboboxRootProps<T> = $props();
 
-	let klass = '';
-	export { klass as class };
+	let items: Map<string, ContextDropdownItem<T>> = new SvelteMap([]);
 
-	const dispatch = createEventDispatcher();
+	const context_state: ComboboxContext<T>['state'] = $state({
+		data: {
+			input: {
+				value: ''
+			}
+		},
+		elements: {}
+	});
 
-	let element: HTMLDivElement;
+	const context_derived: ComboboxContext<T>['derived'] = $derived({
+		data: {
+			value,
+			values: values ?? [],
+			open: open ?? false,
+			multiple: multiple,
+			disabled: disabled ?? false,
+			data,
+			items: {
+				all: items,
+				active: values.map((d) => items.get(d)).filter(Boolean) as ContextDropdownItem<T>[]
+			}
+		},
+		elements: {
+			root: context_state.elements.root,
+			overlay: context_state.elements.overlay,
+			indicator: context_state.elements.indicator,
+			trigger: context_state.elements.trigger
+		}
+	});
 
-	const context = setComboboxContext<T>(
-		mergeContext<ComboboxContext<T>>(
-			{
-				id: writable(id ?? fid('combobox')),
-				open: writable(open),
-				value: writable(value),
-				data: writable<T>(data),
-				text: writable(''),
-				triggerElement: writable(),
-				openMenu() {
-					open_store.set(true);
-				},
-				closeMenu() {
-					open_store.set(false);
-				},
-				onChange(props) {
-					const should_continue = dispatch('change', props);
+	const context_parent = getComboboxContext();
 
-					if (should_continue) {
-						context.closeMenu();
-					}
-				}
+	const context_combobox = setComboboxContext<T>({
+		id: fid(comboboxNamespace),
+		type: 'combobox',
+
+		parent: <R,>() => context_parent as ComboboxContext<R>,
+		get derived() {
+			return context_derived;
+		},
+		get state() {
+			return context_state;
+		},
+		events: {
+			onchange: () => {}
+		},
+		methods: {
+			open() {
+				open = true;
 			},
-			getComboboxContext()
-		)
-	);
+			close() {
+				open = false;
+			},
+			toggle() {
+				open = !open;
+			},
+			mount(id, item) {
+				items.set(id, item);
 
-	setSharedContext<Partial<MenuContext>>({ triggerElement: context.triggerElement, open: context.open }, 'menu');
+				return () => this.unmount(id);
+			},
+			unmount(id) {
+				items.delete(id);
+			},
+			select(vals) {
+				const sequence = new Set(values);
 
-	const id_store = context.id;
+				for (const value of vals) {
+					sequence.add(value);
+				}
 
-	context.value.set(value);
+				values = [...sequence];
+				value = values[0];
 
-	$: value = $value_store;
+				data = values
+					.map((d) => context_combobox.derived.data.items.all.get(d)?.data)
+					.filter(Boolean) as T[];
 
-	const open_store = context.open;
-	$: open_store.set(!!open);
-	$: open = $open_store;
+				return values;
+			},
+			unselect(vals) {
+				const sequence = new Set(values);
 
-	const value_store = context.value;
-	$: value_store.set(value);
-	$: value = $value_store;
+				for (const value of vals) {
+					sequence.delete(value);
+				}
 
-	const data_store = context.data;
-	$: data_store.set(data);
-	$: data = $data_store;
+				values = [...sequence];
+				value = values[0];
 
-	function onclick(e: Event) {
-		if (disabled) return;
-	}
+				data = values
+					.map((d) => context_combobox.derived.data.items.all.get(d)?.data)
+					.filter(Boolean) as T[];
+
+				return values;
+			},
+			selected(value) {
+				return values.includes(value);
+			}
+		}
+	});
 </script>
 
-<div bind:this={element} class={classnames('fui-combobox min-w-[250px]', klass)} data-id={$id_store} on:click={onclick} on:keypress={() => {}}>
-	<input
-		role="combobox"
-		aria-controls=""
-		aria-expanded="false"
-		type="text"
-		aria-labelledby="combo-default28"
-		value={$value_store}
-		{name}
-		hidden
-	/>
-	<slot />
-</div>
+<DropdownRoot
+	bind:open
+	bind:value
+	bind:values
+	bind:data
+	context={context_combobox}
+	{multiple}
+	{disabled}
+>
+	{#snippet children({ context })}
+		{@render children?.({ context })}
+	{/snippet}
+</DropdownRoot>

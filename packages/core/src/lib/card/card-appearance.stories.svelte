@@ -1,9 +1,10 @@
-<script context="module" lang="ts">
+<script module lang="ts">
 	import { onMount } from 'svelte';
-	import { Card, CardHeader, FluentRoot, Icon } from '@svelte-fui/core';
+	import { Card as CardFui, FluentRoot, Icon } from '@svelte-fui/core';
 	import { webDarkTheme, webLightTheme } from '@svelte-fui/themes';
-	import { Story } from '@storybook/addon-svelte-csf';
+	import { defineMeta } from '@storybook/addon-svelte-csf';
 	import type { ArgTypes } from '@storybook/svelte';
+
 	import MoreHorizontalFilled from 'virtual:icons/fluent/more-horizontal-24-filled';
 
 	const default_args = {
@@ -47,16 +48,15 @@
 		}
 	} satisfies ArgTypes;
 
-	export const meta = {
+	const { Story } = defineMeta({
 		title: 'Components/Card',
-		component: Card,
-		argTypes: arg_types,
-		tags: ['!autodocs']
-	};
+		component: CardFui.Root,
+		argTypes: arg_types
+	});
 </script>
 
 <script lang="ts">
-	let theme = webLightTheme;
+	let theme = $state(webLightTheme);
 
 	onMount(() => {
 		function handler(e: MediaQueryListEvent) {
@@ -75,96 +75,110 @@
 	});
 </script>
 
-<Story id="fui_card_appearance" name="Appearance" args={default_args} let:args>
-	<FluentRoot {theme}>
-		<div class="flex h-full w-full flex-col items-center justify-center gap-4">
-			<Card {...args} class="w-[400px]" appearance="filled">
-				<CardHeader>
-					<img
-						class="image h-12 w-12 rounded-md"
-						src="https://raw.githubusercontent.com/microsoft/fluentui/master/packages/react-components/react-card/stories/assets/app_logo.svg"
-						alt="App name logo"
-					/>
+<Story id="fui_card_appearance" name="Appearance" args={default_args}>
+	{#snippet children(args)}
+		<FluentRoot {theme}>
+			<div class="flex h-full w-full flex-col items-center justify-center gap-4">
+				<CardFui.Root {...args} class="w-[400px]" appearance="filled">
+					<CardFui.Header>
+						<img
+							class="image h-12 w-12 rounded-md"
+							src="https://raw.githubusercontent.com/microsoft/fluentui/master/packages/react-components/react-card/stories/assets/app_logo.svg"
+							alt="App name logo"
+						/>
 
-					<span class="body-1 header"><b>App Name</b></span>
+						<span class="body-1 header"><b>App Name</b></span>
 
-					<span class="caption-1 description">Developer</span>
+						<span class="caption-1 description">Developer</span>
 
-					<!-- <Button slot="action"> -->
-					<Icon class="action">
-						<MoreHorizontalFilled />
-					</Icon>>
-					<!-- </Button> -->
-				</CardHeader>
+						<!-- <Button slot="action"> -->
+						<Icon class="action">
+							<MoreHorizontalFilled />
+						</Icon>
+						<!-- </Button> -->
+					</CardFui.Header>
 
-				<p class="body-1">Donut chocolate bar oat cake. Dragée tiramisu lollipop bear claw. Marshmallow pastry jujubes toffee sugar plum.</p>
-			</Card>
+					<p class="body-1">
+						Donut chocolate bar oat cake. Dragée tiramisu lollipop bear claw. Marshmallow pastry
+						jujubes toffee sugar plum.
+					</p>
+				</CardFui.Root>
 
-			<Card {...args} class="w-[400px]" appearance="filled-alternative">
-				<CardHeader>
-					<img
-						class="image h-12 w-12 rounded-md"
-						src="https://raw.githubusercontent.com/microsoft/fluentui/master/packages/react-components/react-card/stories/assets/app_logo.svg"
-						alt="App name logo"
-					/>
+				<CardFui.Root {...args} class="w-[400px]" appearance="filled-alternative">
+					<CardFui.Header>
+						<img
+							class="image h-12 w-12 rounded-md"
+							src="https://raw.githubusercontent.com/microsoft/fluentui/master/packages/react-components/react-card/stories/assets/app_logo.svg"
+							alt="App name logo"
+						/>
 
-					<span class="body-1 header"><b>App Name</b></span>
+						<span class="body-1 header"><b>App Name</b></span>
 
-					<span class="caption-1 description">Developer</span>
+						<span class="caption-1 description">Developer</span>
 
-					<!-- <Button slot="action"> -->
-					<Icon class="action">
-						<MoreHorizontalFilled />
-					</Icon>
-					<!-- </Button> -->
-				</CardHeader>
+						<!-- <Button slot="action"> -->
+						<Icon class="action">
+							<MoreHorizontalFilled />
+						</Icon>
+						<!-- </Button> -->
+					</CardFui.Header>
 
-				<p class="body-1">Donut chocolate bar oat cake. Dragée tiramisu lollipop bear claw. Marshmallow pastry jujubes toffee sugar plum.</p>
-			</Card>
+					<p class="body-1">
+						Donut chocolate bar oat cake. Dragée tiramisu lollipop bear claw. Marshmallow pastry
+						jujubes toffee sugar plum.
+					</p>
+				</CardFui.Root>
 
-			<Card {...args} class="w-[400px]" appearance="outline">
-				<CardHeader>
-					<img
-						class="image h-12 w-12 rounded-md"
-						src="https://raw.githubusercontent.com/microsoft/fluentui/master/packages/react-components/react-card/stories/assets/app_logo.svg"
-						alt="App name logo"
-					/>
+				<CardFui.Root {...args} class="w-[400px]" appearance="outline">
+					<CardFui.Header>
+						<img
+							class="image h-12 w-12 rounded-md"
+							src="https://raw.githubusercontent.com/microsoft/fluentui/master/packages/react-components/react-card/stories/assets/app_logo.svg"
+							alt="App name logo"
+						/>
 
-					<span class="body-1 header"><b>App Name</b></span>
+						<span class="body-1 header"><b>App Name</b></span>
 
-					<span class="caption-1 description">Developer</span>
+						<span class="caption-1 description">Developer</span>
 
-					<!-- <Button slot="action"> -->
-					<Icon class="action">
-						<MoreHorizontalFilled />
-					</Icon>
-					<!-- </Button> -->
-				</CardHeader>
+						<!-- <Button slot="action"> -->
+						<Icon class="action">
+							<MoreHorizontalFilled />
+						</Icon>
+						<!-- </Button> -->
+					</CardFui.Header>
 
-				<p class="body-1">Donut chocolate bar oat cake. Dragée tiramisu lollipop bear claw. Marshmallow pastry jujubes toffee sugar plum.</p>
-			</Card>
+					<p class="body-1">
+						Donut chocolate bar oat cake. Dragée tiramisu lollipop bear claw. Marshmallow pastry
+						jujubes toffee sugar plum.
+					</p>
+				</CardFui.Root>
 
-			<Card {...args} class="w-[400px]" appearance="subtle">
-				<CardHeader>
-					<img
-						class="image h-12 w-12 rounded-md"
-						src="https://raw.githubusercontent.com/microsoft/fluentui/master/packages/react-components/react-card/stories/assets/app_logo.svg"
-						alt="App name logo"
-					/>
+				<CardFui.Root {...args} class="w-[400px]" appearance="subtle">
+					<CardFui.Header>
+						<img
+							class="image h-12 w-12 rounded-md"
+							src="https://raw.githubusercontent.com/microsoft/fluentui/master/packages/react-components/react-card/stories/assets/app_logo.svg"
+							alt="App name logo"
+						/>
 
-					<span class="body-1 header"><b>App Name</b></span>
+						<span class="body-1 header"><b>App Name</b></span>
 
-					<span class="caption-1 description">Developer</span>
+						<span class="caption-1 description">Developer</span>
 
-					<!-- <Button slot="action"> -->
-					<Icon class="action">
-						<MoreHorizontalFilled />
-					</Icon>
-					<!-- </Button> -->
-				</CardHeader>
+						<!-- <Button slot="action"> -->
+						<Icon class="action">
+							<MoreHorizontalFilled />
+						</Icon>
+						<!-- </Button> -->
+					</CardFui.Header>
 
-				<p class="body-1">Donut chocolate bar oat cake. Dragée tiramisu lollipop bear claw. Marshmallow pastry jujubes toffee sugar plum.</p>
-			</Card>
-		</div>
-	</FluentRoot>
+					<p class="body-1">
+						Donut chocolate bar oat cake. Dragée tiramisu lollipop bear claw. Marshmallow pastry
+						jujubes toffee sugar plum.
+					</p>
+				</CardFui.Root>
+			</div>
+		</FluentRoot>
+	{/snippet}
 </Story>

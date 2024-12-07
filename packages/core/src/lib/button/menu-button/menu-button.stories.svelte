@@ -1,12 +1,12 @@
-<script context="module" lang="ts">
+<script module lang="ts">
 	import { onMount } from 'svelte';
 	import { Button, FluentRoot, Icon } from '@svelte-fui/core';
 	import CalendarMonthFilled from 'virtual:icons/fluent/calendar-month-24-filled';
 	import CalendarMonthRegular from 'virtual:icons/fluent/calendar-month-24-regular';
-	
+
 	import { webDarkTheme, webLightTheme } from '@svelte-fui/themes';
-	import { MenuButton } from '.';
-	import { Story } from '@storybook/addon-svelte-csf';
+	import { MenuButton as MenuButtonModule } from '.';
+	import { defineMeta } from '@storybook/addon-svelte-csf';
 	import type { ArgTypes } from '@storybook/svelte';
 
 	const argTypes = {
@@ -33,18 +33,21 @@
 		}
 	} satisfies ArgTypes;
 
-	const default_args: Partial<Record<keyof typeof argTypes, any>> = { size: 'md', appearance: 'secondary', shape: 'rounded' };
-
-	export const meta = {
-		title: 'Components/Button',
-		component: MenuButton,
-		argTypes,
-		tags: ['!autodocs']
+	const default_args: Partial<Record<keyof typeof argTypes, any>> = {
+		size: 'md',
+		appearance: 'secondary',
+		shape: 'rounded'
 	};
+
+	const { Story } = defineMeta({
+		title: 'Components/Button',
+		component: MenuButtonModule.Root,
+		argTypes
+	});
 </script>
 
 <script lang="ts">
-	let theme = webLightTheme;
+	let theme = $state(webLightTheme);
 
 	onMount(() => {
 		function handler(schemeMedia: MediaQueryListEvent) {
@@ -63,29 +66,35 @@
 	});
 </script>
 
-<Story id="menu_button" name="Menu Button" args={default_args} let:args>
-	<FluentRoot {theme}>
-		<div class="flex h-full w-full flex-col items-center justify-center gap-4">
-			<div class="flex gap-4">
-				<MenuButton.Root>
-					<MenuButton.Button let:hover>
-						<Icon class="h-full">
-							{#if hover}
-								<CalendarMonthFilled />
-							{:else}
-								<CalendarMonthRegular />
-							{/if}
-						</Icon>
-						<div>New</div>
-					</MenuButton.Button>
+<Story id="menu_button" name="Menu Button" args={default_args}>
+	{#snippet children(args)}
+		<FluentRoot {theme}>
+			<div class="flex h-full w-full flex-col items-center justify-center gap-4">
+				<div class="flex gap-4">
+					<MenuButtonModule.Root>
+						<MenuButtonModule.Button {...args}>
+							{#snippet children({ hover })}
+								<Icon class="h-full">
+									{#if hover}
+										<CalendarMonthFilled />
+									{:else}
+										<CalendarMonthRegular />
+									{/if}
+								</Icon>
+								<div>New</div>
 
-					<MenuButton.Menu>
-						<MenuButton.Item>Item 1</MenuButton.Item>
-						<MenuButton.Item>Item 2</MenuButton.Item>
-						<MenuButton.Item>Item 3</MenuButton.Item>
-					</MenuButton.Menu>
-				</MenuButton.Root>
+								<MenuButtonModule.Indicator />
+							{/snippet}
+						</MenuButtonModule.Button>
+
+						<MenuButtonModule.Menu>
+							<MenuButtonModule.Item>Item 1</MenuButtonModule.Item>
+							<MenuButtonModule.Item>Item 2</MenuButtonModule.Item>
+							<MenuButtonModule.Item>Item 3</MenuButtonModule.Item>
+						</MenuButtonModule.Menu>
+					</MenuButtonModule.Root>
+				</div>
 			</div>
-		</div>
-	</FluentRoot>
+		</FluentRoot>
+	{/snippet}
 </Story>

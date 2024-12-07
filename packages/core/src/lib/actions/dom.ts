@@ -47,7 +47,10 @@ export type DropzoneParams = {
 	onDragOver?: DragEventHandler<HTMLElement>;
 	onDrop?: DragEventHandler<HTMLElement>;
 };
-export function dropzone(node: HTMLElement, { onDrop, onDragEnter, onDragLeave, onDragOver }: DropzoneParams) {
+export function dropzone(
+	node: HTMLElement,
+	{ onDrop, onDragEnter, onDragLeave, onDragOver }: DropzoneParams
+) {
 	const on_drag_enter = (ev: DragEvent) => {
 		ev.preventDefault();
 		onDragEnter?.(ev);
@@ -92,11 +95,19 @@ export function frame(node: HTMLElement) {
 	const observer = new ResizeObserver(() => resize(node));
 	observer.observe(node);
 
-	resize(node)
+	resize(node);
 
 	return {
 		destroy() {
 			observer.disconnect;
 		}
+	};
+}
+
+export function mount<T extends HTMLElement>(node: T, callback: (node: T) => (() => void) | void) {
+	const destroy = callback(node);
+
+	return {
+		destroy: () => destroy?.()
 	};
 }

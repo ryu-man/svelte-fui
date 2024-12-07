@@ -1,25 +1,44 @@
 <script lang="ts">
+	import type { HTMLAttributes } from 'svelte/elements';
 	import { classnames } from '../internal';
+	import type { SliderProps } from './types';
 
-	export let value: number = 0;
-	export let min: number = 0;
-	export let max: number = 100;
-	export let step: number = 1;
-	export let vertical = false;
-	export let disabled = false;
+	let {
+		disabled = false,
+		max = 100,
+		min = 0,
+		step = 1,
+		value = 0,
+		vertical = false,
+		element = $bindable(undefined),
+		...restProps
+	}: HTMLAttributes<HTMLElement> & SliderProps = $props();
 
-	$: orientation = vertical ? 'vertical' : 'horizontal';
-	$: step_percent = step > 1 ? (step * 100) / max : 100;
-	$: progress = (value * 100) / max;
+	const orientation = $derived(vertical ? 'vertical' : 'horizontal');
+	const step_percent = $derived(step > 1 ? (step * 100) / max : 100);
+	const progress = $derived((value * 100) / max);
 </script>
 
 <div
+	bind:this={element}
 	class={classnames('fui-slider', orientation, { disabled })}
-	style="--direction: {vertical ? '0deg' : '90deg'}; --progress: {progress}%; --steps-percent: {step_percent}%;"
+	{...restProps}
+	style:--direction={vertical ? '0deg' : '90deg'}
+	style:--progress={`${progress}%`}
+	style:--steps-percent={`${step_percent}%`}
 >
-	<input class={classnames('fui-slider-input', orientation)} id="" type="range" {min} {max} {step} {disabled} bind:value />
-	<div class={classnames('fui-slider-rail', orientation)} />
-	<div class={classnames('fui-slider-thumb', orientation, { disabled })} />
+	<input
+		class={classnames('fui-slider-input', orientation)}
+		id=""
+		type="range"
+		{min}
+		{max}
+		{step}
+		{disabled}
+		bind:value
+	/>
+	<div class={classnames('fui-slider-rail', orientation)}></div>
+	<div class={classnames('fui-slider-thumb', orientation, { disabled })}></div>
 </div>
 
 <style lang="postcss">
@@ -212,7 +231,8 @@
 		pointer-events: none;
 		outline-style: none;
 		forced-color-adjust: none;
-		box-shadow: 0 0 0 calc(var(--fui-slider-thumb-size) * 0.2) theme(colors.neutral-background-1) inset;
+		box-shadow: 0 0 0 calc(var(--fui-slider-thumb-size) * 0.2) theme(colors.neutral-background-1)
+			inset;
 		background-color: var(--fui-slider-thumb-color);
 
 		&::before {
@@ -222,7 +242,8 @@
 		}
 		&.disabled {
 			&::before {
-				border: calc(var(--fui-slider-thumb-size) * 0.05) solid theme(colors.neutral-foreground-disabled);
+				border: calc(var(--fui-slider-thumb-size) * 0.05) solid
+					theme(colors.neutral-foreground-disabled);
 			}
 		}
 		&.horizontal {

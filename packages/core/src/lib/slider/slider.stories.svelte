@@ -1,24 +1,23 @@
-<script context="module" lang="ts">
+<script module lang="ts">
 	import { onMount } from 'svelte';
-	import { FluentRoot, Slider } from '@svelte-fui/core';
+	import { FluentRoot, Slider as SliderFui } from '@svelte-fui/core';
 	import { webDarkTheme, webLightTheme } from '@svelte-fui/themes';
-	import { Story } from '@storybook/addon-svelte-csf';
+	import { defineMeta } from '@storybook/addon-svelte-csf';
 	import type { ArgTypes } from '@storybook/svelte';
 
 	const default_args = {};
 
 	const arg_types = {} satisfies ArgTypes;
 
-	export const meta = {
+	const { Story } = defineMeta({
 		title: 'Components/Slider',
-		component: Slider,
-		argTypes: arg_types,
-		tags: ['!autodocs']
-	};
+		component: SliderFui,
+		argTypes: arg_types
+	});
 </script>
 
 <script lang="ts">
-	let theme = webLightTheme;
+	let theme = $state(webLightTheme);
 
 	onMount(() => {
 		function handler(e: MediaQueryListEvent) {
@@ -37,12 +36,14 @@
 	});
 </script>
 
-<Story id="fui_slider" name="Slider" args={default_args} let:args>
-	<FluentRoot {theme}>
-		<div class="flex h-full w-full flex-col items-center justify-center gap-4">
-			<div class="flex items-start gap-4">
-				<Slider {...args} />
+<Story id="fui_slider" name="Slider" args={default_args}>
+	{#snippet children(args)}
+		<FluentRoot {theme}>
+			<div class="flex h-full w-full flex-col items-center justify-center gap-4">
+				<div class="flex items-start gap-4">
+					<SliderFui {...args} />
+				</div>
 			</div>
-		</div>
-	</FluentRoot>
+		</FluentRoot>
+	{/snippet}
 </Story>

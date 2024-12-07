@@ -1,35 +1,86 @@
-<script lang="ts">
+<script lang="ts" generics="T">
 	import { onMount, tick } from 'svelte';
-	import { derived } from 'svelte/store';
+	// import { derived } from 'svelte/store';
 	import { nanoid } from 'nanoid';
-	import { setTableRowContext } from './context';
+	import { setTableRowContext, type TableRowContext } from './context';
 	import { classnames } from '../../internal';
 	import { getTableContext } from '../context';
-	import { rowStore } from '../store';
+	// import { rowStore } from '../store';
+	import type { TrProps } from '../types';
 
-	export let header = false;
-	export let key = header ? 'fui-table-header-row-' + nanoid(4) : nanoid();
-	export let data: any = undefined;
-	export let appearance: 'none' | 'neutral' | 'brand' = 'none';
-	let klass = '';
-	export { klass as class };
+	const context_table = getTableContext();
+	const size = $derived(context_table.derived.data.size);
 
-	const context = setTableRowContext();
-	context.id = key;
-	context.header = header;
+	// export let header = false;
+	// export let key = header ? 'fui-table-header-row-' + nanoid(4) : nanoid();
+	// export let data: any = undefined;
+	// export let appearance: 'none' | 'neutral' | 'brand' = 'none';
+	// let klass = '';
+	// export { klass as class };
 
-	const { size$, mountRow } = getTableContext();
-	const row$ = rowStore(key, data);
-	const isSelected$ = derived(row$.selected$, (val) => val);
+	let {
+		class: klass = '',
+		id = nanoid(8),
+		appearance = 'none',
+		data,
+		element = $bindable(undefined),
+		children
+	}: TrProps<T> = $props();
 
-	if (!header) {
-		onMount(() => mountRow(row$));
-	}
+	const is_selected = $derived(context_table.derived.data.values.includes(id));
+	const is_header = $derived(false);
+
+	const context_state: TableRowContext<T>['state'] = $state({
+		data: {},
+		elements: {}
+	});
+
+	const context_derived: TableRowContext<T>['derived'] = $derived({
+		data: {
+			id,
+			data,
+			header: false
+		},
+		elements: {}
+	});
+
+	const context_tr = setTableRowContext({
+		id: nanoid(),
+		type: 'table-tr',
+		get state() {
+			return context_state;
+		},
+		get derived() {
+			return context_derived;
+		}
+	});
+	// context_tr.id = key;
+	// context_tr.header = header;
+
+	// const row$ = rowStore(key, data);
+	// const isSelected$ = derived(row$.selected$, (val) => val);
+
+	// if (!header) {
+	// 	onMount(() => mountRow(row$));
+	// }
+
+	$effect(() => {
+		return context_table.methods.mount(id, data);
+	});
 </script>
 
-<tr class={classnames('fui-table-row', $size$, appearance !== 'none' ? appearance : '', { header, brand: !header && $isSelected$ }, klass)}>
+<tr
+	bind:this={element}
+	class={classnames(
+		'fui-table-row',
+		size,
+		appearance !== 'none' ? appearance : '',
+		{ header: is_header, brand: is_selected },
+		klass
+	)}
+>
 	{#await tick() then _}
-		<slot />
+		{@render children?.({ context: context_table })}
 	{/await}
 </tr>
 

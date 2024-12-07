@@ -2,36 +2,39 @@
 	import { classnames } from '@svelte-fui/core/internal';
 	import type { ButtonProps } from './types';
 
-	type $$Props = ButtonProps;
+	let {
+		class: klass,
+		shape,
+		appearance,
+		size,
+		href,
+		disabled,
+		icon,
+		element = $bindable(),
+		children,
+		onpointerenter,
+		onpointerleave,
+		...restProps
+	}: ButtonProps = $props();
 
-	export let shape: $$Props['shape'] = 'rounded';
-	export let appearance: $$Props['appearance'] = 'secondary';
-	export let size: $$Props['size'] = 'md';
+	let hover = $state(false);
 
-	/** @restProps {button | a} */
-	/** Specifies the visual styling of the button. */
-	// export let variant: 'standard' | 'accent' | 'hyperlink' = 'standard';
+	function onpointerenter_(ev: PointerEvent) {
+		onpointerenter?.(ev);
 
-	/** Sets an href value and converts the button element into an anchor/ */
-	export let href: $$Props['href'] = '';
+		if (ev.defaultPrevented) {
+			return;
+		}
 
-	/** Controls whether the button is intended for user interaction, and styles it accordingly. */
-	export let disabled: $$Props['disabled'] = false;
-
-	export let icon: $$Props['icon'] = false;
-
-	/** Specifies a custom class name for the button. */
-	let klass: $$Props['class'] = '';
-	export { klass as class };
-
-	/** Obtains a bound DOM reference to the button or anchor element. */
-	export let element: $$Props['element'] = undefined;
-
-	let hover = false;
-	function onmouseenter() {
 		hover = true;
 	}
-	function onmouseleave() {
+	function onpointerleave_(ev: PointerEvent) {
+		onpointerleave?.(ev);
+
+		if (ev.defaultPrevented) {
+			return;
+		}
+
 		hover = false;
 	}
 </script>
@@ -39,44 +42,35 @@
 <svelte:element
 	this={href && !disabled ? 'a' : 'button'}
 	bind:this={element}
-	role={href && !disabled ? 'button' : undefined}
-	href={href && !disabled ? href : undefined}
+	role={href ? 'link' : 'button'}
+	href={href ? href : undefined}
 	class={classnames(
 		'fui-button',
-		'px-m gap-sNudge font-base text-base-300 min-h-xxl leading-base-300 inline-flex w-auto justify-center rounded-md py-[5px] font-semibold',
+		'px-m gap-sNudge font-base text-base-300 min-h-xxl leading-base-300 inline-flex w-auto justify-center rounded-md py-[5px] font-semibold border-thin m-0 box-border select-none items-center align-middle no-underline outline-none',
 		appearance,
 		shape,
 		size,
 		icon && 'h-xxxl aspect-square',
-		size === 'md' && icon && 'text-base-500 aspect-square p-[5px]',
+		size === 'md' && icon && 'text-base-500 aspect-square px-[5px] py-[5px]',
 		size === 'sm' && 'px-s text-base-200 font-regular leading-base-200 min-h-[24px] py-[3px]',
-		size === 'sm' && icon && 'h-[24px] p-[1px]',
+		size === 'sm' && icon && 'h-[24px] px-[1px] py-[1px]',
 		size === 'lg' && 'px-m text-base-400 leading-base-400 min-h-[40px] py-[8px]',
-		size === 'lg' && icon && 'h-[40px] p-[7px]',
+		size === 'lg' && icon && 'h-[40px] px-[7px] py-[7px]',
 		shape === 'circular' && 'rounded-full',
 		shape === 'square' && 'rounded-none',
 		klass
 	)}
 	type="button"
 	{disabled}
-	{...$$restProps}
-	on:click
-	on:dblclick
-	on:keypress
-	on:mouseenter
-	on:mouseleave
-	on:mousedown
-	on:mouseup
-	on:mouseenter={onmouseenter}
-	on:mouseleave={onmouseleave}
+	{...restProps}
+	onpointerenter={onpointerenter_}
+	onpointerleave={onpointerleave_}
 >
-	<slot {hover} />
+	{@render children?.({ hover })}
 </svelte:element>
 
 <style lang="postcss">
 	.fui-button {
-		@apply border-thin m-0 box-border select-none items-center overflow-hidden align-middle no-underline outline-none;
-
 		--min-height: calc(theme(lineHeight.base-300) + 5px * 2 + theme(borderWidth.thin) * 2);
 		--fui-icon-size: theme(lineHeight.base-300);
 
