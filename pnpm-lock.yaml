@@ -229,7 +229,7 @@ importers:
   packages/tailwindcss:
     dependencies:
       '@svelte-fui/theme':
-        specifier: workspace:^
+        specifier: ^0.1.3
         version: link:../theme
     devDependencies:
       tailwindcss:
