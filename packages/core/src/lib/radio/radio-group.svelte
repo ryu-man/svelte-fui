@@ -1,33 +1,58 @@
 <script lang="ts">
-	import { nanoid } from 'nanoid';
-	import { writable } from 'svelte/store';
+	import {
+		FUI_RADIO_GROUP_CONTEXT_KEY,
+		setRadioGroupContext,
+		type RadioGroupContext
+	} from './context';
+	import type { RadioGroupProps } from './types';
 	import { classnames } from '../internal';
-	import { setRadioGroupContext } from './context';
-	import type { Layout } from './types'
+	import { fid } from '../internal/utils';
 
-	export let name: string = nanoid();
-	export let value: string | undefined = undefined;
-	export let layout: Layout = 'vertical';
-	export let disabled = false;
-	export let required = false;
+	let {
+		class: klass = '',
+		disabled = false,
+		required = false,
+		layout = 'vertical',
+		value,
+		name,
+		children,
+		...restProps
+	}: RadioGroupProps = $props();
 
-	const { disabled$, required$, value$, name$, layout$ } = setRadioGroupContext({
-		disabled$: writable(disabled),
-		required$: writable(required),
-		value$: writable(value),
-		name$: writable(name),
-		layout$: writable(layout)
+	const context_state: RadioGroupContext['state'] = $derived({
+		data: {}
 	});
-
-	$: disabled$.set(disabled);
-	$: required$.set(required);
-	$: value$.set(value);
-	$: name$.set(name);
-	$: layout$.set(layout);
+	const context_derived: RadioGroupContext['derived'] = $derived({
+		data: {
+			disabled,
+			required,
+			value,
+			name,
+			layout
+		}
+	});
+	const constext_radio_group = setRadioGroupContext({
+		id: fid(FUI_RADIO_GROUP_CONTEXT_KEY),
+		type: 'radio-group',
+		get derived() {
+			return context_derived;
+		},
+		get state() {
+			return context_state;
+		},
+		methods: {
+			select(val) {
+				value = val;
+			},
+			unselect() {
+				value = undefined;
+			}
+		}
+	});
 </script>
 
-<div class={classnames('fui-radio-group', layout)} role="radiogroup" {...$$restProps}>
-	<slot />
+<div class={classnames('fui-radio-group', layout)} role="radiogroup" {...restProps}>
+	{@render children?.({ context: constext_radio_group })}
 </div>
 
 <style lang="postcss">

@@ -1,23 +1,35 @@
-import { getContext, setContext } from 'svelte';
-import { type Writable, writable } from 'svelte/store';
-import type { FieldState } from './types,';
+import type { FieldState } from './types';
+import { getFluentContext, setFluentContext, type FluentContext } from '../internal/context';
 
-export const SVELTE_FUI_FIELD_CONTEXT_KEY = 'svelte-fui-field-context-key';
+export const fieldPathSegments = ['field'];
 
-export type FieldContext = {
-	state$: Writable<FieldState>;
-	icon$: Writable<any | undefined>;
+export type FieldContext = FluentContext & {
+	readonly state: {
+		data: {};
+		elements: {};
+	};
+	readonly derived: {
+		data: {
+			open: boolean;
+			icon: any;
+			state: FieldState;
+			disabled: boolean;
+			readonly: boolean;
+		};
+		elements: {};
+	};
+	events: {};
+	methods: {
+		open: () => void;
+		close: () => void;
+		toggle: () => void;
+	};
 };
 
 export function getFieldContext(): FieldContext {
-	return getContext(SVELTE_FUI_FIELD_CONTEXT_KEY);
+	return getFluentContext(...fieldPathSegments);
 }
 
-export function setFieldContext(values: { state: FieldState; icon: any | undefined }) {
-	const context: FieldContext = {
-		state$: writable(values.state),
-		icon$: writable(values.icon)
-	};
-
-	return setContext(SVELTE_FUI_FIELD_CONTEXT_KEY, context);
+export function setFieldContext(context: FieldContext) {
+	return setFluentContext(context, ...fieldPathSegments);
 }

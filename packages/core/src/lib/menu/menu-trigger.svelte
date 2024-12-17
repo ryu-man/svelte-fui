@@ -1,19 +1,28 @@
-<script lang="ts">
-	import { getMenuContext } from '@svelte-fui/core/menu';
-	import { classnames } from '../internal';
+<script lang="ts" generics="Shell extends Component">
+	import type { Component } from 'svelte';
+	import { classnames } from '@svelte-fui/core/internal';
+	import type { MenuTriggerProps } from './types';
+	import { getMenuContext } from './context-root';
+	import { Popover } from '../popover';
 
-	const menu_context = getMenuContext();
+	const context_menu = getMenuContext();
 
-	const open_store = menu_context.open;
-
-	let klass = '';
-	export { klass as class };
-
-	function onclick() {
-		open_store.update((v) => !v);
-	}
+	let {
+		class: klass = '',
+		as = 'button',
+		shell,
+		children,
+		onclick,
+		...resteProps
+	}: MenuTriggerProps<Shell> = $props();
 </script>
 
-<button class={classnames('fui-menu-trigger', klass)} on:click={onclick}>
-	<slot />
-</button>
+<Popover.Trigger
+	class={classnames('fui-menu-trigger flex', klass)}
+	{...resteProps}
+	{as}
+	{shell}
+	{onclick}
+>
+	{@render children?.({ context: context_menu })}
+</Popover.Trigger>

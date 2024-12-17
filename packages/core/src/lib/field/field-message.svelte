@@ -2,20 +2,24 @@
 	import { classnames } from '@svelte-fui/core/internal';
 	import { getFieldContext } from './context';
 
-	const { state$ } = getFieldContext();
+	const context_field = getFieldContext();
+	const open = $derived(context_field.derived.data.open);
 
-	export let id: string | undefined = undefined;
-	export let open = false;
-	let klass = '';
-	export { klass as class };
+	let { class: klass = '', id = undefined, children, ...restProps } = $props();
 </script>
 
 {#if open}
 	<div
 		{id}
-		class={classnames('fui-field-validation-message font-regular text-base-200 gap-1', $state$, { 'secondary-text': !!$$slots.default }, klass)}
+		class={classnames(
+			'fui-field-validation-message font-regular text-base-200 gap-1',
+			context_field.derived.data.state,
+			{ 'secondary-text': !!children },
+			klass
+		)}
+		{...restProps}
 	>
-		<slot />
+		{@render children?.({ context: context_field })}
 	</div>
 {/if}
 

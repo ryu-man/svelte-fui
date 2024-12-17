@@ -1,11 +1,11 @@
-<script context="module" lang="ts">
+<script module lang="ts">
 	import { onMount } from 'svelte';
 	import { FluentRoot } from '@svelte-fui/core';
 	import { webDarkTheme, webLightTheme } from '@svelte-fui/themes';
-	import { Story } from '@storybook/addon-svelte-csf';
+	import { defineMeta } from '@storybook/addon-svelte-csf';
 	import type { ArgTypes } from '@storybook/svelte';
 	import RadioGroup from './radio-group.svelte';
-	import Radio from './radio.svelte';
+	import RadioFui from './radio.svelte';
 
 	const default_args = {
 		disabled: false,
@@ -47,16 +47,15 @@
 		}
 	} satisfies ArgTypes;
 
-	export const meta = {
+	const { Story } = defineMeta({
 		title: 'Components/Radio',
 		component: RadioGroup,
-		argTypes: arg_types,
-		tags: ['!autodocs']
-	};
+		argTypes: arg_types
+	});
 </script>
 
 <script lang="ts">
-	let theme = webLightTheme;
+	let theme = $state(webLightTheme);
 
 	onMount(() => {
 		function handler(e: MediaQueryListEvent) {
@@ -75,13 +74,30 @@
 	});
 </script>
 
-<Story id="fui_radio" name="Radio" args={default_args} let:args>
-	<FluentRoot {theme}>
-		<div class="flex h-full w-full items-center justify-center">
-			<Radio {...args} name="fav_fruit" value="apple">Apple</Radio>
-			<Radio {...args} name="fav_fruit" value="orange">Orange</Radio>
-			<Radio {...args} name="fav_fruit" value="banana">Banana</Radio>
-			<Radio {...args} name="fav_fruit" value="pear">Pear</Radio>
-		</div>
-	</FluentRoot>
+<Story id="fui_radio" name="Radio" args={default_args}>
+	{#snippet children(args)}
+		<FluentRoot {theme}>
+			<div class="flex h-full w-full items-center justify-center">
+				<label class="flex items-center">
+					<RadioFui {...args} name="fav_fruit" value="apple"></RadioFui>
+					<div>Apple</div>
+				</label>
+
+				<label class="flex items-center">
+					<RadioFui {...args} name="fav_fruit" value="orange"></RadioFui>
+					<div>Orange</div>
+				</label>
+
+				<label class="flex items-center">
+					<RadioFui {...args} name="fav_fruit" value="banana"></RadioFui>
+					<div>Banana</div>
+				</label>
+
+				<label class="flex items-center">
+					<RadioFui {...args} name="fav_fruit" value="pear"></RadioFui>
+					<div>Pear</div>
+				</label>
+			</div>
+		</FluentRoot>
+	{/snippet}
 </Story>

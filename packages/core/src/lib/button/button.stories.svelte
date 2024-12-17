@@ -1,8 +1,8 @@
 <script context="module" lang="ts">
 	import { onMount } from 'svelte';
-	import { Button, FluentRoot, Icon } from '@svelte-fui/core';
+	import { Button as ButtonComponent, FluentRoot, Icon } from '@svelte-fui/core';
 	import { webDarkTheme, webLightTheme } from '@svelte-fui/themes';
-	import { Story } from '@storybook/addon-svelte-csf';
+	import { defineMeta } from '@storybook/addon-svelte-csf';
 	import type { ArgTypes } from '@storybook/svelte';
 	import CalendarMonthFilled from 'virtual:icons/fluent/calendar-month-24-filled';
 	import CalendarMonthRegular from 'virtual:icons/fluent/calendar-month-24-regular';
@@ -31,14 +31,17 @@
 		}
 	} satisfies ArgTypes;
 
-	const default_args: Partial<Record<keyof typeof argTypes, any>> = { size: 'md', appearance: 'secondary', shape: 'rounded' };
-
-	export const meta = {
-		title: 'Components/Button',
-		component: Button,
-		argTypes,
-		tags: ['!autodocs']
+	const default_args: Partial<Record<keyof typeof argTypes, any>> = {
+		size: 'md',
+		appearance: 'secondary',
+		shape: 'rounded'
 	};
+
+	const { Story } = defineMeta({
+		title: 'Components/Button',
+		component: ButtonComponent,
+		argTypes
+	});
 </script>
 
 <script lang="ts">
@@ -61,35 +64,44 @@
 	});
 </script>
 
-<Story id="button" name="Button" args={default_args} let:args>
-	<FluentRoot {theme}>
-		<div class="flex h-full w-full flex-col items-center justify-center gap-4">
-			<div class="flex w-fit gap-4">
-				<Button {...args} class="whitespace-nowrap">Fluent UI for Svelte</Button>
+<Story id="button" name="Button" args={default_args}>
+	{#snippet children({ args })}
+		<FluentRoot {theme}>
+			<div class="flex h-full w-full flex-col items-center justify-center gap-4">
+				<div class="flex w-fit gap-4">
+					<ButtonComponent {...args} class="whitespace-nowrap">Fluent UI for Svelte</ButtonComponent
+					>
 
-				<Button {...args} class="whitespace-nowrap" let:hover>
-					Fluent UI for Svelte
-					<Icon class="h-full">
-						{#if hover}
-							<CalendarMonthFilled />
-						{:else}
-							<CalendarMonthRegular />
-						{/if}
-					</Icon>
-				</Button>
+					<ButtonComponent {...args} class="whitespace-nowrap">
+						{#snippet children({ hover })}
+							Fluent UI for Svelte
+							<Icon class="h-full">
+								{#if hover}
+									<CalendarMonthFilled />
+								{:else}
+									<CalendarMonthRegular />
+								{/if}
+							</Icon>
+						{/snippet}
+					</ButtonComponent>
 
-				<Button {...args} icon let:hover>
-					<Icon class="h-full">
-						{#if hover}
-							<CalendarMonthFilled />
-						{:else}
-							<CalendarMonthRegular />
-						{/if}
-					</Icon>
-				</Button>
+					<ButtonComponent {...args} icon>
+						{#snippet children({ hover })}
+							<Icon class="h-full">
+								{#if hover}
+									<CalendarMonthFilled />
+								{:else}
+									<CalendarMonthRegular />
+								{/if}
+							</Icon>
+						{/snippet}
+					</ButtonComponent>
+				</div>
+
+				<ButtonComponent {...args} class="w-[280px]"
+					>Long text wraps after it hits the max width of the component</ButtonComponent
+				>
 			</div>
-
-			<Button {...args} class="w-[280px]">Long text wraps after it hits the max width of the component</Button>
-		</div>
-	</FluentRoot>
+		</FluentRoot>
+	{/snippet}
 </Story>

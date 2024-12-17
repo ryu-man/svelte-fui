@@ -1,8 +1,17 @@
-<script context="module" lang="ts">
+<script module lang="ts">
 	import { onMount } from 'svelte';
-	import { Button, FluentRoot, Tooltip } from '@svelte-fui/core';
+	import {
+		Button,
+		FluentRoot,
+		Link,
+		Tooltip as TooltipFui,
+		Input as InputFui,
+
+		Text
+
+	} from '@svelte-fui/core';
 	import { webDarkTheme, webLightTheme } from '@svelte-fui/themes';
-	import { Story } from '@storybook/addon-svelte-csf';
+	import { defineMeta } from '@storybook/addon-svelte-csf';
 	import type { ArgTypes } from '@storybook/svelte';
 
 	const default_args = {
@@ -45,16 +54,15 @@
 		}
 	} satisfies ArgTypes;
 
-	export const meta = {
+	const { Story } = defineMeta({
 		title: 'Components/Tooltip',
-		component: Tooltip,
-		argTypes: arg_types,
-		tags: ['!autodocs']
-	};
+		component: TooltipFui.Root,
+		argTypes: arg_types
+	});
 </script>
 
 <script lang="ts">
-	let theme = webLightTheme;
+	let theme = $state(webLightTheme);
 
 	onMount(() => {
 		function handler(e: MediaQueryListEvent) {
@@ -73,14 +81,40 @@
 	});
 </script>
 
-<Story id="fui_tooltip" name="Tooltip" args={default_args} let:args>
-	<FluentRoot {theme}>
-		<div class="flex h-full w-full items-center justify-center">
-			<Tooltip {...args}>
-				<Button>Hello Svelte land</Button>
+<Story id="fui_tooltip" name="Tooltip" args={default_args}>
+	{#snippet children(args)}
+		<FluentRoot {theme}>
+			<div class="flex flex-col gap-6 h-full w-full items-center justify-center">
+				<TooltipFui.Root {...args}>
+					<TooltipFui.Trigger as={Button}>Hello Svelte land</TooltipFui.Trigger>
 
-				<span slot="content">Hello from the other side! [slotted]</span>
-			</Tooltip>
-		</div>
-	</FluentRoot>
+					<TooltipFui.Overlay>Hello from the other side! [slotted]</TooltipFui.Overlay>
+				</TooltipFui.Root>
+
+				<TooltipFui.Root {...args}>
+					<TooltipFui.Trigger as={Link} >Hello Svelte land</TooltipFui.Trigger>
+
+					<TooltipFui.Overlay>Hello from the other side! [slotted]</TooltipFui.Overlay>
+				</TooltipFui.Root>
+
+				<TooltipFui.Root {...args}>
+					<TooltipFui.Trigger as={Text} componentAs="h3">Hello Svelte land</TooltipFui.Trigger>
+
+					<TooltipFui.Overlay>Hello from the other side! [slotted]</TooltipFui.Overlay>
+				</TooltipFui.Root>
+
+				<TooltipFui.Root {...args} placements={['bottom-start', 'top-start']}>
+					<TooltipFui.Trigger as={InputFui.Root}>
+						<InputFui.Icon>$</InputFui.Icon>
+
+						<InputFui.Element />
+
+						<InputFui.Icon>.00</InputFui.Icon>
+					</TooltipFui.Trigger>
+
+					<TooltipFui.Overlay>Hello from the other side! [slotted]</TooltipFui.Overlay>
+				</TooltipFui.Root>
+			</div>
+		</FluentRoot>
+	{/snippet}
 </Story>

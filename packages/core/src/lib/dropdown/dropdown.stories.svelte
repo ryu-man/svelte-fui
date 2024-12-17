@@ -1,9 +1,9 @@
-<script context="module" lang="ts">
+<script module lang="ts">
 	import { onMount } from 'svelte';
-	import { FluentRoot, InputSkin } from '@svelte-fui/core';
+	import { FluentRoot } from '@svelte-fui/core';
 	import { webDarkTheme, webLightTheme } from '@svelte-fui/themes';
-	import { Dropdown } from '.';
-	import { Story } from '@storybook/addon-svelte-csf';
+	import { Dropdown as DropdownFui } from '.';
+	import { defineMeta } from '@storybook/addon-svelte-csf';
 	import type { ArgTypes } from '@storybook/svelte';
 
 	const default_args = {
@@ -36,17 +36,16 @@
 		}
 	} satisfies ArgTypes;
 
-	export const meta = {
+	const { Story } = defineMeta({
 		title: 'Components/Dropdown',
-		component: Dropdown.Root,
-		argTypes: arg_types,
-		tags: ['!autodocs']
-	};
+		component: DropdownFui.Root,
+		argTypes: arg_types
+	});
 </script>
 
 <script lang="ts">
-	let theme = webLightTheme;
-	let language = '';
+	let theme = $state(webLightTheme);
+	let values = $state([]);
 
 	onMount(() => {
 		function handler(schemeMedia: MediaQueryListEvent) {
@@ -72,35 +71,30 @@
 	];
 </script>
 
-<Story id="dropdown" name="Dropdown" args={default_args} let:args>
-	<FluentRoot {theme}>
-		<div class="flex h-full w-full flex-col items-center justify-center gap-4">
-			<div class="flex flex-col gap-4">
-				<Dropdown.Root bind:value={language}>
-					<Dropdown.Trigger let:data>
-						<InputSkin class="min-w-[192px]">
-							{#if data}
-								<span>{data.lang}</span>
-							{:else}
-								<span>Select a language</span>
-							{/if}
+<Story id="dropdown" name="Dropdown" args={default_args}>
+	{#snippet children(args)}
+		<FluentRoot {theme}>
+			<div class="flex h-full w-full flex-col items-center justify-center gap-4">
+				<div class="flex flex-col gap-4">
+					<DropdownFui.Root bind:values multiple>
+						<DropdownFui.Input></DropdownFui.Input>
 
-							<Dropdown.Arrow />
-						</InputSkin>
-					</Dropdown.Trigger>
+						<DropdownFui.Menu placements={['bottom-start']}>
+							{#each languages as item (item.id)}
+								<DropdownFui.Item value={item.id} data={item}>
+									<DropdownFui.Checkbox />
+									<div>{item.lang}</div>
+								</DropdownFui.Item>
+							{/each}
+						</DropdownFui.Menu>
+					</DropdownFui.Root>
 
-					<Dropdown.Menu>
-						{#each languages as item (item.id)}
-							<Dropdown.Item value={item.id} data={item}>{item.lang}</Dropdown.Item>
-						{/each}
-					</Dropdown.Menu>
-				</Dropdown.Root>
-
-				<div class="flex justify-between">
-					<span>Selected language:</span>
-					<span>{language}</span>
+					<div class="flex justify-between">
+						<span>Selected languages:</span>
+						<span>{values}</span>
+					</div>
 				</div>
 			</div>
-		</div>
-	</FluentRoot>
+		</FluentRoot>
+	{/snippet}
 </Story>

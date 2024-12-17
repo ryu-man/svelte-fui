@@ -1,39 +1,103 @@
-<script lang="ts">
-	import type { orderBy as _orderBy } from 'lodash-es';
-	import { setTableContext } from './context';
-	import type { TableSize } from './type';
+<script lang="ts" generics="T">
+	import { nanoid } from 'nanoid';
+	// import type { orderBy as _orderBy } from 'lodash-es';
+	import { setTableContext, type TableContext, type TableRow } from './context';
+	import type { TableRoot, TableSize } from './types';
+	import { SvelteMap } from 'svelte/reactivity';
+	import { classnames } from '../internal';
 
-	export let size: TableSize = 'md';
-	export let sortable = false;
-	export let data: any[] = [];
-	export let selectedItems: any[] = [];
+	// export let selectedItems: any[] = [];
 
-	let sorted: any[] = [];
-	let order_By: typeof _orderBy | undefined = undefined;
+	let {
+		class: klass = '',
+		selections = $bindable([]),
+		size = 'md',
+		values = $bindable([]),
+		element = $bindable(undefined),
+		children
+	}: TableRoot<T> = $props();
 
-	if (sortable) {
-		import('lodash-es/orderBy').then((module) => {
-			order_By = module.default;
-		});
-	}
+	// let sorted: any[] = [];
+	// let order_By: typeof _orderBy | undefined = undefined;
 
-	const { sortable$, sorting$, size$, allRows$, selectedKeys$ } = setTableContext();
-	sortable$.set(sortable);
-	size$.set(size);
+	const rows = new SvelteMap<string, TableRow<T>>([]);
 
-	$: sortable$.set(sortable);
+	const context_state: TableContext<T>['state'] = $state({
+		data: {},
+		elements: {}
+	});
 
-	$: [key, direction] = $sorting$ || [];
+	const context_derived: TableContext<T>['derived'] = $derived({
+		data: {
+			rows: {
+				all: rows,
+				selections: values.map((value) => rows.get(value)).filter(Boolean) as TableRow<T>[]
+			},
+			size,
+			values
+		},
+		elements: {}
+	});
 
-	$: sorted = order_By && key ? order_By(data, key, direction === 'ascending' ? 'asc' : 'desc') : data;
+	const context_table = setTableContext<T>({
+		id: nanoid(),
+		type: 'table',
+		get state() {
+			return context_state;
+		},
+		get derived() {
+			return context_derived;
+		},
+		events: {
+			onchange: (ev, params) => {}
+		},
+		methods: {
+			mount(id, data) {
+				rows.set(id, {
+					id,
+					data
+				});
 
-	$: if ($selectedKeys$) {
-		selectedItems = $allRows$.filter((d) => d.selected$.value).map((d) => d.data);
-	}
+				return () => this.unmount(id);
+			},
+			unmount(id) {
+				rows.delete(id);
+			},
+			select(vals) {
+				const selections = new Set(values);
+
+				for (const value of values) {
+					selections.add(value);
+				}
+
+				values = [...selections];
+			},
+			unselect(values) {
+				const selections = new Set(values);
+
+				for (const value of values) {
+					selections.delete(value);
+				}
+
+				values = [...selections];
+			}
+		}
+	});
+
+	// $: sortable$.set(sortable);
+
+	// $: [key, direction] = $sorting$ || [];
+
+	// $: sorted =
+	// order_By && key ? order_By(data, key, direction === 'ascending' ? 'asc' : 'desc') : data;
+
+	// $: if ($selectedKeys$) {
+	// selectedItems = $allRows$.filter((d) => d.selected$.value).map((d) => d.data);
+	// }
 </script>
 
-<table class="fui-table">
-	<slot data={sorted} />
+<table bind:this={element} class={classnames('fui-table', klass)}>
+	{@render children?.({ context: context_table })}
 </table>
 
 <style lang="postcss">

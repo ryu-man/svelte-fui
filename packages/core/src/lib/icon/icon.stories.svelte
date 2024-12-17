@@ -1,6 +1,6 @@
-<script context="module" lang="ts">
-	import { FluentRoot, Icon } from '@svelte-fui/core';
-	import { Story } from '@storybook/addon-svelte-csf';
+<script module lang="ts">
+	import { FluentRoot, Icon as IconFui } from '@svelte-fui/core';
+	import { defineMeta } from '@storybook/addon-svelte-csf';
 	import type { ArgTypes } from '@storybook/svelte';
 	import AlertRegularIcon from 'virtual:icons/fluent/alert-48-regular';
 
@@ -8,23 +8,24 @@
 
 	const default_args: Partial<Record<keyof typeof arg_types, any>> = {};
 
-	export const meta = {
+	const { Story } = defineMeta({
 		title: 'Components/Icon',
-		component: Icon,
-		argTypes: arg_types,
-		tags: ['!autodocs']
-	};
+		component: IconFui,
+		argTypes: arg_types
+	});
 </script>
 
 <script>
 </script>
 
-<Story id="icon" name="Icon" args={default_args} let:args>
-	<FluentRoot>
-		<div class="flex h-full w-full items-center justify-center">
-			<Icon {...args} class="">
-				<AlertRegularIcon />
-			</Icon>
-		</div>
-	</FluentRoot>
+<Story id="icon" name="Icon" args={default_args}>
+	{#snippet children(args)}
+		<FluentRoot>
+			<div class="flex h-full w-full items-center justify-center">
+				<IconFui {...args} class="">
+					<AlertRegularIcon />
+				</IconFui>
+			</div>
+		</FluentRoot>
+	{/snippet}
 </Story>

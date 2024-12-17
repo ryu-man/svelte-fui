@@ -1,17 +1,19 @@
 <script lang="ts">
 	import { classnames } from '../internal';
+	import type { CardPreviewProps } from './types';
 
-	export let src: string | undefined = undefined;
-	export let alt: string | undefined = undefined;
-
-	export let style = '';
-	let klass = '';
-	export { klass as class };
+	let {
+		class: klass = '',
+		src = undefined,
+		alt = undefined,
+		element = $bindable(undefined),
+		children
+	}: CardPreviewProps = $props();
 </script>
 
-<div class={classnames('fui-card-preview', klass)} {style}>
+<div bind:this={element} class={classnames('fui-card-preview', klass)}>
 	<img {src} {alt} />
-	<slot />
+	{@render children?.()}
 </div>
 
 <style lang="postcss">

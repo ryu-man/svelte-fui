@@ -2,13 +2,19 @@ import { getContext, setContext } from 'svelte';
 
 const FLUENT_CONTEXT_KEY = '@fui/context';
 
-export function getFluentContext<T>(id = '', ...segments: string[]) {
-	const key = [FLUENT_CONTEXT_KEY, id, ...segments].filter(Boolean).join('/');
-	return getContext<T | undefined>(key);
+export type FluentContext = {
+	id: string;
+	type: string;
+	parent?: () => FluentContext | undefined;
+};
+
+export function getFluentContext<T>(...segments: (string | undefined)[]) {
+	const key = [FLUENT_CONTEXT_KEY, ...segments].filter(Boolean).join('/');
+	return getContext<T>(key);
 }
 
-export function setFluentContext<T>(context: T, id = '', ...segments: string[]) {
-	const key = [FLUENT_CONTEXT_KEY, id, ...segments].filter(Boolean).join('/');
+export function setFluentContext<T>(context: T, ...segments: (string | undefined)[]) {
+	const key = [FLUENT_CONTEXT_KEY, ...segments].filter(Boolean).join('/');
 
 	return setContext(key, context);
 }

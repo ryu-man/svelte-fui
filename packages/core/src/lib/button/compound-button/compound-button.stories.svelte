@@ -1,7 +1,14 @@
-<script context="module" lang="ts">
-	import { Button, FluentRoot, Icon } from '@svelte-fui/core';
-	import { Story } from '@storybook/addon-svelte-csf';
+<script module lang="ts">
+	import { onMount } from 'svelte';
+	import { defineMeta } from '@storybook/addon-svelte-csf';
 	import type { ArgTypes } from '@storybook/svelte';
+	import { Button, FluentRoot } from '@svelte-fui/core';
+	import { webDarkTheme, webLightTheme } from '@svelte-fui/themes';
+
+	import { CompoundButton as CompoundButtonModule } from '.';
+
+	import CalendarMonthFilled from 'virtual:icons/fluent/calendar-month-24-filled';
+	import CalendarMonthRegular from 'virtual:icons/fluent/calendar-month-24-regular';
 
 	const arg_types = {
 		size: {
@@ -27,30 +34,27 @@
 		}
 	} satisfies ArgTypes;
 
-	const default_args: Partial<Record<keyof typeof arg_types, any>> = { size: 'md', appearance: 'secondary', shape: 'rounded' };
+	const default_args: Partial<Record<keyof typeof arg_types, any>> = {
+		size: 'md',
+		appearance: 'secondary',
+		shape: 'rounded'
+	};
 
-	export const meta = {
+	const { Story } = defineMeta({
 		title: 'Components/Button',
 		component: Button,
-		argTypes: arg_types,
-		tags: ['!autodocs']
-	};
+		argTypes: arg_types
+	});
 </script>
 
 <script lang="ts">
-	import { onMount } from 'svelte';
-	import { webDarkTheme, webLightTheme } from '@svelte-fui/themes';
-	import { CompoundButton } from '.';
-	import CalendarMonthFilled from 'virtual:icons/fluent/calendar-month-24-filled';
-	import CalendarMonthRegular from 'virtual:icons/fluent/calendar-month-24-regular';
-
 	const defaultValues = {
 		size: 'md',
 		appearance: 'secondary',
 		shape: 'rounded'
 	};
 
-	let theme = webLightTheme;
+	let theme = $state(webLightTheme);
 
 	onMount(() => {
 		function handler(schemeMedia: MediaQueryListEvent) {
@@ -69,24 +73,38 @@
 	});
 </script>
 
-<Story id="compound_button" name="Compound Button" args={default_args} let:args>
-	<FluentRoot {theme}>
-		<div class="flex h-full w-full items-center justify-center gap-4">
-			<CompoundButton.Root {...args}>
-				<Icon class="h-full">
-					<CalendarMonthFilled />
-				</Icon>
-				<CompoundButton.Body>
-					<div>Example</div>
-					<CompoundButton.SecondaryContent>Secondary content</CompoundButton.SecondaryContent>
-				</CompoundButton.Body>
-			</CompoundButton.Root>
+<Story id="compound_button" name="Compound Button" args={default_args}>
+	{#snippet children(args)}
+		<FluentRoot {theme}>
+			<div class="flex h-full w-full items-center justify-center gap-4">
+				<CompoundButtonModule.Root {...args}>
+					{#snippet children({ hover })}
+						<CompoundButtonModule.Icon>
+							{#if hover}
+								<CalendarMonthFilled />
+							{:else}
+								<CalendarMonthRegular />
+							{/if}
+						</CompoundButtonModule.Icon>
 
-			<CompoundButton.Root {...args} icon>
-				<Icon class="h-full">
-					<CalendarMonthFilled />
-				</Icon>
-			</CompoundButton.Root>
-		</div>
-	</FluentRoot>
+						<CompoundButtonModule.Header>Example</CompoundButtonModule.Header>
+
+						<CompoundButtonModule.Body>Secondary content</CompoundButtonModule.Body>
+					{/snippet}
+				</CompoundButtonModule.Root>
+
+				<CompoundButtonModule.Root {...args} icon>
+					{#snippet children({ hover })}
+						<CompoundButtonModule.Icon>
+							{#if hover}
+								<CalendarMonthFilled />
+							{:else}
+								<CalendarMonthRegular />
+							{/if}
+						</CompoundButtonModule.Icon>
+					{/snippet}
+				</CompoundButtonModule.Root>
+			</div>
+		</FluentRoot>
+	{/snippet}
 </Story>

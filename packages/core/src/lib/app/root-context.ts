@@ -1,24 +1,43 @@
 import { getContext, setContext } from 'svelte';
-import { type Readable, type Writable } from 'svelte/store';
+import type { FluentContext } from '../internal/context';
 
 export const FUI_ROOT_CONTEXT_KEY = 'fui-context/root';
 
-export type FluentRootContext = {
-	appElement$: Writable<HTMLElement | undefined>;
+export type FluentRootContext = FluentContext & {
+	readonly state: {
+		data: {};
+		elements: {
+			root?: HTMLElement;
+			app?: HTMLElement;
+			layouts: Record<
+				string,
+				{
+					element?: HTMLElement;
+					id: string;
+				}
+			>;
+		};
+	};
 
-	rootElement: Writable<HTMLElement | undefined>;
-	overlayElement: Writable<HTMLElement | undefined>;
-	screens: Readable<Record<string, string>>;
-	activeScreen: Readable<[key: string, value: string]>;
-	layouts: Writable<
-		Record<
-			string,
-			{
-				element: HTMLElement;
-				id: string;
-			}
-		>
-	>;
+	readonly derived: {
+		data: {
+			screens: {
+				all: Record<string, string>;
+				active?: { name: string; width: number };
+			};
+		};
+		elements: {
+			root?: HTMLElement;
+			app?: HTMLElement;
+			layouts: Record<
+				string,
+				{
+					element?: HTMLElement;
+					id: string;
+				}
+			>;
+		};
+	};
 };
 
 export function getFluentRootContext() {

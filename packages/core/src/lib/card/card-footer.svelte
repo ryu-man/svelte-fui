@@ -1,13 +1,12 @@
 <script lang="ts">
 	import { classnames } from '../internal';
+	import type { CardFooterProps } from './types';
 
-	export let style = '';
-	let klass = '';
-	export { klass as class };
+	let { class: klass = '', element = $bindable(undefined), children }: CardFooterProps = $props();
 </script>
 
-<div class={classnames('fui-card-footer', klass)} {style}>
-	<slot />
+<div bind:this={element} class={classnames('fui-card-footer', klass)}>
+	{@render children?.()}
 </div>
 
 <style lang="postcss">
@@ -17,4 +16,3 @@
 		flex-shrink: 0;
 	}
 </style>
-

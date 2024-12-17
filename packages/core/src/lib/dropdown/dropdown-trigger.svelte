@@ -1,37 +1,34 @@
-<script lang="ts">
+<script lang="ts" generics="Shell extends Component, Context">
+	import type { Component } from 'svelte';
 	import { classnames } from '@svelte-fui/core/internal';
-	import { getDropdownContext } from './context';
+	import { getDropdownContext } from './context-root';
 	import type { DropdownTriggerProps } from './types';
+	import { Popover } from '../popover';
 
-	type $$Props = DropdownTriggerProps;
+	const context_dropdown = getDropdownContext<Context>();
 
-	const dropdown_context = getDropdownContext();
-	const id_store = dropdown_context.id;
-	const open = dropdown_context.open;
-	const value_store = dropdown_context.value;
-	const data_store = dropdown_context.data;
-	const text_store = dropdown_context.text;
-	const trigger_element_store = dropdown_context.triggerElement;
+	let {
+		class: klass = '',
+		as = 'button',
+		shell,
+		element = $bindable(),
+		children,
+		onclick,
+		...resteProps
+	}: DropdownTriggerProps<Shell, Context> = $props();
 
-	
-	let klass = '';
-	export { klass as class };
-
-	function onclick() {
-		open.update((v) => !v);
+	function onclick_(ev: Event) {
+		onclick?.(ev, { context: context_dropdown });
 	}
 </script>
 
-<button
+<Popover.Trigger
+	bind:element
 	class={classnames('fui-dropdown-trigger flex', klass)}
-	type="button"
-	data-owner-id={$id_store}
-	bind:this={$trigger_element_store}
-	on:click={onclick}
-	on:click
+	{...resteProps}
+	{as}
+	shell={shell}
+	onclick={onclick_}
 >
-	<slot text={$text_store} value={$value_store} data={$data_store} />
-</button>
-
-<style lang="postcss">
-</style>
+	{@render children?.({ context: context_dropdown })}
+</Popover.Trigger>

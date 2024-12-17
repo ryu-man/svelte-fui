@@ -1,25 +1,12 @@
 <script lang="ts">
 	import { classnames } from '../internal';
+	import type { CardHeaderProps } from './types';
 
-	export let style = '';
-	let klass = '';
-	export { klass as class };
+	let { class: klass = '', element = $bindable(undefined), children }: CardHeaderProps = $props();
 </script>
 
-<div class={classnames('fui-card-header', klass)} {style}>
-	<!-- <div class="fui-card-header-image">
-		<slot name="image" />
-	</div>
-	<div class="fui-card-header-header">
-		<slot name="header" />
-	</div>
-	<div class="fui-card-header-description">
-		<slot name="description" />
-	</div>
-	<div class="fui-card-header-action">
-		<slot name="action" />
-	</div> -->
-	<slot />
+<div bind:this={element} class={classnames('fui-card-header', klass)}>
+	{@render children?.()}
 </div>
 
 <style lang="postcss">
