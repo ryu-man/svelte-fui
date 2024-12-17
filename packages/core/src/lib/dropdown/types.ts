@@ -1,5 +1,5 @@
-import type { PopoverOverlayProps, PopoverRootProps } from '../popover';
-import type { Snippet } from 'svelte';
+import type { PopoverOverlayProps, PopoverRootProps, PopoverTriggerProps } from '../popover';
+import type { Component, Snippet } from 'svelte';
 import type { DropdownContext } from './context-root';
 import type { InputRootProps } from '../input/types';
 
@@ -41,11 +41,12 @@ export type DropdownItemProps<T = any> = {
 	onclick?: (ev: Event, params: { context: DropdownContext<T> }) => void;
 };
 
-export type DropdownTriggerProps<T = any> = {
-	class?: string;
-	as?: 'div' | 'button' | 'label';
-	children?: Snippet<[{ context: DropdownContext<T> }]>;
-	onclick?: (ev: Event, params: { context: DropdownContext<T> }) => void;
+export type DropdownTriggerProps<
+	Shell extends Component,
+	Context = any
+> = PopoverTriggerProps<Shell> & {
+	children?: Snippet<[{ context: DropdownContext<Context> }]>;
+	onclick?: (ev: Event, params: { context: DropdownContext<Context> }) => void;
 };
 
 export type DropdownInputProps<T> = InputRootProps & {

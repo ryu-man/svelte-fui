@@ -12,11 +12,11 @@
 	let {
 		class: klass = '',
 		as = 'button',
+		shell = undefined,
 		element = $bindable(),
-		clientWidth = $bindable(),
-		componentAs = undefined,
 		onclick,
-		children = undefined
+		children = undefined,
+		...resteProps
 	}: PopoverTriggerProps<T> = $props();
 
 	$effect(() => {
@@ -32,30 +32,31 @@
 	}
 </script>
 
-{#if typeof as === 'string'}
+{#if !shell}
 	<!-- svelte-ignore a11y_no_static_element_interactions -->
 	<svelte:element
 		this={as}
 		bind:this={context.state.elements.trigger}
-		bind:clientWidth
 		class={classnames('popover-trigger', klass)}
 		onclick={onclick_}
+		{...resteProps}
 		data-open={open}
 		data-owner-id={context.id}
 	>
 		{@render children?.({ context })}
 	</svelte:element>
 {:else}
-	{@const Component = as}
+	{@const Shell = shell}
 
-	<Component
+	<Shell
 		bind:element={context.state.elements.trigger}
 		class={classnames('popover-trigger', klass)}
-		as={componentAs}
+		{...resteProps}
+		{as}
 		onclick={onclick_}
 		data-open={open}
 		data-owner-id={context.id}
 	>
 		{@render children?.({ context })}
-	</Component>
+	</Shell>
 {/if}

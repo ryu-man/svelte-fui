@@ -1,5 +1,5 @@
 <script context="module" lang="ts">
-	import { FluentRoot } from '@svelte-fui/core';
+	import { FluentRoot, Link } from '@svelte-fui/core';
 	import { Popover as PopoverModule } from '.';
 	import { defineMeta } from '@storybook/addon-svelte-csf';
 	import type { ArgTypes } from '@storybook/svelte';
@@ -30,6 +30,7 @@
 				<PopoverModule.Trigger
 					class="flex aspect-square h-12 items-center justify-center rounded-xl border border-neutral-200 bg-neutral-100"
 					as="button"
+					
 					{onclick}
 				>
 					<svg

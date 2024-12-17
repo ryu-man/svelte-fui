@@ -1,4 +1,4 @@
-<script lang="ts" generics="T extends Component">
+<script lang="ts" generics="Shell extends Component">
 	import { type Component } from 'svelte';
 	import type { HTMLAttributes } from 'svelte/elements';
 	import { nanoid } from 'nanoid';
@@ -14,19 +14,19 @@
 		id = nanoid(),
 		delay = 200,
 		as = 'div',
+		shell = undefined,
 		element = $bindable(undefined),
-		componentAs,
 		children,
 		onpointerenter,
 		onpointerleave,
 		...restProps
-	}: HTMLAttributes<HTMLElement> & TooltipTriggerProps<T> = $props();
+	}: HTMLAttributes<HTMLElement> & TooltipTriggerProps<Shell> = $props();
 
 	const element_middleware = $derived({
 		get current() {
 			return element;
 		},
-		set current(val: HTMLElement) {
+		set current(val: HTMLElement|undefined) {
 			element = val;
 			context_popover.state.elements.trigger = val;
 		}
@@ -79,7 +79,7 @@
 	}
 </script>
 
-{#if typeof as === 'string'}
+{#if !shell}
 	<svelte:element
 		this={as}
 		bind:this={element_middleware.current}
@@ -89,14 +89,14 @@
 		{@render children?.()}
 	</svelte:element>
 {:else}
-	{@const Cmp = as}
+	{@const Shell = shell}
 
-	<Cmp
+	<Shell
 		bind:element={element_middleware.current}
 		class={classnames('fui-toolip-container relative inline-flex', klass)}
-		as={componentAs}
+		{as}
 		{...restProps}
 	>
 		{@render children?.()}
-	</Cmp>
+	</Shell>
 {/if}

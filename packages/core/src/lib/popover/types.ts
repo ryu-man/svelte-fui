@@ -42,17 +42,14 @@ export type PopoverOverlayProps = HTMLAttributes<HTMLDivElement> & {
 
 export type ComponentProps<C> = C extends Component<infer Props> ? Props : Record<string, any>;
 
-export type ComponentAs<T> = T extends { as?: infer AS } ? { componentAs: AS } : {};
-
-export type PopoverTriggerProps<T extends Component> = Omit<ComponentProps<T>, 'as'> &
-	ComponentAs<ComponentProps<T>> & {
-		class?: string;
-		element?: HTMLElement;
-		clientWidth?: number;
-		as?: string | T;
-		onclick?: (ev: Event, options: { context?: PopoverContext }) => void;
-		children?: Snippet<[{ context: PopoverContext }]>;
-	};
+export type PopoverTriggerProps<Shell extends Component> = {
+	class?: string;
+	element?: HTMLElement;
+	as?: string;
+	shell?: Shell;
+	onclick?: (ev: Event, options: { context?: PopoverContext }) => void;
+	children?: Snippet<[{ context: PopoverContext }]>;
+} & Omit<ComponentProps<Shell>, 'shell'>;
 
 export type PopoverIndicatorProps = {
 	class?: string;

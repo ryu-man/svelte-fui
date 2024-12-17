@@ -1,6 +1,6 @@
 import type { HTMLAttributes } from 'svelte/elements';
 import type { PopoverOverlayProps, PopoverRootProps, PopoverTriggerProps } from '../popover';
-import type { Snippet } from 'svelte';
+import type { Component, Snippet } from 'svelte';
 import type { MenuContext } from './context-root';
 
 export type MenuRootProps = PopoverRootProps & {};
@@ -28,7 +28,7 @@ export type MenuGroupProps = HTMLAttributes<HTMLDivElement>;
 
 export type MenuDividerProps = HTMLAttributes<HTMLDivElement>;
 
-export type MenuTriggerProps = PopoverTriggerProps & {
+export type MenuTriggerProps<Shell extends Component> = PopoverTriggerProps<Shell> & {
 	children?: Snippet<
 		[
 			{
