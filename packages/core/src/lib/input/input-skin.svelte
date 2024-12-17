@@ -93,21 +93,18 @@
 		}
 		&.outlineInteractive {
 			:hover {
-				/* ...shorthands.borderColor(tokens.colorNeutralStroke1Hover); */
 				border-color: var(--fui-colorNeutralStroke1Hover);
 				border-bottom-color: var(--fui-colorNeutralStrokeAccessibleHover);
 			}
 			/* DO NOT add a space between the selectors! It changes the behavior of make-styles. */
 			:active,
 			:focus-within {
-				/* ...shorthands.borderColor(tokens.colorNeutralStroke1Pressed); */
 				border-color: var(--fui-colorNeutralStroke1Pressed);
 				border-bottom-color: var(--fui-colorNeutralStrokeAccessiblePressed);
 			}
 		}
 
 		&.underline {
-			/* background-color: tokens.colorTransparentBackground; */
 			background-color: var(--fui-colorTransparentBackground);
 			/*corners look strange if rounded*/
 			border-radius: 0;
@@ -126,23 +123,19 @@
 
 		&.underlineInteractive {
 			&:hover {
-				/* border-bottom-color: tokens.colorNeutralStrokeAccessibleHover; */
 				border-bottom-color: var(--fui-colorNeutralStrokeAccessibleHover);
 			}
 			/* DO NOT add a space between the selectors! It changes the behavior of make-styles. */
 			&:active,
 			&:focus-within {
-				/* border-bottom-color: tokens.colorNeutralStrokeAccessiblePressed; */
 				border-bottom-color: var(--fui-colorNeutralStrokeAccessiblePressed);
 			}
 			&::after {
 				/* remove rounded corners from focus underline*/
-				/* shorthands.borderRadius(0) */
 				border-radius: 0;
 			}
 		}
 		&.filled {
-			/* ...shorthands.borderColor(tokens.colorTransparentStroke); */
 			border-color: var(--fui-colorTransparentStroke);
 		}
 		&.filledInteractive {
@@ -150,14 +143,12 @@
 			&:hover,
 			&:focus-within {
 				/* also handles pressed border color (:active) */
-				/* ...shorthands.borderColor(tokens.colorTransparentStrokeInteractive); */
 				border-color: var(--fui-colorTransparentStrokeInteractive);
 			}
 		}
 		&.invalid {
 			&:not(:focus-within),
 			&:hover:not(:focus-within) {
-				/* ...shorthands.borderColor(tokens.colorPaletteRedBorder2); */
 				border-color: var(--fui-colorPaletteRedBorder2);
 			}
 		}
@@ -181,12 +172,10 @@
 			cursor: not-allowed;
 			background-color: var(--fui-colorTransparentBackground);
 			border-color: var(--fui-colorNeutralStrokeDisabled);
-			/* ...shorthands.borderColor(tokens.colorNeutralStrokeDisabled); */
 
 			@media (forced-colors: active) {
-				/* color: graytext; */
+				color: graytext;
 				border-color: graytext;
-				/* ...shorthands.borderColor('GrayText'); */
 			}
 
 			/* remove the focus border */
@@ -229,8 +218,8 @@
 		/* Animation for focus OUT */
 		transform: scaleX(0);
 		transition-property: transform;
-		/* transition-duration: var(--fui-durationUltraFast);
-		transition-delay: var(--fui-curveAccelerateMid); */
+		transition-duration: theme('transitionDuration.ultra-fast');
+		transition-delay: theme('transitionDelay.accelerate-mid');
 
 		@media screen and (prefers-reduced-motion: reduce) {
 			transition-duration: 0.01ms;
@@ -248,8 +237,7 @@
 		@apply duration-normal ease-decelerate-mid;
 		transform: scaleX(1);
 		transition-property: transform;
-		/* transition-duration: var(--fui-durationNormal); */
-		/* transition-delay: var(--fui-curveDecelerateMid); */
+		transition-duration: theme('transitionDuration.normal');
 		transition-delay: theme('transitionTimingFunction.decelerate-mid');
 	}
 	.fui-input-skin:focus,
