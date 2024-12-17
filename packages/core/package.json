@@ -51,9 +51,9 @@
 	},
 	"dependencies": {
 		"@floating-ui/dom": "^1.4.3",
-		"@svelte-fui/theme": "workspace:*",
-		"@svelte-fui/themes": "workspace:*",
-		"@svelte-fui/tailwindcss": "workspace:*",
+		"@svelte-fui/theme": "^0.1.0",
+		"@svelte-fui/themes": "^0.1.0",
+		"@svelte-fui/tailwindcss": "^0.1.7",
 		"clsx": "^2.0.0",
 		"gsap": "^3.12.5",
 		"focus-trap": "^7.4.0",

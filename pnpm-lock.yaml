@@ -21,13 +21,13 @@ importers:
         specifier: ^1.4.3
         version: 1.6.11
       '@svelte-fui/tailwindcss':
-        specifier: workspace:*
+        specifier: ^0.1.7
         version: link:../tailwindcss
       '@svelte-fui/theme':
-        specifier: workspace:*
+        specifier: ^0.1.0
         version: link:../theme
       '@svelte-fui/themes':
-        specifier: workspace:*
+        specifier: ^0.1.0
         version: link:../themes
       clsx:
         specifier: ^2.0.0
