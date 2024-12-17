@@ -229,7 +229,7 @@ importers:
   packages/tailwindcss:
     dependencies:
       '@svelte-fui/theme':
-        specifier: workspace:^
+        specifier: ^0.1.3
         version: link:../theme
     devDependencies:
       tailwindcss:
@@ -278,7 +278,7 @@ importers:
   packages/themes:
     dependencies:
       '@svelte-fui/theme':
-        specifier: workspace:^
+        specifier: ^0.1.0
         version: link:../theme
     devDependencies:
       '@sveltejs/package':
