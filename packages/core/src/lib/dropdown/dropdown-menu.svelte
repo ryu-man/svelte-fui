@@ -90,7 +90,7 @@
 		// 	return;
 		// }
 
-		close();
+		dropdown_context?.closeMenu();
 	}
 </script>
 
