@@ -49,6 +49,9 @@
 
 <script lang="ts">
 	let theme = webLightTheme;
+	let value = undefined;
+
+	$: console.log(value);
 
 	onMount(() => {
 		function handler(e: MediaQueryListEvent) {
@@ -70,7 +73,7 @@
 <Story id="fui_radio_group" name="RadioGroup" args={default_args} let:args>
 	<FluentRoot {theme}>
 		<div class="flex h-full w-full items-center justify-center">
-			<RadioGroup {...args} name="fav_fruit">
+			<RadioGroup {...args} name="fav_fruit" bind:value>
 				<Radio value="apple" on:change={(e) => console.log(e)}>Apple</Radio>
 				<Radio value="orange" on:change={(e) => console.log(e)}>Orange</Radio>
 				<Radio value="banana" on:change={(e) => console.log(e)}>Banana</Radio>

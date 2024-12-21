@@ -4,7 +4,7 @@
 	import { getRadioGroupContext } from './context';
 	import { classnames } from '../internal';
 
-	const { disabled$, required$, value$, name$, layout$ } = getRadioGroupContext();
+	const { disabled$, required$, value$, name$, layout$, methods } = getRadioGroupContext();
 
 	export let id: string | undefined = nanoid();
 	export let name: string | undefined = nanoid();
@@ -17,7 +17,9 @@
 	$: isVertical = position === 'below';
 
 	function onclick() {
-		value$.set(value);
+		if (!value) return;
+
+		methods.select(value);
 	}
 </script>
 
@@ -34,7 +36,14 @@
 		on:change
 	/>
 	<div aria-hidden="true" class="fui-radio-indicator">
-		<svg fill="currentColor" class="" aria-hidden="true" width="1em" height="1em" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"
+		<svg
+			fill="currentColor"
+			class=""
+			aria-hidden="true"
+			width="1em"
+			height="1em"
+			viewBox="0 0 20 20"
+			xmlns="http://www.w3.org/2000/svg"
 			><path d="M10 2a8 8 0 1 0 0 16 8 8 0 0 0 0-16Z" fill="currentColor" />
 		</svg>
 	</div>

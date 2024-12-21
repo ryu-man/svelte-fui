@@ -3,7 +3,7 @@
 	import { writable } from 'svelte/store';
 	import { classnames } from '../internal';
 	import { setRadioGroupContext } from './context';
-	import type { Layout } from './types'
+	import type { Layout } from './types';
 
 	export let name: string = nanoid();
 	export let value: string | undefined = undefined;
@@ -16,7 +16,10 @@
 		required$: writable(required),
 		value$: writable(value),
 		name$: writable(name),
-		layout$: writable(layout)
+		layout$: writable(layout),
+		methods: {
+			select
+		}
 	});
 
 	$: disabled$.set(disabled);
@@ -24,6 +27,10 @@
 	$: value$.set(value);
 	$: name$.set(name);
 	$: layout$.set(layout);
+
+	function select(radio_value: string) {
+		value = radio_value;
+	}
 </script>
 
 <div class={classnames('fui-radio-group', layout)} role="radiogroup" {...$$restProps}>

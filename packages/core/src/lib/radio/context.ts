@@ -10,6 +10,10 @@ export type RadioGroupContext = {
 	value$: Writable<unknown>;
 	name$: Writable<string | undefined>;
 	layout$: Writable<Layout>;
+
+	methods: {
+		select: (value: string) => void;
+	};
 };
 
 export function getRadioGroupContext() {
