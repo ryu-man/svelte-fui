@@ -1,6 +1,6 @@
 {
 	"name": "@svelte-fui/core",
-	"version": "1.0.0-alpha.17",
+	"version": "1.0.0-alpha.18",
 	"sideEffects": false,
 	"description": "An implementation of Microsoft Fluent UI v9 for Svelte framework",
 	"author": "ryu-man",
