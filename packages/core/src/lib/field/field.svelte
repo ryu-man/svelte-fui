@@ -8,6 +8,7 @@
 	import { classnames } from '../internal';
 	import { Label } from '../label';
 
+	export let required: boolean | string = false;
 	export let label: string = '';
 	export let orientation: 'horizontal' | 'vertical' = 'vertical';
 	export let size: 'sm' | 'md' | 'lg' = 'md';
@@ -37,7 +38,7 @@
 </script>
 
 <div class={classnames('fui-field', orientation, state, size, { 'no-label': !label })}>
-	<Label>{label}</Label>
+	<Label {required}>{label}</Label>
 	<slot />
 </div>
 
