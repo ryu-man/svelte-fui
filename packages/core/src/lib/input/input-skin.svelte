@@ -27,11 +27,12 @@
 
 <button
 	class={classnames(
-		'fui-input-skin px-mNudge gap-xxs inline-flex',
+		'fui-input-skin px-mNudge gap-xxs inline-flex cursor-text',
 		{ size, underline, disabled, invalid: ariaInvalid && !disabled },
 		klass
 	)}
 	{id}
+	tabindex="-1"
 >
 	<slot />
 </button>
