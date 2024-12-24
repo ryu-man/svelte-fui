@@ -24,6 +24,9 @@
 	{...$$restProps}
 >
 	<slot />
+	{#if required !== false}
+		<span class='fui-required-label'>{required === true ? '*' : required}</span>
+	{/if}
 </label>
 
 <style lang="postcss">
@@ -33,12 +36,12 @@
 		&.disabled {
 			@apply text-neutral-foreground-disabled;
 
-			&.required {
+			& > .fui-required-label {
 				@apply text-neutral-foreground-disabled;
 			}
 		}
 
-		&.required {
+		& > .fui-required-label {
 			@apply pl-xs text-palette-red-foreground-3;
 		}
 		/* 
