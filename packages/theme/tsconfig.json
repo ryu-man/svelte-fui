@@ -5,7 +5,8 @@
 		"declaration": true, // This is the key to generate .d.ts files
 		"outDir": "./dist", // Optional: Specify the output directory
 		"rootDir": "./src", // Optional: Specify where your source .ts files live
-		"moduleResolution": "Bundler"
+		"moduleResolution": "bundler",
 	},
-	"include": ["./src/**/*.ts", "src/**/*.js"] // Make sure it includes the path to your TypeScript source files
+	"include": ["./src/**/*.ts", "src/**/*.js"], // Make sure it includes the path to your TypeScript source files
+	"exclude": ["node_modules"]
 }
