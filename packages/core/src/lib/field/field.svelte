@@ -1,18 +1,23 @@
 <script lang="ts">
-	import { setFieldContext } from './context';
-	import type { FieldState } from './types,';
-	import { setSharedContext } from '../context';
+	import { writable } from 'svelte/store';
+
 	import CheckmarkCircleFilled from '@svelte-fui/core/icons/checkmark-circle-filled.svelte';
 	import ErrorCircleFilled from '@svelte-fui/core/icons/error-circle-filled.svelte';
 	import WarningFilled from '@svelte-fui/core/icons/warning-filled.svelte';
-	import { classnames } from '../internal';
+
+	import { setFieldContext } from './context';
+	import type { FieldState } from './types,';
+
 	import { Label } from '../label';
+	import { classnames } from '../internal';
+	import { setSharedContext } from '../internal/context';
 
 	export let label: string = '';
 	export let orientation: 'horizontal' | 'vertical' = 'vertical';
 	export let size: 'sm' | 'md' | 'lg' = 'md';
 	export let validationMessage = '';
 	export let state: FieldState = validationMessage ? 'error' : 'none';
+	export let required = false;
 
 	const validation_message_icons = {
 		error: ErrorCircleFilled,
@@ -21,11 +26,28 @@
 		none: undefined
 	};
 
-	const sharedContext$ = setSharedContext({
-		input: { invalid: state === 'error', size },
-		label: { size }
+	const sharedInputContext$ = setSharedContext(
+		writable({
+			invalid: state === 'error',
+			size,
+			required
+		}),
+		'input'
+	);
+	$: sharedInputContext$.set({ invalid: state === 'error', size, required });
+
+	const sharedLabelContext$ = setSharedContext(
+		writable({
+			size,
+			required
+		}),
+		'label'
+	);
+
+	$: sharedLabelContext$.set({
+		size,
+		required
 	});
-	$: sharedContext$.set({ input: { invalid: state === 'error', size }, label: { size } });
 
 	const { icon$, state$ } = setFieldContext({
 		state,

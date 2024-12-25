@@ -1,10 +1,15 @@
 <script lang="ts">
 	import { type Writable, writable } from 'svelte/store';
-	import { classnames } from '@svelte-fui/core/internal';
-	import { getSharedContext } from '@svelte-fui/core/internal/context';
-	import type { ExternalContext, InputSize, InputType } from './types';
 
-	const sharedContext$ = getSharedContext<Writable<ExternalContext>>('input') || writable({});
+	import { classnames, prefix } from '@svelte-fui/core/internal';
+
+	import type { ExternalContext, InputSize } from './types';
+
+	import { getSharedContext } from '../internal/context';
+
+	const sharedContext$ = (getSharedContext('input') || writable({})) as Writable<
+		Partial<ExternalContext>
+	>;
 
 	/** Determines whether the textbox can be typed in or not. */
 	export let readonly = false;
@@ -12,11 +17,11 @@
 	/** Controls whether the TextBox is intended for user interaction, and styles it accordingly. */
 	export let disabled = false;
 
-	export let size: InputSize = $sharedContext$.size || 'md';
+	export let size: InputSize = $sharedContext$?.size ?? 'md';
 
 	export let underline = false;
 
-	export let ariaInvalid = $sharedContext$.invalid || false;
+	export let ariaInvalid = $sharedContext$?.invalid ?? false;
 
 	/** Specifies a custom class name for the TextBox container. */
 	let klass = '';
@@ -28,10 +33,12 @@
 <button
 	class={classnames(
 		'fui-input-skin px-mNudge gap-xxs inline-flex',
-		{ size, underline, disabled, invalid: ariaInvalid && !disabled },
+		prefix($sharedContext$?.size ?? size, 'size'),
+		{ underline, disabled, invalid: ($sharedContext$?.invalid ?? ariaInvalid) && !disabled },
 		klass
 	)}
 	{id}
+	{...$$restProps}
 >
 	<slot />
 </button>

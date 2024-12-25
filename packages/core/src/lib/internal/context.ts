@@ -13,12 +13,12 @@ export function setFluentContext<T>(context: T, id = '', ...segments: string[]) 
 	return setContext(key, context);
 }
 
-export function getSharedContext<T>(id = '', ...segments: string[]) {
-	return getFluentContext<T>('shared', id, ...segments);
+export function getSharedContext<T>(...segments: string[]) {
+	return getFluentContext<T>('shared', ...segments);
 }
 
-export function setSharedContext<T>(context: T, id = '', ...segments: string[]) {
-	return setFluentContext(context, 'shared', id, ...segments);
+export function setSharedContext<T>(context: T, ...segments: string[]) {
+	return setFluentContext(context, 'shared', ...segments);
 }
 
 export function mergeContext<T>(...contexts: (T | undefined)[]) {
