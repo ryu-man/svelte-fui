@@ -12,12 +12,12 @@
 	import { classnames } from '../internal';
 	import { setSharedContext } from '../internal/context';
 
+	export let required: boolean | string = false;
 	export let label: string = '';
 	export let orientation: 'horizontal' | 'vertical' = 'vertical';
 	export let size: 'sm' | 'md' | 'lg' = 'md';
 	export let validationMessage = '';
 	export let state: FieldState = validationMessage ? 'error' : 'none';
-	export let required = false;
 
 	const validation_message_icons = {
 		error: ErrorCircleFilled,
@@ -59,7 +59,7 @@
 </script>
 
 <div class={classnames('fui-field', orientation, state, size, { 'no-label': !label })}>
-	<Label>{label}</Label>
+	<Label {required}>{label}</Label>
 	<slot />
 </div>
 

@@ -38,6 +38,7 @@
 		klass
 	)}
 	{id}
+	tabindex="-1"
 	{...$$restProps}
 >
 	<slot />
