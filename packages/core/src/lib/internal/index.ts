@@ -145,3 +145,23 @@ const custom_tw_merge = extendTailwindMerge({
 export function classnames(...args: ClassValue[]): string {
 	return custom_tw_merge(clsx(...args));
 }
+
+export function prefix(value?: string, prefix?: string, delimiter = '-') {
+	if (!value) return '';
+
+	if (!prefix) {
+		return value;
+	}
+
+	return `${prefix}${delimiter}${value}`;
+}
+
+export function postfix(value?: string, postfix?: string, delimiter = '-') {
+	if (!value) return '';
+
+	if (!prefix) {
+		return value;
+	}
+
+	return `${value}${delimiter}${postfix}`;
+}

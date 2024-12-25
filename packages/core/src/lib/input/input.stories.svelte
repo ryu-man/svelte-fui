@@ -9,7 +9,9 @@
 
 	const arg_types = {} satisfies ArgTypes;
 
-	const default_args: Partial<Record<keyof typeof arg_types, any>> = {};
+	const default_args: Partial<Record<keyof typeof arg_types, any>> = {
+		size: 'md'
+	};
 
 	export const meta = {
 		title: 'Components/Input',

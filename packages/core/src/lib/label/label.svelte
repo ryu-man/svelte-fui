@@ -1,25 +1,42 @@
 <script lang="ts">
+	import { writable, type Writable } from 'svelte/store';
+
 	import { classnames } from '@svelte-fui/core/internal';
+
 	import type { LabelProps } from './types';
+
+	import { getSharedContext } from '../internal/context';
 
 	type $$Props = LabelProps;
 
+	type ExternalContext = {
+		size: 'sm' | 'md' | 'lg';
+		required: boolean;
+	};
+
+	const sharedContext$ = (getSharedContext('label') || writable({})) as Writable<
+		Partial<ExternalContext>
+	>;
+
 	export let disabled: $$Props['disabled'] = false;
-	export let required: $$Props['required'] = false;
-	export let size: $$Props['size'] = 'md';
+	export let required: $$Props['required'] = $sharedContext$.required ?? false;
+	export let size: $$Props['size'] = $sharedContext$.size ?? 'md';
 
 	let klass: $$Props['class'] = '';
 	export { klass as class };
+
+	$: _required = $sharedContext$.required ?? required;
+	$: _size = $sharedContext$.size ?? size;
 </script>
 
 <label
 	class={classnames(
 		'fui-label font-base',
-		{ disabled, required },
+		{ disabled, required: _required },
 		klass,
-		size === 'sm' && 'text-base-200 leading-base-200',
-		size === 'md' && 'text-base-300 leading-base-300',
-		size === 'lg' && 'text-base-400 leading-base-400 font-semibold'
+		_size === 'sm' && 'text-base-200 leading-base-200',
+		_size === 'md' && 'text-base-300 leading-base-300',
+		_size === 'lg' && 'text-base-400 leading-base-400 font-semibold'
 	)}
 	{...$$restProps}
 >

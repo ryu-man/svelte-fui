@@ -72,7 +72,7 @@
 	<FluentRoot {theme}>
 		<div class="flex h-full w-full flex-col items-center justify-center gap-4">
 			<div class="flex w-[90%] flex-col gap-4">
-				<Field {...args} label="Example Field" state="error">
+				<Field {...args} label="Example Field" state="error" required="**">
 					<Input />
 					<FieldMessageError open>This an error message</FieldMessageError>
 				</Field>

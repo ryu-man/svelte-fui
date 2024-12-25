@@ -1,15 +1,8 @@
 <script lang="ts">
-	import { writable } from 'svelte/store';
-	import { getSharedContext } from '@svelte-fui/core/internal/context';
-	import InputSkin from './input-skin.svelte';
-	import type { ExternalContext, InputSize, InputType } from './types';
+	import InputRoot from './input-root.svelte';
+	import InputElement from './input-element.svelte';
+	import type { InputSize, InputType } from './types';
 	import { classnames } from '../internal';
-
-	type InputEvent = Event & {
-		currentTarget: EventTarget & HTMLInputElement;
-	};
-
-	const sharedContext$ = getSharedContext<ExternalContext>('input') || writable({});
 
 	/** The input's current value. */
 	export let value: any = '';
@@ -28,7 +21,9 @@
 	/** Controls whether the TextBox is intended for user interaction, and styles it accordingly. */
 	export let disabled = false;
 
-	export let size: InputSize = $sharedContext$.size || 'md';
+	export let required = false;
+
+	export let size: InputSize = 'md';
 
 	export let underline = false;
 
@@ -37,51 +32,56 @@
 	export let ariaLabel: string | undefined = undefined;
 
 	export let ariaDescribedby: string | undefined = undefined;
-	export let ariaInvalid = $sharedContext$.invalid || false;
+	export let ariaInvalid = false;
 
 	/** Specifies a custom class name for the TextBox container. */
 	let klass = '';
 	export { klass as class };
 
 	export let id: string | undefined = undefined;
-
-	function setInputType(node: HTMLInputElement, type: InputType) {
-		node.type = type;
-	}
-
-	function oninput(e: InputEvent) {
-		const currentTarget = e.currentTarget as HTMLInputElement;
-		valueAsNumber = currentTarget.valueAsNumber;
-		valueAsDate = currentTarget.valueAsDate;
-	}
 </script>
 
-<InputSkin class={classnames('fui-input', { size, underline, disabled, invalid: ariaInvalid && !disabled })} {id}>
+<InputRoot
+	class={classnames('fui-input')}
+	{size}
+	{disabled}
+	{readonly}
+	{underline}
+	{ariaInvalid}
+	{id}
+>
 	{#if $$slots.before}
 		<div class="flex h-full items-center">
 			<slot name="before" />
 		</div>
 	{/if}
 
-	<input
-		use:setInputType={type}
-		class={classnames('px-xxs text-neutral-foreground-1 leading-inherit flex-1 border-none bg-transparent', klass)}
+	<InputElement
+		class={classnames(
+			'px-xxs text-neutral-foreground-1 leading-inherit flex-1 border-none bg-transparent',
+			klass
+		)}
 		{id}
 		{name}
+		{type}
 		{placeholder}
 		{disabled}
 		{readonly}
-		aria-label={ariaLabel}
-		aria-describedby={ariaDescribedby}
-		aria-invalid={ariaInvalid}
+		{required}
+		{ariaLabel}
+		{ariaDescribedby}
+		{ariaInvalid}
 		bind:value
-		on:input={oninput}
+		bind:valueAsDate
+		bind:valueAsNumber
+		on:input
 		on:input
 		on:blur
 		on:keydown
 		on:keypress
 		on:keyup
 		on:click
+		{...$$restProps}
 	/>
 
 	{#if $$slots.after}
@@ -89,10 +89,4 @@
 			<slot name="after" />
 		</div>
 	{/if}
-</InputSkin>
-
-<style lang="postcss">
-	input {
-		@apply outline-none;
-	}
-</style>
+</InputRoot>
