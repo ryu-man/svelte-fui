@@ -138,12 +138,12 @@
 	}
 
 	@media screen and (prefers-reduced-motion: reduce) {
-		.fds-button {
+		.fui-button {
 			transition-duration: 0.01ms;
 		}
 	}
 
-	.fds-button.outline {
+	.fui-button.outline {
 		background-color: var(--fui-colorTransparentBackground);
 
 		&:hover {
@@ -155,7 +155,7 @@
 		}
 	}
 
-	.fds-button.primary {
+	.fui-button.primary {
 		background-color: var(--fui-colorBrandBackground);
 		border-color: transparent;
 		color: var(--fui-colorNeutralForegroundOnBrand);
@@ -173,7 +173,7 @@
 		}
 	}
 
-	.fds-button.subtle {
+	.fui-button.subtle {
 		background-color: var(--fui-colorSubtleBackground);
 		border-color: transparent;
 		color: var(--fui-colorNeutralForeground2);
@@ -199,7 +199,7 @@
 		}
 	}
 
-	.fds-button.transparent {
+	.fui-button.transparent {
 		background-color: var(--fui-colorTransparentBackground);
 		border-color: transparent;
 		color: var(--fui-colorNeutralForeground2);
@@ -225,7 +225,7 @@
 		}
 	}
 
-	.fds-button:disabled {
+	.fui-button:disabled {
 		background-color: var(--fui-colorNeutralBackgroundDisabled);
 		border-color: var(--fui-colorNeutralStrokeDisabled);
 		color: var(--fui-colorNeutralForegroundDisabled);
