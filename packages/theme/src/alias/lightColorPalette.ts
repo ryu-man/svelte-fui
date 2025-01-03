@@ -14,8 +14,6 @@ const statusColorPaletteTokens = applyStatusColorPalettePatches(
 	statusSharedColorNames.reduce((acc, sharedColor) => {
 		const upperedFirstColorName = upperFirst(sharedColor);
 
-		console.log(upperedFirstColorName, sharedColor);
-
 		const sharedColorTokens = {
 			[`colorPalette${upperedFirstColorName}Background1`]: statusSharedColors[sharedColor].tint60,
 			[`colorPalette${upperedFirstColorName}Background2`]: statusSharedColors[sharedColor].tint40,

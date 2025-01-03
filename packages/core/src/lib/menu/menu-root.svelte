@@ -96,7 +96,6 @@
 			return;
 		}
 		const onclick_trigger = () => {
-			console.log($menu_context_open_store);
 			menu_context_open_store.update((v) => !v);
 		};
 
