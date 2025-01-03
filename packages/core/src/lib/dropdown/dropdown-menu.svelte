@@ -77,6 +77,7 @@
 	}
 
 	function onclick_outside(ev: CustomEvent) {
+		if(!$open_store) return;
 		ev.preventDefault();
 
 		const inner_event = ev.detail as Event;
