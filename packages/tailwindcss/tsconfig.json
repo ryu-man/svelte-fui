@@ -1,6 +1,6 @@
 {
 	"compilerOptions": {
-		"target": "ES6", // Or another suitable ECMAScript target
+		"target": "ES2020", // Or another suitable ECMAScript target
 		"module": "ESNext", // Or your preferred module system (e.g., 'ES2020', 'ESNext')
 		"declaration": true, // This is the key to generate .d.ts files
 		"outDir": "dist", // Optional: Specify the output directory
