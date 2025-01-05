@@ -16,7 +16,6 @@
 		"@sveltejs/package": "^2.0.2",
 		"@sveltejs/vite-plugin-svelte": "^2.0.3",
 		"@tsconfig/svelte": "^4.0.1",
-		"@types/node": "^22.10.2",
 		"lodash-es": "^4.17.21",
 		"svelte": "^4.0.0",
 		"svelte-check": "^2.10.3",
