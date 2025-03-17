@@ -2,7 +2,7 @@ import type { StorybookConfig } from '@storybook/sveltekit';
 import { searchForWorkspaceRoot } from 'vite';
 
 const config: StorybookConfig = {
-	stories: ['../src/**/*.mdx', '../src/lib/**/*.stories.@(js|ts|svelte)'],
+	stories: ['../src/mdx/**/*.mdx', '../src/lib/**/*.stories.@(js|ts|svelte)'],
 	addons: [
 		'@storybook/addon-svelte-csf',
 		'@storybook/addon-links',
