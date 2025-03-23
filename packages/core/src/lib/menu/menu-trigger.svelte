@@ -2,7 +2,7 @@
 	import type { Component } from 'svelte';
 	import { classnames } from '@svelte-fui/core/internal';
 	import type { MenuTriggerProps } from './types';
-	import { getMenuContext } from './context-root';
+	import { getMenuContext } from './context';
 	import { Popover } from '../popover';
 
 	const context_menu = getMenuContext();
@@ -13,16 +13,20 @@
 		shell,
 		children,
 		onclick,
-		...resteProps
+		...restProps
 	}: MenuTriggerProps<Shell> = $props();
 </script>
 
 <Popover.Trigger
 	class={classnames('fui-menu-trigger flex', klass)}
-	{...resteProps}
 	{as}
 	{shell}
-	{onclick}
+	onclick={(ev, {context})=>{
+		ev.preventDefault();
+
+		context?.methods.toggle();
+	}}
+	{...restProps}
 >
 	{@render children?.({ context: context_menu })}
 </Popover.Trigger>

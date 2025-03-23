@@ -6,7 +6,7 @@ import MenuOverlay from './menu-overlay.svelte';
 import MenuRoot from './menu-root.svelte';
 import MenuTrigger from './menu-trigger.svelte';
 
-export * from './context-root';
+export * from './context';
 export * from './types';
 
 export const Menu = {

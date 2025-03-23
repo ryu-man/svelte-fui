@@ -1,50 +1,63 @@
 <script lang="ts">
 	import { classnames } from '@svelte-fui/core/internal';
 	import { nanoid } from 'nanoid';
-	import { type MenuContext, getMenuContext, setMenuContext } from './context-root';
+	import { debounce } from 'es-toolkit';
+	import { type MenuState, getMenuContext, setMenuContext } from './context';
 	import type { MenuItemProps } from './types';
+
 	import { setPopoverContext } from '../popover';
 
-	const context_menu = getMenuContext();
+	import { defineProperty, defineState } from '../internal/context';
+
+	const menuContext = getMenuContext();
 
 	let {
+		element = $bindable(),
+		open = $bindable(false),
 		class: klass = '',
+
 		id = nanoid(),
 		as = 'button',
-		open = false,
 		href,
+		alignment,
+		offset = 4,
+		placements = ['left-end', 'left-start', 'right-end', 'right-start'],
 		children,
 		onclick,
 		onpointerenter,
-		onpointerleave
+		onpointerleave,
+		...restProps
 	}: MenuItemProps = $props();
 
-	const context_state: MenuContext['state'] = $state({
-		data: {},
-		elements: {}
-	});
+	let dom: MenuState['dom'] = $state({});
 
-	const context_derived: MenuContext['derived'] = $derived({
-		data: {
-			open: (open && context_menu.derived.data.open) ?? false
-		},
-		elements: {
-			trigger: context_state.elements.trigger
-		}
-	});
+	const subMenuState = defineState<MenuState>([
+		(o) =>
+			defineProperty(
+				o,
+				'dom',
+				() => dom,
+				(v) => (dom = { ...v })
+			),
+		(o) => defineProperty(o, 'alignment', () => alignment),
+		(o) => defineProperty(o, 'offset', () => offset),
+		(o) => defineProperty(o, 'open', () => open && (menuContext?.state?.open ?? true)),
+		(o) => defineProperty(o, 'placements', () => placements)
+	]);
 
-	const context_sub_menu = setMenuContext({
+	const contextSubMenu = setMenuContext({
 		id: nanoid(),
-		type: 'sub-menu',
-		parent: () => context_menu,
-		get state() {
-			return context_state;
+		type: 'menu',
+		parent: () => menuContext,
+		update(fn) {
+			fn(subMenuState);
 		},
-		get derived() {
-			return context_derived;
+		get state() {
+			return subMenuState;
 		},
 		events: {
-			onchange: (params) => {}
+			onchange: (params) => {},
+			onclickitem: (params) => {}
 		},
 		methods: {
 			open() {
@@ -59,24 +72,30 @@
 		}
 	});
 
-	setPopoverContext(context_sub_menu);
+	setPopoverContext(contextSubMenu);
+
+	const closeonpointerleave = debounce(() => {
+		open = false;
+	}, 300);
 
 	function onclick_(ev: Event) {
-		onclick?.(ev, { context: context_menu });
+		onclick?.(ev, { context: menuContext });
 
 		if (ev.defaultPrevented) {
 			return;
 		}
 
-		if (!context_menu) {
+		if (!menuContext) {
 			return;
 		}
 
-		context_menu.methods.close();
+		menuContext.methods.close();
 	}
 
 	function onpointerenter_(ev: PointerEvent) {
-		onpointerenter?.(ev, { context: context_menu });
+		// closeonpointerleave.cancel();
+
+		onpointerenter?.(ev, { context: menuContext });
 
 		if (ev.defaultPrevented) {
 			return;
@@ -86,17 +105,19 @@
 	}
 
 	function onpointerleave_(ev: PointerEvent) {
-		onpointerleave?.(ev, { context: context_menu });
+		onpointerleave?.(ev, { context: menuContext });
 
 		if (ev.defaultPrevented) {
 			return;
 		}
+
+		// closeonpointerleave();
 	}
 </script>
 
 <svelte:element
 	this={as}
-	bind:this={context_state.elements.trigger}
+	bind:this={dom.trigger}
 	class={classnames(
 		'fui-menu-item before:bg-neutral-foreground-1 duration-fast before:ease-easy-ease-max flex w-full cursor-pointer flex-nowrap items-center gap-1 whitespace-nowrap px-4 py-1 text-left before:opacity-0 before:transition-opacity hover:before:opacity-5 active:before:opacity-10',
 		klass
@@ -105,8 +126,9 @@
 	onclick={onclick_}
 	onpointerenter={onpointerenter_}
 	onpointerleave={onpointerleave_}
+	{...restProps}
 >
-	{@render children?.({ context: context_menu })}
+	{@render children?.({ context: menuContext })}
 </svelte:element>
 
 <style lang="postcss">

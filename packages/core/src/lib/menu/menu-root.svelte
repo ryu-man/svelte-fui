@@ -1,58 +1,75 @@
 <script lang="ts" generics="T">
 	import { Popover } from '@svelte-fui/core/popover';
-	import { getMenuContext, setMenuContext, type MenuContext } from './context-root';
+	import { getMenuContext, type MenuContext, type MenuState } from './context';
 	import type { MenuRootProps } from './types';
 	import { nanoid } from 'nanoid';
+	import { defineProperty, defineState } from '../internal/context';
 
-	let { children, id, open = $bindable(false) }: MenuRootProps = $props();
+	let {
+		children,
+		id,
+		open = $bindable(false),
+		alignment,
+		offset = 4,
+		placements = ['bottom-end', 'bottom-start', 'top-end', 'top-start'],
+		...restProps
+	}: MenuRootProps = $props();
 
-	const context_parent = getMenuContext();
+	const parentContext = getMenuContext();
 
-	const context_state: MenuContext['state'] = $state({
-		data: {},
-		elements: {}
-	});
+	const context: MenuContext = (() => {
+		let dom: MenuState['dom'] = $state({});
 
-	const context_derived: MenuContext['derived'] = $derived({
-		data: {
-			open: open ?? false
-		},
-		elements: {
-			overlay: context_state.elements.overlay,
-			indicator: context_state.elements.indicator,
-			trigger: context_state.elements.trigger
-		}
-	});
+		const state = defineState<MenuState>([
+			(o) =>
+				defineProperty(
+					o,
+					'dom',
+					() => dom,
+					(v) => (dom = { ...v })
+				),
+			(o) => defineProperty(o, 'alignment', () => alignment),
+			(o) => defineProperty(o, 'offset', () => offset),
+			(o) => defineProperty(o, 'open', () => open),
+			(o) => defineProperty(o, 'placements', () => placements)
+		]);
 
-	const context_menu = setMenuContext({
-		id: nanoid(),
-		type: 'menu',
-		parent: () => context_parent,
-		get state() {
-			return context_state;
-		},
-		get derived() {
-			return context_derived;
-		},
-		events: {
-			onchange: (params) => {}
-		},
-		methods: {
-			open() {
-				open = true;
+		return {
+			id: nanoid(),
+			type: 'menu',
+			parent() {
+				return parentContext;
 			},
-			close() {
-				open = false;
+			update(fn) {
+				fn(state);
 			},
-			toggle() {
-				open = !open;
+
+			get state() {
+				return state;
+			},
+			events: {
+				onchange: (params) => {
+					restProps?.onchange?.(params);
+				},
+				onclickitem(params) {}
+			},
+			methods: {
+				open: () => {
+					open = true;
+				},
+				close: () => {
+					open = false;
+				},
+				toggle: () => {
+					open = !open;
+				}
 			}
-		}
-	});
+		};
+	})();
 </script>
 
-<Popover.Root bind:open context={context_menu}>
-	{@render children?.({ context: context_menu })}
+<Popover.Root {context} {...restProps}>
+	{@render children?.({ context: context })}
 </Popover.Root>
 
 <style lang="postcss">
