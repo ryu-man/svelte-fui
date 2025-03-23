@@ -4,10 +4,14 @@
 	import { getPopoverContext } from './context';
 	import type { PopoverTriggerProps } from './types';
 
-	const context = getPopoverContext();
+	const popoverContext = getPopoverContext();
 
-	const open = $derived(context?.derived.data.open);
-	const controller = context?.methods;
+	if (!popoverContext) {
+		throw new Error('Popover context was not found');
+	}
+
+	const open = $derived(popoverContext?.state.open);
+	const controller = popoverContext?.methods;
 
 	let {
 		class: klass = '',
@@ -20,11 +24,11 @@
 	}: PopoverTriggerProps<T> = $props();
 
 	$effect(() => {
-		element = context.state.elements.trigger;
+		element = popoverContext.state.dom.trigger;
 	});
 
 	function onclick_(ev: Event) {
-		onclick?.(ev, { context });
+		onclick?.(ev, { context: popoverContext });
 
 		if (!ev.defaultPrevented) {
 			controller.toggle();
@@ -36,27 +40,29 @@
 	<!-- svelte-ignore a11y_no_static_element_interactions -->
 	<svelte:element
 		this={as}
-		bind:this={context.state.elements.trigger}
+		bind:this={() => popoverContext.state.dom.trigger,
+		(v) => popoverContext.update((state) => (state.dom.trigger = v))}
 		class={classnames('popover-trigger', klass)}
 		onclick={onclick_}
 		{...resteProps}
 		data-open={open}
-		data-owner-id={context.id}
+		data-owner-id={popoverContext.id}
 	>
-		{@render children?.({ context })}
+		{@render children?.({ context: popoverContext })}
 	</svelte:element>
 {:else}
 	{@const Shell = shell}
 
 	<Shell
-		bind:element={context.state.elements.trigger}
+		bind:this={() => popoverContext.state.dom.trigger,
+		(v) => popoverContext.update((state) => (state.dom.trigger = v))}
 		class={classnames('popover-trigger', klass)}
 		{...resteProps}
 		{as}
 		onclick={onclick_}
 		data-open={open}
-		data-owner-id={context.id}
+		data-owner-id={popoverContext.id}
 	>
-		{@render children?.({ context })}
+		{@render children?.({ context: popoverContext })}
 	</Shell>
 {/if}

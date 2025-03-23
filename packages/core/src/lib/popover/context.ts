@@ -1,30 +1,23 @@
 import type { Alignment, Placement } from '@floating-ui/dom';
-import { getFluentContext, setFluentContext, type FluentContext } from '../internal/context';
+import { getFluentContextPath, type FluentContext } from '../internal/context';
+import { getContext, setContext } from 'svelte';
 
-export const FUI_POPOVER_CONTEXT_ID = 'popover';
+const CONTEXT_KEY = 'popover';
 
-export type PopoverContext = FluentContext & {
-	readonly state: {
-		data: {};
-		elements: {
-			overlay?: HTMLElement;
-			trigger?: HTMLElement;
-			indicator?: HTMLElement;
-		};
+export type PopoverState = {
+	open: boolean;
+	placements?: Placement[];
+	alignment?: Alignment;
+	offset?: number;
+	extends: Record<string, any>;
+	dom: {
+		overlay?: HTMLElement;
+		trigger?: HTMLElement;
+		indicator?: HTMLElement;
 	};
-	readonly derived: {
-		data: {
-			open: boolean;
-			placements?: Placement[];
-			alignment?: Alignment;
-			offset?: number;
-		};
-		elements: {
-			overlay?: HTMLElement;
-			trigger?: HTMLElement;
-			indicator?: HTMLElement;
-		};
-	};
+};
+
+export type PopoverContext<State = PopoverState> = FluentContext<State> & {
 	events: {
 		onchange?: <T>(params: { context: T }) => void;
 	};
@@ -37,10 +30,10 @@ export type PopoverContext = FluentContext & {
 
 export function createPopoverContext() {}
 
-export function getPopoverContext(): PopoverContext {
-	return getFluentContext(FUI_POPOVER_CONTEXT_ID);
+export function getPopoverContext<T extends PopoverContext>(): T | undefined {
+	return getContext(getFluentContextPath(CONTEXT_KEY));
 }
 
-export function setPopoverContext(context: PopoverContext) {
-	return setFluentContext(context, FUI_POPOVER_CONTEXT_ID);
+export function setPopoverContext<T extends PopoverContext>(context: T) {
+	return setContext(getFluentContextPath(CONTEXT_KEY), context);
 }

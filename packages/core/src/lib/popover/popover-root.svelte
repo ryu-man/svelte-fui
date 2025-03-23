@@ -1,58 +1,56 @@
 <script lang="ts">
-	import { getPopoverContext, setPopoverContext, type PopoverContext } from './context';
+	import { defineProperty, defineState } from '../internal/context';
+	import { getPopoverContext, setPopoverContext, type PopoverState } from './context';
 	import type { PopoverRootProps } from './types';
 	import { nanoid } from 'nanoid';
 
 	let {
 		id,
-		context,
+		context = $bindable(),
 		open = $bindable(false),
 		alignment = 'start',
 		offset = 8,
-		placements = ['bottom', 'top'],
-		children
+		placements = ['bottom', 'top', 'bottom-end', 'bottom-start', 'top-end', 'top-start'],
+		children,
+		onmount = undefined,
+		ondestroy = undefined
 	}: PopoverRootProps = $props();
 
-	const context_parent = getPopoverContext();
+	const parentContext = getPopoverContext();
 
-	const popover_context = (() => {
+	const popoverContext = (() => {
 		if (context) {
 			return setPopoverContext(context);
 		}
 
-		const context_state: PopoverContext['state'] = $state({
-			data: {},
-			elements: {}
-		});
+		let dom: PopoverState['dom'] = $state({});
 
-		const context_derived: PopoverContext['derived'] = $derived({
-			data: {
-				open,
-				alignment,
-				offset,
-				placements
-			},
-			elements: {
-				overlay: context_state.elements.overlay,
-				trigger: context_state.elements.trigger,
-				indicator: context_state.elements.indicator
-			}
-		});
+		const state = defineState<PopoverState>([
+			(o) =>
+				defineProperty(
+					o,
+					'dom',
+					() => dom,
+					(v) => (dom = { ...v })
+				),
+			(o) => defineProperty(o, 'alignment', () => alignment),
+			(o) => defineProperty(o, 'offset', () => offset),
+			(o) => defineProperty(o, 'open', () => open),
+			(o) => defineProperty(o, 'placements', () => placements)
+		]);
 
-		return setPopoverContext({
+		return (context = setPopoverContext({
 			id: nanoid(),
-			type: 'popover',
+			type: 'dropdown',
 			parent() {
-				return context_parent;
+				return parentContext;
 			},
-			controller() {
-				return context;
+			update(fn) {
+				fn(state);
 			},
-			get derived() {
-				return context_derived;
-			},
+
 			get state() {
-				return context_state;
+				return state;
 			},
 			events: {
 				onchange: (params) => {}
@@ -68,8 +66,16 @@
 					open = !open;
 				}
 			}
-		});
+		}));
 	})();
+
+	onmount?.(new CustomEvent('create'), { context: popoverContext });
+
+	$effect(() => {
+		return () => {
+			ondestroy?.(new CustomEvent('destroy'), { context: parentContext });
+		};
+	});
 </script>
 
-{@render children?.({ context: popover_context })}
+{@render children?.({ context: popoverContext })}

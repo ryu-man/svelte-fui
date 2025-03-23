@@ -1,9 +1,10 @@
-<script context="module" lang="ts">
+<script module lang="ts">
 	import { FluentRoot, Link } from '@svelte-fui/core';
 	import { Popover as PopoverModule } from '.';
 	import { defineMeta } from '@storybook/addon-svelte-csf';
 	import type { ArgTypes } from '@storybook/svelte';
 	import { fly } from 'svelte/transition';
+	import { webLightTheme } from '@svelte-fui/themes';
 
 	const arg_types = {} satisfies ArgTypes;
 
@@ -16,21 +17,21 @@
 </script>
 
 <script lang="ts">
-	let open = $state(true);
+	let open = $state(false);
+	let theme = webLightTheme;
 
 	function onclick() {
 		console.log(open);
 	}
 </script>
 
-<Story id="popover" name="Popover" args={default_args}>
+<Story name="Popover" args={default_args}>
 	{#snippet children(args)}
-		<FluentRoot>
+		<FluentRoot class="p-4" {theme}>
 			<PopoverModule.Root bind:open>
 				<PopoverModule.Trigger
 					class="flex aspect-square h-12 items-center justify-center rounded-xl border border-neutral-200 bg-neutral-100"
 					as="button"
-					
 					{onclick}
 				>
 					<svg
@@ -61,22 +62,7 @@
 					</svg>
 				</PopoverModule.Trigger>
 
-				<PopoverModule.Overlay placements={['bottom-start']}>
-					{#snippet children({ open, dy })}
-						{#if open}
-							<div
-								class="min-h-28 min-w-40 shadow-3 h-28 w-fit rounded-md border border-solid border-black/5 bg-neutral-100 p-4"
-								transition:fly={{ duration: 200, y: dy * 8 }}
-							>
-								<div
-									class="flex h-full w-full items-center justify-center rounded-md bg-neutral-200"
-								>
-									Hello World!
-								</div>
-							</div>
-						{/if}
-					{/snippet}
-				</PopoverModule.Overlay>
+				<PopoverModule.Overlay>Hello World!</PopoverModule.Overlay>
 			</PopoverModule.Root>
 		</FluentRoot>
 	{/snippet}

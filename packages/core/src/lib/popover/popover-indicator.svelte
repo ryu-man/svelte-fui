@@ -8,7 +8,7 @@
 
 	const context = getPopoverContext();
 
-	const open = $derived(context?.derived.data.open ?? false);
+	const open = $derived(context?.state.open ?? false);
 
 	let { class: klass = '', children }: PopoverIndicatorProps = $props();
 </script>
@@ -16,7 +16,7 @@
 <div
 	class={classnames('popover-indicator h-full', klass)}
 	data-owner-id={context.id}
-	bind:this={context.state.elements.indicator}
+	bind:this={context.state.dom.indicator}
 >
 	{#if children}
 		{@render children({ open })}

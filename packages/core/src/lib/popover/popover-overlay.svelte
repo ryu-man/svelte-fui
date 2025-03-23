@@ -1,25 +1,34 @@
 <script lang="ts">
 	import type { HTMLAttributes } from 'svelte/elements';
 	import { getFluentRootContext } from '@svelte-fui/core';
-	import { clickOutside } from '@svelte-fui/core/actions/dom';
-	import { popover } from '@svelte-fui/core/actions/popover';
+	import { clickoutside } from '@svelte-fui/core/actions/dom.svelte';
+	import { popover } from './actions.svelte';
 	import { classnames } from '@svelte-fui/core/internal';
 	import { getPopoverContext } from './context';
 	import type { PopoverOverlayProps } from './types';
+	import { animate } from '../actions/animation.svelte';
+	import { DURATION } from '../internal/transition';
 
-	const context_root = getFluentRootContext();
-	const context_popover = getPopoverContext();
+	const rootContext = getFluentRootContext();
+	const popoverContext = getPopoverContext();
 
-	const open = $derived(context_popover.derived.data.open);
-	const placements = $derived(context_popover.derived.data.placements);
-	const alignment = $derived(context_popover.derived.data.alignment);
-	const offset = $derived(context_popover.derived.data.offset);
+	if (!popoverContext) {
+		throw new Error('Cannot be used outside popover context');
+	}
 
-	const element_overlay = $derived(context_root?.derived?.elements?.layouts?.['overlay']?.element);
-	const element_trigger = $derived(context_popover?.derived?.elements?.trigger);
+	const open = $derived(popoverContext.state.open);
+	const placements = $derived(popoverContext.state.placements);
+	const alignment = $derived(popoverContext.state.alignment);
+	const offset = $derived(popoverContext.state.offset ?? 0);
+
+	const overlayElement = $derived(rootContext?.state?.dom?.layouts?.['overlay'].element);
+	const triggerElement = $derived(popoverContext?.state?.dom?.trigger);
 
 	let {
+		element = $bindable(),
 		class: klass = '',
+		as = 'div',
+		shell = undefined,
 		children,
 		onmount = (node, params) => ({}),
 		onclickoutside,
@@ -29,47 +38,118 @@
 	let dx = $state(0);
 	let dy = $state(0);
 
-	function onclick_outside(ev: MouseEvent) {
-		onclickoutside?.(ev, { context: context_popover });
+	let canRender = $state(false);
 
-		if (ev.defaultPrevented) {
+	const onpointerenter = (ev) => {
+		console.log(ev);
+		canRender = true;
+	};
+
+	const onpointerexit = () => {};
+
+	$effect(() => {
+		const element = triggerElement?.addEventListener
+			? triggerElement
+			: triggerElement?.contextElement;
+
+		if (element) {
+			element.addEventListener('pointerenter', onpointerenter);
+			element.addEventListener('pointerexit', onpointerexit);
+
+			return () => {
+				element.removeEventListener('pointerenter', onpointerenter);
+				element.removeEventListener('pointerexit', onpointerexit);
+			};
+		}
+	});
+
+	function onclickoutside_(ev?: MouseEvent) {
+		if (!open) {
 			return;
 		}
 
-		context_popover?.methods.close();
+		if (triggerElement?.contains(ev?.target)) {
+			return;
+		}
+
+		onclickoutside?.(ev, { context: popoverContext });
+
+		if (ev?.defaultPrevented) {
+			return;
+		}
+
+		popoverContext?.methods.close();
 	}
 </script>
 
-{#if element_overlay && element_trigger}
+{#if overlayElement && triggerElement && canRender}
 	<div
-		class={classnames(
-			'fui-popover-overlay pointer-events-auto h-min w-min',
-			klass,
-			!open && 'pointer-events-none'
-		)}
-		data-dx={dx}
-		data-dy={dy}
-		use:popover={{
-			reference: element_trigger,
-			target: element_overlay,
+		class={classnames('fui-popover-overlay w-full md:w-fit')}
+		data-owner-id={popoverContext.id}
+		use:popover={() => ({
+			open,
+			target: overlayElement,
+			reference: triggerElement,
 			allowedPlacements: placements,
-			alignment,
-			offset,
-			onReferenceChange: (new_reference) => {},
+			alignment: alignment,
+			offset: offset,
+			animate(node, params) {
+				if (screen.width >= 768) {
+					node.style.transform = `translate(${params.x}px, ${params.y}px)`;
+				}
+			},
 			onChange: (params) => {
 				dx = params.dx;
 				dy = params.dy;
-			},
-			onMount: () => {}
-		}}
-		use:clickOutside={{
-			callback: onclick_outside,
-			exclude: [element_trigger ?? '', '']
-		}}
-		use:onmount={{ open }}
-		{...restProps}
+			}
+		})}
+		style:pointer-events={open ? 'auto' : 'none'}
 	>
-		{@render children?.({ dx, dy, open })}
+		{#if as && !shell}
+			<!-- content here -->
+			<svelte:element
+				this={as}
+				bind:this={() => element,
+				(el) => {
+					popoverContext.update((s) => (s.dom.overlay = element = el));
+				}}
+				class={classnames('popover-overlay-inner w-fit z-[1] overflow-hidden', klass)}
+				use:animate={() => ({
+					x: `${(1 - +open) * -dx * offset}px`,
+					y: `${(1 - +open) * -dy * offset}px`,
+					opacity: +open,
+					duration: DURATION.FAST / 1000,
+					ease: 'circ.inOut'
+				})}
+				use:clickoutside={onclickoutside_}
+				{...restProps}
+			>
+				{@render children?.({ dx, dy, context: popoverContext })}
+			</svelte:element>
+		{:else}
+			<!-- else content here -->
+			{@const Shell = shell}
+
+			<Shell
+				bind:element={() => element,
+				(el) => {
+					popoverContext.update((s) => (s.dom.overlay = element = el));
+				}}
+				class={classnames('popover-overlay-inner w-full md:w-fit z-[1] overflow-hidden', klass)}
+				{as}
+				animate={() => ({
+					x: `${(1 - +open) * -dx * offset}px`,
+					y: `${(1 - +open) * -dy * offset}px`,
+					opacity: +open,
+					duration: DURATION.FAST / 1000,
+					ease: 'circ.inOut'
+				})}
+				{onclickoutside}
+				{...restProps}
+			>
+				{@render children?.({ dx, dy, context: popoverContext })}
+			</Shell>
+		{/if}
 	</div>
 {/if}
 
