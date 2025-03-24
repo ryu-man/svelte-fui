@@ -21,7 +21,9 @@
 	const alignment = $derived(popoverContext.state.alignment);
 	const offset = $derived(popoverContext.state.offset ?? 0);
 
-	const overlayElement = $derived(rootContext?.state?.dom?.layouts?.['overlay'].element);
+	const targetLayer = $derived(rootContext.methods.getLayer('overlay'));
+
+	const layerElement = $derived(targetLayer?.context.state.dom.inner);
 	const triggerElement = $derived(popoverContext?.state?.dom?.trigger);
 
 	let {
@@ -82,13 +84,13 @@
 	}
 </script>
 
-{#if overlayElement && triggerElement && canRender}
+{#if layerElement && triggerElement && canRender}
 	<div
 		class={classnames('fui-popover-overlay w-full md:w-fit')}
 		data-owner-id={popoverContext.id}
 		use:popover={() => ({
 			open,
-			target: overlayElement,
+			target: layerElement,
 			reference: triggerElement,
 			allowedPlacements: placements,
 			alignment: alignment,

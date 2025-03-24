@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { tick } from 'svelte';
-	import { getBackdropContext, getFluentRootContext } from '@svelte-fui/core';
+	import { getFluentRootContext } from '@svelte-fui/core';
 	import { portal } from '@svelte-fui/core/actions/portal';
 	import { classnames } from '@svelte-fui/core/internal';
 	import { nanoid } from 'nanoid';
@@ -9,10 +9,12 @@
 	import { fid } from '../internal/utils';
 	import { mount } from '../actions/dom';
 
-	const context_root = getFluentRootContext();
-	const element_overlay = $derived(context_root?.derived?.elements?.layouts?.['overlay']?.element);
+	const rootContext = getFluentRootContext();
 
-	const backdrop_context = getBackdropContext();
+	const targetLayer = $derived(rootContext.state.layers.get('overlay'));
+	const overlayElement = $derived(targetLayer?.context.state.dom.inner);
+
+	// const backdrop_context = getBackdropContext();
 
 	const backdrop_id = nanoid(8);
 
@@ -73,9 +75,9 @@
 
 	$effect(() => {
 		if (is_modal && open) {
-			tick().then(() => backdrop_context.openBackdrop(backdrop_id));
+			targetLayer?.context.methods.openBackdrop();
 		} else {
-			backdrop_context.closeBackdrop(backdrop_id);
+			targetLayer?.context.methods.closeBackdrop();
 		}
 	});
 
@@ -84,6 +86,8 @@
 
 		return () => {
 			document.removeEventListener('keyup', dismiss_dialog_on_escape);
+
+			targetLayer?.context.methods.closeBackdrop();
 		};
 	});
 
@@ -107,7 +111,7 @@
 	}
 </script>
 
-{#if element_overlay}
+{#if overlayElement}
 	{#if open}
 		<!-- svelte-ignore a11y_no_static_element_interactions -->
 		<div
@@ -116,7 +120,7 @@
 				context_state.elements.root = node;
 				element = node;
 			}}
-			use:portal={{ target: element_overlay }}
+			use:portal={{ target: overlayElement }}
 			onclick={onclick_dismiss_dialog}
 			onkeyup={() => {}}
 		>

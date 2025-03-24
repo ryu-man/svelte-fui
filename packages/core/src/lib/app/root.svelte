@@ -1,69 +1,52 @@
 <script lang="ts">
 	import { tick } from 'svelte';
-	import { writable } from 'svelte/store';
 	import { nanoid } from 'nanoid';
-	import { Layout } from '@svelte-fui/core';
+	import { Layer } from './layer';
 	import type { Theme } from '@svelte-fui/theme';
 
-	import { setBackdropContext } from './backdrop-context';
-	import RootBackdropLayer from './layer-backdrop.svelte';
-	import { setFluentRootContext, type FluentRootContext } from './root-context';
+	import { setFluentRootContext, type RootState } from './context';
 	import { applyTheme } from './utils';
 	import type { RootProps } from './types';
+	import { classnames } from '../internal';
+	import { defineProperty, defineState } from '../internal/context';
+	import { SvelteMap } from 'svelte/reactivity';
 
-	let { screens = {}, theme, children }: RootProps = $props();
+	let { class: klass = '', screens = {}, theme, children }: RootProps = $props();
 
 	let viewport = $state({
 		width: 0,
 		height: 0
 	});
 
-	setBackdropContext({
-		dependencies: new Set(),
-		open: writable(false),
-		openBackdrop(id) {
-			this.dependencies.add(id);
-			this.open.set(true);
-		},
-		closeBackdrop(id) {
-			this.dependencies.delete(id);
-			if (this.dependencies.size === 0) {
-				this.open.set(false);
-			}
-		}
-	});
+	let dom: RootState['dom'] = $state({});
+	let layers: RootState['layers'] = new SvelteMap<string, any>();
 
-	const context_state: FluentRootContext['state'] = $state({
-		data: {
-			screens: {}
-		},
-		elements: {
-			layouts: {}
-		}
-	});
+	const activeScreen = $derived(screen(screens, viewport));
 
-	const context_derived: FluentRootContext['derived'] = $derived({
-		data: {
-			screens: {
-				all: screens,
-				active: screen(screens, viewport)
-			}
-		},
-		elements: {
-			root: context_state.elements.root,
-			app: context_state.elements.app,
-			layouts: { ...context_state.elements.layouts }
-		}
-	});
+	const contextState = defineState<RootState>([
+		(o) => defineProperty(o, 'dom', () => dom),
+		(o) => defineProperty(o, 'viewport', () => viewport),
+		(o) => defineProperty(o, 'screens', () => ({ all: screens, active: activeScreen })),
+		(o) => defineProperty(o, 'layers', () => layers)
+	]);
 
-	const context_root = setFluentRootContext({
+	const contextRoot = setFluentRootContext({
 		id: nanoid(),
 		type: 'root',
-		get state() {
-			return context_state;
+		parent() {
+			return undefined;
 		},
-		get derived() {
-			return context_derived;
+		update(fn) {},
+
+		get state() {
+			return contextState;
+		},
+		methods: {
+			getLayer: (id) => layers.get(id),
+			setLayer: (id, context) => {
+				layers.set(id, context);
+				return context;
+			}
 		}
 	});
 
@@ -105,34 +88,39 @@
 		return data;
 	}
 
-	function theming(node: HTMLDivElement, theme: Theme) {
-		const node_hashed_classname = node.classList.item(node.classList.length - 1);
+	function theming(node: HTMLDivElement, theme?: Theme) {
+		const classname = node.classList.item(node.classList.length - 1);
 
 		const tag = document.createElement('style');
-		tag.setAttribute('id', node_hashed_classname);
+		tag.setAttribute('id', classname ?? '');
 
 		node.prepend(tag);
 
-		applyTheme(node, tag, theme);
+		// applyTheme(node, tag, theme);
 
-		return {
-			update(theme: Theme) {
+		$effect(() => {
+			if (theme) {
 				applyTheme(node, tag, theme);
 			}
-		};
+		});
 	}
 </script>
 
-<div class="fui-root" bind:this={context_state.elements.root} use:theming={theme}>
+<div class={classnames('fui-root', klass)} bind:this={contextState.dom.root} use:theming={theme}>
 	{#await tick() then _}
 		<!-- promise was fulfilled -->
-		{@render children?.({ context: context_root })}
+		{@render children?.({ context: contextRoot })}
 	{/await}
 
-	<RootBackdropLayer />
-	
-	<Layout id="overlay" class="z-10" />
-	<Layout id="toasts" class="z-10" />
+	<!-- <RootBackdropLayer /> -->
+
+	<Layer.Outer id="overlay" class="z-10">
+		<Layer.Inner></Layer.Inner>
+	</Layer.Outer>
+
+	<Layer.Outer id="toasts" class="z-20">
+		<Layer.Inner></Layer.Inner>
+	</Layer.Outer>
 </div>
 
 <style lang="postcss">
