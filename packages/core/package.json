@@ -81,6 +81,7 @@
 		"@svelte-fui/theme": "^0.1.0",
 		"@svelte-fui/themes": "^0.1.0",
 		"clsx": "^2.0.0",
+		"es-toolkit": "^1.33.0",
 		"focus-trap": "^7.4.0",
 		"gsap": "^3.12.5",
 		"lodash-es": "^4.17.21",
