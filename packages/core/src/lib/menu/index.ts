@@ -16,5 +16,6 @@ export const Menu = {
 	Divider: MenuDivider,
 	Trigger: MenuTrigger,
 	Overlay: MenuOverlay,
+	List: MenuOverlay,
 	Indicator: PopoverIndicator
 };
