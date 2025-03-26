@@ -15,7 +15,6 @@ export type LayoutOuterProps = {
 
 export type LayoutInnerProps = {
 	class?: string;
-	id: string;
 	element?: HTMLElement
 	children?: Snippet<[]>;
 };
