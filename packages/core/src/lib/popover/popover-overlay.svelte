@@ -8,6 +8,7 @@
 	import type { PopoverOverlayProps } from './types';
 	import { animate } from '../actions/animation.svelte';
 	import { DURATION } from '../internal/transition';
+	import { getLayerContext } from '../app/layer/context';
 
 	const rootContext = getFluentRootContext();
 	const popoverContext = getPopoverContext();
@@ -21,9 +22,12 @@
 	const alignment = $derived(popoverContext.state.alignment);
 	const offset = $derived(popoverContext.state.offset ?? 0);
 
-	const targetLayer = $derived(rootContext.methods.getLayer('overlay'));
+	const defaultLayer = getLayerContext();
+	$inspect(defaultLayer);
 
-	const layerElement = $derived(targetLayer?.context.state.dom.inner);
+	const targetLayer = getLayerContext();
+
+	const layerElement = $derived(targetLayer?.state.dom.inner);
 	const triggerElement = $derived(popoverContext?.state?.dom?.trigger);
 
 	let {

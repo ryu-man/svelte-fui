@@ -8,15 +8,20 @@
 	import { dialogNamespace, setDialogContext, type DialogContext } from './context';
 	import { fid } from '../internal/utils';
 	import { mount } from '../actions/dom';
+	import { setLayerContext } from '../app/layer/context';
 
 	const rootContext = getFluentRootContext();
 
-	const targetLayer = $derived(rootContext.state.layers.get('overlay'));
+	const targetLayer = $derived(rootContext.state.layers.get('l1'));
 	const overlayElement = $derived(targetLayer?.context.state.dom.inner);
 
 	// const backdrop_context = getBackdropContext();
 
-	const backdrop_id = nanoid(8);
+	if(!targetLayer){
+		throw new Error('default layer context not found!');
+	}
+
+	setLayerContext(targetLayer.context);
 
 	let {
 		class: klass = '',
@@ -29,32 +34,32 @@
 		...restProps
 	}: DialogRootProps = $props();
 
-	const context_state: DialogContext['state'] = $state({
+	const contextState: DialogContext['state'] = $state({
 		data: {},
 		elements: {}
 	});
 
-	const context_derived: DialogContext['derived'] = $derived({
+	const contextDerived: DialogContext['derived'] = $derived({
 		data: {
 			open,
 			type
 		},
 		elements: {
-			root: context_state.elements.root,
-			header: context_state.elements.header,
-			body: context_state.elements.body,
-			footer: context_state.elements.footer
+			root: contextState.elements.root,
+			header: contextState.elements.header,
+			body: contextState.elements.body,
+			footer: contextState.elements.footer
 		}
 	});
 
-	const context_dropdown = setDialogContext({
+	const contextDropdown = setDialogContext({
 		id: fid(dialogNamespace),
 		type: 'dialog',
 		get state() {
-			return context_state;
+			return contextState;
 		},
 		get derived() {
-			return context_derived;
+			return contextDerived;
 		},
 		methods: {
 			open: () => {
@@ -71,10 +76,10 @@
 
 	$effect(() => onchange?.({ open, type }));
 
-	const is_modal = $derived(type === 'modal');
+	const isModal = $derived(type === 'modal');
 
 	$effect(() => {
-		if (is_modal && open) {
+		if (isModal && open) {
 			targetLayer?.context.methods.openBackdrop();
 		} else {
 			targetLayer?.context.methods.closeBackdrop();
@@ -117,7 +122,7 @@
 		<div
 			class="fui-dialog pointer-events-auto h-full w-full"
 			use:mount={(node) => {
-				context_state.elements.root = node;
+				contextState.elements.root = node;
 				element = node;
 			}}
 			use:portal={{ target: overlayElement }}
@@ -143,7 +148,7 @@
 					 style="position: fixed; height: 1px; width: 1px; opacity: 0.001; z-index: -1; content-visibility: hidden; top: 0px; left: 0px;"
 				 /> -->
 
-				{@render children?.({ context: context_dropdown })}
+				{@render children?.({ context: contextDropdown })}
 
 				<!-- <i
 					 tabindex="0"

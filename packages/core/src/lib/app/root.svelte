@@ -1,5 +1,4 @@
 <script lang="ts">
-	import { tick } from 'svelte';
 	import { nanoid } from 'nanoid';
 	import { Layer } from './layer';
 	import type { Theme } from '@svelte-fui/theme';
@@ -10,6 +9,7 @@
 	import { classnames } from '../internal';
 	import { defineProperty, defineState } from '../internal/context';
 	import { SvelteMap } from 'svelte/reactivity';
+	import DefaultLayer from './default-layer.svelte';
 
 	let { class: klass = '', screens = {}, theme, children }: RootProps = $props();
 
@@ -107,20 +107,28 @@
 </script>
 
 <div class={classnames('fui-root', klass)} bind:this={contextState.dom.root} use:theming={theme}>
-	{#await tick() then _}
-		<!-- promise was fulfilled -->
-		{@render children?.({ context: contextRoot })}
-	{/await}
-
-	<!-- <RootBackdropLayer /> -->
-
 	<Layer.Outer id="overlay" class="z-10">
+		<Layer.Inner></Layer.Inner>
+	</Layer.Outer>
+
+	<Layer.Outer id="l0" class="z-20">
+		<Layer.Inner></Layer.Inner>
+	</Layer.Outer>
+
+	<Layer.Outer id="l1" class="z-20">
+		<Layer.Inner></Layer.Inner>
+	</Layer.Outer>
+	<Layer.Outer id="l2" class="z-20">
 		<Layer.Inner></Layer.Inner>
 	</Layer.Outer>
 
 	<Layer.Outer id="toasts" class="z-20">
 		<Layer.Inner></Layer.Inner>
 	</Layer.Outer>
+
+	<DefaultLayer>
+		{@render children?.({ context: contextRoot })}
+	</DefaultLayer>
 </div>
 
 <style lang="postcss">

@@ -1,6 +1,6 @@
 <script module lang="ts">
 	import { onMount } from 'svelte';
-	import { Button, FluentRoot, Dialog as DialogFui } from '@svelte-fui/core';
+	import { Button, FluentRoot, Dialog as DialogFui, Menu } from '@svelte-fui/core';
 	import { webDarkTheme, webLightTheme } from '@svelte-fui/themes';
 	import { defineMeta } from '@storybook/addon-svelte-csf';
 	import type { ArgTypes } from '@storybook/svelte';
@@ -71,13 +71,24 @@
 				<DialogFui.Header>Hello World</DialogFui.Header>
 
 				<DialogFui.Body>
-					Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vitae dapibus purus, ac
+					<p>
+						Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vitae dapibus purus, ac
 					dictum ipsum. Vestibulum tristique facilisis porta. Donec ullamcorper feugiat lectus, sit
 					amet efficitur elit blandit ullamcorper. Ut vel gravida ex. Suspendisse nisl felis,
 					commodo sit amet sodales non, posuere ac odio. Vestibulum sed neque sagittis, tincidunt
 					est ut, aliquet ante. Nullam rhoncus mauris in libero imperdiet, id ullamcorper ex varius.
 					Duis euismod quis enim vitae posuere. Nulla lacus magna, mollis ac sapien vel, maximus
 					ornare nulla.
+					</p>
+
+					<Menu.Root>
+						<Menu.Trigger>Action</Menu.Trigger>
+						<Menu.List>
+							<Menu.Item>Open</Menu.Item>
+							<Menu.Item>Edit</Menu.Item>
+							<Menu.Item>Archive</Menu.Item>
+						</Menu.List>
+					</Menu.Root>
 				</DialogFui.Body>
 
 				<DialogFui.Actions class="justify-end">
