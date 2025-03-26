@@ -25,7 +25,7 @@
 	let dom: LayerState['dom'] = $state({});
 
 	const getElement = () => element;
-	const setElement = (el: HTMLElement) => (dom.inner = element = el);
+	const setElement = (el: HTMLElement) => (dom.outer = element = el);
 
 	const contextState = defineState<LayerState>([
 		(o) => defineProperty(o, 'dom', () => dom),
