@@ -10,6 +10,7 @@
 	import { defineProperty, defineState } from '../internal/context';
 
 	const menuContext = getMenuContext();
+	const isMenuOpen = $derived(menuContext?.state.open ?? false);
 
 	let {
 		element = $bindable(),
@@ -22,6 +23,7 @@
 		alignment,
 		offset = 4,
 		placements = ['left-end', 'left-start', 'right-end', 'right-start'],
+		placement = 'right-start',
 		children,
 		onclick,
 		onpointerenter,
@@ -41,8 +43,9 @@
 			),
 		(o) => defineProperty(o, 'alignment', () => alignment),
 		(o) => defineProperty(o, 'offset', () => offset),
-		(o) => defineProperty(o, 'open', () => open && (menuContext?.state?.open ?? true)),
-		(o) => defineProperty(o, 'placements', () => placements)
+		(o) => defineProperty(o, 'open', () => open && (menuContext?.state?.open ?? false)),
+		(o) => defineProperty(o, 'placements', () => placements),
+		(o) => defineProperty(o, 'placement', () => placement)
 	]);
 
 	const contextSubMenu = setMenuContext({
@@ -115,21 +118,23 @@
 	}
 </script>
 
-<svelte:element
-	this={as}
-	bind:this={dom.trigger}
-	class={classnames(
-		'fui-menu-item before:bg-neutral-foreground-1 duration-fast before:ease-easy-ease-max flex w-full cursor-pointer flex-nowrap items-center gap-1 whitespace-nowrap px-4 py-1 text-left before:opacity-0 before:transition-opacity hover:before:opacity-5 active:before:opacity-10',
-		klass
-	)}
-	role={as === 'a' ? 'link' : 'button'}
-	onclick={onclick_}
-	onpointerenter={onpointerenter_}
-	onpointerleave={onpointerleave_}
-	{...restProps}
->
-	{@render children?.({ context: menuContext })}
-</svelte:element>
+{#if isMenuOpen}
+	<svelte:element
+		this={as}
+		bind:this={dom.trigger}
+		class={classnames(
+			'fui-menu-item before:bg-neutral-foreground-1 duration-fast before:ease-easy-ease-max flex w-full cursor-pointer flex-nowrap items-center gap-1 whitespace-nowrap px-4 py-1 text-left before:opacity-0 before:transition-opacity hover:before:opacity-5 active:before:opacity-10',
+			klass
+		)}
+		role={as === 'a' ? 'link' : 'button'}
+		onclick={onclick_}
+		onpointerenter={onpointerenter_}
+		onpointerleave={onpointerleave_}
+		{...restProps}
+	>
+		{@render children?.({ context: menuContext })}
+	</svelte:element>
+{/if}
 
 <style lang="postcss">
 	.fui-menu-item {
