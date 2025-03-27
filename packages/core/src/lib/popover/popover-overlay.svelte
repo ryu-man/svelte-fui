@@ -9,6 +9,7 @@
 	import { animate } from '../actions/animation.svelte';
 	import { DURATION } from '../internal/transition';
 	import { getLayerContext } from '../app/layer/context';
+	import { flip, offset } from '@floating-ui/dom';
 
 	const rootContext = getFluentRootContext();
 	const popoverContext = getPopoverContext();
@@ -19,8 +20,9 @@
 
 	const open = $derived(popoverContext.state.open);
 	const placements = $derived(popoverContext.state.placements);
+	const placement = $derived(popoverContext.state.placement);
 	const alignment = $derived(popoverContext.state.alignment);
-	const offset = $derived(popoverContext.state.offset ?? 0);
+	const offsetValue = $derived(popoverContext.state.offset ?? 0);
 
 	const defaultLayer = getLayerContext();
 	$inspect(defaultLayer);
@@ -86,9 +88,16 @@
 
 		popoverContext?.methods.close();
 	}
+
+	function pos(open: number, offset: number) {
+		return 2 * offset * open - offset;
+	}
 </script>
 
 {#if layerElement && triggerElement && canRender}
+	{@const x = `${pos(+open, offsetValue) * dx}px`}
+	{@const y = `${pos(+open, offsetValue) * dy}px`}
+
 	<div
 		class={classnames('fui-popover-overlay w-full md:w-fit')}
 		data-owner-id={popoverContext.id}
@@ -96,14 +105,17 @@
 			open,
 			target: layerElement,
 			reference: triggerElement,
-			allowedPlacements: placements,
 			alignment: alignment,
-			offset: offset,
-			animate(node, params) {
-				if (screen.width >= 768) {
-					node.style.transform = `translate(${params.x}px, ${params.y}px)`;
-				}
-			},
+			placement: placement,
+			middleware: [
+				offset(offsetValue),
+				flip({
+					fallbackPlacements: placements,
+					mainAxis: true,
+					crossAxis: true,
+					padding: 24
+				})
+			],
 			onChange: (params) => {
 				dx = params.dx;
 				dy = params.dy;
@@ -121,8 +133,8 @@
 				}}
 				class={classnames('popover-overlay-inner w-fit z-[1] overflow-hidden', klass)}
 				use:animate={() => ({
-					x: `${(1 - +open) * -dx * offset}px`,
-					y: `${(1 - +open) * -dy * offset}px`,
+					x,
+					y,
 					opacity: +open,
 					duration: DURATION.FAST / 1000,
 					ease: 'circ.inOut'
@@ -144,8 +156,8 @@
 				class={classnames('popover-overlay-inner w-full md:w-fit z-[1] overflow-hidden', klass)}
 				{as}
 				animate={() => ({
-					x: `${(1 - +open) * -dx * offset}px`,
-					y: `${(1 - +open) * -dy * offset}px`,
+					x,
+					y,
 					opacity: +open,
 					duration: DURATION.FAST / 1000,
 					ease: 'circ.inOut'

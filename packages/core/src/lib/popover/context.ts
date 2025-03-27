@@ -7,6 +7,7 @@ const CONTEXT_KEY = 'popover';
 export type PopoverState = {
 	open: boolean;
 	placements?: Placement[];
+	placement?: Placement;
 	alignment?: Alignment;
 	offset?: number;
 	extends: Record<string, any>;

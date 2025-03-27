@@ -10,6 +10,7 @@ export type PopoverRootProps = {
 	id?: string;
 	context?: PopoverContext;
 	placements?: Placement[];
+	placement?: Placement;
 	alignment?: Alignment;
 	offset?: number;
 
