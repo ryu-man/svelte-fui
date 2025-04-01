@@ -1,7 +1,12 @@
 import { getFluentContext, setFluentContext, type FluentContext } from '../internal/context';
 
-export const dropdownItemNamespaceSegments = ['dropdown', 'item'];
-export const dropdownItemNamespace = dropdownItemNamespaceSegments.join('/');
+const dropdownItemNamespaceSegments = ['dropdown', 'item'];
+
+export type DropdownItemState<T = any> = {
+	active: boolean;
+	value: string;
+	data?: T;
+};
 
 export type ContextDropdownItem<T> = {
 	value: () => string;
@@ -11,20 +16,7 @@ export type ContextDropdownItem<T> = {
 	innerText: () => string;
 };
 
-export type DropdownItemContext<T> = FluentContext & {
-	readonly state: {
-		data: {};
-		elements: {};
-	};
-
-	readonly derived: {
-		data: {
-			active: boolean;
-			value: string;
-			data?: T;
-		};
-		elements: {};
-	};
+export type DropdownItemContext<T> = FluentContext<DropdownItemState<T>> & {
 	methods: {
 		select: () => void;
 		unselect: () => void;

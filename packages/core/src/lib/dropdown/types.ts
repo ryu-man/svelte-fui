@@ -2,6 +2,7 @@ import type { PopoverOverlayProps, PopoverRootProps, PopoverTriggerProps } from 
 import type { Component, Snippet } from 'svelte';
 import type { DropdownContext } from './context-root';
 import type { InputRootProps } from '../input/types';
+import type { List } from '../list';
 
 export type DropdownRootProps<T> = PopoverRootProps & {
 	open?: boolean;
@@ -21,7 +22,7 @@ export type DropdownRootProps<T> = PopoverRootProps & {
 	>;
 };
 
-export type DropdownMenuProps = PopoverOverlayProps & {};
+export type DropdownMenuProps = PopoverOverlayProps<List.Root> & {};
 
 export type DropdownItemProps<T = any> = {
 	class?: string;
@@ -52,7 +53,7 @@ export type DropdownTriggerProps<
 export type DropdownInputProps<T> = InputRootProps & {
 	class?: string;
 	as?: 'div' | 'button';
-	placeholder?: string;
+	placeholder?: string|Snippet;
 	onclick?: (ev: Event, params: { context: DropdownContext<T> }) => void;
 };
 

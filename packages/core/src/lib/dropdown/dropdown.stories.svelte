@@ -1,10 +1,11 @@
 <script module lang="ts">
 	import { onMount } from 'svelte';
-	import { FluentRoot } from '@svelte-fui/core';
+	import { FluentRoot, Icon } from '@svelte-fui/core';
 	import { webDarkTheme, webLightTheme } from '@svelte-fui/themes';
 	import { Dropdown as DropdownFui } from '.';
 	import { defineMeta } from '@storybook/addon-svelte-csf';
 	import type { ArgTypes } from '@storybook/svelte';
+	import LocalLanguageZiRegular from 'virtual:icons/fluent/local-language-zi-24-regular';
 
 	const default_args = {
 		size: 'md',
@@ -71,22 +72,26 @@
 	];
 </script>
 
-<Story id="dropdown" name="Dropdown" args={default_args}>
+<Story name="Dropdown" args={default_args}>
 	{#snippet children(args)}
 		<FluentRoot {theme}>
 			<div class="flex h-full w-full flex-col items-center justify-center gap-4">
-				<div class="flex flex-col gap-4">
-					<DropdownFui.Root bind:values multiple>
-						<DropdownFui.Input></DropdownFui.Input>
+				<div class="flex flex-col gap-4 w-[50svw]">
+					<DropdownFui.Root {...args} bind:values multiple>
+						<DropdownFui.Trigger class="w-full">
+							{#snippet placeholder()}
+								<div class="flex items-center gap-2">Select a language <Icon class="h-full"><LocalLanguageZiRegular /></Icon></div>
+							{/snippet}
+						</DropdownFui.Trigger>
 
-						<DropdownFui.Menu placements={['bottom-start']}>
+						<DropdownFui.List placements={['bottom-start']}>
 							{#each languages as item (item.id)}
 								<DropdownFui.Item value={item.id} data={item}>
 									<DropdownFui.Checkbox />
 									<div>{item.lang}</div>
 								</DropdownFui.Item>
 							{/each}
-						</DropdownFui.Menu>
+						</DropdownFui.List>
 					</DropdownFui.Root>
 
 					<div class="flex justify-between">

@@ -7,74 +7,66 @@
 		getDropdownContext,
 		setDropdownContext,
 		type DropdownContext,
-		type ContextDropdownItem
+		type DropdownItem,
+		type DropdownState
 	} from './context-root';
 	import type { DropdownRootProps } from './types';
 
 	import { Popover } from '../popover';
+	import { defineProperty, defineState } from '../internal/context';
+	import { untrack } from 'svelte';
 
 	let {
 		open = $bindable(false),
-		value = $bindable(undefined),
+		value = $bindable(),
 		values = $bindable([]),
 		data = $bindable<T[]>([]),
-		context = $bindable(undefined),
+		context = $bindable(),
 		multiple = false,
-		disabled = false,
 		placements = ['bottom-start', 'top-start', 'bottom-end', 'top-end'],
-		offset = 8,
+		placement = 'bottom-start',
+		offset = 4,
 		alignment = undefined,
-		id = undefined,
-		children
+		children = undefined
 	}: DropdownRootProps<T> = $props();
 	const context_parent = getDropdownContext();
 
-	const context_builder = () => {
+	const contextBuilder = () => {
 		if (context) {
 			return setDropdownContext(context);
 		}
 
-		let items: Map<string, ContextDropdownItem<T>> = new SvelteMap([]);
+		let items: Map<string, DropdownItem<T>> = new SvelteMap([]);
 
-		const context_state: DropdownContext<T>['state'] = $state({
-			data: {},
-			elements: {}
+		const dom: DropdownState<T>['dom'] = $state({});
+		const stateItems = $derived({
+			all: items,
+			active: values.map((d) => items.get(d)).filter(Boolean) as DropdownItem<T>[]
 		});
 
-		const context_derived: DropdownContext<T>['derived'] = $derived({
-			data: {
-				value,
-				values: values ?? [],
-				open: open ?? false,
-				multiple: multiple ?? false,
-				disabled: disabled ?? false,
-				data,
-				items: {
-					all: items,
-					active: values.map((d) => items.get(d)).filter(Boolean) as ContextDropdownItem<T>[]
-				},
-				alignment,
-				offset,
-				placements
-			},
-			elements: {
-				root: context_state.elements.root,
-				overlay: context_state.elements.overlay,
-				indicator: context_state.elements.indicator,
-				trigger: context_state.elements.trigger
-			}
-		});
+		const contextState = defineState<DropdownState<T>>([
+			(o) => defineProperty(o, 'dom', () => dom),
+			(o) => defineProperty(o, 'alignment', () => alignment),
+			(o) => defineProperty(o, 'offset', () => offset),
+			(o) => defineProperty(o, 'open', () => open),
+			(o) => defineProperty(o, 'placements', () => placements),
+			(o) => defineProperty(o, 'placement', () => placement),
+			(o) => defineProperty(o, 'data', () => data),
+			(o) => defineProperty(o, 'items', () => stateItems),
+			(o) => defineProperty(o, 'multiple', () => multiple),
+			(o) => defineProperty(o, 'values', () => (multiple ? values : [value]))
+		]);
 
 		return setDropdownContext<T>({
 			id: fid(dropdownNamespace),
 			type: 'dropdown',
 
 			parent: <R,>() => context_parent as DropdownContext<R>,
-			get derived() {
-				return context_derived;
+			update(fn) {
+				fn?.(contextState);
 			},
 			get state() {
-				return context_state;
+				return contextState;
 			},
 			events: {
 				onchange: () => {}
@@ -107,9 +99,7 @@
 					values = [...sequence];
 					value = values[0];
 
-					data = values
-						.map((d) => context_dropdown.derived.data.items.all.get(d)?.data)
-						.filter(Boolean) as T[];
+					data = values.map((d) => items.get(d)?.data).filter(Boolean) as T[];
 
 					return values;
 				},
@@ -123,9 +113,7 @@
 					values = [...sequence];
 					value = values[0];
 
-					data = values
-						.map((d) => context_dropdown.derived.data.items.all.get(d)?.data)
-						.filter(Boolean) as T[];
+					data = values.map((d) => items.get(d)?.data).filter(Boolean) as T[];
 
 					return values;
 				},
@@ -136,15 +124,13 @@
 		});
 	};
 
-	const context_dropdown = context_builder();
-
-	$effect(() => {
-		if (!context) {
-			context = context_dropdown;
-		}
-	});
+	if (!context) {
+		untrack(() => {
+			context = contextBuilder();
+		});
+	}
 </script>
 
-<Popover.Root bind:open context={context_dropdown}>
-	{@render children?.({ context: context_dropdown })}
+<Popover.Root bind:open {context}>
+	{@render children?.({ context: context })}
 </Popover.Root>

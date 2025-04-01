@@ -3,13 +3,12 @@
 	import { classnames } from '@svelte-fui/core/internal';
 	import ChevronDownRegular from '@svelte-fui/core/icons/chevron-down-regular.svelte';
 	import { getDropdownContext } from './context-root';
-	import { animate } from '../actions/animation';
 	import { DURATION } from '../internal/transition';
 	import { Popover } from '../popover';
+	import { animate } from '../actions/animation.svelte';
 
-	const context_dropdown = getDropdownContext();
-	const id = context_dropdown.id;
-	const open = $derived(context_dropdown.derived.data.open);
+	const dropdownContext = getDropdownContext();
+	const open = $derived(dropdownContext?.state.open ?? false);
 
 	let { class: klass = '' } = $props();
 </script>
@@ -23,7 +22,11 @@
 	{#snippet children(args)}
 		<div
 			class="h-full"
-			use:animate={{ rotate: +open * 180, duration: DURATION.NORMAL / 1000, ease: 'circ.out' }}
+			use:animate={() => ({
+				rotate: +open * 180,
+				duration: DURATION.SMOOTH / 1000,
+				ease: 'circ.out'
+			})}
 		>
 			<Icon class="h-full py-[2px]">
 				<ChevronDownRegular />

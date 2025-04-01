@@ -10,7 +10,11 @@
 	import { fade } from 'svelte/transition';
 	import { DURATION } from '../internal/transition';
 
-	const context_dropdown = getDropdownContext();
+	const dropdownContext = getDropdownContext<T>();
+
+	if (!dropdownContext) {
+		throw new Error('dropdown context is not found');
+	}
 
 	let {
 		class: klass = '',
@@ -21,27 +25,31 @@
 		...restProps
 	}: DropdownInputProps<T> = $props();
 
-	const values = $derived(context_dropdown.derived.data.values);
-	const items = $derived(context_dropdown.derived.data.items.all);
+	const values = $derived(dropdownContext?.state.values);
+	const items = $derived(dropdownContext?.state.items.all);
+
+	const placeholderType = typeof placeholder;
 </script>
 
-<DropdownTrigger class={classnames('relative min-w-[192px]', klass)} {...restProps}>
-	<Input.Root class="w-full flex gap-1 items-center" {appearance} {size}>
-		{#each values as value (value)}
-			<div transition:fade={{ duration: DURATION.NORMAL }}>
-				<div class="px-1 bg-neutral-background-2 h-fit w-fit">
-					{items.get(value)?.innerText() ?? value}
-				</div>
+<Input.Root class="w-full flex gap-1 items-center" {appearance} {size} {...restProps}>
+	{#each values as value (value)}
+		<div transition:fade={{ duration: DURATION.FAST }}>
+			<div class="px-1 bg-neutral-background-2 h-fit w-fit">
+				{items.get(value)?.text ?? value}
 			</div>
-		{:else}
-			<div
-				transition:fade={{ duration: DURATION.NORMAL }}
-				class="absolute left-0 top-0 flex h-full items-center whitespace-nowrap pl-[inherit] pr-12"
-			>
+		</div>
+	{:else}
+		<div
+			transition:fade={{ duration: DURATION.NORMAL }}
+			class="absolute left-0 top-0 flex h-full items-center whitespace-nowrap pl-[inherit] pr-12 opacity-50"
+		>
+			{#if placeholderType === 'string'}
 				<div>{placeholder}</div>
-			</div>
-		{/each}
+			{:else}
+				{@render placeholder?.()}
+			{/if}
+		</div>
+	{/each}
 
-		<DropdownIndicator class="h-full" />
-	</Input.Root>
-</DropdownTrigger>
+	<DropdownIndicator class="h-full" />
+</Input.Root>
