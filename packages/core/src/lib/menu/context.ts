@@ -1,12 +1,8 @@
-import { type FluentContext } from '@svelte-fui/core/internal/context';
-import {
-	getPopoverContext,
-	setPopoverContext,
-	type PopoverContext,
-	type PopoverState
-} from '../popover';
+import { getFluentContextPath, type FluentContext } from '@svelte-fui/core/internal/context';
+import { setPopoverContext, type PopoverContext, type PopoverState } from '../popover';
+import { getContext, setContext } from 'svelte';
 
-export const FUI_MENU_NAMESPACE = 'menu';
+const CONTEXT_KEY = 'menu';
 
 export type MenuState = PopoverState;
 
@@ -25,21 +21,10 @@ export type MenuContext = FluentContext<MenuState> & {
 	methods: PopoverContext['methods'];
 };
 
-export function getMenuContext() {
-	const context = getPopoverContext();
-
-	if (!['menu', 'sub-menu'].includes(context?.type)) {
-		return undefined;
-	}
-
-	return context;
+export function getMenuContext(): MenuContext | undefined {
+	return getContext(getFluentContextPath(CONTEXT_KEY));
 }
 
-export function setMenuContext(context: MenuContext) {
-	if (!['menu', 'sub-menu'].includes(context?.type)) {
-		console.log('the context type should be = "menu"');
-		return context;
-	}
-
-	return setPopoverContext(context);
+export function setMenuContext(context: MenuContext): MenuContext {
+	return setContext(getFluentContextPath(CONTEXT_KEY), context);
 }

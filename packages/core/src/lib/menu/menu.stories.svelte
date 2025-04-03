@@ -53,7 +53,7 @@
 		<div class="flex h-full w-full items-center justify-center">
 			<MenuModule.Root>
 				<MenuModule.Trigger>I have menu here !</MenuModule.Trigger>
-				<MenuModule.Overlay offset={12}>
+				<MenuModule.List offset={12}>
 					<MenuModule.Group>
 						<MenuModule.Item>
 							<Icon class="h-4">
@@ -116,7 +116,7 @@
 								<ChevronRightRegularIcon />
 							</Icon>
 
-							<MenuModule.Overlay placements={['right-start']} offset={8}>
+							<MenuModule.List placements={['right-start']} offset={8}>
 								<MenuModule.Item>
 									<Icon class="h-4">
 										<LaptopRegularIcon />
@@ -127,11 +127,11 @@
 										<ChevronRightRegularIcon />
 									</Icon>
 
-									<MenuModule.Overlay placements={['right-start']} offset={8}>
+									<MenuModule.List placements={['right-start']} offset={8}>
 										<MenuModule.Item>1024 x 768</MenuModule.Item>
 										<MenuModule.Item>1440 x 900</MenuModule.Item>
 										<MenuModule.Item>1920 x 1080</MenuModule.Item>
-									</MenuModule.Overlay>
+									</MenuModule.List>
 								</MenuModule.Item>
 								<MenuModule.Item>
 									<Icon class="h-4">
@@ -145,10 +145,10 @@
 									</Icon>
 									<div>Contrast</div>
 								</MenuModule.Item>
-							</MenuModule.Overlay>
+							</MenuModule.List>
 						</MenuModule.Item>
 					</MenuModule.Group>
-				</MenuModule.Overlay>
+				</MenuModule.List>
 			</MenuModule.Root>
 		</div>
 	</FluentRoot>

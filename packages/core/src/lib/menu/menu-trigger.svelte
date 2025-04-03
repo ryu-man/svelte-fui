@@ -5,28 +5,17 @@
 	import { getMenuContext } from './context';
 	import { Popover } from '../popover';
 
-	const context_menu = getMenuContext();
+	const menuContext = getMenuContext();
 
 	let {
 		class: klass = '',
 		as = 'button',
-		shell,
-		children,
-		onclick,
+		shell = undefined,
+		children = undefined,
 		...restProps
 	}: MenuTriggerProps<Shell> = $props();
 </script>
 
-<Popover.Trigger
-	class={classnames('fui-menu-trigger flex', klass)}
-	{as}
-	{shell}
-	onclick={(ev, {context})=>{
-		ev.preventDefault();
-
-		context?.methods.toggle();
-	}}
-	{...restProps}
->
-	{@render children?.({ context: context_menu })}
+<Popover.Trigger class={classnames('fui-menu-trigger flex', klass)} {as} {shell} {...restProps}>
+	{@render children?.({ context: menuContext })}
 </Popover.Trigger>

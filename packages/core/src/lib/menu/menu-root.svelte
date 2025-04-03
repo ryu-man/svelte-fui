@@ -1,6 +1,6 @@
 <script lang="ts" generics="T">
 	import { Popover } from '@svelte-fui/core/popover';
-	import { getMenuContext, type MenuContext, type MenuState } from './context';
+	import { getMenuContext, setMenuContext, type MenuContext, type MenuState } from './context';
 	import type { MenuRootProps } from './types';
 	import { nanoid } from 'nanoid';
 	import { defineProperty, defineState } from '../internal/context';
@@ -9,15 +9,22 @@
 		children,
 		id,
 		open = $bindable(false),
-		alignment,
-		offset = 4,
+		alignment = undefined,
+		offset = 2,
 		placements = ['bottom-end', 'bottom-start', 'top-end', 'top-start'],
+		placement = 'bottom-start',
+		extension = {},
+		context = undefined,
 		...restProps
 	}: MenuRootProps = $props();
 
 	const parentContext = getMenuContext();
 
-	const context: MenuContext = (() => {
+	const menuContext: MenuContext = (() => {
+		if (context) {
+			return setMenuContext(context);
+		}
+
 		let dom: MenuState['dom'] = $state({});
 
 		const state = defineState<MenuState>([
@@ -31,10 +38,12 @@
 			(o) => defineProperty(o, 'alignment', () => alignment),
 			(o) => defineProperty(o, 'offset', () => offset),
 			(o) => defineProperty(o, 'open', () => open),
-			(o) => defineProperty(o, 'placements', () => placements)
+			(o) => defineProperty(o, 'placements', () => placements),
+			(o) => defineProperty(o, 'placement', () => placement),
+			(o) => defineProperty(o, 'extension', () => extension)
 		]);
 
-		return {
+		return setMenuContext({
 			id: nanoid(),
 			type: 'menu',
 			parent() {
@@ -49,7 +58,7 @@
 			},
 			events: {
 				onchange: (params) => {
-					restProps?.onchange?.(params);
+					restProps?.onchange?.(new CustomEvent('change'), params);
 				},
 				onclickitem(params) {}
 			},
@@ -64,13 +73,10 @@
 					open = !open;
 				}
 			}
-		};
+		});
 	})();
 </script>
 
-<Popover.Root {context} {...restProps}>
-	{@render children?.({ context: context })}
+<Popover.Root context={menuContext} {...restProps}>
+	{@render children?.({ context: menuContext })}
 </Popover.Root>
-
-<style lang="postcss">
-</style>

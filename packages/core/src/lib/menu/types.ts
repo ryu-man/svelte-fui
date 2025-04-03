@@ -7,7 +7,7 @@ export type MenuRootProps = PopoverRootProps & {};
 
 export type MenuItemProps = MenuRootProps & {
 	class?: string;
-	element?: HTMLElement
+	element?: HTMLElement;
 	id?: string;
 	as?: 'div' | 'button' | 'a';
 	href?: string;
@@ -38,9 +38,9 @@ export type MenuTriggerProps<Shell extends Component> = PopoverTriggerProps<Shel
 	>;
 };
 
-export type MenuOverlayProps = PopoverOverlayProps & {
-	class?: string
-	element?: HTMLElement
+export type MenuListProps = PopoverOverlayProps & {
+	class?: string;
+	element?: HTMLElement;
 	children?: Snippet<
 		[
 			{
