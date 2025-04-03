@@ -1,4 +1,4 @@
-export { Indicator, List } from '../dropdown/components';
+export { Indicator, List } from '../menu/components';
 
 export { default as Root } from './combobox-root.svelte';
 export { default as Trigger } from './combobox-trigger.svelte';

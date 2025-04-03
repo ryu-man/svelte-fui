@@ -1,31 +1,28 @@
 <script lang="ts" generics="T">
 	import { Input } from '@svelte-fui/core';
 	import { classnames } from '@svelte-fui/core/internal';
+	import { nanoid } from 'nanoid';
 
+	import { getComboboxContext } from './context';
 	import type { ComboboxInputProps } from './types';
 
-	import DropdownTrigger from '../dropdown/dropdown-trigger.svelte';
 	import DropdownIndicator from '../dropdown/dropdown-indicator.svelte';
-	import { getComboboxContext } from './context';
-	import { nanoid } from 'nanoid';
 	import MenuTrigger from '../menu/menu-trigger.svelte';
 
 	const comboboxContext = getComboboxContext();
 
-	console.log(comboboxContext);
-
 	if (!comboboxContext) {
-		throw new Error('Combobox context was not found!');
+		throw new Error('<ComboboxTrigger /> Combobox context was not found!');
 	}
 
 	let {
+		value = $bindable(),
 		class: klass = '',
 		placeholder = '',
 		appearance = 'outline',
 		size = 'md',
-		name,
-		value = $bindable(),
-		children,
+		name = undefined,
+		children = undefined,
 		onclick = undefined,
 		...restProps
 	}: ComboboxInputProps<T> = $props();
@@ -34,9 +31,7 @@
 
 	const componentId = nanoid();
 
-	const getValue = () => {
-		return inputValue;
-	};
+	const getValue = () => inputValue;
 
 	const setValue = (val) => {
 		if (comboboxContext?.state.extension) {
@@ -56,8 +51,6 @@
 		// Sync value with state value
 		value = inputValue;
 	});
-
-	$inspect(comboboxContext?.state.extension);
 
 	function onclick_(ev: Event) {
 		onclick?.(ev);
