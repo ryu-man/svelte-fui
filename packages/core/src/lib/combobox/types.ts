@@ -1,13 +1,9 @@
 import type { Snippet } from 'svelte';
 import type { DropdownContext } from '../dropdown/context-root';
-import type {
-	DropdownItemProps,
-	DropdownMenuProps,
-	DropdownRootProps
-} from '../dropdown/types';
+import type { DropdownItemProps, DropdownMenuProps, DropdownRootProps } from '../dropdown/types';
 import type { InputRootProps } from '../input/types';
 
-export type ComboboxRootProps<T> = DropdownRootProps<T> & {
+export type ComboboxRootProps<T> = Omit<DropdownRootProps<T>, 'multiple'> & {
 	context?: DropdownContext<T>;
 };
 

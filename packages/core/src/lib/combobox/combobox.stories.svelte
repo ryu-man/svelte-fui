@@ -46,27 +46,26 @@
 		{ value: 'fr', name: 'Frensh' }
 	]);
 
-	const languages_filtered = $derived(
+	const languagesFiltered = $derived(
 		languages_all.filter((lang) => !value || lang.name.toLowerCase().includes(value.toLowerCase()))
 	);
 </script>
 
-<Story id="combobox" name="Combobox" args={default_args}>
+<Story name="Combobox" args={default_args}>
 	{#snippet children(args)}
 		<FluentRoot {theme}>
 			<div class="flex h-full w-full flex-col items-center justify-center gap-4">
 				<div class="flex flex-col gap-4">
-					<ComboboxFui.Root {...args} multiple bind:values={selections}>
-						<ComboboxFui.Input placeholder="Select a language..." bind:value />
-						<ComboboxFui.Menu>
-							{#each languages_filtered as lang (lang.value)}
+					<ComboboxFui.Root {...args} bind:values={selections}>
+						<ComboboxFui.Trigger placeholder="Select a language..." bind:value />
+						<ComboboxFui.List>
+							{#each languagesFiltered as lang (lang.value)}
 								<!-- content here -->
 								<ComboboxFui.Item value={lang.value}>
-									<ComboboxFui.Checkbox />
 									<div>{lang.name}</div>
 								</ComboboxFui.Item>
 							{/each}
-						</ComboboxFui.Menu>
+						</ComboboxFui.List>
 					</ComboboxFui.Root>
 
 					<div class="flex justify-between">

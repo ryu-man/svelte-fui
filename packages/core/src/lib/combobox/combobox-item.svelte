@@ -2,42 +2,45 @@
 	import { classnames } from '@svelte-fui/core/internal';
 	import { getComboboxContext } from './context';
 	import type { DropdownItemProps } from '../dropdown/types';
+	import MenuItem from '../menu/menu-item.svelte';
 
-	const context_combobox = getComboboxContext<T>();
-	if (!context_combobox) {
+	const comboboxContext = getComboboxContext<T>();
+
+	if (!comboboxContext) {
 		throw new Error('Make sure to use Dropdown menu component within a Dropdown menu component');
 	}
 
-	const dropdown_values = $derived(context_combobox.derived.data.values);
+	const values = $derived(comboboxContext.state.values);
 
 	let {
 		class: klass = '',
 		value,
 		data = undefined,
 		disabled = false,
-		children,
-		onclick
+		children = undefined,
+		onclick = undefined,
+		...restProps
 	}: DropdownItemProps<T> = $props();
 
 	let element: HTMLButtonElement | undefined = $state();
 
-	const is_active = $derived(dropdown_values.includes(value));
+	const isSelected = $derived(values.includes(value));
 
 	$effect(() => {
-		return context_combobox.methods.mount(value, {
-			data() {
+		return comboboxContext.methods.mount(value, {
+			get data() {
 				return data;
 			},
-			innerText() {
+			get text() {
 				return element?.innerText ?? '';
 			},
-			isDisabled() {
+			get disabled() {
 				return disabled;
 			},
-			isSelected() {
-				return is_active;
+			get selected() {
+				return isSelected;
 			},
-			value() {
+			get value() {
 				return value;
 			}
 		});
@@ -45,49 +48,45 @@
 
 	function onclick_(ev: Event) {
 		// Call onclick event
-		onclick?.(ev, { context: context_combobox });
+		onclick?.(ev, { context: comboboxContext });
 
 		// If preventDefault() is called then do nothing and return
 		if (ev.defaultPrevented) {
 			return;
 		}
 
-		const is_selected = context_combobox.methods.selected(value);
-
-		// Unselect all items if dropdown in not in multiple mode
-		if (!context_combobox.derived.data.multiple) {
-			context_combobox.methods.unselect(context_combobox.derived.data.values);
-		}
-
-		if (is_selected) {
-			context_combobox.methods.unselect([value]);
+		if (isSelected) {
+			comboboxContext?.methods.unselect([value]);
 		} else {
 			// Select current value
-			context_combobox.methods.select([value]);
+			comboboxContext?.methods.select([value]);
 		}
 
+		comboboxContext?.update((state) => {
+			state.extension = { ...state.extension, query: getInnerText() };
+		});
+
 		// Close dropdown
-		context_combobox.methods.close();
+		comboboxContext?.methods.close();
 
 		// Trigger change event
-		context_combobox.events.onchange({ context: context_combobox, type: '', value, data });
+		comboboxContext?.events?.onchange(new CustomEvent('change'), {
+			context: comboboxContext,
+			type: '',
+			value,
+			data
+		});
+	}
+
+	function getInnerText() {
+		const el = element?.querySelector('[data-text]') ?? element;
+		return el?.innerText ?? '';
 	}
 </script>
 
-<button
-	class={classnames(
-		'fui-dropdown-item text-neutral-foreground-1 first:rounded-t-inherit last:rounded-b-inherit before:bg-neutral-foreground-1 flex px-4 py-1.5 before:opacity-0 before:transition-opacity before:duration-100',
-		!disabled && 'cursor-pointer hover:before:opacity-5 active:before:opacity-10',
-		disabled && 'opacity-50',
-		klass
-	)}
-	data-active={is_active}
-	{disabled}
-	bind:this={element}
-	onclick={onclick_}
->
-	{@render children?.({ context: context_combobox })}
-</button>
+<MenuItem bind:element class={klass} {disabled} onclick={onclick_} {...restProps}>
+	{@render children?.({ context: comboboxContext })}
+</MenuItem>
 
 <style lang="postcss">
 	.fui-dropdown-item {
@@ -97,9 +96,5 @@
 			@apply rounded-inherit pointer-events-none absolute inset-0 z-[-1];
 			content: '';
 		}
-	}
-
-	.fui-dropdown-item[data-active='true'] {
-		@apply text-neutral-foreground-on-brand;
 	}
 </style>

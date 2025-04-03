@@ -1,36 +1,32 @@
-import type { DropdownContext } from '../dropdown/context-root';
-import { getFluentContext, setFluentContext } from '../internal/context';
+import { type DropdownContext } from '../dropdown/context-root';
+import { getMenuContext, setMenuContext } from '../menu';
 
 export const comboboxNamespace = 'combobox';
 
-export type ContextDropdownItem<T> = {
-	value: () => string;
-	data: () => T | undefined;
-	isSelected: () => boolean;
-	isDisabled: () => boolean;
-	innerText: () => string;
+export type ComboboxItem<T> = {
+	value: string;
+	data?: T;
+	selected: boolean;
+	disabled: boolean;
+	text: string;
 };
 
-export type ComboboxContext<T> = DropdownContext<T> & {
-	parent: <R>() => ComboboxContext<R> | undefined;
-
-	readonly state: {
-		data: {
-			input: {
-				value: string;
-			};
-		};
-	};
-
-	readonly derived: {
-		data: {};
-	};
+export type ComboboxExtension = {
+	query?: string;
 };
 
-export function getComboboxContext<T>() {
-	return getFluentContext<ComboboxContext<T>>(comboboxNamespace);
+export type ComboboxContext<Data> = DropdownContext<Data, ComboboxExtension> & {
+	methods: {
+		setQuery: (query: string)=> void
+	}
+};
+
+export type ComboboxState<Data> = ComboboxContext<Data>['state'];
+
+export function getComboboxContext<T>(): ComboboxContext<T> | undefined {
+	return getMenuContext() as ComboboxContext<T> | undefined;
 }
 
-export function setComboboxContext<T>(context: ComboboxContext<T>) {
-	return setFluentContext(context, comboboxNamespace);
+export function setComboboxContext<T>(context: ComboboxContext<T>): ComboboxContext<T> {
+	return setMenuContext(context) as unknown as ComboboxContext<T>;
 }

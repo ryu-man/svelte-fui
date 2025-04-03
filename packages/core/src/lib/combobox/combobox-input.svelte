@@ -1,15 +1,19 @@
 <script lang="ts" generics="T">
 	import { Input } from '@svelte-fui/core';
 	import { classnames } from '@svelte-fui/core/internal';
-
-	import type { ComboboxInputProps } from './types';
-
-	import DropdownTrigger from '../dropdown/dropdown-trigger.svelte';
-	import DropdownIndicator from '../dropdown/dropdown-indicator.svelte';
-	import { getComboboxContext } from './context';
 	import { nanoid } from 'nanoid';
 
-	const context_dropdown = getComboboxContext();
+	import type { ComboboxInputProps } from './types';
+	import { getComboboxContext } from './context';
+
+	import DropdownIndicator from '../dropdown/dropdown-indicator.svelte';
+	import MenuTrigger from '../menu/menu-trigger.svelte';
+
+	const comboboxContext = getComboboxContext();
+
+	if (!comboboxContext) {
+		throw new Error('Combobox context was not found!');
+	}
 
 	let {
 		class: klass = '',
@@ -17,42 +21,62 @@
 		appearance = 'outline',
 		size = 'md',
 		name,
-		value = $bindable(''),
-		children,
+		value = $bindable(),
+		children = undefined,
+		onclick = undefined,
 		...restProps
 	}: ComboboxInputProps<T> = $props();
 
-	const values = $derived(context_dropdown.derived.data.values);
-	const items = $derived(context_dropdown.derived.data.items.all);
+	const inputValue = $derived(comboboxContext.state.extension?.query);
 
-	const input_value = $derived(context_dropdown.state.data.input.value);
+	const componentId = nanoid();
 
-	context_dropdown.state.data.input.value = value;
+	const getValue = () => {
+		return inputValue;
+	};
 
-	const input_id = nanoid();
+	const setValue = (val) => {
+		if (comboboxContext?.state.extension) {
+			comboboxContext.update((state) => {
+				state.extension = { query: val };
+			});
+		}
+
+		comboboxContext.update((state) => {
+			if (state.extension) {
+				state.extension.query = val;
+			}
+		});
+	};
 
 	$effect(() => {
 		// Sync value with state value
-		value = input_value;
+		value = inputValue;
 	});
 
-	function onclick(ev: Event) {
+	function onclick_(ev: Event) {
 		ev.preventDefault();
 
-		restProps?.onclick?.(ev);
+		onclick?.(ev);
 
-		context_dropdown.methods.open();
+		if (ev.defaultPrevented) {
+			return;
+		}
+
+		comboboxContext?.methods.open();
 	}
 </script>
 
-<DropdownTrigger class={classnames('relative min-w-[192px]', klass)} {onclick} {...restProps}>
-	<Input.Root class="w-full flex gap-1 items-center" {appearance} {size} as="label" for={input_id}>
-		<Input.Element
-			bind:value={context_dropdown.state.data.input.value}
-			{placeholder}
-			{name}
-			id={input_id}
-		/>
-		<DropdownIndicator class="h-full pointer-events-none" />
-	</Input.Root>
-</DropdownTrigger>
+<MenuTrigger
+	class={classnames('relative min-w-[192px] w-full flex gap-1 items-center', klass)}
+	shell={Input.Root}
+	{appearance}
+	{size}
+	as="label"
+	for={componentId}
+	onclick={onclick_}
+	{...restProps}
+>
+	<Input.Element bind:value={getValue, setValue} {placeholder} {name} id={componentId} />
+	<DropdownIndicator class="h-full pointer-events-none" />
+</MenuTrigger>
