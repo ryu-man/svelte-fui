@@ -10,7 +10,7 @@
 	const dropdownContext = getDropdownContext();
 
 	if (!dropdownContext) {
-		throw new Error('<dropdown-menu> dropdown context was not found!');
+		throw new Error('<dropdown-list> dropdown context was not found!');
 	}
 
 	const open = $derived(dropdownContext?.state.open ?? false);
@@ -24,7 +24,7 @@
 		...restProps
 	}: DropdownMenuProps = $props();
 
-	// Sync trigger with with dropdown list's min-width; 
+	// Sync trigger with with dropdown list's min-width;
 	// Only start observation when dropdown is open
 	$effect(() => {
 		if (!open) {

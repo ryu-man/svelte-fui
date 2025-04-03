@@ -27,8 +27,10 @@
 		placement = 'bottom-start',
 		offset = 4,
 		alignment = undefined,
+		extension = {},
 		children = undefined
 	}: DropdownRootProps<T> = $props();
+
 	const context_parent = getDropdownContext();
 
 	const contextBuilder = () => {
@@ -54,7 +56,8 @@
 			(o) => defineProperty(o, 'data', () => data),
 			(o) => defineProperty(o, 'items', () => stateItems),
 			(o) => defineProperty(o, 'multiple', () => multiple),
-			(o) => defineProperty(o, 'values', () => (multiple ? values : [value]))
+			(o) => defineProperty(o, 'values', () => (multiple ? values : [value])),
+			(o) => defineProperty(o, 'extension', () => extension)
 		]);
 
 		return setDropdownContext<T>({
@@ -69,7 +72,7 @@
 				return contextState;
 			},
 			events: {
-				onchange: () => {}
+				onchange: (ev, params) => {}
 			},
 			methods: {
 				open() {

@@ -1,17 +1,10 @@
 import type { Alignment, Placement } from '@floating-ui/dom';
 import { getPopoverContext, setPopoverContext, type PopoverContext } from '../popover';
+import type { DropdownItem } from './context-item';
 
 export const dropdownNamespace = 'dropdown';
 
-export type DropdownItem<T> = {
-	readonly value?: string;
-	readonly data?: T;
-	readonly disabled: boolean;
-	readonly selected: boolean;
-	readonly text?: string;
-};
-
-export type DropdownState<T> = {
+export type DropdownState<Data, Extension = Record<string, any>> = {
 	readonly open: boolean;
 	readonly multiple: boolean;
 	readonly value?: string;
@@ -20,11 +13,13 @@ export type DropdownState<T> = {
 	readonly placement: Placement;
 	readonly alignment: Alignment;
 	readonly offset: number;
-	readonly data?: T;
+	readonly data?: Data;
 	readonly items: {
-		all: Map<string, DropdownItem<T>>;
-		selected: DropdownItem<T>[];
+		all: Map<string, DropdownItem<Data>>;
+		selected: DropdownItem<Data>[];
 	};
+
+	extension: Extension;
 
 	dom: {
 		root?: HTMLElement;
@@ -34,14 +29,17 @@ export type DropdownState<T> = {
 	};
 };
 
-export type DropdownContext<T> = Omit<PopoverContext<DropdownState<T>>, 'events' | 'methods'> & {
+export type DropdownContext<Data, Extension = Record<string, any>> = Omit<
+	PopoverContext<DropdownState<Data, Extension>>,
+	'events' | 'methods'
+> & {
 	parent: <R>() => DropdownContext<R> | undefined;
 
 	events: {
-		onchange: (params: DropdownContext<T>, type: string) => void;
+		onchange: (event: CustomEvent, params?: { context: DropdownContext<Data, Extension> }) => void;
 	};
 	methods: PopoverContext['methods'] & {
-		mount: (id: string, item: DropdownItem<T>) => () => void;
+		mount: (id: string, item: DropdownItem<Data>) => () => void;
 		unmount: (id: string) => void;
 
 		select: (values: string[]) => void;

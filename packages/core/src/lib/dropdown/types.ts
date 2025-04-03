@@ -4,19 +4,20 @@ import type { DropdownContext } from './context-root';
 import type { InputRootProps } from '../input/types';
 import type { List } from '../list';
 
-export type DropdownRootProps<T> = PopoverRootProps & {
+export type DropdownRootProps<Data, Extension = Record<string, any>> = PopoverRootProps & {
 	open?: boolean;
 	multiple?: boolean;
 	value?: string;
 	values?: string[];
-	data?: T[];
+	data?: Data[];
 	disabled?: boolean;
 	id?: string;
-	context?: DropdownContext<T>;
+	context?: DropdownContext<Data>;
+	extension?: Extension;
 	children?: Snippet<
 		[
 			{
-				context: DropdownContext<T>;
+				context: DropdownContext<Data>;
 			}
 		]
 	>;
@@ -53,7 +54,7 @@ export type DropdownTriggerProps<
 export type DropdownInputProps<T> = InputRootProps & {
 	class?: string;
 	as?: 'div' | 'button';
-	placeholder?: string|Snippet;
+	placeholder?: string | Snippet;
 	onclick?: (ev: Event, params: { context: DropdownContext<T> }) => void;
 };
 
