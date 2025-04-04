@@ -19,7 +19,7 @@
 		shell = undefined,
 		element = $bindable(),
 		onclick = undefined,
-		children = undefined,
+		children: internalChildren = undefined,
 		...resteProps
 	}: PopoverTriggerProps<T> = $props();
 
@@ -30,7 +30,7 @@
 		onclick?.(ev, { context: popoverContext });
 
 		if (ev.defaultPrevented) {
-			return
+			return;
 		}
 
 		controller.toggle();
@@ -48,7 +48,7 @@
 		data-open={open}
 		data-owner-id={popoverContext.id}
 	>
-		{@render children?.({ context: popoverContext })}
+		{@render internalChildren?.({ context: popoverContext })}
 	</svelte:element>
 {:else}
 	{@const Shell = shell}
@@ -62,6 +62,8 @@
 		data-open={open}
 		data-owner-id={popoverContext.id}
 	>
-		{@render children?.({ context: popoverContext })}
+		{#snippet children(args)}
+			{@render internalChildren?.({ ...(args ?? {}), context: popoverContext })}
+		{/snippet}
 	</Shell>
 {/if}

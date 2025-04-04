@@ -11,11 +11,13 @@
 		class: klass = '',
 		as = 'button',
 		shell = undefined,
-		children = undefined,
+		children: internalChildren = undefined,
 		...restProps
 	}: MenuTriggerProps<Shell> = $props();
 </script>
 
 <Popover.Trigger class={classnames('fui-menu-trigger flex', klass)} {as} {shell} {...restProps}>
-	{@render children?.({ context: menuContext })}
+	{#snippet children(args)}
+		{@render internalChildren?.({ ...(args ?? {}), context: menuContext })}
+	{/snippet}
 </Popover.Trigger>
