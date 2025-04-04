@@ -1,8 +1,8 @@
 <script lang="ts" generics="T">
 	import { Popover } from '@svelte-fui/core/popover';
+	import { nanoid } from 'nanoid';
 	import { getMenuContext, setMenuContext, type MenuContext, type MenuState } from './context';
 	import type { MenuRootProps } from './types';
-	import { nanoid } from 'nanoid';
 	import { defineProperty, defineState } from '../internal/context';
 
 	let {
