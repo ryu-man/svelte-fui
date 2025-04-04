@@ -10,29 +10,30 @@
 		throw new Error('Popover context was not found');
 	}
 
-	const open = $derived(popoverContext?.state.open);
-	const controller = popoverContext?.methods;
+	const open = $derived(popoverContext?.state.open ?? false);
+	const controller = $derived(popoverContext?.methods);
 
 	let {
 		class: klass = '',
 		as = 'button',
 		shell = undefined,
 		element = $bindable(),
-		onclick,
+		onclick = undefined,
 		children = undefined,
 		...resteProps
 	}: PopoverTriggerProps<T> = $props();
 
-	$effect(() => {
-		element = popoverContext.state.dom.trigger;
-	});
+	const getElement = () => popoverContext.state.dom.trigger;
+	const setElement = (el) => popoverContext.update((state) => (state.dom.trigger = element = el));
 
 	function onclick_(ev: Event) {
 		onclick?.(ev, { context: popoverContext });
 
-		if (!ev.defaultPrevented) {
-			controller.toggle();
+		if (ev.defaultPrevented) {
+			return
 		}
+
+		controller.toggle();
 	}
 </script>
 
@@ -40,8 +41,7 @@
 	<!-- svelte-ignore a11y_no_static_element_interactions -->
 	<svelte:element
 		this={as}
-		bind:this={() => popoverContext.state.dom.trigger,
-		(v) => popoverContext.update((state) => (state.dom.trigger = v))}
+		bind:this={getElement, setElement}
 		class={classnames('popover-trigger', klass)}
 		onclick={onclick_}
 		{...resteProps}
@@ -54,8 +54,7 @@
 	{@const Shell = shell}
 
 	<Shell
-		bind:this={() => popoverContext.state.dom.trigger,
-		(v) => popoverContext.update((state) => (state.dom.trigger = v))}
+		bind:element={getElement, setElement}
 		class={classnames('popover-trigger', klass)}
 		{...resteProps}
 		{as}

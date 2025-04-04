@@ -80,8 +80,6 @@ export function popover(node: HTMLElement, fn: () => PopoverParams) {
 		unport = port(node, target);
 
 		if (open) {
-			console.log(params);
-
 			positionate(node, params);
 			cleanup = autoUpdate(params.reference, node, () => positionate(node, params), {
 				elementResize: true
@@ -99,8 +97,6 @@ export function popover(node: HTMLElement, fn: () => PopoverParams) {
 }
 
 function direction(placement: Placement) {
-	console.log(placement);
-	
 	const dy = placement.startsWith('top') ? -1 : placement.startsWith('bottom') ? 1 : 0;
 	const dx = placement.startsWith('left') ? -1 : placement.startsWith('right') ? 1 : 0;
 

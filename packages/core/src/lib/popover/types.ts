@@ -5,7 +5,7 @@ import type { PopoverContext } from './context';
 
 export type ComponentProps<C> = C extends Component<infer Props> ? Props : Record<string, any>;
 
-export type PopoverRootProps = {
+export type PopoverRootProps<Extension = Record<string, any>> = {
 	open?: boolean;
 	id?: string;
 	context?: PopoverContext;
@@ -13,8 +13,8 @@ export type PopoverRootProps = {
 	placement?: Placement;
 	alignment?: Alignment;
 	offset?: number;
-
-	children: Snippet<
+	extension?: Extension;
+	children?: Snippet<
 		[
 			{
 				context: PopoverContext;

@@ -4,13 +4,13 @@ import { getContext, setContext } from 'svelte';
 
 const CONTEXT_KEY = 'popover';
 
-export type PopoverState = {
+export type PopoverState<T = Record<string, any>> = {
 	open: boolean;
 	placements?: Placement[];
 	placement?: Placement;
 	alignment?: Alignment;
 	offset?: number;
-	extends: Record<string, any>;
+	extension?: T;
 	dom: {
 		overlay?: HTMLElement;
 		trigger?: HTMLElement;
@@ -20,7 +20,7 @@ export type PopoverState = {
 
 export type PopoverContext<State = PopoverState> = FluentContext<State> & {
 	events: {
-		onchange?: <T>(params: { context: T }) => void;
+		onchange?: <T>(event: CustomEvent, params: { context: T }) => void;
 	};
 	methods: {
 		open: () => void;
@@ -28,8 +28,6 @@ export type PopoverContext<State = PopoverState> = FluentContext<State> & {
 		toggle: () => void;
 	};
 };
-
-export function createPopoverContext() {}
 
 export function getPopoverContext<T extends PopoverContext>(): T | undefined {
 	return getContext(getFluentContextPath(CONTEXT_KEY));

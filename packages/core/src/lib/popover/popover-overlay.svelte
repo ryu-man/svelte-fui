@@ -1,6 +1,5 @@
 <script lang="ts">
 	import type { HTMLAttributes } from 'svelte/elements';
-	import { getFluentRootContext } from '@svelte-fui/core';
 	import { clickoutside } from '@svelte-fui/core/actions/dom.svelte';
 	import { popover } from './actions.svelte';
 	import { classnames } from '@svelte-fui/core/internal';
@@ -11,7 +10,6 @@
 	import { getLayerContext } from '../app/layer/context';
 	import { flip, offset } from '@floating-ui/dom';
 
-	const rootContext = getFluentRootContext();
 	const popoverContext = getPopoverContext();
 
 	if (!popoverContext) {
@@ -24,13 +22,11 @@
 	const alignment = $derived(popoverContext.state.alignment);
 	const offsetValue = $derived(popoverContext.state.offset ?? 0);
 
-	const defaultLayer = getLayerContext();
-	$inspect(defaultLayer);
-
 	const targetLayer = getLayerContext();
 
 	const layerElement = $derived(targetLayer?.state.dom.inner);
 	const triggerElement = $derived(popoverContext?.state?.dom?.trigger);
+
 
 	let {
 		element = $bindable(),
@@ -38,7 +34,8 @@
 		as = 'div',
 		shell = undefined,
 		children,
-		onmount = (node, params) => ({}),
+		onmount = undefined,
+		ondestroy = undefined,
 		onclickoutside,
 		...restProps
 	}: HTMLAttributes<HTMLDivElement> & PopoverOverlayProps = $props();
@@ -49,11 +46,18 @@
 	let canRender = $state(false);
 
 	const onpointerenter = (ev) => {
-		console.log(ev);
 		canRender = true;
 	};
 
 	const onpointerexit = () => {};
+
+	$effect(() => {
+		onmount?.(new CustomEvent('mount'), element);
+
+		return () => {
+			ondestroy?.(new CustomEvent('destroy', element));
+		};
+	});
 
 	$effect(() => {
 		const element = triggerElement?.addEventListener
@@ -91,6 +95,14 @@
 
 	function pos(open: number, offset: number) {
 		return 2 * offset * open - offset;
+	}
+
+	function onshellmount(ev, el) {
+		if (!el) {
+			return;
+		}
+
+		clickoutside(el, onclickoutside_);
 	}
 </script>
 
@@ -139,7 +151,6 @@
 					duration: DURATION.FAST / 1000,
 					ease: 'circ.inOut'
 				})}
-				use:clickoutside={onclickoutside_}
 				{...restProps}
 			>
 				{@render children?.({ dx, dy, context: popoverContext })}
@@ -162,7 +173,7 @@
 					duration: DURATION.FAST / 1000,
 					ease: 'circ.inOut'
 				})}
-				{onclickoutside}
+				onmount={onshellmount}
 				{...restProps}
 			>
 				{@render children?.({ dx, dy, context: popoverContext })}

@@ -12,6 +12,7 @@
 		offset = 8,
 		placements = ['bottom', 'top', 'bottom-end', 'bottom-start', 'top-end', 'top-start'],
 		placement = 'bottom',
+		extension = {},
 		children,
 		onmount = undefined,
 		ondestroy = undefined
@@ -38,7 +39,8 @@
 			(o) => defineProperty(o, 'offset', () => offset),
 			(o) => defineProperty(o, 'open', () => open),
 			(o) => defineProperty(o, 'placements', () => placements),
-			(o) => defineProperty(o, 'placement', () => placement)
+			(o) => defineProperty(o, 'placement', () => placement),
+			(o) => defineProperty(o, 'extension', () => extension)
 		]);
 
 		return (context = setPopoverContext({
