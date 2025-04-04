@@ -11,7 +11,7 @@
 		id = undefined,
 		appearance = 'outline',
 		as = 'button',
-		element = $bindable(undefined),
+		element = $bindable(),
 		children,
 		...restProps
 	}: HTMLAttributes<HTMLButtonElement> & InputRootProps = $props();

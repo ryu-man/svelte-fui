@@ -13,9 +13,9 @@
 
 	let {
 		class: klass = '',
-		value = $bindable(undefined),
-		valueAsDate = $bindable(undefined),
-		valueAsNumber = $bindable(undefined),
+		value = $bindable(),
+		valueAsDate = $bindable(),
+		valueAsNumber = $bindable(),
 		type,
 		placeholder,
 		readonly = false,
@@ -25,7 +25,7 @@
 		id,
 		name,
 		size,
-		element = $bindable(undefined),
+		element = $bindable(),
 		before,
 		after,
 		oninput,
