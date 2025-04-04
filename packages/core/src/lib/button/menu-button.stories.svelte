@@ -1,11 +1,10 @@
 <script module lang="ts">
 	import { onMount } from 'svelte';
-	import { Button, FluentRoot, Icon } from '@svelte-fui/core';
+	import { Button, FluentRoot, Icon, Menu } from '@svelte-fui/core';
 	import CalendarMonthFilled from 'virtual:icons/fluent/calendar-month-24-filled';
 	import CalendarMonthRegular from 'virtual:icons/fluent/calendar-month-24-regular';
 
 	import { webDarkTheme, webLightTheme } from '@svelte-fui/themes';
-	import { MenuButton as MenuButtonModule } from '.';
 	import { defineMeta } from '@storybook/addon-svelte-csf';
 	import type { ArgTypes } from '@storybook/svelte';
 
@@ -41,7 +40,7 @@
 
 	const { Story } = defineMeta({
 		title: 'Components/Button',
-		component: MenuButtonModule.Root,
+		component: Button,
 		argTypes
 	});
 </script>
@@ -66,13 +65,13 @@
 	});
 </script>
 
-<Story id="menu_button" name="Menu Button" args={default_args}>
+<Story name="Menu Button" args={default_args}>
 	{#snippet children(args)}
 		<FluentRoot {theme}>
 			<div class="flex h-full w-full flex-col items-center justify-center gap-4">
 				<div class="flex gap-4">
-					<MenuButtonModule.Root>
-						<MenuButtonModule.Button {...args}>
+					<Menu.Root>
+						<Menu.Trigger shell={Button} {...args}>
 							{#snippet children({ hover })}
 								<Icon class="h-full">
 									{#if hover}
@@ -83,16 +82,16 @@
 								</Icon>
 								<div>New</div>
 
-								<MenuButtonModule.Indicator />
+								<Menu.Indicator />
 							{/snippet}
-						</MenuButtonModule.Button>
+						</Menu.Trigger>
 
-						<MenuButtonModule.Menu>
-							<MenuButtonModule.Item>Item 1</MenuButtonModule.Item>
-							<MenuButtonModule.Item>Item 2</MenuButtonModule.Item>
-							<MenuButtonModule.Item>Item 3</MenuButtonModule.Item>
-						</MenuButtonModule.Menu>
-					</MenuButtonModule.Root>
+						<Menu.List>
+							<Menu.Item>Item 1</Menu.Item>
+							<Menu.Item>Item 2</Menu.Item>
+							<Menu.Item>Item 3</Menu.Item>
+						</Menu.List>
+					</Menu.Root>
 				</div>
 			</div>
 		</FluentRoot>
