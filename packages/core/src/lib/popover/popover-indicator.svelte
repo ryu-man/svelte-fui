@@ -22,7 +22,7 @@
 		{@render children({ open })}
 	{:else}
 		<div
-			class="h-full aspect-square"
+			class="h-full aspect-square flex items-center justify-center"
 			use:animate={{ rotate: 180 * +open, duration: 0.4, ease: 'circ.out' }}
 		>
 			<Icon class="h-full aspect-square">
