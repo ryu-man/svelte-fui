@@ -26,6 +26,18 @@
 	const getElement = () => popoverContext.state.dom.trigger;
 	const setElement = (el) => popoverContext.update((state) => (state.dom.trigger = element = el));
 
+	$effect(() => {
+		if (!popoverContext.state.dom.trigger) {
+			return;
+		}
+
+		popoverContext.state.dom.trigger.addEventListener('click', onclick_);
+
+		return () => {
+			popoverContext.state.dom.trigger?.removeEventListener('click', onclick_);
+		};
+	});
+
 	function onclick_(ev: Event) {
 		onclick?.(ev, { context: popoverContext });
 
@@ -43,7 +55,6 @@
 		this={as}
 		bind:this={getElement, setElement}
 		class={classnames('popover-trigger', klass)}
-		onclick={onclick_}
 		{...resteProps}
 		data-open={open}
 		data-owner-id={popoverContext.id}
@@ -58,7 +69,6 @@
 		class={classnames('popover-trigger', klass)}
 		{...resteProps}
 		{as}
-		onclick={onclick_}
 		data-open={open}
 		data-owner-id={popoverContext.id}
 	>
