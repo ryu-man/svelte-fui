@@ -82,7 +82,7 @@
 								</Icon>
 								<div>New</div>
 
-								<Menu.Indicator />
+								<Menu.Indicator class="h-full p-0.5" />
 							{/snippet}
 						</Menu.Trigger>
 

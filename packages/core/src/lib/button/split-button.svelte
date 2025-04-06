@@ -35,7 +35,7 @@
 	</Button>
 
 	<Button bind:element class="px-0" {shape} {appearance} {size} icon>
-		<Menu.Indicator class="h-4" />
+		<Menu.Indicator class="h-full p-0.5" />
 	</Button>
 </button>
 
