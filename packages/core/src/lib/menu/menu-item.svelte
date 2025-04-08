@@ -138,9 +138,9 @@
 	onpointerleave={onpointerleave_}
 	{...restProps}
 >
-	{#if isMenuOpen}
+	<!-- {#if isMenuOpen} -->
 		{@render children?.({ context: menuContext })}
-	{/if}
+	<!-- {/if} -->
 </svelte:element>
 
 <style lang="postcss">
