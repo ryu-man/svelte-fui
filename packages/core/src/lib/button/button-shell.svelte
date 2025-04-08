@@ -10,6 +10,7 @@
 		size = 'md',
 		icon,
 		as = 'button',
+		disabled = false,
 		children = undefined,
 		...restProps
 	}: ButtonProps & { as: string } = $props();
@@ -20,10 +21,19 @@
 	bind:this={element}
 	class={classnames(
 		'fui-button-shell',
-		'px-m gap-sNudge font-base text-base-300 min-h-xxl leading-base-300 inline-flex w-auto justify-center rounded-md py-[5px] font-semibold border-thin m-0 box-border select-none items-center align-middle no-underline outline-none',
-		appearance,
-		shape,
-		size,
+		'px-m gap-sNudge font-base cursor-pointer text-base-300 min-h-xxl leading-base-300 inline-flex w-auto justify-center rounded-md py-[5px] font-semibold m-0 box-border select-none items-center align-middle no-underline outline-none',
+		'border-thin border-solid',
+		'bg-neutral-background-1 border-neutral-stroke- text-neutral-foreground-1',
+		'hover:bg-neutral-background-1-hover hover:border-neutral-stroke-1-hover text-neutral-foreground-1-hover',
+		'active:bg-neutral-background-1-pressed active:border-neutral-stroke-1-pressed text-neutral-foreground-1-pressed',
+		appearance === 'outline' &&
+			'bg-transparent-background hover:bg-transparent-background active:bg-transparent-background',
+		appearance === 'primary' &&
+			'bg-brand-background text-neutral-foreground-on-brand border-transparent hover:bg-brand-background active:bg-brand-background-pressed',
+		appearance === 'subtle' &&
+			'bg-subtle-background text-neutral-foreground-2 border-transparent hover:bg-subtle-background-hover active:bg-subtle-background-pressed',
+		appearance === 'transparent' &&
+			'bg-transparent-background text-neutral-foreground-2 border-transparent hover:bg-transparent-background-hover active:bg-transparent-background-pressed',
 		icon && 'h-xxxl aspect-square',
 		size === 'sm' && 'px-s text-base-200 font-regular leading-base-200 min-h-[24px] py-[3px]',
 		size === 'lg' && 'px-m text-base-400 leading-base-400 min-h-[40px] py-[8px]',
@@ -34,6 +44,8 @@
 		shape === 'square' && 'rounded-none',
 		klass
 	)}
+	aria-disabled={disabled}
+	{disabled}
 	{...restProps}
 >
 	{@render children?.()}
@@ -44,152 +56,23 @@
 		--min-height: calc(theme(lineHeight.base-300) + 5px * 2 + theme(borderWidth.thin) * 2);
 		--fui-icon-size: theme(lineHeight.base-300);
 
-		background-color: var(--fui-colorNeutralBackground1);
-		border-color: var(--fui-colorNeutralStroke1);
-		border-style: solid;
-		color: var(--fui-colorNeutralForeground1);
-
 		text-decoration: none;
 		outline: none;
-		cursor: default;
 
 		transition-duration: 0.1s;
 		transition-property: all;
-
-		&:hover {
-			background-color: var(--fui-colorNeutralBackground1Hover);
-			border-color: var(--fui-colorNeutralStroke1Hover);
-			color: var(--fui-colorNeutralForeground1Hover);
-			cursor: pointer;
-			/* backgroundColor: tokens.colorNeutralBackground1Hover,
-				borderColor: tokens.colorNeutralStroke1Hover,
-				color: tokens.colorNeutralForeground1Hover,
-
-				cursor: 'pointer',
-
-				[`& .${iconFilledClassName}`]: {
-				display: 'inline',
-				},
-				[`& .${iconRegularClassName}`]: {
-				display: 'none',
-				}, */
-		}
-
-		&:hover:active {
-			background-color: var(--fui-colorNeutralBackground1Pressed);
-			border-color: var(--fui-colorNeutralStroke1Pressed);
-			color: var(--fui-colorNeutralForeground1Pressed);
-
-			/* ':hover:active': {
-				backgroundColor: tokens.colorNeutralBackground1Pressed,
-				borderColor: tokens.colorNeutralStroke1Pressed,
-				color: tokens.colorNeutralForeground1Pressed,
-
-				outlineStyle: 'none',
-
-				[`& .${iconFilledClassName}`]: {
-				display: 'inline',
-				},
-				[`& .${iconRegularClassName}`]: {
-				display: 'none',
-				},
-			}, */
-		}
-
 		&:focus-visible {
 			box-shadow: var(--fui-focus-stroke);
 		}
 	}
 
 	@media screen and (prefers-reduced-motion: reduce) {
-		.fds-button {
+		.fui-button-shell {
 			transition-duration: 0.01ms;
 		}
 	}
 
-	.fds-button.outline {
-		background-color: var(--fui-colorTransparentBackground);
-
-		&:hover {
-			background-color: var(--fui-colorTransparentBackground);
-		}
-
-		&:hover:active {
-			background-color: var(--fui-colorTransparentBackground);
-		}
-	}
-
-	.fds-button.primary {
-		background-color: var(--fui-colorBrandBackground);
-		border-color: transparent;
-		color: var(--fui-colorNeutralForegroundOnBrand);
-
-		&:hover {
-			background-color: var(--fui-colorBrandBackgroundHover);
-			border-color: transparent;
-			color: var(--fui-colorNeutralForegroundOnBrand);
-		}
-
-		&:hover:active {
-			background-color: var(--fui-colorBrandBackgroundPressed);
-			border-color: transparent;
-			color: var(--fui-colorNeutralForegroundOnBrand);
-		}
-	}
-
-	.fds-button.subtle {
-		background-color: var(--fui-colorSubtleBackground);
-		border-color: transparent;
-		color: var(--fui-colorNeutralForeground2);
-
-		&:hover {
-			background-color: var(--fui-colorSubtleBackgroundHover);
-			border-color: transparent;
-			color: var(--fui-colorNeutralForeground2Hover);
-
-			/* [`& .${buttonClassNames.icon}`]: {
-        color: tokens.colorNeutralForeground2BrandHover,
-      }, */
-		}
-
-		&:hover:active {
-			background-color: var(--fui-colorSubtleBackgroundPressed);
-			border-color: transparent;
-			color: var(--fui-colorNeutralForeground2Pressed);
-
-			/* [`& .${buttonClassNames.icon}`]: {
-        color: tokens.colorNeutralForeground2BrandPressed,
-      }, */
-		}
-	}
-
-	.fds-button.transparent {
-		background-color: var(--fui-colorTransparentBackground);
-		border-color: transparent;
-		color: var(--fui-colorNeutralForeground2);
-
-		&:hover {
-			background-color: var(--fui-colorTransparentBackgroundHover);
-			border-color: transparent;
-			color: var(--fui-colorNeutralForeground2BrandHover);
-
-			/* [`& .${buttonClassNames.icon}`]: {
-        color: tokens.colorNeutralForeground2BrandHover,
-      }, */
-		}
-
-		&:hover:active {
-			background-color: var(--fui-colorTransparentBackgroundPressed);
-			border-color: transparent;
-			color: var(--fui-colorNeutralForeground2BrandPressed);
-
-			/* [`& .${buttonClassNames.icon}`]: {
-        color: tokens.colorNeutralForeground2BrandPressed,
-      }, */
-		}
-	}
-
-	.fds-button:disabled {
+	.fui-button-shell:disabled {
 		background-color: var(--fui-colorNeutralBackgroundDisabled);
 		border-color: var(--fui-colorNeutralStrokeDisabled);
 		color: var(--fui-colorNeutralForegroundDisabled);
