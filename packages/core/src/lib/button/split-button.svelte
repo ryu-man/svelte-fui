@@ -17,7 +17,7 @@
 	}: ButtonProps = $props();
 </script>
 
-<button class="fui-split-btn flex items-center">
+<div class="fui-split-btn flex items-center">
 	<Button
 		bind:element
 		class={classnames('items-center flex gap-2', klass)}
@@ -38,7 +38,7 @@
 	<Button bind:element class="px-0" {shape} {appearance} {size} icon>
 		<Menu.Indicator class="h-full p-0.5" />
 	</Button>
-</button>
+</div>
 
 <style>
 	.fui-split-btn :global(.fui-button:first-child) {
