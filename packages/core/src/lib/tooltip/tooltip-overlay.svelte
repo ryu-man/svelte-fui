@@ -2,47 +2,32 @@
 	import { nanoid } from 'nanoid';
 	import type { TooltipOverlayProps } from './types';
 	import { classnames } from '../internal';
-	import { Popover } from '../popover';
-	import { animate } from '../actions/animation';
-	import { getTooltipContext } from './context';
+	import { getPopoverContext, Popover } from '../popover';
 
-	const contextTooltip = getTooltipContext();
+	const contextTooltip = getPopoverContext();
 
 	let {
 		class: klass = '',
 		appearance = 'normal',
-		offset = 8,
 		id = nanoid(),
-		children
+		children = undefined,
+		...restProps
 	}: TooltipOverlayProps = $props();
-
-	const open = $derived(contextTooltip.derived.data.open);
 </script>
 
 <Popover.Overlay
-	class={classnames('fui-tooltip-overlay')}
+	class={classnames(
+		'fui-tooltip-overlay fui-tooltip-content w-auto font-base text-base-200 leading-base-200 pointer-events-none box-border cursor-default whitespace-nowrap rounded-md',
+		{
+			inverted: appearance === 'inverted'
+		},
+		klass
+	)}
 	placements={['bottom', 'top']}
 	role="tooltip"
+	{...restProps}
 >
-	{#snippet children({ dy })}
-		<div
-			class={classnames(
-				'fui-tooltip-content w-auto font-base text-base-200 leading-base-200 pointer-events-none box-border cursor-default whitespace-nowrap rounded-md',
-				{
-					inverted: appearance === 'inverted'
-				},
-				klass
-			)}
-			{id}
-			use:animate={{
-				opacity: +open,
-				y: offset * dy * +!open,
-				duration: 0.2
-			}}
-		>
-			{@render children?.({ context: contextTooltip })}
-		</div>
-	{/snippet}
+	{@render children?.({ context: contextTooltip })}
 </Popover.Overlay>
 
 <style lang="postcss">

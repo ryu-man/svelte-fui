@@ -6,9 +6,7 @@
 		Link,
 		Tooltip as TooltipFui,
 		Input as InputFui,
-
 		Text
-
 	} from '@svelte-fui/core';
 	import { webDarkTheme, webLightTheme } from '@svelte-fui/themes';
 	import { defineMeta } from '@storybook/addon-svelte-csf';
@@ -81,30 +79,29 @@
 	});
 </script>
 
-<Story id="fui_tooltip" name="Tooltip" args={defaultArgs}>
+<Story name="Tooltip" args={defaultArgs}>
 	{#snippet children(args)}
 		<FluentRoot {theme}>
 			<div class="flex flex-col gap-6 h-full w-full items-center justify-center">
 				<TooltipFui.Root {...args}>
-					<TooltipFui.Trigger as={Button}>Hello Svelte land</TooltipFui.Trigger>
+					<TooltipFui.Trigger shell={Button}>Hello Svelte land</TooltipFui.Trigger>
 
 					<TooltipFui.Overlay>Hello from the other side! [slotted]</TooltipFui.Overlay>
 				</TooltipFui.Root>
 
 				<TooltipFui.Root {...args}>
-					<TooltipFui.Trigger as={Link} >Hello Svelte land</TooltipFui.Trigger>
+					<TooltipFui.Trigger shell={Link}>Hello Svelte land</TooltipFui.Trigger>
 
 					<TooltipFui.Overlay>Hello from the other side! [slotted]</TooltipFui.Overlay>
 				</TooltipFui.Root>
-
 				<TooltipFui.Root {...args}>
-					<TooltipFui.Trigger as={Text} componentAs="h3">Hello Svelte land</TooltipFui.Trigger>
+					<TooltipFui.Trigger shell={Text} as="h3">Hello Svelte land</TooltipFui.Trigger>
 
 					<TooltipFui.Overlay>Hello from the other side! [slotted]</TooltipFui.Overlay>
 				</TooltipFui.Root>
 
 				<TooltipFui.Root {...args} placements={['bottom-start', 'top-start']}>
-					<TooltipFui.Trigger as={InputFui.Root}>
+					<TooltipFui.Trigger shell={InputFui.Root}>
 						<InputFui.Icon>$</InputFui.Icon>
 
 						<InputFui.Element />

@@ -7,36 +7,30 @@
 	import { getPopoverContext } from '../popover';
 
 	const contextPopover = getPopoverContext();
-	const elementTrigger = $derived(contextPopover.state.elements.trigger);
+	const elementTrigger = $derived(contextPopover?.state?.dom?.trigger);
 
 	let {
+		element = $bindable(undefined),
 		class: klass = '',
 		id = nanoid(),
 		delay = 200,
 		as = 'div',
 		shell = undefined,
-		element = $bindable(undefined),
 		children,
 		onpointerenter,
 		onpointerleave,
 		...restProps
 	}: HTMLAttributes<HTMLElement> & TooltipTriggerProps<Shell> = $props();
 
-	const elementMiddleware = $derived({
-		get current() {
-			return element;
-		},
-		set current(val: HTMLElement|undefined) {
-			element = val;
-			contextPopover.state.elements.trigger = val;
+	const getElement = () => element;
+	const setElement = (el) => {
+		element = el;
+		if (contextPopover) {
+			contextPopover.state.dom.trigger = el;
 		}
-	});
+	};
 
 	$effect(() => {
-		if (typeof as === 'string') {
-			return;
-		}
-
 		if (!elementTrigger) {
 			return;
 		}
@@ -63,7 +57,7 @@
 		}
 
 		timeoutId = setTimeout(() => {
-			contextPopover.methods.open();
+			contextPopover?.methods?.open();
 		}, delay);
 	}
 
@@ -75,14 +69,14 @@
 			return;
 		}
 
-		contextPopover.methods.close();
+		contextPopover?.methods?.close();
 	}
 </script>
 
 {#if !shell}
 	<svelte:element
-		this={as}
-		bind:this={elementMiddleware.current}
+		this={as ?? 'div'}
+		bind:this={getElement, setElement}
 		class={classnames('fui-toolip-container relative inline-flex', klass)}
 		{...restProps}
 	>
@@ -92,7 +86,7 @@
 	{@const Shell = shell}
 
 	<Shell
-		bind:element={elementMiddleware.current}
+		bind:element={getElement, setElement}
 		class={classnames('fui-toolip-container relative inline-flex', klass)}
 		{as}
 		{...restProps}
