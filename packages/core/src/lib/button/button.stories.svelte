@@ -65,7 +65,7 @@
 </script>
 
 <Story id="button" name="Button" args={default_args}>
-	{#snippet children({ args })}
+	{#snippet children(args)}
 		<FluentRoot {theme}>
 			<div class="flex h-full w-full flex-col items-center justify-center gap-4">
 				<div class="flex w-fit gap-4">
