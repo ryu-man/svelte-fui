@@ -19,6 +19,7 @@
 
 <button class="fui-split-btn flex items-center">
 	<Button
+		bind:element
 		class={classnames('items-center flex gap-2', klass)}
 		{shape}
 		{appearance}

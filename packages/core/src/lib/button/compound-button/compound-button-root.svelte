@@ -8,6 +8,7 @@
 	// export let variant: 'standard' | 'accent' | 'hyperlink' = 'standard';
 
 	let {
+		element = $bindable(),
 		class: klass = '',
 		icon = false,
 		disabled = false,
@@ -21,6 +22,7 @@
 </script>
 
 <Button
+	bind:element
 	class={classnames(
 		'fui-compound-button px-3 py-4',
 		size === 'sm' && icon && 'p-xs h-[48px]',

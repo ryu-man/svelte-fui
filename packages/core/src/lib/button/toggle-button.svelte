@@ -4,6 +4,7 @@
 	import type { ButtonProps } from './types';
 
 	let {
+		element = $bindable(),
 		checked = $bindable(false),
 		appearance = 'secondary',
 		class: klass = '',
@@ -24,6 +25,7 @@
 </script>
 
 <Button
+	bind:element
 	class={classnames(
 		'fui-toggle-button',
 		checked &&
