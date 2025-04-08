@@ -1,8 +1,12 @@
 <script lang="ts" generics="T">
 	import { classnames } from '@svelte-fui/core/internal';
-	import { getDropdownContext, type DropdownItem, type DropdownState } from './context-root';
+	import { getDropdownContext } from './context-root';
 	import type { DropdownItemProps } from './types';
-	import { setDropdownItemContext, type DropdownItemState } from './context-item';
+	import {
+		setDropdownItemContext,
+		type DropdownItem,
+		type DropdownItemState
+	} from './context-item';
 	import { nanoid } from 'nanoid';
 	import { defineProperty, defineState } from '../internal/context';
 

@@ -6,6 +6,7 @@
 	import { DURATION } from '../internal/transition';
 	import { Popover } from '../popover';
 	import { animate } from '../actions/animation.svelte';
+	import { Menu } from '../menu';
 
 	const dropdownContext = getDropdownContext();
 	const open = $derived(dropdownContext?.state.open ?? false);
@@ -13,7 +14,7 @@
 	let { class: klass = '' } = $props();
 </script>
 
-<Popover.Indicator
+<Menu.Indicator
 	class={classnames(
 		'dropdown-indicator text-neutral-stroke-accessible ml-auto inline-flex aspect-square h-full w-fit items-center justify-center p-[2px]',
 		klass
@@ -33,4 +34,4 @@
 			</Icon>
 		</div>
 	{/snippet}
-</Popover.Indicator>
+</Menu.Indicator>

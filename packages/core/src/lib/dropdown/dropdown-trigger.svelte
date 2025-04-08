@@ -3,8 +3,8 @@
 	import { classnames } from '@svelte-fui/core/internal';
 	import { getDropdownContext } from './context-root';
 	import type { DropdownTriggerProps } from './types';
-	import { Popover } from '../popover';
 	import DropdownInput from './dropdown-input.svelte';
+	import { Menu } from '../menu';
 
 	const dropdownContext = getDropdownContext<Context>();
 
@@ -23,7 +23,7 @@
 	}
 </script>
 
-<Popover.Trigger
+<Menu.Trigger
 	bind:element
 	class={classnames('fui-dropdown-trigger flex', klass)}
 	{...resteProps}
@@ -37,4 +37,4 @@
 	{:else}
 		<DropdownInput {...resteProps} />
 	{/if}
-</Popover.Trigger>
+</Menu.Trigger>

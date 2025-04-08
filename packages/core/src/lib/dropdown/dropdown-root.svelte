@@ -7,7 +7,6 @@
 		getDropdownContext,
 		setDropdownContext,
 		type DropdownContext,
-		type DropdownItem,
 		type DropdownState
 	} from './context-root';
 	import type { DropdownRootProps } from './types';
@@ -15,6 +14,8 @@
 	import { Popover } from '../popover';
 	import { defineProperty, defineState } from '../internal/context';
 	import { untrack } from 'svelte';
+	import { Menu } from '../menu';
+	import type { DropdownItem } from './context-item';
 
 	let {
 		open = $bindable(false),
@@ -134,6 +135,6 @@
 	}
 </script>
 
-<Popover.Root bind:open {context}>
+<Menu.Root bind:open {context}>
 	{@render children?.({ context: context })}
-</Popover.Root>
+</Menu.Root>
