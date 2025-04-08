@@ -137,7 +137,11 @@ const custom_tw_merge = extendTailwindMerge({
 					...Object.keys(tailwindcssConfig.theme.extend.spacing ?? {})
 				])
 			],
-			borderWidth: Object.keys(tailwindcssConfig.theme.extend.borderWidth)
+			borderWidth: Object.keys(tailwindcssConfig.theme.extend.borderWidth),
+			colors: [
+				...Object.keys(defaultTheme?.colors ?? {}),
+				...Object.keys(tailwindcssConfig?.theme?.extend?.colors ?? {})
+			]
 		}
 	}
 });
