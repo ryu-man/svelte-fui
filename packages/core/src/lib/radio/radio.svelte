@@ -5,7 +5,7 @@
 	import { classnames } from '../internal';
 	import type { RadioProps } from './types';
 
-	const context_radio_group = getRadioGroupContext();
+	const contextRadioGroup = getRadioGroupContext();
 
 	let {
 		class: klass = '',
@@ -19,22 +19,22 @@
 		...restProps
 	}: RadioProps & HTMLAttributes<HTMLInputElement> = $props();
 
-	const group_name = $derived(context_radio_group?.derived?.data?.name);
+	const groupName = $derived(contextRadioGroup?.derived?.data?.name);
 	const position = $derived(
-		context_radio_group?.derived?.data?.layout === 'stacked-horizontal' ? 'below' : 'after'
+		contextRadioGroup?.derived?.data?.layout === 'stacked-horizontal' ? 'below' : 'after'
 	);
-	const is_vertical = $derived(position === 'below');
+	const isVertical = $derived(position === 'below');
 
-	const disabled = $derived(context_radio_group?.derived?.data?.disabled ?? false);
-	const required = $derived(context_radio_group?.derived?.data?.required ?? false);
+	const disabled = $derived(contextRadioGroup?.derived?.data?.disabled ?? false);
+	const required = $derived(contextRadioGroup?.derived?.data?.required ?? false);
 </script>
 
 <div
 	bind:this={element}
 	class={classnames(
 		'fui-radio relative inline-flex items-center',
-		is_vertical && 'flex-col items-center',
-		{ vertical: is_vertical },
+		isVertical && 'flex-col items-center',
+		{ vertical: isVertical },
 		klass
 	)}
 	aria-label={restProps['aria-label']}
@@ -43,9 +43,9 @@
 	<input
 		type="radio"
 		{id}
-		name={group_name ?? name}
+		name={groupName ?? name}
 		class="fui-radio-input"
-		class:below={is_vertical}
+		class:below={isVertical}
 		{value}
 		{disabled}
 		{required}

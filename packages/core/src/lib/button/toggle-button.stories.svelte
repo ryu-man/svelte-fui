@@ -34,7 +34,7 @@
 		}
 	} satisfies ArgTypes;
 
-	const default_args: Partial<Record<keyof typeof argTypes, any>> = {
+	const defaultArgs: Partial<Record<keyof typeof argTypes, any>> = {
 		size: 'md',
 		appearance: 'secondary',
 		shape: 'rounded'
@@ -67,7 +67,7 @@
 	});
 </script>
 
-<Story name="Toggle Button" args={default_args}>
+<Story name="Toggle Button" args={defaultArgs}>
 	{#snippet children(args)}
 		<FluentRoot {theme}>
 			<div class="flex h-full w-full flex-col items-center justify-center gap-4">

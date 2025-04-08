@@ -26,7 +26,7 @@ export type PopoverParams = Partial<ComputePositionConfig> & {
 	) => void;
 };
 
-function animate_default(node: PopoverElement, params: ComputePositionReturn) {
+function animateDefault(node: PopoverElement, params: ComputePositionReturn) {
 	node.style.transform = `translate(${params.x}px, ${params.y}px)`;
 }
 
@@ -56,7 +56,7 @@ export function popover(node: HTMLElement, fn: () => PopoverParams) {
 
 		onChange?.({ ...result, ...direction(result.placement) });
 
-		(animate ?? animate_default)(node, {
+		(animate ?? animateDefault)(node, {
 			...result,
 			...direction(result.placement),
 			open: open ?? false

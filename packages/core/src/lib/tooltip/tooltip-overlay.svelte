@@ -6,7 +6,7 @@
 	import { animate } from '../actions/animation';
 	import { getTooltipContext } from './context';
 
-	const context_tooltip = getTooltipContext();
+	const contextTooltip = getTooltipContext();
 
 	let {
 		class: klass = '',
@@ -16,7 +16,7 @@
 		children
 	}: TooltipOverlayProps = $props();
 
-	const open = $derived(context_tooltip.derived.data.open);
+	const open = $derived(contextTooltip.derived.data.open);
 </script>
 
 <Popover.Overlay
@@ -40,7 +40,7 @@
 				duration: 0.2
 			}}
 		>
-			{@render children?.({ context: context_tooltip })}
+			{@render children?.({ context: contextTooltip })}
 		</div>
 	{/snippet}
 </Popover.Overlay>

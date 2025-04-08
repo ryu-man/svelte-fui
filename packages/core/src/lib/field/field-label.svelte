@@ -3,11 +3,11 @@
 	import { Label } from '../label';
 	import { getFieldContext } from './context';
 
-	const context_field = getFieldContext();
+	const contextField = getFieldContext();
 
 	let { class: klass = '', children, ...restProps } = $props();
 </script>
 
 <Label class={classnames('fui-field-label', klass)} {...restProps}>
-	{@render children?.({ context: context_field })}
+	{@render children?.({ context: contextField })}
 </Label>

@@ -6,9 +6,9 @@
 	import { webDarkTheme, webLightTheme } from '@svelte-fui/themes';
 	import { onMount } from 'svelte';
 
-	const arg_types = {} satisfies ArgTypes;
+	const argTypes = {} satisfies ArgTypes;
 
-	const default_args: Partial<Record<keyof typeof arg_types, any>> = {};
+	const defaultArgs: Partial<Record<keyof typeof argTypes, any>> = {};
 
 	const { Story } = defineMeta({
 		title: 'Components/Popover',
@@ -41,7 +41,7 @@
 	}
 </script>
 
-<Story name="Popover" args={default_args}>
+<Story name="Popover" args={defaultArgs}>
 	{#snippet children(args)}
 		<FluentRoot class="p-4" {theme}>
 			<div class="flex justify-center items-center w-full h-full">

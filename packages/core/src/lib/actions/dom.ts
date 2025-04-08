@@ -51,33 +51,33 @@ export function dropzone(
 	node: HTMLElement,
 	{ onDrop, onDragEnter, onDragLeave, onDragOver }: DropzoneParams
 ) {
-	const on_drag_enter = (ev: DragEvent) => {
+	const onDragEnter_ = (ev: DragEvent) => {
 		ev.preventDefault();
 		onDragEnter?.(ev);
 	};
-	const on_drag_over = (ev: DragEvent) => {
+	const onDragOver_ = (ev: DragEvent) => {
 		ev.preventDefault();
 		onDragOver?.(ev);
 	};
-	const on_drag_leave = (ev: DragEvent) => {
+	const onDragLeave_ = (ev: DragEvent) => {
 		onDragLeave?.(ev);
 	};
-	const on_drop = (ev: DragEvent) => {
+	const onDrop_ = (ev: DragEvent) => {
 		ev.preventDefault();
 		onDrop?.(ev);
 	};
 
-	node.addEventListener('dragenter', on_drag_enter);
-	node.addEventListener('dragleave', on_drag_leave);
-	node.addEventListener('dragover', on_drag_over);
-	node.addEventListener('drop', on_drop);
+	node.addEventListener('dragenter', onDragEnter_);
+	node.addEventListener('dragleave', onDragLeave_);
+	node.addEventListener('dragover', onDragOver_);
+	node.addEventListener('drop', onDrop_);
 
 	return {
 		destroy() {
-			node.removeEventListener('dragenter', on_drag_enter);
-			node.removeEventListener('dragleave', on_drag_leave);
-			node.removeEventListener('dragover', on_drag_over);
-			node.removeEventListener('drop', on_drop);
+			node.removeEventListener('dragenter', onDragEnter_);
+			node.removeEventListener('dragleave', onDragLeave_);
+			node.removeEventListener('dragover', onDragOver_);
+			node.removeEventListener('drop', onDrop_);
 		}
 	};
 }
@@ -99,7 +99,7 @@ export function frame(node: HTMLElement) {
 
 	return {
 		destroy() {
-			observer.disconnect;
+			observer.disconnect();
 		}
 	};
 }

@@ -119,7 +119,7 @@
 	bind:this={element}
 	onclick={onclick_}
 >
-	{@render children?.({ context: dropdown_context, value, data, active: isSelected })}
+	{@render children?.({ context: dropdownContext, value, data, active: isSelected })}
 </button>
 
 <style lang="postcss">

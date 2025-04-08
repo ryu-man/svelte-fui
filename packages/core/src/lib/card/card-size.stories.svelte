@@ -5,14 +5,14 @@
 	import { defineMeta } from '@storybook/addon-svelte-csf';
 	import type { ArgTypes } from '@storybook/svelte';
 
-	const default_args = {
+	const defaultArgs = {
 		disabled: false,
 		required: false,
 		size: 'md',
 		weight: 'regular'
 	};
 
-	const arg_types = {
+	const argTypes = {
 		appearance: {
 			type: 'string',
 			defaultValue: 'filled',
@@ -49,7 +49,7 @@
 	const { Story } = defineMeta({
 		title: 'Components/Card',
 		component: CardFui.Root,
-		argTypes: arg_types
+		argTypes: argTypes
 	});
 </script>
 
@@ -73,7 +73,7 @@
 	});
 </script>
 
-<Story id="fui_card_size" name="Size" args={default_args}>
+<Story id="fui_card_size" name="Size" args={defaultArgs}>
 	{#snippet children(args)}
 		<FluentRoot {theme}>
 			<div class="flex h-full w-full flex-col items-center justify-center gap-4">

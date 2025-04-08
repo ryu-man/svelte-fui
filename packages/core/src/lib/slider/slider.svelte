@@ -15,7 +15,7 @@
 	}: HTMLAttributes<HTMLElement> & SliderProps = $props();
 
 	const orientation = $derived(vertical ? 'vertical' : 'horizontal');
-	const step_percent = $derived(step > 1 ? (step * 100) / max : 100);
+	const stepPercent = $derived(step > 1 ? (step * 100) / max : 100);
 	const progress = $derived((value * 100) / max);
 </script>
 
@@ -25,7 +25,7 @@
 	{...restProps}
 	style:--direction={vertical ? '0deg' : '90deg'}
 	style:--progress={`${progress}%`}
-	style:--steps-percent={`${step_percent}%`}
+	style:--steps-percent={`${stepPercent}%`}
 >
 	<input
 		class={classnames('fui-slider-input', orientation)}

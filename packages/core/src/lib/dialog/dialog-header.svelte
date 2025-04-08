@@ -4,7 +4,7 @@
 	import { getDialogContext } from './context';
 	import { mount } from '../actions/dom';
 
-	const context_dialog = getDialogContext();
+	const contextDialog = getDialogContext();
 
 	let {
 		class: klass = '',
@@ -18,9 +18,9 @@
 	this={as}
 	class={classnames('fui-dialog-title subtitle-1 m-0 px-6 pt-6', klass)}
 	use:mount={(node) => {
-		context_dialog.state.elements.header = node;
+		contextDialog.state.elements.header = node;
 		element = node;
 	}}
 >
-	{@render children?.({ context: context_dialog })}
+	{@render children?.({ context: contextDialog })}
 </svelte:element>

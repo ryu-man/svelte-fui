@@ -4,7 +4,7 @@
 	import { getDialogContext } from './context';
 	import { mount } from '../actions/dom';
 
-	const context_dropdown = getDialogContext();
+	const contextDropdown = getDialogContext();
 
 	// export let position: 'start' | 'end' = 'end';
 	// export let fluid = false;
@@ -18,9 +18,9 @@
 		klass
 	)}
 	use:mount={(node) => {
-		context_dropdown.state.elements.footer = node;
+		contextDropdown.state.elements.footer = node;
 		element = node;
 	}}
 >
-	{@render children?.({ context: context_dropdown })}
+	{@render children?.({ context: contextDropdown })}
 </div>

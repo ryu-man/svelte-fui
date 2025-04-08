@@ -5,7 +5,7 @@
 	import { defineMeta } from '@storybook/addon-svelte-csf';
 	import type { ArgTypes } from '@storybook/svelte';
 
-	const default_args = {};
+	const defaultArgs = {};
 
 	const arg_types = {} satisfies ArgTypes;
 
@@ -36,7 +36,7 @@
 	});
 </script>
 
-<Story id="fui_text" name="Text" args={default_args}>
+<Story id="fui_text" name="Text" args={defaultArgs}>
 	{#snippet children(args)}
 		<FluentRoot {theme}>
 			<div class="flex h-full w-full items-center justify-center">

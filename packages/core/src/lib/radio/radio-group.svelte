@@ -19,10 +19,10 @@
 		...restProps
 	}: RadioGroupProps = $props();
 
-	const context_state: RadioGroupContext['state'] = $derived({
+	const contextState: RadioGroupContext['state'] = $derived({
 		data: {}
 	});
-	const context_derived: RadioGroupContext['derived'] = $derived({
+	const contextDerived: RadioGroupContext['derived'] = $derived({
 		data: {
 			disabled,
 			required,
@@ -35,10 +35,10 @@
 		id: fid(FUI_RADIO_GROUP_CONTEXT_KEY),
 		type: 'radio-group',
 		get derived() {
-			return context_derived;
+			return contextDerived;
 		},
 		get state() {
-			return context_state;
+			return contextState;
 		},
 		methods: {
 			select(val) {
@@ -52,7 +52,7 @@
 </script>
 
 <div class={classnames('fui-radio-group', layout)} role="radiogroup" {...restProps}>
-	{@render children?.({ context: constext_radio_group })}
+	{@render children?.({ context: constextRadioGroup })}
 </div>
 
 <style lang="postcss">

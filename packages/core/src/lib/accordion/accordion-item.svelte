@@ -13,42 +13,42 @@
 		children
 	}: AccordionItemRootProps<T> = $props();
 
-	const context_accordion_root = getAccordionContext();
+	const contextAccordionRoot = getAccordionContext();
 
-	const multiple = $derived(context_accordion_root.derived.data.multiple);
-	const collapsible = $derived(context_accordion_root.derived.data.collapsible);
-	const values = $derived(context_accordion_root.derived.data.values);
+	const multiple = $derived(contextAccordionRoot.derived.data.multiple);
+	const collapsible = $derived(contextAccordionRoot.derived.data.collapsible);
+	const values = $derived(contextAccordionRoot.derived.data.values);
 
 	const active = $derived(!disabled && values.includes(value));
 
-	const context_derived = $derived({
+	const contextDerived = $derived({
 		value,
 		data,
 		active,
 		disabled
 	});
 
-	const context_item = setAccordionItemContext({
+	const contextItem = setAccordionItemContext({
 		id: nanoid(),
-		parent: () => context_accordion_root,
+		parent: () => contextAccordionRoot,
 		get derived() {
-			return context_derived;
+			return contextDerived;
 		},
 		methods: {
 			close() {
-				context_accordion_root.methods.close([value]);
+				contextAccordionRoot.methods.close([value]);
 			},
 			open() {
-				context_accordion_root.methods.open([value]);
+				contextAccordionRoot.methods.open([value]);
 			},
 			toggle() {
-				context_accordion_root.methods.toggle([value]);
+				contextAccordionRoot.methods.toggle([value]);
 			}
 		}
 	});
 
 	$effect(() => {
-		return context_accordion_root.methods.mount(value, {
+		return contextAccordionRoot.methods.mount(value, {
 			data,
 			value
 		});
@@ -59,8 +59,8 @@
 	{#if children}
 		{@render children({
 			context: {
-				item: context_item,
-				root: context_accordion_root
+				item: contextItem,
+				root: contextAccordionRoot
 			}
 		})}
 	{/if}

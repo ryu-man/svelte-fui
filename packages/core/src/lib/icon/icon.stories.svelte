@@ -4,21 +4,21 @@
 	import type { ArgTypes } from '@storybook/svelte';
 	import AlertRegularIcon from 'virtual:icons/fluent/alert-48-regular';
 
-	const arg_types = {} satisfies ArgTypes;
+	const argTypes = {} satisfies ArgTypes;
 
-	const default_args: Partial<Record<keyof typeof arg_types, any>> = {};
+	const defaultArgs: Partial<Record<keyof typeof argTypes, any>> = {};
 
 	const { Story } = defineMeta({
 		title: 'Components/Icon',
 		component: IconFui,
-		argTypes: arg_types
+		argTypes: argTypes
 	});
 </script>
 
 <script>
 </script>
 
-<Story id="icon" name="Icon" args={default_args}>
+<Story id="icon" name="Icon" args={defaultArgs}>
 	{#snippet children(args)}
 		<FluentRoot>
 			<div class="flex h-full w-full items-center justify-center">

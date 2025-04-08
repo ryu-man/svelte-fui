@@ -29,13 +29,13 @@ type PopoverParams = AutoPlacementOptions & {
 	onReferenceChange?: (element: HTMLElement) => void;
 };
 
-function animate_default(node: PopoverElement, params: ComputePositionReturn) {
+function animateDefault(node: PopoverElement, params: ComputePositionReturn) {
 	node.style.transform = `translate(${params.x}px, ${params.y}px)`;
 }
 
 export function popover(
 	node: HTMLElement,
-	{ animate = animate_default, ...params }: PopoverParams
+	{ animate = animateDefault, ...params }: PopoverParams
 ) {
 	node.hidden = true;
 
@@ -50,17 +50,17 @@ export function popover(
 
 	// This function is used to keep a reference of the `autoUpdate` cleanup function
 	let cleanup: () => void = () => {};
-	let onmount_cleanup: (() => void) | void = undefined;
+	let onmountCleanup: (() => void) | void = undefined;
 
 	// This function is responsible of applying position calculation on the element and notify caller
 	const positionate = async (node: PopoverElement, params: PopoverParams) => {
-		const d = await calculate_position(node, params);
+		const d = await calculatePosition(node, params);
 		params?.onChange?.({ ...d, ...direction(d.placement) });
 		animate(node, d);
 	};
 
 	// Transfer element to the target element
-	const portal_action = portal(node, {
+	const portalAction = portal(node, {
 		target: params.target,
 		onMount: async () => {
 			await positionate(node, params);
@@ -68,14 +68,14 @@ export function popover(
 			cleanup();
 			// Keep position updated
 			cleanup = autoUpdate(params.reference, node, async () => {
-				portal_action.update(params.target);
+				portalAction.update(params.target);
 
 				await tick();
 
 				await positionate(node, params);
 			});
 
-			onmount_cleanup = params?.onMount?.();
+			onmountCleanup = params?.onMount?.();
 		}
 	});
 
@@ -83,13 +83,13 @@ export function popover(
 		update(params: PopoverParams) {
 			if (!node && !params.target) return;
 
-			portal_action.update(params.target);
+			portalAction.update(params.target);
 		},
 		destroy() {
 			cleanup?.();
-			onmount_cleanup?.();
+			onmountCleanup?.();
 			params.onDestroy?.();
-			portal_action.destroy();
+			portalAction.destroy();
 		}
 	};
 }
@@ -100,7 +100,7 @@ type CalculatePositionParams = AutoPlacementOptions & {
 	onMount?: OnMountCallback;
 };
 
-async function calculate_position(node: PopoverElement, params: CalculatePositionParams) {
+async function calculatePosition(node: PopoverElement, params: CalculatePositionParams) {
 	if (!params.reference) {
 		throw new Error('Reference element is not found');
 	}

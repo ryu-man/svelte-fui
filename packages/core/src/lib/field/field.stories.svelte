@@ -5,12 +5,12 @@
 	import { defineMeta } from '@storybook/addon-svelte-csf';
 	import type { ArgTypes } from '@storybook/svelte';
 
-	const default_args = {
+	const defaultArgs = {
 		size: 'md',
 		orientation: 'vertical'
 	};
 
-	const arg_types = {
+	const argTypes = {
 		label: {
 			type: 'string'
 		},
@@ -34,7 +34,7 @@
 	const { Story } = defineMeta({
 		title: 'Components/Field',
 		component: FieldFui.Root,
-		argTypes: arg_types
+		argTypes: argTypes
 	});
 </script>
 
@@ -58,7 +58,7 @@
 	});
 </script>
 
-<Story id="field" name="Field" args={default_args}>
+<Story id="field" name="Field" args={defaultArgs}>
 	{#snippet children(args)}
 		<FluentRoot {theme}>
 			<div class="flex h-full w-full flex-col items-center justify-center gap-4">

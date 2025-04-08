@@ -5,14 +5,14 @@
 	import { defineMeta } from '@storybook/addon-svelte-csf';
 	import type { ArgTypes } from '@storybook/svelte';
 
-	const arg_types = {} satisfies ArgTypes;
+	const argTypes = {} satisfies ArgTypes;
 
-	const default_args: Partial<Record<keyof typeof arg_types, any>> = {};
+	const defaultArgs: Partial<Record<keyof typeof argTypes, any>> = {};
 
 	const { Story } = defineMeta({
 		title: 'Components/Checkbox',
 		component: CheckboxFui,
-		argTypes: arg_types
+		argTypes: argTypes
 	});
 </script>
 
@@ -36,7 +36,7 @@
 	});
 </script>
 
-<Story id="fui_checkbox" name="Checkbox" args={default_args}>
+<Story id="fui_checkbox" name="Checkbox" args={defaultArgs}>
 	{#snippet children(args)}
 		<FluentRoot {theme}>
 			<div class="flex h-full w-full flex-col items-center justify-center">

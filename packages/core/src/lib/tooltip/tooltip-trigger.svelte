@@ -6,8 +6,8 @@
 	import { classnames } from '../internal';
 	import { getPopoverContext } from '../popover';
 
-	const context_popover = getPopoverContext();
-	const element_trigger = $derived(context_popover.state.elements.trigger);
+	const contextPopover = getPopoverContext();
+	const elementTrigger = $derived(contextPopover.state.elements.trigger);
 
 	let {
 		class: klass = '',
@@ -22,13 +22,13 @@
 		...restProps
 	}: HTMLAttributes<HTMLElement> & TooltipTriggerProps<Shell> = $props();
 
-	const element_middleware = $derived({
+	const elementMiddleware = $derived({
 		get current() {
 			return element;
 		},
 		set current(val: HTMLElement|undefined) {
 			element = val;
-			context_popover.state.elements.trigger = val;
+			contextPopover.state.elements.trigger = val;
 		}
 	});
 
@@ -37,24 +37,24 @@
 			return;
 		}
 
-		if (!element_trigger) {
+		if (!elementTrigger) {
 			return;
 		}
 
-		element_trigger.addEventListener('pointerenter', onpointerenter_);
-		element_trigger.addEventListener('pointerleave', onpointerleave_);
+		elementTrigger.addEventListener('pointerenter', onpointerenter_);
+		elementTrigger.addEventListener('pointerleave', onpointerleave_);
 
 		return () => {
-			element_trigger.removeEventListener('pointerenter', onpointerenter_);
-			element_trigger.removeEventListener('pointerleave', onpointerleave_);
+			elementTrigger.removeEventListener('pointerenter', onpointerenter_);
+			elementTrigger.removeEventListener('pointerleave', onpointerleave_);
 		};
 	});
 
 	// Ensure showing tooltip only when cursor settles for an amount of time
-	let timeout_id: NodeJS.Timeout | undefined = $state(undefined);
+	let timeoutId: NodeJS.Timeout | undefined = $state(undefined);
 
 	function onpointerenter_(ev: PointerEvent) {
-		clearTimeout(timeout_id);
+		clearTimeout(timeoutId);
 
 		onpointerenter?.(ev);
 
@@ -62,27 +62,27 @@
 			return;
 		}
 
-		timeout_id = setTimeout(() => {
-			context_popover.methods.open();
+		timeoutId = setTimeout(() => {
+			contextPopover.methods.open();
 		}, delay);
 	}
 
 	function onpointerleave_(ev: PointerEvent) {
-		clearTimeout(timeout_id);
+		clearTimeout(timeoutId);
 
 		onpointerleave?.(ev);
 		if (ev.defaultPrevented) {
 			return;
 		}
 
-		context_popover.methods.close();
+		contextPopover.methods.close();
 	}
 </script>
 
 {#if !shell}
 	<svelte:element
 		this={as}
-		bind:this={element_middleware.current}
+		bind:this={elementMiddleware.current}
 		class={classnames('fui-toolip-container relative inline-flex', klass)}
 		{...restProps}
 	>
@@ -92,7 +92,7 @@
 	{@const Shell = shell}
 
 	<Shell
-		bind:element={element_middleware.current}
+		bind:element={elementMiddleware.current}
 		class={classnames('fui-toolip-container relative inline-flex', klass)}
 		{as}
 		{...restProps}

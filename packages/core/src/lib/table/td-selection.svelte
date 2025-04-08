@@ -7,14 +7,14 @@
 	import { classnames } from '../internal';
 	import { Radio } from '../radio';
 
-	const context_table = getTableContext();
-	const context_row = getTableRowContext();
+	const contextTable = getTableContext();
+	const contextRow = getTableRowContext();
 
-	// const row$ = $allRows$.find((d) => d.id === context_row.id) as RowStore;
+	// const row$ = $allRows$.find((d) => d.id === contextRow.id) as RowStore;
 
 	// let checked$: Readable<boolean>;
 
-	// if (context_row.header) {
+	// if (contextRow.header) {
 	// 	checked$ = derived([allRows$, selectedKeys$], ([rows, selected]) => {
 	// 		return selected.length > 0 && rows.length === selected.length;
 	// 	});
@@ -22,12 +22,12 @@
 	// 	checked$ = row$.selected$;
 	// }
 
-	const element = context_row.header ? 'th' : 'td';
+	const element = contextRow.header ? 'th' : 'td';
 
 	// export let checked: boolean | 'mixed' = false;
 	// export let type: 'checkbox' | 'radio' = 'checkbox';
 	// export let subtle = false;
-	// export let hidden = context_row.header;
+	// export let hidden = contextRow.header;
 
 	let {
 		class: klass = '',
@@ -37,10 +37,10 @@
 		checked = $bindable(false)
 	} = $props();
 
-	function onchange_checkbox(ev: Event) {
+	function onchangeCheckbox(ev: Event) {
 		const currentTarget = ev.currentTarget as HTMLInputElement;
 		// console.log(currentTarget.checked);
-		// if (context_row.header) {
+		// if (contextRow.header) {
 		// 	if (currentTarget.checked) {
 		// 		$allRows$.forEach((d) => d.selected$.set(true));
 		// 	} else {
@@ -53,23 +53,23 @@
 		// }
 	}
 
-	function onchange_radio(ev: Event) {
+	function onchangeRadio(ev: Event) {
 		const currentTarget = ev.currentTarget as HTMLInputElement;
 		// $allRows$.forEach((d) => d.selected$.set(false));
 		// if (row$) {
 		// 	row$.selected$.set(currentTarget.checked);
 		// }
 
-		context_table.methods.unselect(context_table.derived.data.values);
-		context_table.methods.select([context_row.derived.data.id]);
+		contextTable.methods.unselect(contextTable.derived.data.values);
+		contextTable.methods.select([contextRow.derived.data.id]);
 	}
 </script>
 
 <svelte:element this={element} class={classnames('fui-table-cell-selection', { subtle, header })}>
 	{#if type === 'checkbox'}
-		<Checkbox bind:checked onchange={onchange_checkbox} />
+		<Checkbox bind:checked onchange={onchangeCheckbox} />
 	{:else}
-		<Radio bind:checked name="selected-row" onchange={onchange_radio} />
+		<Radio bind:checked name="selected-row" onchange={onchangeRadio} />
 	{/if}
 </svelte:element>
 

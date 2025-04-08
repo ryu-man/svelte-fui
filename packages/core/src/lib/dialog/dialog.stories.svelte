@@ -5,7 +5,7 @@
 	import { defineMeta } from '@storybook/addon-svelte-csf';
 	import type { ArgTypes } from '@storybook/svelte';
 
-	const arg_types = {
+	const argTypes = {
 		open: {
 			type: 'boolean'
 		},
@@ -18,7 +18,7 @@
 		}
 	} satisfies ArgTypes;
 
-	const default_args: Partial<Record<keyof typeof arg_types, any>> = {
+	const defaultArgs: Partial<Record<keyof typeof argTypes, any>> = {
 		open: false,
 		type: 'modal'
 	};
@@ -26,7 +26,7 @@
 	const { Story } = defineMeta({
 		title: 'Components/Dialog',
 		component: DialogFui.Root,
-		argTypes: arg_types
+		argTypes: argTypes
 	});
 </script>
 
@@ -60,7 +60,7 @@
 	}
 </script>
 
-<Story id="dialog" name="Dialog" args={default_args}>
+<Story id="dialog" name="Dialog" args={defaultArgs}>
 	{#snippet children(args)}
 		<FluentRoot {theme}>
 			<div class="flex h-full w-full items-center justify-center">
@@ -100,7 +100,7 @@
 	{/snippet}
 </Story>
 
-<Story id="dialog_long_content" name="Scrolling Long Content" args={default_args}>
+<Story id="dialog_long_content" name="Scrolling Long Content" args={defaultArgs}>
 	{#snippet children(args)}
 		<FluentRoot {theme}>
 			<div class="flex h-full w-full items-center justify-center">

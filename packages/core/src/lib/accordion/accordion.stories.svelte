@@ -6,7 +6,7 @@
 	import { webDarkTheme, webLightTheme } from '@svelte-fui/themes';
 	import { Accordion as AccordionComponent, AccordionItem } from '.';
 
-	const arg_types = {
+	const argTypes = {
 		collapsible: {
 			control: 'boolean'
 		},
@@ -18,7 +18,7 @@
 		}
 	} satisfies ArgTypes;
 
-	const default_args: Partial<Record<keyof typeof arg_types, any>> = {
+	const defaultArgs: Partial<Record<keyof typeof argTypes, any>> = {
 		collapsible: false,
 		multiple: false
 	};
@@ -55,7 +55,7 @@
 	});
 </script>
 
-<Story id="accordion" name="Accordion" args={default_args}>
+<Story id="accordion" name="Accordion" args={defaultArgs}>
 	{#snippet children(args)}
 		<FluentRoot {theme}>
 			<div class="flex h-full w-full flex-col items-center justify-center">

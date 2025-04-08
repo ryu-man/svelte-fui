@@ -6,7 +6,7 @@
 	import type { ArgTypes } from '@storybook/svelte';
 	import LinkFui from './Link.svelte';
 
-	const default_args = {
+	const defaultArgs = {
 		appearance: 'default',
 		disabled: false,
 		inline: false,
@@ -14,7 +14,7 @@
 		href: 'https://svelte.dev/'
 	};
 
-	const arg_types = {
+	const argTypes = {
 		as: {
 			type: 'string',
 			options: ['a', 'button'],
@@ -43,7 +43,7 @@
 	const { Story } = defineMeta({
 		title: 'Components/Link',
 		component: LinkFui,
-		argTypes: arg_types
+		argTypes: argTypes
 	});
 </script>
 
@@ -67,7 +67,7 @@
 	});
 </script>
 
-<Story id="link" name="Link" args={default_args}>
+<Story id="link" name="Link" args={defaultArgs}>
 	{#snippet children(args)}
 		<FluentRoot {theme}>
 			<div class="flex h-full w-full flex-col items-center justify-center gap-4">

@@ -2,8 +2,8 @@
 	import { classnames } from '@svelte-fui/core/internal';
 	import { getFieldContext } from './context';
 
-	const context_field = getFieldContext();
-	const open = $derived(context_field.derived.data.open);
+	const contextField = getFieldContext();
+	const open = $derived(contextField.derived.data.open);
 
 	let { class: klass = '', id = undefined, children, ...restProps } = $props();
 </script>
@@ -13,13 +13,13 @@
 		{id}
 		class={classnames(
 			'fui-field-validation-message font-regular text-base-200 gap-1',
-			context_field.derived.data.state,
+			contextField.derived.data.state,
 			{ 'secondary-text': !!children },
 			klass
 		)}
 		{...restProps}
 	>
-		{@render children?.({ context: context_field })}
+		{@render children?.({ context: contextField })}
 	</div>
 {/if}
 

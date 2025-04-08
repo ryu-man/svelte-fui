@@ -14,7 +14,7 @@
 	import { defineMeta } from '@storybook/addon-svelte-csf';
 	import type { ArgTypes } from '@storybook/svelte';
 
-	const default_args = {
+	const defaultArgs = {
 		disabled: false,
 		required: false,
 		size: 'md',
@@ -81,7 +81,7 @@
 	});
 </script>
 
-<Story id="fui_tooltip" name="Tooltip" args={default_args}>
+<Story id="fui_tooltip" name="Tooltip" args={defaultArgs}>
 	{#snippet children(args)}
 		<FluentRoot {theme}>
 			<div class="flex flex-col gap-6 h-full w-full items-center justify-center">

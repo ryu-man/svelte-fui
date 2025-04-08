@@ -7,14 +7,14 @@
 	import RadioGroupFui from './radio-group.svelte';
 	import Radio from './radio.svelte';
 
-	const default_args = {
+	const defaultArgs = {
 		disabled: false,
 		required: false,
 		size: 'md',
 		weight: 'regular'
 	};
 
-	const arg_types = {
+	const argTypes = {
 		disabled: {
 			type: 'boolean',
 			defaultValue: false,
@@ -42,7 +42,7 @@
 	const { Story } = defineMeta({
 		title: 'Components/Radio',
 		component: RadioGroupFui,
-		argTypes: arg_types
+		argTypes: argTypes
 	});
 </script>
 
@@ -66,7 +66,7 @@
 	});
 </script>
 
-<Story id="fui_radio_group" name="RadioGroup" args={default_args}>
+<Story id="fui_radio_group" name="RadioGroup" args={defaultArgs}>
 	{#snippet children(args)}
 		<FluentRoot {theme}>
 			<div class="flex h-full w-full items-center justify-center">

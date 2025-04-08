@@ -5,14 +5,14 @@
 	import { defineMeta } from '@storybook/addon-svelte-csf';
 	import type { ArgTypes } from '@storybook/svelte';
 
-	const default_args = {};
+	const defaultArgs = {};
 
-	const arg_types = {} satisfies ArgTypes;
+	const argTypes = {} satisfies ArgTypes;
 
 	const { Story } = defineMeta({
 		title: 'Components/Switch',
 		component: SwitchFui,
-		argTypes: arg_types
+		argTypes: argTypes
 	});
 </script>
 
@@ -36,7 +36,7 @@
 	});
 </script>
 
-<Story id="fui_switch" name="Switch" args={default_args}>
+<Story id="fui_switch" name="Switch" args={defaultArgs}>
 	{#snippet children(args)}
 		<FluentRoot {theme}>
 			<div class="flex h-full w-full flex-col items-center justify-center gap-4">

@@ -6,14 +6,14 @@
 	import type { ArgTypes } from '@storybook/svelte';
 	import MoreHorizontalFilled from 'virtual:icons/fluent/more-horizontal-24-filled';
 
-	const default_args = {
+	const defaultArgs = {
 		disabled: false,
 		required: false,
 		size: 'md',
 		weight: 'regular'
 	};
 
-	const arg_types = {
+	const argTypes = {
 		appearance: {
 			type: 'string',
 			defaultValue: 'filled',
@@ -50,7 +50,7 @@
 	const { Story } = defineMeta({
 		title: 'Components/Card',
 		component: CardFui.Root,
-		argTypes: arg_types
+		argTypes: argTypes
 	});
 </script>
 
@@ -74,7 +74,7 @@
 	});
 </script>
 
-<Story id="fui_card_header" name="Header" args={default_args}>
+<Story id="fui_card_header" name="Header" args={defaultArgs}>
 	{#snippet children(args)}
 		<FluentRoot {theme}>
 			<div class="flex h-full w-full flex-col items-center justify-center gap-4">

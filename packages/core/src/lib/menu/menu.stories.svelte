@@ -17,14 +17,14 @@
 	import ScreenshotRegularIcon from 'virtual:icons/fluent/screenshot-24-regular';
 	import TableInsertColumnRegularIcon from 'virtual:icons/fluent/table-insert-column-24-regular';
 
-	const arg_types = {} satisfies ArgTypes;
+	const argTypes = {} satisfies ArgTypes;
 
-	const default_args: Partial<Record<keyof typeof arg_types, any>> = {};
+	const defaultArgs: Partial<Record<keyof typeof argTypes, any>> = {};
 
 	const { Story } = defineMeta({
 		title: 'Components/Menu',
 		component: MenuModule.Root,
-		argTypes: arg_types
+		argTypes: argTypes
 	});
 </script>
 
@@ -48,7 +48,7 @@
 	});
 </script>
 
-<Story id="menu" name="Menu" args={default_args}>
+<Story id="menu" name="Menu" args={defaultArgs}>
 	<FluentRoot {theme}>
 		<div class="flex h-full w-full items-center justify-center">
 			<MenuModule.Root>

@@ -128,7 +128,7 @@ export function getCSSDuration(property) {
 	return parseFloat(duration) * (/\ds$/.test(duration) ? 1000 : 1) || 0;
 }
 
-const custom_tw_merge = extendTailwindMerge({
+const customTwMerge = extendTailwindMerge({
 	extend: {
 		theme: {
 			spacing: [
@@ -147,5 +147,5 @@ const custom_tw_merge = extendTailwindMerge({
 });
 
 export function classnames(...args: ClassValue[]): string {
-	return custom_tw_merge(clsx(...args));
+	return customTwMerge(clsx(...args));
 }

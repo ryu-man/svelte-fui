@@ -21,11 +21,11 @@
 		data = values.map((d) => items[d].data).filter(Boolean) as T[];
 	});
 
-	const context_state: AccordionContext<T>['state'] = $state({
+	const contextState: AccordionContext<T>['state'] = $state({
 		elements: {}
 	});
 
-	const context_derived: AccordionContext<T>['derived'] = $derived({
+	const contextDerived: AccordionContext<T>['derived'] = $derived({
 		data: {
 			items: {
 				all: items,
@@ -41,45 +41,45 @@
 	const context = setAccordionContext({
 		id: nanoid(),
 		get state() {
-			return context_state;
+			return contextState;
 		},
 		get derived() {
-			return context_derived;
+			return contextDerived;
 		},
 		events: {
 			onchange: (ev: Event) => {}
 		},
 		methods: {
 			open(vals) {
-				const unique_values = new Set(values);
+				const uniqueValues = new Set(values);
 
 				for (const val of vals) {
-					unique_values.add(val);
+					uniqueValues.add(val);
 				}
 
-				values = [...unique_values];
+				values = [...uniqueValues];
 			},
 			close(vals) {
-				const unique_values = new Set(values);
+				const uniqueValues = new Set(values);
 
 				for (const val of vals) {
-					unique_values.delete(val);
+					uniqueValues.delete(val);
 				}
 
-				values = [...unique_values];
+				values = [...uniqueValues];
 			},
 			toggle(vals) {
-				const unique_values = new Set(values);
+				const uniqueValues = new Set(values);
 
 				for (const val of vals) {
-					if (unique_values.has(val)) {
-						unique_values.delete(val);
+					if (uniqueValues.has(val)) {
+						uniqueValues.delete(val);
 					} else {
-						unique_values.add(val);
+						uniqueValues.add(val);
 					}
 				}
 
-				values = [...unique_values];
+				values = [...uniqueValues];
 				console.log('toggle');
 			},
 			mount(value, item) {
@@ -103,7 +103,7 @@
 
 <div
 	bind:this={element}
-	bind:this={context_state.elements.root}
+	bind:this={contextState.elements.root}
 	class={classnames('fui-accordion', klass)}
 >
 	{#if children}

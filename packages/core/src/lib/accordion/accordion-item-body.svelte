@@ -4,8 +4,8 @@
 	import { getAccordionItemContext } from './context';
 	import type { AccordionItemBodyProps } from './types';
 
-	const context_accordion_root = getAccordionItemContext();
-	const active = $derived(context_accordion_root.derived.active);
+	const contextAccordionRoot = getAccordionItemContext();
+	const active = $derived(contextAccordionRoot.derived.active);
 
 	let {
 		class: klass = '',

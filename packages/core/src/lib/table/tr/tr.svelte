@@ -8,8 +8,8 @@
 	// import { rowStore } from '../store';
 	import type { TrProps } from '../types';
 
-	const context_table = getTableContext();
-	const size = $derived(context_table.derived.data.size);
+	const contextTable = getTableContext();
+	const size = $derived(contextTable.derived.data.size);
 
 	// export let header = false;
 	// export let key = header ? 'fui-table-header-row-' + nanoid(4) : nanoid();
@@ -27,15 +27,15 @@
 		children
 	}: TrProps<T> = $props();
 
-	const is_selected = $derived(context_table.derived.data.values.includes(id));
-	const is_header = $derived(false);
+	const isSelected = $derived(contextTable.derived.data.values.includes(id));
+	const isHeader = $derived(false);
 
-	const context_state: TableRowContext<T>['state'] = $state({
+	const contextState: TableRowContext<T>['state'] = $state({
 		data: {},
 		elements: {}
 	});
 
-	const context_derived: TableRowContext<T>['derived'] = $derived({
+	const contextDerived: TableRowContext<T>['derived'] = $derived({
 		data: {
 			id,
 			data,
@@ -44,18 +44,18 @@
 		elements: {}
 	});
 
-	const context_tr = setTableRowContext({
+	const contextTr = setTableRowContext({
 		id: nanoid(),
 		type: 'table-tr',
 		get state() {
-			return context_state;
+			return contextState;
 		},
 		get derived() {
-			return context_derived;
+			return contextDerived;
 		}
 	});
-	// context_tr.id = key;
-	// context_tr.header = header;
+	// contextTr.id = key;
+	// contextTr.header = header;
 
 	// const row$ = rowStore(key, data);
 	// const isSelected$ = derived(row$.selected$, (val) => val);
@@ -65,7 +65,7 @@
 	// }
 
 	$effect(() => {
-		return context_table.methods.mount(id, data);
+		return contextTable.methods.mount(id, data);
 	});
 </script>
 
@@ -75,12 +75,12 @@
 		'fui-table-row',
 		size,
 		appearance !== 'none' ? appearance : '',
-		{ header: is_header, brand: is_selected },
+		{ header: isHeader, brand: isSelected },
 		klass
 	)}
 >
 	{#await tick() then _}
-		{@render children?.({ context: context_table })}
+		{@render children?.({ context: contextTable })}
 	{/await}
 </tr>
 

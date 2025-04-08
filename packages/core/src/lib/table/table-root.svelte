@@ -18,16 +18,16 @@
 	}: TableRoot<T> = $props();
 
 	// let sorted: any[] = [];
-	// let order_By: typeof _orderBy | undefined = undefined;
+	// let orderBy: typeof _orderBy | undefined = undefined;
 
 	const rows = new SvelteMap<string, TableRow<T>>([]);
 
-	const context_state: TableContext<T>['state'] = $state({
+	const contextState: TableContext<T>['state'] = $state({
 		data: {},
 		elements: {}
 	});
 
-	const context_derived: TableContext<T>['derived'] = $derived({
+	const contextDerived: TableContext<T>['derived'] = $derived({
 		data: {
 			rows: {
 				all: rows,
@@ -39,14 +39,14 @@
 		elements: {}
 	});
 
-	const context_table = setTableContext<T>({
+	const contextTable = setTableContext<T>({
 		id: nanoid(),
 		type: 'table',
 		get state() {
-			return context_state;
+			return contextState;
 		},
 		get derived() {
-			return context_derived;
+			return contextDerived;
 		},
 		events: {
 			onchange: (ev, params) => {}
@@ -89,7 +89,7 @@
 	// $: [key, direction] = $sorting$ || [];
 
 	// $: sorted =
-	// order_By && key ? order_By(data, key, direction === 'ascending' ? 'asc' : 'desc') : data;
+	// orderBy && key ? orderBy(data, key, direction === 'ascending' ? 'asc' : 'desc') : data;
 
 	// $: if ($selectedKeys$) {
 	// selectedItems = $allRows$.filter((d) => d.selected$.value).map((d) => d.data);
@@ -97,7 +97,7 @@
 </script>
 
 <table bind:this={element} class={classnames('fui-table', klass)}>
-	{@render children?.({ context: context_table })}
+	{@render children?.({ context: contextTable })}
 </table>
 
 <style lang="postcss">

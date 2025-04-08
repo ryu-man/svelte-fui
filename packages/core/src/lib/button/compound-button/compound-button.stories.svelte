@@ -10,7 +10,7 @@
 	import CalendarMonthFilled from 'virtual:icons/fluent/calendar-month-24-filled';
 	import CalendarMonthRegular from 'virtual:icons/fluent/calendar-month-24-regular';
 
-	const arg_types = {
+	const argTypes = {
 		size: {
 			type: 'string',
 			options: ['sm', 'md', 'lg'],
@@ -34,7 +34,7 @@
 		}
 	} satisfies ArgTypes;
 
-	const default_args: Partial<Record<keyof typeof arg_types, any>> = {
+	const defaultArgs: Partial<Record<keyof typeof argTypes, any>> = {
 		size: 'md',
 		appearance: 'secondary',
 		shape: 'rounded'
@@ -43,7 +43,7 @@
 	const { Story } = defineMeta({
 		title: 'Components/Button',
 		component: Button,
-		argTypes: arg_types
+		argTypes: argTypes
 	});
 </script>
 
@@ -73,7 +73,7 @@
 	});
 </script>
 
-<Story id="compound_button" name="Compound Button" args={default_args}>
+<Story id="compound_button" name="Compound Button" args={defaultArgs}>
 	{#snippet children(args)}
 		<FluentRoot {theme}>
 			<div class="flex h-full w-full items-center justify-center gap-4">

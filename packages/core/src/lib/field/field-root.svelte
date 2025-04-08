@@ -20,21 +20,21 @@
 		...restProps
 	}: FieldProps = $props();
 
-	const validation_message_icons = {
+	const validationMessageIcons = {
 		error: ErrorCircleFilled,
 		warning: WarningFilled,
 		success: CheckmarkCircleFilled,
 		none: undefined
 	};
 
-	const context_state: FieldContext['state'] = $state({
+	const contextState: FieldContext['state'] = $state({
 		data: {},
 		elements: {}
 	});
 
-	const context_derived: FieldContext['derived'] = $derived({
+	const contextDerived: FieldContext['derived'] = $derived({
 		data: {
-			icon: validation_message_icons[fieldState || 'none'],
+			icon: validationMessageIcons[fieldState || 'none'],
 			state: fieldState,
 			open,
 			disabled,
@@ -43,14 +43,14 @@
 		elements: {}
 	});
 
-	const context_field = setFieldContext({
+	const contextField = setFieldContext({
 		id: nanoid(),
 		type: 'field',
 		get state() {
-			return context_state;
+			return contextState;
 		},
 		get derived() {
-			return context_derived;
+			return contextDerived;
 		},
 		events: {},
 		methods: {
@@ -65,7 +65,7 @@
 	class={classnames('fui-field', orientation, fieldState, size, { 'no-label': labeless })}
 	{...restProps}
 >
-	{@render children?.({ context: context_field })}
+	{@render children?.({ context: contextField })}
 </div>
 
 <style lang="postcss">

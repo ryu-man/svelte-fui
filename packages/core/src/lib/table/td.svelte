@@ -2,7 +2,7 @@
 	import { classnames } from '../internal';
 	import { getTableContext } from './context';
 
-	const context_table = getTableContext();
+	const contextTable = getTableContext();
 
 	// export let truncate = false;
 	// export let primary = false;
@@ -20,7 +20,7 @@
 
 <td bind:this={element} class={classnames('fui-table-cell', { truncate, primary })}>
 	<div class={klass}>
-		{@render children?.({ context: context_table })}
+		{@render children?.({ context: contextTable })}
 	</div>
 </td>
 

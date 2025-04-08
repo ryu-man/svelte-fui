@@ -17,12 +17,12 @@
 	import Th from './th.svelte';
 	import Tr from './tr/tr.svelte';
 
-	const default_args = {
+	const defaultArgs = {
 		size: 'md',
 		sortable: false
 	};
 
-	const arg_types = {
+	const argTypes = {
 		size: {
 			type: 'string',
 			options: ['xs', 'sm', 'md'],
@@ -38,7 +38,7 @@
 	const { Story } = defineMeta({
 		title: 'Components/Table',
 		component: TableFui,
-		argTypes: arg_types
+		argTypes: argTypes
 	});
 </script>
 
@@ -115,7 +115,7 @@
 	let selectedItems = $state([]);
 </script>
 
-<Story id="table" name="Table" args={default_args}>
+<Story id="table" name="Table" args={defaultArgs}>
 	{#snippet children(args)}
 		<FluentRoot {theme}>
 			<TableFui {...args} {data}>

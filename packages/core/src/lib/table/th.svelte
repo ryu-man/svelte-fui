@@ -8,7 +8,7 @@
 	import { getTableContext } from './context';
 	import type { SortingDirection } from './types';
 
-	const context_table = getTableContext();
+	const contextTable = getTableContext();
 
 	// export let sortBy: ((d: any) => any) | undefined = undefined;
 	// export let direction: SortingDirection = 'ascending';
@@ -69,7 +69,7 @@
 
 <th bind:this={element} class={classnames('fui-table-header-cell', klass)} {onclick}>
 	<div>
-		{@render children?.({ context: context_table })}
+		{@render children?.({ context: contextTable })}
 
 		<!-- {#if sortable && $activeSort$}
 			<div class="fui-table-header-cell-sorting-icon" style:transform="rotate({$rotate$ * 180}deg)">

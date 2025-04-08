@@ -7,14 +7,14 @@
 	import MicRegularIcon from 'virtual:icons/fluent/mic-48-regular';
 	import PersonRegularIcon from 'virtual:icons/fluent/person-48-regular';
 
-	const arg_types = {} satisfies ArgTypes;
+	const argTypes = {} satisfies ArgTypes;
 
-	const default_args: Partial<Record<keyof typeof arg_types, any>> = {};
+	const defaultArgs: Partial<Record<keyof typeof argTypes, any>> = {};
 
 	const { Story } = defineMeta({
 		title: 'Components/Input',
 		component: InputFui.Root,
-		argTypes: arg_types
+		argTypes: argTypes
 	});
 </script>
 
@@ -38,7 +38,7 @@
 	});
 </script>
 
-<Story id="input" name="Input" args={default_args}>
+<Story id="input" name="Input" args={defaultArgs}>
 	{#snippet children(args)}
 		<FluentRoot {theme}>
 			<div class="flex h-full w-full items-center justify-center">

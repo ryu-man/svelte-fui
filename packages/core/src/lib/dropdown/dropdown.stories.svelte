@@ -7,13 +7,13 @@
 	import type { ArgTypes } from '@storybook/svelte';
 	import LocalLanguageZiRegular from 'virtual:icons/fluent/local-language-zi-24-regular';
 
-	const default_args = {
+	const defaultArgs = {
 		size: 'md',
 		appearance: 'outline',
 		shape: 'rounded'
 	};
 
-	const arg_types = {
+	const argTypes = {
 		size: {
 			type: 'string',
 			options: ['sm', 'md', 'lg'],
@@ -40,7 +40,7 @@
 	const { Story } = defineMeta({
 		title: 'Components/Dropdown',
 		component: DropdownFui.Root,
-		argTypes: arg_types
+		argTypes: argTypes
 	});
 </script>
 
@@ -72,7 +72,7 @@
 	];
 </script>
 
-<Story name="Dropdown" args={default_args}>
+<Story name="Dropdown" args={defaultArgs}>
 	{#snippet children(args)}
 		<FluentRoot {theme}>
 			<div class="flex h-full w-full flex-col items-center justify-center gap-4">

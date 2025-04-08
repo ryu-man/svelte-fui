@@ -12,12 +12,12 @@
 		children
 	}: TooltipRootProps = $props();
 
-	const context_state: TooltipContext['state'] = $state({
+	const contextState: TooltipContext['state'] = $state({
 		data: {},
 		elements: {}
 	});
 
-	const context_derived: TooltipContext['derived'] = $derived({
+	const contextDerived: TooltipContext['derived'] = $derived({
 		data: {
 			open,
 			alignment,
@@ -25,22 +25,22 @@
 			placements
 		},
 		elements: {
-			content: context_state.elements.content,
-			indicator: context_state.elements.indicator,
-			overlay: context_state.elements.overlay,
-			trigger: context_state.elements.trigger
+			content: contextState.elements.content,
+			indicator: contextState.elements.indicator,
+			overlay: contextState.elements.overlay,
+			trigger: contextState.elements.trigger
 		}
 	});
 
-	const context_tooltip = setTooltipContext({
+	const contextTooltip = setTooltipContext({
 		id: nanoid(),
 		type: 'tooltip',
 		parent: () => getTooltipContext(),
 		get derived() {
-			return context_derived;
+			return contextDerived;
 		},
 		get state() {
-			return context_state;
+			return contextState;
 		},
 		events: {},
 		methods: {
@@ -57,6 +57,6 @@
 	});
 </script>
 
-<Popover.Root open={false} context={context_tooltip}>
-	{@render children?.({ context: context_tooltip })}
+<Popover.Root open={false} context={contextTooltip}>
+	{@render children?.({ context: contextTooltip })}
 </Popover.Root>

@@ -15,7 +15,7 @@
 	const targetLayer = $derived(rootContext.state.layers.get('l1'));
 	const overlayElement = $derived(targetLayer?.context.state.dom.inner);
 
-	// const backdrop_context = getBackdropContext();
+	// const backdropContext = getBackdropContext();
 
 	if(!targetLayer){
 		throw new Error('default layer context not found!');
@@ -87,16 +87,16 @@
 	});
 
 	$effect(() => {
-		document.addEventListener('keyup', dismiss_dialog_on_escape);
+		document.addEventListener('keyup', dismissDialogOnEscape);
 
 		return () => {
-			document.removeEventListener('keyup', dismiss_dialog_on_escape);
+			document.removeEventListener('keyup', dismissDialogOnEscape);
 
 			targetLayer?.context.methods.closeBackdrop();
 		};
 	});
 
-	function onclick_dismiss_dialog(ev: Event) {
+	function onclickDismissDialog(ev: Event) {
 		if (ev.currentTarget !== ev.target) {
 			return;
 		}
@@ -109,7 +109,7 @@
 		open = false;
 	}
 
-	function dismiss_dialog_on_escape(e: KeyboardEvent) {
+	function dismissDialogOnEscape(e: KeyboardEvent) {
 		if (type === 'alert' || !(e.key === 'Escape')) return;
 
 		open = false;
@@ -126,7 +126,7 @@
 				element = node;
 			}}
 			use:portal={{ target: overlayElement }}
-			onclick={onclick_dismiss_dialog}
+			onclick={onclickDismissDialog}
 			onkeyup={() => {}}
 		>
 			<div

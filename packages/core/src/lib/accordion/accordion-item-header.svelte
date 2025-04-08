@@ -11,16 +11,16 @@
 		onclick
 	}: AccordionItemHeaderProps<T> = $props();
 
-	const context_accordion_item = getAccordionItemContext();
+	const contextAccordionItem = getAccordionItemContext();
 
-	const active = $derived(context_accordion_item.derived.active);
+	const active = $derived(contextAccordionItem.derived.active);
 
-	const disabled = $derived(context_accordion_item.derived.disabled);
+	const disabled = $derived(contextAccordionItem.derived.disabled);
 
-	const context_accordion_root = context_accordion_item.parent();
+	const contextAccordionRoot = contextAccordionItem.parent();
 
-	const multiple = $derived(context_accordion_root.derived.data.multiple);
-	const collapsible = $derived(context_accordion_root.derived.data.collapsible);
+	const multiple = $derived(contextAccordionRoot.derived.data.multiple);
+	const collapsible = $derived(contextAccordionRoot.derived.data.collapsible);
 
 	function onclick_(ev: Event) {
 		if (disabled) return;
@@ -32,20 +32,20 @@
 		}
 
 		if (multiple) {
-			context_accordion_item.methods.toggle();
+			contextAccordionItem.methods.toggle();
 		} else {
 			const state = active;
 
-			context_accordion_root.methods.close(context_accordion_root.derived.data.values);
+			contextAccordionRoot.methods.close(contextAccordionRoot.derived.data.values);
 
 			if (collapsible) {
 				if (state) {
-					context_accordion_item.methods.close();
+					contextAccordionItem.methods.close();
 				} else {
-					context_accordion_item.methods.open();
+					contextAccordionItem.methods.open();
 				}
 			} else {
-				context_accordion_item.methods.open();
+				contextAccordionItem.methods.open();
 			}
 		}
 	}
@@ -67,8 +67,8 @@
 	{#if children}
 		{@render children({
 			context: {
-				item: context_accordion_item,
-				root: context_accordion_root
+				item: contextAccordionItem,
+				root: contextAccordionRoot
 			}
 		})}
 	{/if}

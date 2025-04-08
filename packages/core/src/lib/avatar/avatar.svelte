@@ -17,15 +17,15 @@
 		element = $bindable(undefined)
 	}: AvatarProps = $props();
 
-	const active_or_inactive = $derived(active === 'active' || active === 'inactive');
-	const ring_style = $derived(activeAppearance === 'ring' || activeAppearance === 'ring-shadow');
+	const activeOrInactive = $derived(active === 'active' || active === 'inactive');
+	const ringStyle = $derived(activeAppearance === 'ring' || activeAppearance === 'ring-shadow');
 </script>
 
 <span
 	bind:this={element}
 	class={classnames(
 		'fui-avatar',
-		{ 'active-or-inactive': active_or_inactive, badge: badge },
+		{ 'active-or-inactive': activeOrInactive, badge: badge },
 		active === 'active' ? activeAppearance : '',
 		shape,
 		color,

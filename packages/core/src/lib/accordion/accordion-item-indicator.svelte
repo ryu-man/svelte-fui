@@ -6,8 +6,8 @@
 	import { classnames } from '../internal';
 	import type { AccordionItemIndicatorProps } from './types';
 
-	const context_accordion_item = getAccordionItemContext();
-	const active = $derived(context_accordion_item.derived.active);
+	const contextAccordionItem = getAccordionItemContext();
+	const active = $derived(contextAccordionItem.derived.active);
 
 	let {
 		class: klass = '',

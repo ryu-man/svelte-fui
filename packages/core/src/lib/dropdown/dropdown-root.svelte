@@ -31,7 +31,7 @@
 		children = undefined
 	}: DropdownRootProps<T> = $props();
 
-	const context_parent = getDropdownContext();
+	const contextParent = getDropdownContext();
 
 	const contextBuilder = () => {
 		if (context) {
@@ -64,7 +64,7 @@
 			id: fid(dropdownNamespace),
 			type: 'dropdown',
 
-			parent: <R,>() => context_parent as DropdownContext<R>,
+			parent: <R,>() => contextParent as DropdownContext<R>,
 			update(fn) {
 				fn?.(contextState);
 			},
