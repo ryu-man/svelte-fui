@@ -11,6 +11,7 @@ export type PopoverState<T = Record<string, any>> = {
 	alignment?: Alignment;
 	offset?: number;
 	extension?: T;
+	target?: HTMLElement;
 	dom: {
 		overlay?: HTMLElement;
 		trigger?: HTMLElement;

@@ -1,14 +1,17 @@
 <script lang="ts">
+	import type { Component } from 'svelte';
 	import type { HTMLAttributes } from 'svelte/elements';
+	import { flip, offset } from '@floating-ui/dom';
 	import { clickoutside } from '@svelte-fui/core/actions/dom.svelte';
-	import { popover } from './actions.svelte';
 	import { classnames } from '@svelte-fui/core/internal';
+
+	import { popover } from './actions.svelte';
 	import { getPopoverContext } from './context';
 	import type { PopoverOverlayProps } from './types';
+
 	import { animate } from '../actions/animation.svelte';
 	import { DURATION } from '../internal/transition';
 	import { getLayerContext } from '../app/layer/context';
-	import { flip, offset } from '@floating-ui/dom';
 
 	const popoverContext = getPopoverContext();
 
@@ -24,9 +27,9 @@
 
 	const targetLayer = getLayerContext();
 
-	const layerElement = $derived(targetLayer?.state.dom.inner);
 	const triggerElement = $derived(popoverContext?.state?.dom?.trigger);
 
+	const targetElement = $derived(popoverContext.state.target ?? targetLayer.state.dom.inner);
 
 	let {
 		element = $bindable(),
@@ -38,7 +41,7 @@
 		ondestroy = undefined,
 		onclickoutside,
 		...restProps
-	}: HTMLAttributes<HTMLDivElement> & PopoverOverlayProps = $props();
+	}: HTMLAttributes<HTMLDivElement> & PopoverOverlayProps<Component> = $props();
 
 	let dx = $state(0);
 	let dy = $state(0);
@@ -106,7 +109,7 @@
 	}
 </script>
 
-{#if layerElement && triggerElement && canRender}
+{#if targetElement && triggerElement && canRender}
 	{@const x = `${pos(+open, offsetValue) * dx}px`}
 	{@const y = `${pos(+open, offsetValue) * dy}px`}
 
@@ -115,7 +118,7 @@
 		data-owner-id={popoverContext.id}
 		use:popover={() => ({
 			open,
-			target: layerElement,
+			target: targetElement,
 			reference: triggerElement,
 			alignment: alignment,
 			placement: placement,
@@ -138,7 +141,7 @@
 		{#if as && !shell}
 			<!-- content here -->
 			<svelte:element
-				this={as}
+				this={as ?? 'div'}
 				bind:this={() => element,
 				(el) => {
 					popoverContext.update((s) => (s.dom.overlay = element = el));

@@ -8,6 +8,7 @@ export type ComponentProps<C> = C extends Component<infer Props> ? Props : Recor
 export type PopoverRootProps<Extension = Record<string, any>> = {
 	open?: boolean;
 	id?: string;
+	target?: HTMLElement;
 	context?: PopoverContext;
 	placements?: Placement[];
 	placement?: Placement;
