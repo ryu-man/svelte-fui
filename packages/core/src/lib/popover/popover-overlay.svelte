@@ -28,6 +28,7 @@
 	const targetLayer = getLayerContext();
 
 	const triggerElement = $derived(popoverContext?.state?.dom?.trigger);
+	const overlayElement = $derived(popoverContext?.state?.dom?.overlay);
 
 	const targetElement = $derived(popoverContext.state.target ?? targetLayer.state.dom.inner);
 
@@ -78,6 +79,14 @@
 		}
 	});
 
+	$effect(() => {
+		if (!overlayElement) {
+			return;
+		}
+
+		clickoutside(overlayElement, onclickoutside_);
+	});
+
 	function onclickoutside_(ev?: MouseEvent) {
 		if (!open) {
 			return;
@@ -101,11 +110,7 @@
 	}
 
 	function onshellmount(ev, el) {
-		if (!el) {
-			return;
-		}
-
-		clickoutside(el, onclickoutside_);
+		popoverContext?.update((s) => (s.dom.overlay = element = el));
 	}
 </script>
 
