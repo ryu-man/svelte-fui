@@ -1,8 +1,8 @@
 <script lang="ts">
 	import { classnames } from '@svelte-fui/core/internal';
-	import type { CompoundButtonHeader } from './types';
+	import type { CompoundButtonHeaderProps } from './types';
 
-	let { class: klass = '', children, ...restProps }: CompoundButtonHeader = $props();
+	let { class: klass = '', children, ...restProps }: CompoundButtonHeaderProps = $props();
 </script>
 
 <div class={classnames('fui-compound-button-header', klass)} {...restProps}>

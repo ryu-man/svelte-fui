@@ -2,10 +2,10 @@ import type { IconProps } from '@svelte-fui/core/icon';
 import type { ButtonProps } from '../types';
 import type { HTMLAttributes } from 'svelte/elements';
 
-export type CompoundButtonRoot = ButtonProps & {};
+export type CompoundButtonRootProps = ButtonProps & {};
 
-export type CompoundButtonIcon = IconProps;
+export type CompoundButtonIconProps = IconProps;
 
-export type CompoundButtonHeader = HTMLAttributes<HTMLDivElement>;
+export type CompoundButtonHeaderProps = HTMLAttributes<HTMLDivElement>;
 
-export type CompoundButtonBody = HTMLAttributes<HTMLParagraphElement>;
+export type CompoundButtonBodyProps = HTMLAttributes<HTMLParagraphElement>;

@@ -1,9 +1,9 @@
 <script lang="ts">
 	import { Icon } from '@svelte-fui/core/icon';
 	import { classnames } from '@svelte-fui/core/internal';
-	import type { CompoundButtonIcon } from './types';
+	import type { CompoundButtonIconProps } from './types';
 
-	let { class: klass = '', children, ...restProps }: CompoundButtonIcon = $props();
+	let { class: klass = '', children, ...restProps }: CompoundButtonIconProps = $props();
 </script>
 
 <Icon class={classnames('fui-compound-button-icon h-full', klass)} {...restProps}>

@@ -9,6 +9,7 @@
 
 	import CalendarMonthFilled from 'virtual:icons/fluent/calendar-month-24-filled';
 	import CalendarMonthRegular from 'virtual:icons/fluent/calendar-month-24-regular';
+	import Hoverable from '@svelte-fui/core/helpers/hoverable.svelte';
 
 	const argTypes = {
 		size: {
@@ -42,7 +43,7 @@
 
 	const { Story } = defineMeta({
 		title: 'Components/Button',
-		component: Button,
+		component: CompoundButtonModule.Root,
 		argTypes: argTypes
 	});
 </script>
@@ -73,11 +74,11 @@
 	});
 </script>
 
-<Story id="compound_button" name="Compound Button" args={defaultArgs}>
+<Story name="Compound Button" args={defaultArgs}>
 	{#snippet children(args)}
 		<FluentRoot {theme}>
 			<div class="flex h-full w-full items-center justify-center gap-4">
-				<CompoundButtonModule.Root {...args}>
+				<Hoverable shell={CompoundButtonModule.Root} {...args}>
 					{#snippet children({ hover })}
 						<CompoundButtonModule.Icon>
 							{#if hover}
@@ -91,9 +92,9 @@
 
 						<CompoundButtonModule.Body>Secondary content</CompoundButtonModule.Body>
 					{/snippet}
-				</CompoundButtonModule.Root>
+				</Hoverable>
 
-				<CompoundButtonModule.Root {...args} icon>
+				<Hoverable shell={CompoundButtonModule.Root} {...args} icon>
 					{#snippet children({ hover })}
 						<CompoundButtonModule.Icon>
 							{#if hover}
@@ -103,7 +104,7 @@
 							{/if}
 						</CompoundButtonModule.Icon>
 					{/snippet}
-				</CompoundButtonModule.Root>
+				</Hoverable>
 			</div>
 		</FluentRoot>
 	{/snippet}

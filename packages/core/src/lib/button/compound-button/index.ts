@@ -1,2 +1,2 @@
-export * as CompondButton from './components';
+export * as CompoundButton from './components';
 export * from './types';

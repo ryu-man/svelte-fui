@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { classnames } from '@svelte-fui/core/internal';
 	import Button from '../button.svelte';
-	import type { CompoundButtonRoot } from './types';
+	import type { CompoundButtonRootProps } from './types';
 
 	/** @restProps {button | a} */
 	/** Specifies the visual styling of the button. */
@@ -18,7 +18,7 @@
 		shape = 'rounded',
 		children,
 		...restProps
-	}: CompoundButtonRoot = $props();
+	}: CompoundButtonRootProps = $props();
 </script>
 
 <Button
