@@ -1,4 +1,5 @@
 import { getContext, setContext } from 'svelte';
+import type { FluentContext } from '../internal/context';
 
 const ACCORDION_CONTEXT_KEY = '@fui/context/accordion';
 
@@ -7,35 +8,29 @@ type AccordionItem<T = any> = {
 	data: T | undefined;
 };
 
-export type AccordionContext<T = any> = {
-	id: string;
-	readonly state: {
-		elements: {
-			root?: HTMLElement;
-		};
+export type AccordionState<T = any> = {
+	values: string[];
+	collapsible: boolean;
+	multiple: boolean;
+	items: {
+		all: Map<string, AccordionItem<T>>;
+		active: AccordionItem<T>[];
 	};
-	readonly derived: {
-		data: {
-			value?: string;
-			values: string[];
-			collapsible: boolean;
-			multiple: boolean;
-			items: {
-				all: Record<string, AccordionItem<T>>;
-				active: AccordionItem<T>[];
-			};
-		};
+	dom: {
+		root?: HTMLElement;
+		header?: HTMLElement;
+		body?: HTMLElement;
 	};
+};
+
+export type AccordionContext<T = any> = FluentContext<AccordionState<T>> & {
 	events: {
-		onchange: (ev: Event, ...args: any[]) => void;
+		onchange: (ev: CustomEvent, params: { context: AccordionContext<T> }) => void;
 	};
 	methods: {
 		open: (values: string[]) => void;
 		close: (values: string[]) => void;
 		toggle: (values: string[]) => void;
-
-		setMultiple: (value: boolean) => void;
-		setCollapsible: (value: boolean) => void;
 
 		mount: (value: string, item: AccordionItem<T>) => void;
 		unmount: (value: string) => void;
@@ -52,15 +47,15 @@ export function setAccordionContext<T>(context: AccordionContext<T>): AccordionC
 
 export const ACCORDION_ITEM_CONTEXT_KEY = '@fui/context/accordion/item';
 
-export type AccordionItemContext<T> = {
-	id: string;
-	parent: () => AccordionContext<T>;
-	readonly derived: {
-		value: string;
-		data?: T;
-		active: boolean;
-		disabled: boolean;
-	};
+export type AccordionItemState<T> = {
+	value: string;
+	data?: T;
+	active: boolean;
+	disabled: boolean;
+};
+
+export type AccordionItemContext<T> = FluentContext<AccordionItemState<T>> & {
+	rootContext: () => AccordionContext<T>;
 	methods: {
 		open: () => void;
 		close: () => void;

@@ -1,5 +1,6 @@
 import type { Snippet } from 'svelte';
 import type { AccordionContext, AccordionItemContext } from './context';
+import type { ReferenceFunction } from '../types';
 
 export type AccordionRootProps<T = any> = {
 	class?: string;
@@ -8,8 +9,9 @@ export type AccordionRootProps<T = any> = {
 	data?: T[];
 	multiple?: boolean;
 	collapsible?: boolean;
-	element?: HTMLElement
+	element?: HTMLElement;
 	children?: Snippet<[]>;
+	ref?: ReferenceFunction;
 };
 
 export type AccordionItemRootProps<T = any> = {
@@ -17,7 +19,7 @@ export type AccordionItemRootProps<T = any> = {
 	value?: string;
 	data?: T;
 	disabled?: boolean;
-	element?: HTMLElement
+	element?: HTMLElement;
 	children?: Snippet<
 		[
 			{
@@ -25,33 +27,35 @@ export type AccordionItemRootProps<T = any> = {
 			}
 		]
 	>;
+	ref?: ReferenceFunction;
 };
 
 export type AccordionItemHeaderProps<T = any> = {
 	class?: string;
 	as?: 'button' | 'a';
-	element?: HTMLElement
+	element?: HTMLElement;
 	children?: Snippet<
 		[
 			{
-				context: { item: AccordionItemContext<T>; root: AccordionContext<T> };
+				context: AccordionItemContext<T>;
 			}
 		]
 	>;
-	onclick?: (
-		ev: Event,
-		options: { context: { item: AccordionItemContext<T>; root: AccordionContext<T> } }
-	) => void;
+	ref?: ReferenceFunction;
+	onclick?: (ev: Event, options: { context: AccordionItemContext<T> }) => void;
 };
 
 export type AccordionItemBodyProps = {
 	class?: string;
-	element?: HTMLElement
+	element?: HTMLElement;
+
 	children?: Snippet<[]>;
+	ref?: ReferenceFunction;
 };
 
 export type AccordionItemIndicatorProps = {
 	class?: string;
-	element?: HTMLElement
+	element?: HTMLElement;
 	children?: Snippet<[{ active: boolean }]>;
+	ref?: ReferenceFunction;
 };

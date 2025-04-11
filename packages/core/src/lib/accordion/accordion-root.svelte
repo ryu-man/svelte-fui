@@ -1,8 +1,10 @@
 <script lang="ts" generics="T">
 	import { nanoid } from 'nanoid';
-	import { setAccordionContext, type AccordionContext } from './context';
+	import { setAccordionContext, type AccordionState } from './context';
 	import type { AccordionRootProps } from './types';
 	import { classnames } from '../internal';
+	import { defineProperty, defineState } from '../internal/context';
+	import { SvelteMap } from 'svelte/reactivity';
 
 	let {
 		class: klass = '',
@@ -12,52 +14,62 @@
 		element = $bindable(undefined),
 		multiple = false,
 		collapsible = false,
-		children
+		children = undefined,
+		ref = undefined
 	}: AccordionRootProps<T> = $props();
 
-	let items: AccordionContext<T>['derived']['data']['items']['all'] = $state({});
+	let items: AccordionState<T>['items']['all'] = new SvelteMap();
 
-	$effect(() => {
-		data = values.map((d) => items[d].data).filter(Boolean) as T[];
-	});
+	let dom: AccordionState['dom'] = $state({});
 
-	const contextState: AccordionContext<T>['state'] = $state({
-		elements: {}
-	});
-
-	const contextDerived: AccordionContext<T>['derived'] = $derived({
-		data: {
-			items: {
+	const accordionState = defineState<AccordionState>([
+		(o) =>
+			defineProperty(
+				o,
+				'dom',
+				() => dom,
+				(v) => (dom = { ...v })
+			),
+		(o) => defineProperty(o, 'collapsible', () => collapsible),
+		(o) =>
+			defineProperty(o, 'items', () => ({
 				all: items,
-				active: values.map((d) => items[d])
-			},
-			collapsible,
-			multiple,
-			value,
-			values
-		}
-	});
+				active: values.map((d) => items.get(d))
+			})),
+		(o) => defineProperty(o, 'multiple', () => multiple),
+		(o) => defineProperty(o, 'values', () => (multiple ? values : [value]))
+	]);
 
 	const context = setAccordionContext({
 		id: nanoid(),
+		type: 'accordion',
 		get state() {
-			return contextState;
+			return accordionState;
 		},
-		get derived() {
-			return contextDerived;
+		update(fn) {
+			fn(accordionState);
+		},
+		parent() {
+			return undefined;
 		},
 		events: {
 			onchange: (ev: Event) => {}
 		},
 		methods: {
 			open(vals) {
-				const uniqueValues = new Set(values);
+				if (multiple) {
+					const uniqueValues = new Set(values);
 
-				for (const val of vals) {
-					uniqueValues.add(val);
+					for (const val of vals) {
+						uniqueValues.add(val);
+					}
+
+					values = [...uniqueValues];
+					value = values[0];
+				} else {
+					values = [vals[0]];
+					value = values[0];
 				}
-
-				values = [...uniqueValues];
 			},
 			close(vals) {
 				const uniqueValues = new Set(values);
@@ -67,10 +79,10 @@
 				}
 
 				values = [...uniqueValues];
+				value = values[0];
 			},
 			toggle(vals) {
 				const uniqueValues = new Set(values);
-
 				for (const val of vals) {
 					if (uniqueValues.has(val)) {
 						uniqueValues.delete(val);
@@ -80,31 +92,28 @@
 				}
 
 				values = [...uniqueValues];
-				console.log('toggle');
+				value = values[0];
 			},
 			mount(value, item) {
-				items[value] = {
-					data: item.data,
-					value: item.value
-				};
+				items.set(value, item);
 			},
 			unmount(value) {
-				delete items[value];
-			},
-			setCollapsible(value) {
-				collapsible = value;
-			},
-			setMultiple(value) {
-				multiple = value;
+				items.delete(value);
 			}
 		}
 	});
+
+	$effect(() => {
+		data = values.map((d) => items.get(d)?.data).filter(Boolean) as T[];
+	});
+
+	$effect(() => ref?.(element!));
 </script>
 
 <div
 	bind:this={element}
-	bind:this={contextState.elements.root}
-	class={classnames('fui-accordion', klass)}
+	bind:this={dom.root}
+	class={classnames('fui-accordion flex flex-col', klass)}
 >
 	{#if children}
 		{@render children({ context })}

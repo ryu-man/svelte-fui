@@ -7,45 +7,47 @@
 		class: klass = '',
 		as = 'button',
 		element = $bindable(undefined),
-		children,
-		onclick
+		children = undefined,
+		ref = undefined,
+		onclick = undefined
 	}: AccordionItemHeaderProps<T> = $props();
 
-	const contextAccordionItem = getAccordionItemContext();
+	const accordionItemContext = getAccordionItemContext();
 
-	const active = $derived(contextAccordionItem.derived.active);
+	const active = $derived(accordionItemContext?.state?.active ?? false);
+	const disabled = $derived(accordionItemContext?.state?.disabled ?? false);
 
-	const disabled = $derived(contextAccordionItem.derived.disabled);
+	const contextAccordionRoot = accordionItemContext.rootContext();
 
-	const contextAccordionRoot = contextAccordionItem.parent();
+	const multiple = $derived(contextAccordionRoot?.state?.multiple ?? false);
+	const collapsible = $derived(contextAccordionRoot?.state?.collapsible ?? false);
 
-	const multiple = $derived(contextAccordionRoot.derived.data.multiple);
-	const collapsible = $derived(contextAccordionRoot.derived.data.collapsible);
+	$effect(() => ref?.(element!));
 
 	function onclick_(ev: Event) {
 		if (disabled) return;
 
-		onclick?.(ev);
+		onclick?.(ev, { context: accordionItemContext });
 
 		if (ev.defaultPrevented) {
 			return;
 		}
 
 		if (multiple) {
-			contextAccordionItem.methods.toggle();
+			accordionItemContext.methods.toggle();
 		} else {
 			const state = active;
 
-			contextAccordionRoot.methods.close(contextAccordionRoot.derived.data.values);
+			contextAccordionRoot.methods.close(contextAccordionRoot.state.values);
 
 			if (collapsible) {
 				if (state) {
-					contextAccordionItem.methods.close();
+					accordionItemContext.methods.close();
 				} else {
-					contextAccordionItem.methods.open();
+					accordionItemContext.methods.open();
 				}
 			} else {
-				contextAccordionItem.methods.open();
+				accordionItemContext.methods.open();
 			}
 		}
 	}
@@ -66,10 +68,7 @@
 >
 	{#if children}
 		{@render children({
-			context: {
-				item: contextAccordionItem,
-				root: contextAccordionRoot
-			}
+			context: accordionItemContext
 		})}
 	{/if}
 </svelte:element>

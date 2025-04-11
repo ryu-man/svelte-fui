@@ -7,13 +7,16 @@
 	import type { AccordionItemIndicatorProps } from './types';
 
 	const contextAccordionItem = getAccordionItemContext();
-	const active = $derived(contextAccordionItem.derived.active);
+	const active = $derived(contextAccordionItem?.state?.active ?? false);
 
 	let {
+		element = $bindable(),
 		class: klass = '',
-		element = $bindable(undefined),
-		children
+		children = undefined,
+		ref = undefined
 	}: AccordionItemIndicatorProps = $props();
+
+	$effect(() => ref?.(element!));
 </script>
 
 <div

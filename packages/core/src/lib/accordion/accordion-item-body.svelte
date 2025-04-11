@@ -4,25 +4,25 @@
 	import { getAccordionItemContext } from './context';
 	import type { AccordionItemBodyProps } from './types';
 
-	const contextAccordionRoot = getAccordionItemContext();
-	const active = $derived(contextAccordionRoot.derived.active);
+	const accordionItemContext = getAccordionItemContext();
+	const active = $derived(accordionItemContext?.state?.active ?? false);
 
 	let {
+		element = $bindable(),
 		class: klass = '',
-		element = $bindable(undefined),
-		children
+		children = undefined,
+		ref = undefined
 	}: AccordionItemBodyProps = $props();
+
+	$effect(() => ref?.(element!));
 </script>
 
-{#if active}
-	<div
-		bind:this={element}
-		class={classnames('fui-accordion-item-body m-m my-0', klass)}
-		transition:slide={{ duration: 100 }}
-	>
-		{#if children}
-			<!-- content here -->
-			{@render children({})}
-		{/if}
-	</div>
-{/if}
+<div
+	bind:this={element}
+	class={classnames('fui-accordion-item-body m-m my-0', !active && 'hidden', klass)}
+	transition:slide={{ duration: 100 }}
+>
+	{#if active}
+		{@render children?.({})}
+	{/if}
+</div>

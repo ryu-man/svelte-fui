@@ -1,25 +1,29 @@
 <script lang="ts" generics="T">
 	import { nanoid } from 'nanoid';
-	import { getAccordionContext, setAccordionItemContext } from './context';
+	import { getAccordionContext, setAccordionItemContext, type AccordionItemState } from './context';
 	import type { AccordionItemRootProps } from './types';
 	import { classnames } from '../internal';
+	import { defineProperty, defineState } from '../internal/context';
 
 	let {
 		class: klass = '',
-		value = crypto.randomUUID(),
+		value = nanoid(),
 		data = undefined,
 		disabled = false,
 		element = $bindable(undefined),
-		children
+		children = undefined,
+		ref = undefined
 	}: AccordionItemRootProps<T> = $props();
 
-	const contextAccordionRoot = getAccordionContext();
+	const accordionRootContext = getAccordionContext();
 
-	const multiple = $derived(contextAccordionRoot.derived.data.multiple);
-	const collapsible = $derived(contextAccordionRoot.derived.data.collapsible);
-	const values = $derived(contextAccordionRoot.derived.data.values);
+	const multiple = $derived(accordionRootContext.state.multiple);
+	const collapsible = $derived(accordionRootContext.state.collapsible);
+	const values = $derived(accordionRootContext.state.values);
 
 	const active = $derived(!disabled && values.includes(value));
+
+	let dom = $state({});
 
 	const contextDerived = $derived({
 		value,
@@ -28,40 +32,62 @@
 		disabled
 	});
 
+	const accordionItemState = defineState<AccordionItemState<T>>([
+		(o) =>
+			defineProperty(
+				o,
+				'dom',
+				() => dom,
+				(v) => (dom = { ...v })
+			),
+		(o) => defineProperty(o, 'active', () => active),
+		(o) => defineProperty(o, 'data', () => data),
+		(o) => defineProperty(o, 'disabled', () => disabled),
+		(o) => defineProperty(o, 'value', () => value)
+	]);
+
 	const contextItem = setAccordionItemContext({
 		id: nanoid(),
-		parent: () => contextAccordionRoot,
-		get derived() {
+		type: 'accordion-item',
+		get state() {
 			return contextDerived;
+		},
+		update(fn) {
+			fn(accordionItemState);
+		},
+		parent() {
+			return undefined;
+		},
+		rootContext() {
+			return accordionRootContext;
 		},
 		methods: {
 			close() {
-				contextAccordionRoot.methods.close([value]);
+				accordionRootContext.methods.close([value]);
 			},
 			open() {
-				contextAccordionRoot.methods.open([value]);
+				accordionRootContext.methods.open([value]);
 			},
 			toggle() {
-				contextAccordionRoot.methods.toggle([value]);
+				accordionRootContext.methods.toggle([value]);
 			}
 		}
 	});
 
 	$effect(() => {
-		return contextAccordionRoot.methods.mount(value, {
+		return accordionRootContext.methods.mount(value, {
 			data,
 			value
 		});
 	});
+
+	$effect(() => ref?.(element!));
 </script>
 
 <div bind:this={element} class={classnames('fui-accordion-item', klass)}>
 	{#if children}
 		{@render children({
-			context: {
-				item: contextItem,
-				root: contextAccordionRoot
-			}
+			context: contextItem
 		})}
 	{/if}
 </div>
