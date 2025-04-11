@@ -2,14 +2,14 @@
 	import { onMount } from 'svelte';
 	import { defineMeta } from '@storybook/addon-svelte-csf';
 	import type { ArgTypes } from '@storybook/svelte';
-	import { Button, FluentRoot } from '@svelte-fui/core';
+	import { FluentRoot } from '@svelte-fui/core';
 	import { webDarkTheme, webLightTheme } from '@svelte-fui/themes';
 
 	import { CompoundButton as CompoundButtonModule } from '.';
 
 	import CalendarMonthFilled from 'virtual:icons/fluent/calendar-month-24-filled';
 	import CalendarMonthRegular from 'virtual:icons/fluent/calendar-month-24-regular';
-	import Hoverable from '@svelte-fui/core/helpers/hoverable.svelte';
+	import { Hoverable } from '@svelte-fui/core/helpers';
 
 	const argTypes = {
 		size: {

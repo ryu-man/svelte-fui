@@ -45,6 +45,9 @@
 </script>
 
 <script lang="ts">
+	import { Hoverable } from '../helpers';
+	import { classnames } from '../internal';
+
 	let theme = webLightTheme;
 
 	onMount(() => {
@@ -69,25 +72,14 @@
 		<FluentRoot {theme}>
 			<div class="flex h-full w-full flex-col items-center justify-center gap-4">
 				<div class="flex w-fit gap-4">
-					<ButtonComponent {...args} class="whitespace-nowrap">Fluent UI for Svelte</ButtonComponent
-					>
-
 					<ButtonComponent {...args} class="whitespace-nowrap">
-						{#snippet children({ hover })}
-							Fluent UI for Svelte
-							<Icon class="h-full">
-								{#if hover}
-									<CalendarMonthFilled />
-								{:else}
-									<CalendarMonthRegular />
-								{/if}
-							</Icon>
-						{/snippet}
+						Fluent UI for Svelte
 					</ButtonComponent>
 
-					<ButtonComponent {...args} icon>
-						{#snippet children({ hover })}
-							<Icon class="h-full">
+					<Hoverable shell={ButtonComponent} {...args} class="whitespace-nowrap">
+						{#snippet children({ hover, active })}
+							Fluent UI for Svelte
+							<Icon class={classnames('h-full', active && 'text-brand-background')}>
 								{#if hover}
 									<CalendarMonthFilled />
 								{:else}
@@ -95,12 +87,24 @@
 								{/if}
 							</Icon>
 						{/snippet}
-					</ButtonComponent>
+					</Hoverable>
+
+					<Hoverable shell={ButtonComponent} {...args} icon>
+						{#snippet children({ hover, active })}
+							<Icon class={classnames('h-full', active && 'text-brand-background')}>
+								{#if hover}
+									<CalendarMonthFilled />
+								{:else}
+									<CalendarMonthRegular />
+								{/if}
+							</Icon>
+						{/snippet}
+					</Hoverable>
 				</div>
 
-				<ButtonComponent {...args} class="w-[280px]"
-					>Long text wraps after it hits the max width of the component</ButtonComponent
-				>
+				<ButtonComponent class="w-[280px]">
+					Long text wraps after it hits the max width of the component
+				</ButtonComponent>
 			</div>
 		</FluentRoot>
 	{/snippet}

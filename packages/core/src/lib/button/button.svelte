@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { classnames } from '@svelte-fui/core/internal';
-	import type { ButtonProps } from './types';
 	import ButtonShell from './button-shell.svelte';
+	import type { ButtonProps } from './types';
 
 	let {
 		element = $bindable(),
@@ -17,27 +17,6 @@
 		onpointerleave,
 		...restProps
 	}: ButtonProps = $props();
-
-	let hover = $state(false);
-
-	function onpointerenter_(ev: PointerEvent) {
-		onpointerenter?.(ev);
-
-		if (ev.defaultPrevented) {
-			return;
-		}
-
-		hover = true;
-	}
-	function onpointerleave_(ev: PointerEvent) {
-		onpointerleave?.(ev);
-
-		if (ev.defaultPrevented) {
-			return;
-		}
-
-		hover = false;
-	}
 </script>
 
 <ButtonShell
@@ -53,8 +32,6 @@
 	{icon}
 	{size}
 	{...restProps}
-	onpointerenter={onpointerenter_}
-	onpointerleave={onpointerleave_}
 >
-	{@render children?.({ hover })}
+	{@render children?.()}
 </ButtonShell>
