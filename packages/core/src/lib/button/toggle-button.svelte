@@ -47,5 +47,5 @@
 	onclick={onclick_}
 	{...restProps}
 >
-	{@render children?.()}
+	{@render children?.({ checked })}
 </Button>

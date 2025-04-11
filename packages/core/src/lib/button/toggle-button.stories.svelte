@@ -73,9 +73,9 @@
 			<div class="flex h-full w-full flex-col items-center justify-center gap-4">
 				<div class="flex gap-4">
 					<ToggleButtonCmp {...args}>
-						{#snippet children({ hover })}
+						{#snippet children({ checked })}
 							<Icon class="h-full">
-								{#if hover}
+								{#if checked}
 									<CalendarMonthFilled />
 								{:else}
 									<CalendarMonthRegular />
