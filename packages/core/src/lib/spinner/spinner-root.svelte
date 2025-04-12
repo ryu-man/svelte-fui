@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { classnames } from '../internal';
-	import { Label } from '../label';
+	import { reference } from '../internal/dom.svelte';
 	import type { SpinnerRootProps } from './types';
 
 	let {
@@ -10,11 +10,13 @@
 		reverse = false,
 		size = 'md',
 		vertical = false,
-		children
+		children = undefined,
+		ref = undefined
 	}: SpinnerRootProps = $props();
 </script>
 
 <div
+	use:reference={ref}
 	role="progressbar"
 	class={classnames('fui-spinner', size, appearance, { vertical, reverse })}
 	style:--animation-delay="{delay}ms"

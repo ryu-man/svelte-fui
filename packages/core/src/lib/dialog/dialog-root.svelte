@@ -9,6 +9,7 @@
 	import { fid } from '../internal/utils';
 	import { mount } from '../actions/dom';
 	import { setLayerContext } from '../app/layer/context';
+	import { reference } from '../internal/dom.svelte';
 
 	const rootContext = getFluentRootContext();
 
@@ -17,7 +18,7 @@
 
 	// const backdropContext = getBackdropContext();
 
-	if(!targetLayer){
+	if (!targetLayer) {
 		throw new Error('default layer context not found!');
 	}
 
@@ -28,9 +29,10 @@
 		type = 'modal',
 		open = $bindable(false),
 		element = $bindable(undefined),
+		children = undefined,
+		ref = undefined,
 		onchange,
 		onbackdropclick,
-		children,
 		...restProps
 	}: DialogRootProps = $props();
 
@@ -130,6 +132,7 @@
 			onkeyup={() => {}}
 		>
 			<div
+				use:reference={ref}
 				class={classnames(
 					'fui-dialog-surface bg-neutral-background-1 text-neutral-foreground-1 border-transparent-stroke border-thin shadow-64 m-auto box-border gap-2 rounded-xl',
 					klass

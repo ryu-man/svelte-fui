@@ -1,4 +1,5 @@
 import type { Component } from 'svelte';
+import type { ReferenceFunction } from '../types';
 
 export type AvatarProps = {
 	class?: string;
@@ -43,5 +44,6 @@ export type AvatarProps = {
 	shape?: 'circular' | 'square';
 	active?: 'active' | 'inactive' | 'unset';
 	activeAppearance?: 'ring' | 'shadow' | 'ring-shadow';
-	element?: HTMLElement
+	element?: HTMLElement,
+	ref?: ReferenceFunction
 };

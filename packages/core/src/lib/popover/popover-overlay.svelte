@@ -12,6 +12,7 @@
 	import { animate } from '../actions/animation.svelte';
 	import { DURATION } from '../internal/transition';
 	import { getLayerContext } from '../app/layer/context';
+	import { reference } from '../internal/dom.svelte';
 
 	const popoverContext = getPopoverContext();
 
@@ -37,7 +38,8 @@
 		class: klass = '',
 		as = 'div',
 		shell = undefined,
-		children,
+		children = undefined,
+		ref = undefined,
 		onmount = undefined,
 		ondestroy = undefined,
 		onclickoutside,
@@ -147,9 +149,9 @@
 			<!-- content here -->
 			<svelte:element
 				this={as ?? 'div'}
-				bind:this={() => element,
-				(el) => {
-					popoverContext.update((s) => (s.dom.overlay = element = el));
+				use:reference={(el) => {
+					popoverContext.update((s) => (s.dom.overlay = element = el as HTMLElement));
+					return ref?.(el);
 				}}
 				class={classnames('popover-overlay-inner w-fit z-[1] overflow-hidden', klass)}
 				use:animate={() => ({
@@ -168,10 +170,6 @@
 			{@const Shell = shell}
 
 			<Shell
-				bind:element={() => element,
-				(el) => {
-					popoverContext.update((s) => (s.dom.overlay = element = el));
-				}}
 				class={classnames('popover-overlay-inner w-full md:w-fit z-[1] overflow-hidden', klass)}
 				{as}
 				animate={() => ({
@@ -181,6 +179,11 @@
 					duration: DURATION.FAST / 1000,
 					ease: 'circ.inOut'
 				})}
+				ref={(el) => {
+					popoverContext.update((s) => (s.dom.overlay = element = el));
+
+					return ref?.(el);
+				}}
 				onmount={onshellmount}
 				{...restProps}
 			>

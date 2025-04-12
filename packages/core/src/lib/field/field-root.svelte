@@ -6,6 +6,7 @@
 	import { setFieldContext, type FieldContext } from './context';
 	import type { FieldProps } from './types';
 	import { classnames } from '../internal';
+	import { reference } from '../internal/dom.svelte';
 
 	let {
 		class: klass = '',
@@ -16,7 +17,8 @@
 		open = false,
 		disabled = false,
 		readonly = false,
-		children,
+		children = undefined,
+		ref = undefined,
 		...restProps
 	}: FieldProps = $props();
 
@@ -62,6 +64,7 @@
 </script>
 
 <div
+	use:reference={ref}
 	class={classnames('fui-field', orientation, fieldState, size, { 'no-label': labeless })}
 	{...restProps}
 >

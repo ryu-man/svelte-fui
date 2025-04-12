@@ -2,15 +2,17 @@
 	import type { HTMLAttributes } from 'svelte/elements';
 	import { classnames } from '../internal';
 	import type { SliderProps } from './types';
+	import { reference } from '../internal/dom.svelte';
 
 	let {
+		element = $bindable(),
 		disabled = false,
 		max = 100,
 		min = 0,
 		step = 1,
 		value = 0,
 		vertical = false,
-		element = $bindable(undefined),
+		ref = undefined,
 		...restProps
 	}: HTMLAttributes<HTMLElement> & SliderProps = $props();
 
@@ -21,6 +23,7 @@
 
 <div
 	bind:this={element}
+	use:reference={ref}
 	class={classnames('fui-slider', orientation, { disabled })}
 	{...restProps}
 	style:--direction={vertical ? '0deg' : '90deg'}

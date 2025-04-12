@@ -5,6 +5,7 @@
 	import { classnames } from '../internal';
 	import { defineProperty, defineState } from '../internal/context';
 	import { SvelteMap } from 'svelte/reactivity';
+	import { reference } from '../internal/dom.svelte';
 
 	let {
 		class: klass = '',
@@ -106,13 +107,12 @@
 	$effect(() => {
 		data = values.map((d) => items.get(d)?.data).filter(Boolean) as T[];
 	});
-
-	$effect(() => ref?.(element!));
 </script>
 
 <div
 	bind:this={element}
 	bind:this={dom.root}
+	use:reference={ref}
 	class={classnames('fui-accordion flex flex-col', klass)}
 >
 	{#if children}

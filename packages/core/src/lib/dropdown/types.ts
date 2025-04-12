@@ -3,6 +3,8 @@ import type { Component, Snippet } from 'svelte';
 import type { DropdownContext } from './context-root';
 import type { InputRootProps } from '../input/types';
 import type { List } from '../list';
+import type { MenuListProps } from '../menu';
+import type { ReferenceFunction } from '../types';
 
 export type DropdownRootProps<Data, Extension = Record<string, any>> = PopoverRootProps & {
 	open?: boolean;
@@ -23,8 +25,6 @@ export type DropdownRootProps<Data, Extension = Record<string, any>> = PopoverRo
 	>;
 };
 
-export type DropdownMenuProps = PopoverOverlayProps<List.Root> & {};
-
 export type DropdownItemProps<T = any> = {
 	class?: string;
 	value: string;
@@ -40,6 +40,7 @@ export type DropdownItemProps<T = any> = {
 			}
 		]
 	>;
+	ref?: ReferenceFunction;
 	onclick?: (ev: Event, params: { context: DropdownContext<T> }) => void;
 };
 
@@ -48,6 +49,7 @@ export type DropdownTriggerProps<
 	Context = any
 > = PopoverTriggerProps<Shell> & {
 	children?: Snippet<[{ context: DropdownContext<Context> }]>;
+	ref?: ReferenceFunction;
 	onclick?: (ev: Event, params: { context: DropdownContext<Context> }) => void;
 };
 
@@ -60,4 +62,5 @@ export type DropdownInputProps<T> = InputRootProps & {
 
 export type DropdownCheckboxProps = {
 	class?: string;
+	ref?: ReferenceFunction;
 };

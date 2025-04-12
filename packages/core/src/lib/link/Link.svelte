@@ -2,6 +2,7 @@
 	import type { HTMLAttributes } from 'svelte/elements';
 	import { classnames } from '../internal';
 	import type { LinkProps } from './types';
+	import { reference } from '../internal/dom.svelte';
 
 	let {
 		class: klass = '',
@@ -10,7 +11,8 @@
 		inline = false,
 		href = undefined,
 		element = $bindable(undefined),
-		children,
+		children = undefined,
+		ref = undefined,
 		...restProps
 	}: HTMLAttributes<HTMLElement> & LinkProps = $props();
 
@@ -20,6 +22,7 @@
 <svelte:element
 	this={as}
 	bind:this={element}
+	use:reference={ref}
 	class={classnames('fui-link', appearance, { inline, disabled }, klass)}
 	{href}
 	{disabled}

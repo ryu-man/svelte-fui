@@ -6,11 +6,12 @@
 	import CheckmarkFilled from '@svelte-fui/core/icons/checkmark-filled.svelte';
 
 	import type { CheckboxProps } from './types';
+	import { reference } from '../internal/dom.svelte';
 
 	let {
 		class: klass = '',
 		checked = $bindable(false),
-		element = $bindable(undefined),
+		element = $bindable(),
 		indeterminate = false,
 		disabled = false,
 		circular = false,
@@ -18,6 +19,7 @@
 		size = 'md',
 		value,
 		id,
+		ref = undefined,
 		...restProps
 	}: HTMLAttributes<HTMLInputElement> & CheckboxProps = $props();
 
@@ -30,6 +32,7 @@
 
 <button
 	bind:this={element}
+	use:reference={ref}
 	class={classnames(
 		'fui-checkbox inline-flex relative cursor-pointer align-middle',
 		{ disabled },

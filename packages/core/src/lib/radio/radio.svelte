@@ -4,16 +4,18 @@
 	import { getRadioGroupContext } from './context';
 	import { classnames } from '../internal';
 	import type { RadioProps } from './types';
+	import { reference } from '../internal/dom.svelte';
 
 	const contextRadioGroup = getRadioGroupContext();
 
 	let {
+		element = $bindable(),
 		class: klass = '',
 		id = nanoid(),
 		checked = $bindable(false),
-		element = $bindable(undefined),
 		name,
 		value,
+		ref,
 		onclick,
 		onchange,
 		...restProps
@@ -31,6 +33,7 @@
 
 <div
 	bind:this={element}
+	use:reference={ref}
 	class={classnames(
 		'fui-radio relative inline-flex items-center',
 		isVertical && 'flex-col items-center',

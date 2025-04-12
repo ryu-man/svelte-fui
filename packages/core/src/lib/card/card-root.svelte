@@ -1,5 +1,7 @@
 <script lang="ts">
 	import { classnames } from '../internal';
+	import { reference } from '../internal/dom.svelte';
+	import type { CardRootProps } from './types';
 
 	// const focusMap = {
 	// 	off: undefined,
@@ -21,6 +23,7 @@
 	// export { klass as class };
 
 	let {
+		element = $bindable(),
 		class: klass = '',
 		appearance = 'filled',
 		orientation = 'vertical',
@@ -28,15 +31,16 @@
 		interactive = false,
 		alternative = false,
 		selected = false,
-		element = $bindable(undefined),
-		children
-	} = $props();
+		children = undefined,
+		ref = undefined
+	}: CardRootProps = $props();
 
 	// $: tabBehaviour = interactive ? 'no-tab' : focusMap[focusMode];
 </script>
 
 <div
 	bind:this={element}
+	use:reference={ref}
 	class={classnames(
 		'fui-card',
 		{ interactive, alternative, selected },

@@ -2,12 +2,13 @@ import type { HTMLAttributes } from 'svelte/elements';
 import type { PopoverOverlayProps, PopoverRootProps, PopoverTriggerProps } from '../popover';
 import type { Component, Snippet } from 'svelte';
 import type { MenuContext } from './context';
+import type { ReferenceFunction } from '../types';
+import type { List } from '../list';
 
 export type MenuRootProps = PopoverRootProps & {};
 
 export type MenuItemProps = MenuRootProps & {
 	class?: string;
-	element?: HTMLElement;
 	id?: string;
 	as?: 'div' | 'button' | 'a';
 	href?: string;
@@ -18,7 +19,7 @@ export type MenuItemProps = MenuRootProps & {
 			}
 		]
 	>;
-
+	ref?: ReferenceFunction;
 	onclick?: (ev: Event, params: { context: MenuContext }) => any;
 	onpointerenter?: (ev: PointerEvent, params: { context: MenuContext }) => any;
 	onpointerleave?: (ev: PointerEvent, params: { context: MenuContext }) => any;
@@ -38,7 +39,7 @@ export type MenuTriggerProps<Shell extends Component> = PopoverTriggerProps<Shel
 	>;
 };
 
-export type MenuListProps = PopoverOverlayProps & {
+export type MenuListProps = PopoverOverlayProps<typeof List.Root> & {
 	class?: string;
 	element?: HTMLElement;
 	children?: Snippet<
@@ -48,4 +49,5 @@ export type MenuListProps = PopoverOverlayProps & {
 			}
 		]
 	>;
+	ref?: ReferenceFunction;
 };

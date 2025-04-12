@@ -2,8 +2,10 @@
 	import type { HTMLAttributes } from 'svelte/elements';
 	import { classnames } from '@svelte-fui/core/internal';
 	import type { InputRootProps } from './types';
+	import { reference } from '../internal/dom.svelte';
 
 	let {
+		element = $bindable(),
 		class: klass = '',
 		disabled = false,
 		size = 'md',
@@ -11,8 +13,8 @@
 		id = undefined,
 		appearance = 'outline',
 		as = 'button',
-		element = $bindable(),
-		children,
+		children = undefined,
+		ref = undefined,
 		...restProps
 	}: HTMLAttributes<HTMLButtonElement> & InputRootProps = $props();
 </script>
@@ -20,6 +22,7 @@
 <svelte:element
 	this={as}
 	bind:this={element}
+	use:reference={ref}
 	class={classnames(
 		'fui-input-root px-mNudge gap-xxs inline-flex',
 		appearance,

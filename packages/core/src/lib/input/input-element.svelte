@@ -4,6 +4,7 @@
 	import { getSharedContext } from '@svelte-fui/core/internal/context';
 	import type { ExternalContext, InputElementProps } from './types';
 	import { classnames } from '../internal';
+	import { reference } from '../internal/dom.svelte';
 
 	type InputEvent = Event & {
 		currentTarget: EventTarget & HTMLInputElement;
@@ -12,10 +13,11 @@
 	const sharedContext$ = getSharedContext<ExternalContext>('input') || writable({});
 
 	let {
-		class: klass = '',
+		element = $bindable(),
 		value = $bindable(),
 		valueAsDate = $bindable(),
 		valueAsNumber = $bindable(),
+		class: klass = '',
 		type,
 		placeholder,
 		readonly = false,
@@ -25,9 +27,9 @@
 		id,
 		name,
 		size,
-		element = $bindable(),
 		before,
 		after,
+		ref = undefined,
 		oninput,
 		...restProps
 	}: HTMLAttributes<HTMLInputElement> & InputElementProps = $props();
@@ -47,6 +49,7 @@
 </script>
 
 <input
+	use:reference={ref}
 	bind:this={element}
 	{type}
 	class={classnames(

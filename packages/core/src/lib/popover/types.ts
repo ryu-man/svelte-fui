@@ -2,6 +2,7 @@ import type { Component, Snippet } from 'svelte';
 import type { HTMLAttributes } from 'svelte/elements';
 import type { Alignment, Placement } from '@floating-ui/dom';
 import type { PopoverContext } from './context';
+import type { ReferenceFunction } from '../types';
 
 export type ComponentProps<C> = C extends Component<infer Props> ? Props : Record<string, any>;
 
@@ -31,7 +32,7 @@ export type PopoverOverlayProps<T extends Component> = HTMLAttributes<HTMLDivEle
 	as?: string;
 	shell?: T;
 	element?: HTMLElement;
-	children: Snippet<
+	children?: Snippet<
 		[
 			{
 				dx: number;
@@ -40,6 +41,7 @@ export type PopoverOverlayProps<T extends Component> = HTMLAttributes<HTMLDivEle
 			}
 		]
 	>;
+	ref?: ReferenceFunction;
 	onclickoutside?: (ev: Event, params: { context: PopoverContext }) => void;
 	onmount?: (ev: CustomEvent, params: { context: PopoverContext }) => void;
 	ondestroy?: (ev: CustomEvent, params: { context: PopoverContext }) => void;
@@ -50,6 +52,7 @@ export type PopoverTriggerProps<T extends Component> = {
 	as?: string;
 	shell?: T;
 	element?: HTMLElement;
+	ref?: ReferenceFunction;
 	onclick?: (ev: Event, options: { context?: PopoverContext }) => void;
 	children?: Snippet<[{ context: PopoverContext }]>;
 	onmount?: (ev: CustomEvent, params: { context: PopoverContext }) => void;
@@ -65,6 +68,7 @@ export type PopoverIndicatorProps = {
 			}
 		]
 	>;
+	ref?: ReferenceFunction;
 	onmount?: (ev: CustomEvent, params: { context: PopoverContext }) => void;
 	ondestroy?: (ev: CustomEvent, params: { context: PopoverContext }) => void;
 };

@@ -1,8 +1,10 @@
 <script lang="ts">
 	import { classnames } from '../internal';
+	import { reference } from '../internal/dom.svelte';
 	import type { TextProps } from './types';
 
 	let {
+		element = $bindable(),
 		class: klass = '',
 		as = 'span',
 		align = 'start',
@@ -14,14 +16,15 @@
 		truncate = false,
 		weight = 'regular',
 		wrap = false,
-		element = $bindable(undefined),
-		children
+		children = undefined,
+		ref = undefined
 	}: TextProps = $props();
 </script>
 
 <svelte:element
 	this={as}
 	bind:this={element}
+	use:reference={ref}
 	class={classnames(
 		'fui-text',
 		{ size, align, block, italic, strikethrough, truncate, weight, wrap },

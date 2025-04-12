@@ -1,7 +1,8 @@
 <script lang="ts">
-	import { classnames } from "../internal";
+	import { classnames } from '../internal';
+	import { reference } from '../internal/dom.svelte';
 
-	let { class: klass = '', children = undefined, ...restProps } = $props();
+	let { class: klass = '', children = undefined, ref = undefined, ...restProps } = $props();
 </script>
 
-<div class={classnames('list-divider my-1', klass)} />
+<div use:reference={ref} class={classnames('list-divider my-1', klass)} {...restProps}></div>

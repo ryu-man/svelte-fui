@@ -3,9 +3,14 @@
 	import { classnames } from '../internal';
 	import type { InputIconProps } from './types';
 
-	let { class: klass = '', element = $bindable(undefined), children }: InputIconProps = $props();
+	let {
+		class: klass = '',
+		element = $bindable(undefined),
+		children,
+		...restProps
+	}: InputIconProps = $props();
 </script>
 
-<Icon bind:this={element} class={classnames('input-icon h-full py-1', klass)}>
+<Icon bind:this={element} class={classnames('input-icon h-full py-1', klass)} {...restProps}>
 	{@render children?.()}
 </Icon>

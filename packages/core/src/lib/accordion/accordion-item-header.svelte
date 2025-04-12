@@ -2,6 +2,7 @@
 	import { getAccordionItemContext } from './context';
 	import type { AccordionItemHeaderProps } from './types';
 	import { classnames } from '../internal';
+	import { reference } from '../internal/dom.svelte';
 
 	let {
 		class: klass = '',
@@ -21,8 +22,6 @@
 
 	const multiple = $derived(contextAccordionRoot?.state?.multiple ?? false);
 	const collapsible = $derived(contextAccordionRoot?.state?.collapsible ?? false);
-
-	$effect(() => ref?.(element!));
 
 	function onclick_(ev: Event) {
 		if (disabled) return;
@@ -57,6 +56,7 @@
 <svelte:element
 	this={as}
 	bind:this={element}
+	use:reference={ref}
 	class={classnames(
 		'fui-accordion-header pr-m pl-mNudge body-1 relative box-border flex items-center w-full cursor-pointer',
 		{ disabled },

@@ -3,6 +3,7 @@
 	import { classnames } from '../internal';
 	import { getPopoverContext } from './context';
 	import type { PopoverTriggerProps } from './types';
+	import { reference } from '../internal/dom.svelte';
 
 	const popoverContext = getPopoverContext();
 
@@ -20,11 +21,12 @@
 		element = $bindable(),
 		onclick = undefined,
 		children: internalChildren = undefined,
+		ref = undefined,
 		...resteProps
 	}: PopoverTriggerProps<T> = $props();
 
-	const getElement = () => popoverContext.state.dom.trigger;
-	const setElement = (el) => popoverContext.update((state) => (state.dom.trigger = element = el));
+	const setElement = (el: HTMLElement) =>
+		popoverContext.update((state) => (state.dom.trigger = element = el));
 
 	$effect(() => {
 		if (!popoverContext.state.dom.trigger) {
@@ -53,7 +55,10 @@
 	<!-- svelte-ignore a11y_no_static_element_interactions -->
 	<svelte:element
 		this={as}
-		bind:this={getElement, setElement}
+		use:reference={(el) => {
+			setElement(el);
+			return ref?.(el);
+		}}
 		class={classnames('popover-trigger', klass)}
 		{...resteProps}
 		data-open={open}
@@ -65,10 +70,13 @@
 	{@const Shell = shell}
 
 	<Shell
-		bind:element={getElement, setElement}
 		class={classnames('popover-trigger', klass)}
 		{...resteProps}
 		{as}
+		ref={(el) => {
+			setElement(el);
+			return ref?.(el);
+		}}
 		data-open={open}
 		data-owner-id={popoverContext.id}
 	>

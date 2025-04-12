@@ -5,6 +5,7 @@
 	import { animate } from '../actions/animation';
 	import { classnames } from '../internal';
 	import type { AccordionItemIndicatorProps } from './types';
+	import { reference } from '../internal/dom.svelte';
 
 	const contextAccordionItem = getAccordionItemContext();
 	const active = $derived(contextAccordionItem?.state?.active ?? false);
@@ -15,12 +16,11 @@
 		children = undefined,
 		ref = undefined
 	}: AccordionItemIndicatorProps = $props();
-
-	$effect(() => ref?.(element!));
 </script>
 
 <div
 	bind:this={element}
+	use:reference={ref}
 	class={classnames('fui-accordion-item-indicator pointer-events-none', klass)}
 >
 	{#if children}

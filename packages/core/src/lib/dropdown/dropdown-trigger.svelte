@@ -12,7 +12,6 @@
 		class: klass = '',
 		as = 'button',
 		shell,
-		element = $bindable(),
 		children,
 		onclick,
 		...resteProps
@@ -24,7 +23,6 @@
 </script>
 
 <Menu.Trigger
-	bind:element
 	class={classnames('fui-dropdown-trigger flex', klass)}
 	{...resteProps}
 	{as}

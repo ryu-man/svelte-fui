@@ -7,6 +7,7 @@
 	import type { RadioGroupProps } from './types';
 	import { classnames } from '../internal';
 	import { fid } from '../internal/utils';
+	import { reference } from '../internal/dom.svelte';
 
 	let {
 		class: klass = '',
@@ -16,6 +17,7 @@
 		value,
 		name,
 		children,
+		ref = undefined,
 		...restProps
 	}: RadioGroupProps = $props();
 
@@ -51,7 +53,12 @@
 	});
 </script>
 
-<div class={classnames('fui-radio-group', layout)} role="radiogroup" {...restProps}>
+<div
+	use:reference={ref}
+	class={classnames('fui-radio-group', layout)}
+	role="radiogroup"
+	{...restProps}
+>
 	{@render children?.({ context: constextRadioGroup })}
 </div>
 

@@ -1,11 +1,17 @@
 <script lang="ts">
 	import { classnames } from '../internal';
+	import { reference } from '../internal/dom.svelte';
 	import type { CardHeaderProps } from './types';
 
-	let { class: klass = '', element = $bindable(undefined), children }: CardHeaderProps = $props();
+	let {
+		class: klass = '',
+		element = $bindable(undefined),
+		children = undefined,
+		ref = undefined
+	}: CardHeaderProps = $props();
 </script>
 
-<div bind:this={element} class={classnames('fui-card-header', klass)}>
+<div bind:this={element} use:reference={ref} class={classnames('fui-card-header', klass)}>
 	{@render children?.()}
 </div>
 

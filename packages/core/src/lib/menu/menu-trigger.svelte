@@ -8,7 +8,6 @@
 	const menuContext = getMenuContext();
 
 	let {
-		element = $bindable(),
 		class: klass = '',
 		as = 'button',
 		shell = undefined,
@@ -17,13 +16,7 @@
 	}: MenuTriggerProps<Shell> = $props();
 </script>
 
-<Popover.Trigger
-	bind:element
-	class={classnames('fui-menu-trigger flex', klass)}
-	{as}
-	{shell}
-	{...restProps}
->
+<Popover.Trigger class={classnames('fui-menu-trigger flex', klass)} {as} {shell} {...restProps}>
 	{#snippet children(args)}
 		{@render internalChildren?.({ ...(args ?? {}), context: menuContext })}
 	{/snippet}

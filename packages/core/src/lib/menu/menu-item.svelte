@@ -8,13 +8,14 @@
 	import { setPopoverContext } from '../popover';
 
 	import { defineProperty, defineState } from '../internal/context';
+	import { reference } from '../internal/dom.svelte';
 
 	const menuContext = getMenuContext();
 
 	if (!menuContext) {
 		throw new Error('');
 	}
-	
+
 	const isMenuOpen = $derived(menuContext?.state.open ?? false);
 
 	let {
@@ -29,6 +30,7 @@
 		placements = ['left-end', 'left-start', 'right-end', 'right-start'],
 		placement = 'right-start',
 		children = undefined,
+		ref = undefined,
 		onclick = undefined,
 		onpointerenter = undefined,
 		onpointerleave = undefined,
@@ -128,6 +130,7 @@
 <svelte:element
 	this={as}
 	bind:this={getElement, setElement}
+	use:reference={ref}
 	class={classnames(
 		'fui-menu-item first:rounded-t-inherit last:rounded-b-inherit relative before:bg-neutral-foreground-1 duration-fast before:ease-easy-ease-max flex w-full cursor-pointer flex-nowrap items-center gap-1 whitespace-nowrap px-4 py-1 text-left before:opacity-0 before:transition-opacity hover:before:opacity-5 active:before:opacity-10',
 		klass
@@ -139,7 +142,7 @@
 	{...restProps}
 >
 	<!-- {#if isMenuOpen} -->
-		{@render children?.({ context: menuContext })}
+	{@render children?.({ context: menuContext })}
 	<!-- {/if} -->
 </svelte:element>
 

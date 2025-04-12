@@ -1,8 +1,10 @@
 <script lang="ts">
 	import { classnames } from '../internal';
+	import { reference } from '../internal/dom.svelte';
 	import type { SwitchProps } from './types';
 
 	let {
+		element = $bindable(),
 		class: klass = '',
 		position = 'before',
 		checked = false,
@@ -10,13 +12,14 @@
 		readonly = false,
 		required = false,
 		id = undefined,
-		element = $bindable(undefined),
+		ref,
 		onchange
 	}: SwitchProps = $props();
 </script>
 
 <div
 	bind:this={element}
+	use:reference={ref}
 	class={classnames('fui-switch', { vertical: position === 'above' }, position, klass)}
 >
 	<input

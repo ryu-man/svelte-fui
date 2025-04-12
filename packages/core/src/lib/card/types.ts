@@ -1,4 +1,5 @@
 import type { Snippet } from 'svelte';
+import type { ReferenceFunction } from '../types';
 
 export type CardRootProps = {
 	class?: string;
@@ -10,12 +11,14 @@ export type CardRootProps = {
 	selected?: boolean;
 	element?: HTMLElement;
 	children?: Snippet<[]>;
+	ref?: ReferenceFunction;
 };
 
 export type CardHeaderProps = {
 	class?: string;
 	element?: HTMLElement;
 	children?: Snippet<[]>;
+	ref?: ReferenceFunction;
 };
 
 export type CardBodyProps = {
@@ -23,12 +26,14 @@ export type CardBodyProps = {
 	as?: 'div' | 'p';
 	element?: HTMLElement;
 	children?: Snippet<[]>;
+	ref?: ReferenceFunction;
 };
 
 export type CardFooterProps = {
 	class?: string;
 	element?: HTMLElement;
 	children?: Snippet<[]>;
+	ref?: ReferenceFunction;
 };
 
 export type CardPreviewProps = {
@@ -37,4 +42,5 @@ export type CardPreviewProps = {
 	alt?: string;
 	element?: HTMLElement;
 	children?: Snippet<[]>;
+	ref?: ReferenceFunction;
 };

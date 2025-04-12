@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { classnames } from '../internal';
+	import { reference } from '../internal/dom.svelte';
 	import type { CardPreviewProps } from './types';
 
 	let {
@@ -7,11 +8,12 @@
 		src = undefined,
 		alt = undefined,
 		element = $bindable(undefined),
-		children
+		children = undefined, 
+		ref = undefined
 	}: CardPreviewProps = $props();
 </script>
 
-<div bind:this={element} class={classnames('fui-card-preview', klass)}>
+<div bind:this={element} use:reference={ref} class={classnames('fui-card-preview', klass)}>
 	<img {src} {alt} />
 	{@render children?.()}
 </div>

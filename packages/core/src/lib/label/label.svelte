@@ -1,19 +1,22 @@
 <script lang="ts">
 	import { classnames } from '@svelte-fui/core/internal';
 	import type { LabelProps } from './types';
+	import { reference } from '../internal/dom.svelte';
 
 	let {
+		element = $bindable(),
 		class: klass = '',
 		disabled = false,
 		required = false,
 		size,
-		element = $bindable(undefined),
-		children,
+		children = undefined,
+		ref = undefined,
 		...restProps
 	}: LabelProps = $props();
 </script>
 
 <label
+	use:reference={ref}
 	bind:this={element}
 	class={classnames(
 		'fui-label font-base',

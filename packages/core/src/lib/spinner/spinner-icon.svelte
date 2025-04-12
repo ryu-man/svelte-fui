@@ -1,4 +1,10 @@
-<svg class="fui-spinner-progressbar">
+<script>
+	import { reference } from '../internal/dom.svelte';
+
+	let { ref = undefined } = $props();
+</script>
+
+<svg use:reference={ref} class="fui-spinner-progressbar">
 	<circle class="fui-spinner-track" />
 	<circle class="fui-spinner-tail" />
 </svg>

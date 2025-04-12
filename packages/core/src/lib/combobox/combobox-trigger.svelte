@@ -4,7 +4,7 @@
 	import { nanoid } from 'nanoid';
 
 	import { getComboboxContext } from './context';
-	import type { ComboboxInputProps } from './types';
+	import type { ComboboxTriggerProps } from './types';
 
 	import DropdownIndicator from '../dropdown/dropdown-indicator.svelte';
 	import MenuTrigger from '../menu/menu-trigger.svelte';
@@ -25,7 +25,7 @@
 		children = undefined,
 		onclick = undefined,
 		...restProps
-	}: ComboboxInputProps<T> = $props();
+	}: ComboboxTriggerProps<T> = $props();
 
 	let inputValue = $derived(comboboxContext.state.extension?.query ?? '');
 

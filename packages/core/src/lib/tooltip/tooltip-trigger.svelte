@@ -5,6 +5,7 @@
 	import type { TooltipTriggerProps } from './types';
 	import { classnames } from '../internal';
 	import { getPopoverContext } from '../popover';
+	import { reference } from '../internal/dom.svelte';
 
 	const contextPopover = getPopoverContext();
 	const elementTrigger = $derived(contextPopover?.state?.dom?.trigger);
@@ -17,6 +18,7 @@
 		as = 'div',
 		shell = undefined,
 		children,
+		ref = undefined,
 		onpointerenter,
 		onpointerleave,
 		...restProps
@@ -76,7 +78,11 @@
 {#if !shell}
 	<svelte:element
 		this={as ?? 'div'}
-		bind:this={getElement, setElement}
+		use:reference={(el) => {
+			setElement(el);
+
+			return ref?.(el);
+		}}
 		class={classnames('fui-toolip-container relative inline-flex', klass)}
 		{...restProps}
 	>
@@ -86,9 +92,13 @@
 	{@const Shell = shell}
 
 	<Shell
-		bind:element={getElement, setElement}
 		class={classnames('fui-toolip-container relative inline-flex', klass)}
 		{as}
+		ref={(el) => {
+			setElement(el);
+
+			return ref?.(el);
+		}}
 		{...restProps}
 	>
 		{@render children?.()}

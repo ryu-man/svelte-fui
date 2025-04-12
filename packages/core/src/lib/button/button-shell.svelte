@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { classnames } from '@svelte-fui/core/internal';
 	import type { ButtonProps } from './types';
+	import { reference } from '../internal/dom.svelte';
 
 	let {
 		element = $bindable(),
@@ -12,6 +13,7 @@
 		as = 'button',
 		disabled = false,
 		children = undefined,
+		ref = undefined,
 		...restProps
 	}: ButtonProps & { as: string } = $props();
 </script>
@@ -19,6 +21,7 @@
 <svelte:element
 	this={as}
 	bind:this={element}
+	use:reference={ref}
 	class={classnames(
 		'fui-button-shell',
 		'px-m gap-sNudge font-base cursor-pointer text-base-300 min-h-xxl leading-base-300 inline-flex w-auto justify-center rounded-md py-[5px] font-semibold m-0 box-border select-none items-center align-middle no-underline outline-none',

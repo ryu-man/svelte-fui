@@ -4,6 +4,7 @@
 	import type { AccordionItemRootProps } from './types';
 	import { classnames } from '../internal';
 	import { defineProperty, defineState } from '../internal/context';
+	import { reference } from '../internal/dom.svelte';
 
 	let {
 		class: klass = '',
@@ -80,11 +81,9 @@
 			value
 		});
 	});
-
-	$effect(() => ref?.(element!));
 </script>
 
-<div bind:this={element} class={classnames('fui-accordion-item', klass)}>
+<div bind:this={element} use:reference={ref} class={classnames('fui-accordion-item', klass)}>
 	{#if children}
 		{@render children({
 			context: contextItem

@@ -1,5 +1,6 @@
 import type { Snippet } from 'svelte';
 import type { HTMLAttributes } from 'svelte/elements';
+import type { ReferenceFunction } from '../types';
 
 export type ButtonShape = 'rounded' | 'circular' | 'square';
 export type ButtonAppearance = 'subtle' | 'outline' | 'secondary' | 'primary' | 'transparent';
@@ -32,4 +33,6 @@ export type ButtonProps = Omit<HTMLAttributes<HTMLButtonElement>, 'children'> & 
 			}
 		]
 	>;
+
+	ref?: ReferenceFunction;
 };

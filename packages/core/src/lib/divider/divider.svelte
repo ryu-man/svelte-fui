@@ -2,6 +2,7 @@
 	import type { HTMLAttributes } from 'svelte/elements';
 	import { classnames } from '@svelte-fui/core/internal';
 	import type { DividerProps } from './types';
+	import { reference } from '../internal/dom.svelte';
 
 	let {
 		class: klass = '',
@@ -10,13 +11,15 @@
 		inset = false,
 		alignContent = 'center',
 		id = undefined,
-		children
+		children = undefined,
+		ref = undefined
 	}: HTMLAttributes<HTMLButtonElement> & DividerProps = $props();
 
 	const childless = $derived(!children);
 </script>
 
 <div
+	use:reference={ref}
 	role="separator"
 	aria-orientation="horizontal"
 	aria-labelledby={id}

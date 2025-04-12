@@ -3,6 +3,7 @@
 	import type { DialogHeaderProps } from './types';
 	import { getDialogContext } from './context';
 	import { mount } from '../actions/dom';
+	import { reference } from '../internal/dom.svelte';
 
 	const contextDialog = getDialogContext();
 
@@ -10,17 +11,19 @@
 		class: klass = '',
 		as = 'div',
 		element = $bindable(undefined),
-		children
+		children = undefined,
+		ref = undefined
 	}: DialogHeaderProps = $props();
 </script>
 
 <svelte:element
 	this={as}
-	class={classnames('fui-dialog-title subtitle-1 m-0 px-6 pt-6', klass)}
 	use:mount={(node) => {
 		contextDialog.state.elements.header = node;
 		element = node;
 	}}
+	use:reference={ref}
+	class={classnames('fui-dialog-title subtitle-1 m-0 px-6 pt-6', klass)}
 >
 	{@render children?.({ context: contextDialog })}
 </svelte:element>

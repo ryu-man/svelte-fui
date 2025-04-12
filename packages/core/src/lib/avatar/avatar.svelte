@@ -2,8 +2,10 @@
 	import { Icon } from '@svelte-fui/core';
 	import { classnames } from '@svelte-fui/core/internal';
 	import type { AvatarProps } from './types';
+	import { reference } from '../internal/dom.svelte';
 
 	let {
+		element = $bindable(),
 		class: klass = '',
 		color = 'neutral',
 		badge = false,
@@ -14,7 +16,7 @@
 		ariaLabel,
 		src,
 		id,
-		element = $bindable(undefined)
+		ref = undefined
 	}: AvatarProps = $props();
 
 	const activeOrInactive = $derived(active === 'active' || active === 'inactive');
@@ -23,6 +25,7 @@
 
 <span
 	bind:this={element}
+	use:reference={ref}
 	class={classnames(
 		'fui-avatar',
 		{ 'active-or-inactive': activeOrInactive, badge: badge },

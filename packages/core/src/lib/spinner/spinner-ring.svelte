@@ -1,12 +1,13 @@
 <script lang="ts">
 	import { classnames } from '../internal';
+	import { reference } from '../internal/dom.svelte';
 	import SpinnerDefaultIcon from './spinner-icon.svelte';
 	import type { SpinnerRingProps } from './types';
 
-	let { class: klass = '' }: SpinnerRingProps = $props();
+	let { class: klass = '', ref = undefined }: SpinnerRingProps = $props();
 </script>
 
-<span class={classnames('fui-spinner-spinner', klass)}>
+<span use:reference={ref} class={classnames('fui-spinner-spinner', klass)}>
 	<SpinnerDefaultIcon />
 </span>
 
