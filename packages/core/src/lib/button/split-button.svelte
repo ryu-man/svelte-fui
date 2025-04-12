@@ -11,7 +11,8 @@
 		appearance,
 		size,
 		icon,
-		children,
+		children = undefined,
+		ref = undefined,
 		onclick = undefined,
 		...restProps
 	}: ButtonProps = $props();
@@ -19,7 +20,6 @@
 
 <div class="fui-split-btn flex items-center">
 	<Button
-		bind:element
 		class={classnames('items-center flex gap-2', klass)}
 		{shape}
 		{appearance}
@@ -35,7 +35,7 @@
 		{@render children?.()}
 	</Button>
 
-	<Button bind:element class="px-0" {shape} {appearance} {size} icon>
+	<Button class="px-0" {shape} {appearance} {size} {ref} icon>
 		<Menu.Indicator class="h-full p-0.5" />
 	</Button>
 </div>
