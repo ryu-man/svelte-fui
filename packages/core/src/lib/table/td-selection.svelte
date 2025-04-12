@@ -1,11 +1,10 @@
 <script lang="ts">
-	import { type Readable, derived } from 'svelte/store';
 	import { getTableRowContext } from './tr';
 	import { getTableContext } from './context';
-	import type { RowStore } from './store';
 	import { Checkbox } from '../checkbox';
 	import { classnames } from '../internal';
 	import { Radio } from '../radio';
+	import { reference } from '../internal/dom.svelte';
 
 	const contextTable = getTableContext();
 	const contextRow = getTableRowContext();
@@ -34,7 +33,8 @@
 		type = 'checkbox',
 		subtle = false,
 		header = false,
-		checked = $bindable(false)
+		checked = $bindable(false),
+		ref = undefined
 	} = $props();
 
 	function onchangeCheckbox(ev: Event) {
@@ -65,7 +65,11 @@
 	}
 </script>
 
-<svelte:element this={element} class={classnames('fui-table-cell-selection', { subtle, header })}>
+<svelte:element
+	this={element}
+	use:reference={ref}
+	class={classnames('fui-table-cell-selection', { subtle, header }, klass)}
+>
 	{#if type === 'checkbox'}
 		<Checkbox bind:checked onchange={onchangeCheckbox} />
 	{:else}

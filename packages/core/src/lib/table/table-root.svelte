@@ -5,6 +5,7 @@
 	import type { TableRoot, TableSize } from './types';
 	import { SvelteMap } from 'svelte/reactivity';
 	import { classnames } from '../internal';
+	import { reference } from '../internal/dom.svelte';
 
 	// export let selectedItems: any[] = [];
 
@@ -13,8 +14,9 @@
 		selections = $bindable([]),
 		size = 'md',
 		values = $bindable([]),
-		element = $bindable(undefined),
-		children
+		element = $bindable(),
+		children = undefined,
+		ref = undefined
 	}: TableRoot<T> = $props();
 
 	// let sorted: any[] = [];
@@ -96,7 +98,7 @@
 	// }
 </script>
 
-<table bind:this={element} class={classnames('fui-table', klass)}>
+<table bind:this={element} use:reference={ref} class={classnames('fui-table', klass)}>
 	{@render children?.({ context: contextTable })}
 </table>
 

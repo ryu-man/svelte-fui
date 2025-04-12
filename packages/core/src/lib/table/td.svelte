@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { classnames } from '../internal';
+	import { reference } from '../internal/dom.svelte';
 	import { getTableContext } from './context';
 
 	const contextTable = getTableContext();
@@ -13,12 +14,17 @@
 		class: klass = '',
 		primary = false,
 		truncate = false,
-		element = $bindable(undefined),
-		children
+		element = $bindable(),
+		children = undefined,
+		ref = undefined
 	} = $props();
 </script>
 
-<td bind:this={element} class={classnames('fui-table-cell', { truncate, primary })}>
+<td
+	bind:this={element}
+	use:reference={ref}
+	class={classnames('fui-table-cell', { truncate, primary })}
+>
 	<div class={klass}>
 		{@render children?.({ context: contextTable })}
 	</div>

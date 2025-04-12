@@ -7,6 +7,7 @@
 	import { getTableContext } from '../context';
 	// import { rowStore } from '../store';
 	import type { TrProps } from '../types';
+	import { reference } from '@svelte-fui/core/internal/dom.svelte';
 
 	const contextTable = getTableContext();
 	const size = $derived(contextTable.derived.data.size);
@@ -23,8 +24,9 @@
 		id = nanoid(8),
 		appearance = 'none',
 		data,
-		element = $bindable(undefined),
-		children
+		element = $bindable(),
+		children = undefined,
+		ref = undefined
 	}: TrProps<T> = $props();
 
 	const isSelected = $derived(contextTable.derived.data.values.includes(id));
@@ -71,6 +73,7 @@
 
 <tr
 	bind:this={element}
+	use:reference={ref}
 	class={classnames(
 		'fui-table-row',
 		size,

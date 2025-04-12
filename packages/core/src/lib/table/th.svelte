@@ -7,6 +7,7 @@
 	import ArrowUpRegular from '@svelte-fui/core/icons/arrow-up-regular.svelte';
 	import { getTableContext } from './context';
 	import type { SortingDirection } from './types';
+	import { reference } from '../internal/dom.svelte';
 
 	const contextTable = getTableContext();
 
@@ -15,7 +16,13 @@
 	// let klass = '';
 	// export { klass as class };
 
-	let { class: klass = '', direction = 'asc', element = $bindable(undefined), children } = $props();
+	let {
+		class: klass = '',
+		direction = 'asc',
+		element = $bindable(),
+		children = undefined,
+		ref = undefined
+	} = $props();
 
 	// const activeSort$ = derived(sorting$, (val) => val && val[0] === sortBy);
 
@@ -67,7 +74,12 @@
 	}
 </script>
 
-<th bind:this={element} class={classnames('fui-table-header-cell', klass)} {onclick}>
+<th
+	bind:this={element}
+	use:reference={ref}
+	class={classnames('fui-table-header-cell', klass)}
+	{onclick}
+>
 	<div>
 		{@render children?.({ context: contextTable })}
 

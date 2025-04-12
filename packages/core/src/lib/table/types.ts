@@ -1,5 +1,6 @@
 import type { Snippet } from 'svelte';
 import type { TableContext } from './context';
+import type { ReferenceFunction } from '../types';
 
 export type TableSize = 'xs' | 'sm' | 'md';
 export type SortingDirection = 'ascending' | 'descending';
@@ -23,6 +24,7 @@ export type TableRoot<T> = {
 			}
 		]
 	>;
+	ref?: ReferenceFunction;
 };
 
 export type TrProps<T> = {
@@ -38,4 +40,5 @@ export type TrProps<T> = {
 			}
 		]
 	>;
+	ref?: ReferenceFunction;
 };
