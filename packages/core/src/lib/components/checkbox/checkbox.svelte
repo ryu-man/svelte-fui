@@ -43,7 +43,10 @@
 >
 	<input class="fui-checkbox-input" type="checkbox" {id} {checked} {disabled} {...restProps} />
 	<div
-		class={classnames('fui-checkbox-indicator', { size, disabled, circular })}
+		class={classnames(
+			'fui-checkbox-indicator pointer-events-none box-border flex items-center justify-center self-start overflow-hidden rounded-sm',
+			{ size, disabled, circular }
+		)}
 		aria-hidden="true"
 	>
 		{#if checked}
@@ -63,7 +66,7 @@
 		/* ...createFocusOutlineStyle({ style: {}, selector: 'focus-within' }); */
 
 		&:focus-within {
-			@apply outline-none;
+			outline: none;
 		}
 		/* unchecked */
 		&[data-checked='false']:not(.disabled) {
@@ -133,7 +136,8 @@
 		}
 
 		&.disabled {
-			@apply pointer-events-none cursor-default;
+			pointer-events: none;
+			cursor: default;
 			color: var(--fui-colorNeutralForegroundDisabled);
 
 			& > .fui-checkbox-indicator {
@@ -152,12 +156,17 @@
 	}
 
 	input {
-		@apply absolute top-0 m-0 box-border h-full opacity-0;
-
+		/* @apply absolute top-0 m-0 box-border h-full opacity-0; */
+		position: absolute;
+		top: 0;
+		margin: 0;
+		box-sizing: border-box;
+		height: 100%;
+		opacity: 0;
 		cursor: inherit;
 		/* Calculate the width of the hidden input by taking into account the size of the indicator + the padding around it.
 		This is done so that clicking on that "empty space" still toggles the checkbox. */
-		width: calc(var(--indicator-size-md) + 2 * theme(spacing.s));
+		width: calc(var(--indicator-size-md) + 2 * var(--spacing-s));
 
 		&.before {
 			right: 0;
@@ -167,21 +176,21 @@
 		}
 
 		&.size-lg {
-			width: calc(var(--indicator-size-lg) + 2 * theme(spacing.s));
+			width: calc(var(--indicator-size-lg) + 2 * var(--spacing-s));
 		}
 	}
 
 	.fui-checkbox-indicator {
-		@apply pointer-events-none box-border flex items-center justify-center self-start overflow-hidden rounded-sm;
+		/* @apply pointer-events-none box-border flex items-center justify-center self-start overflow-hidden rounded-sm; */
 
 		--fui-icon-size: calc(16px - 4px);
 
 		flex-shrink: 0;
-		border-width: theme(borderWidth.thin);
+		border-width: var(--spacing-thin);
 		border-color: var(--fui-colorNeutralStrokeAccessible);
 		/* border: tokens.strokeWidthThin + ' solid ' + tokens.colorNeutralStrokeAccessible; */
 		/* borderRadius: tokens.borderRadiusSmall; */
-		margin: theme(spacing.s) theme(spacing.s);
+		margin: var(--spacing-s) var(--spacing-s);
 		fill: currentColor;
 
 		font-size: 12px;
@@ -202,29 +211,33 @@
 	}
 
 	.fui-checkbox-label {
-		@apply font-base text-base-300 leading-base-300;
+		/* @apply font-base text-base-300 leading-base-300; */
 
 		align-self: center;
 		color: inherit;
 		cursor: inherit;
-		padding: theme(spacing.s) theme(spacing.s);
+		padding: var(--spacing-s) var(--spacing-s);
+
+		font-familly: var(--font-base);
+		font-size: var(--text-base-300);
+		line-height: var(--leading-base-300);
 
 		&.before {
-			padding-right: theme(spacing.xs);
+			padding-right: var(--spacing-xs);
 		}
 		&.after {
-			padding-left: theme(spacing.xs);
+			padding-left: var(--spacing-xs);
 		}
 
 		/* Use a (negative) margin to account for the difference between the indicator's height and the label's line height.
 		This prevents the label from expanding the height of the checkbox, but preserves line height if the label wraps. */
 		&.size-md {
-			margin-top: calc((var(--indicator-size-md) - theme(lineHeight.base-300)) / 2);
-			margin-bottom: calc((var(--indicator-size-md) - theme(lineHeight.base-300)) / 2);
+			margin-top: calc((var(--indicator-size-md) - var(--leading-base-300)) / 2);
+			margin-bottom: calc((var(--indicator-size-md) - var(--leading-base-300)) / 2);
 		}
 		&.size-lg {
-			margin-top: calc((var(--indicator-size-lg) - theme(lineHeight.base-300)) / 2);
-			margin-bottom: calc((var(--indicator-size-lg) - theme(lineHeight.base-300)) / 2);
+			margin-top: calc((var(--indicator-size-lg) - var(--leading-base-300)) / 2);
+			margin-bottom: calc((var(--indicator-size-lg) - var(--leading-base-300)) / 2);
 		}
 	}
 </style>

@@ -24,7 +24,9 @@
 	bind:this={element}
 	use:reference={ref}
 	class={classnames(
-		'fui-input-root px-mNudge gap-xxs inline-flex',
+		'fui-input-root px-mNudge gap-xxs inline-flex body-1 relative',
+		size === 'sm' && 'caption-1',
+		size === 'lg' && 'body-2',
 		appearance,
 		{
 			size,
@@ -47,8 +49,6 @@
 
 <style lang="postcss">
 	.fui-input-root {
-		@apply body-1 relative;
-
 		--field-height-sm: 24px;
 		--field-height-md: 32px;
 		--field-height-lg: 40px;
@@ -70,36 +70,31 @@
 		background-color: var(--fui-colorNeutralBackground1);
 		border: 1px solid var(--fui-colorNeutralStroke1);
 		border-bottom-color: var(--fui-colorNeutralStrokeAccessible);
-		border-radius: theme(borderRadius.md);
+		border-radius: var(--border-radius-md);
 
 		&.size-sm {
-			@apply caption-1;
-
 			--fui-icon-size: calc(var(--field-height-sm) - 12px);
 			min-height: var(--field-height-sm);
 			height: var(--field-height-sm);
-			padding-left: theme(spacing.sNudge);
-			padding-right: theme(spacing.sNudge);
+			padding-left: var(--spacing-sNudge);
+			padding-right: var(--spacing-sNudge);
 			/* ...typographyStyles.caption1; */
 		}
 		&.size-md {
 			/* included in rootBaseStyles */
 		}
 		&.size-lg {
-			@apply body-2;
-
 			--fui-icon-size: calc(var(--field-height-lg) - 12px);
 			min-height: var(--field-height-lg);
 			height: var(--field-height-lg);
-			padding-left: theme(spacing.m);
-			padding-right: theme(spacing.m);
+			padding-left: var(--spacing-m);
+			padding-right: var(--spacing-m);
 			/* ...typographyStyles.body2; */
 			/* ...shorthands.gap(tokens.spacingHorizontalSNudge); */
-			gap: 0 theme(spacing.sNudge);
+			gap: 0 var(--spacing-sNudge);
 		}
 		&.outline {
-			@apply outline-none;
-			/* included in rootBaseStyles */
+			outline: none;
 		}
 		&.outlineInteractive {
 			:hover {
@@ -169,14 +164,12 @@
 			background-color: var(--fui-colorNeutralBackground1);
 		}
 		&.filled-darker-shadow {
-			@apply shadow-2;
 			background-color: var(--fui-colorNeutralBackground3);
-			/* box-shadow: tokens.shadow2; */
+			box-shadow: var(--shadow-2);
 		}
 		&.filled-lighter-shadow {
-			@apply shadow-2;
 			background-color: var(--fui-colorNeutralBackground1);
-			/* box-shadow: tokens.shadow2; */
+			box-shadow: var(--shadow-2);
 		}
 		&.disabled {
 			cursor: not-allowed;
@@ -202,7 +195,7 @@
 	/* This is all for the bottom focus border.
 	It's supposed to be 2px flat all the way across and match the radius of the field's corners. */
 	.fui-input-root::after {
-		@apply duration-ultra-fast ease-accelerate-mid;
+		/* @apply duration-ultra-fast ease-accelerate-mid; */
 		box-sizing: border-box;
 		content: '';
 		position: absolute;
@@ -210,13 +203,16 @@
 		bottom: -1px;
 		right: -1px;
 
+		transition-duration: var(--transition-duration-ultra-fast);
+		transition-timing-function: var(--transition-ease-accelerate-mid);
+
 		/* Maintaining the correct corner radius:
 		Use the whole border-radius as the height and only put radii on the bottom corners.
 		(Otherwise the radius would be automatically reduced to fit available space.)
 		max() ensures the focus border still shows up even if someone sets tokens.borderRadiusMedium to 0. */
-		height: max(2px, theme(borderRadius.md));
-		border-bottom-left-radius: theme(borderRadius.md);
-		border-bottom-right-radius: theme(borderRadius.md);
+		height: max(2px, var(--border-radius-md));
+		border-bottom-left-radius: var(--border-radius-md);
+		border-bottom-right-radius: var(--border-radius-md);
 
 		/* Flat 2px border:
 		By default borderBottom will cause little "horns" on the ends. The clipPath trims them off.
@@ -228,8 +224,8 @@
 		/* Animation for focus OUT */
 		transform: scaleX(0);
 		transition-property: transform;
-		transition-duration: theme('transitionDuration.ultra-fast');
-		transition-delay: theme('transitionDelay.accelerate-mid');
+		transition-duration: var(--transition-duration-ultra-fast);
+		transition-delay: var(--transition-delay-accelerate-mid);
 
 		@media screen and (prefers-reduced-motion: reduce) {
 			transition-duration: 0.01ms;
@@ -244,11 +240,10 @@
 
 	.fui-input-root:focus::after,
 	.fui-input-root:focus-within::after {
-		@apply duration-normal ease-decelerate-mid;
 		transform: scaleX(1);
 		transition-property: transform;
-		transition-duration: theme('transitionDuration.normal');
-		transition-delay: theme('transitionTimingFunction.decelerate-mid');
+		transition-duration: var(--transition-duration-normal);
+		transition-delay: var(--transition-timing-function-decelerate-mid);
 	}
 	.fui-input-root:focus,
 	.fui-input-root:focus-within {

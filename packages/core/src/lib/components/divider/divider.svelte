@@ -25,7 +25,7 @@
 	aria-labelledby={id}
 	class={classnames(
 		'fui-divider',
-		'flex flex-grow items-center text-center',
+		'flex flex-grow items-center text-center font-base text-base-200  font-regular leading-base-200 relative box-border',
 		appearance,
 		alignContent,
 		{ vertical, inset, childless },
@@ -39,66 +39,64 @@
 
 <style lang="postcss">
 	.fui-divider {
-		@apply font-base text-base-200  font-regular leading-base-200 relative box-border;
+		--content-spacing: var(--spacing-m);
+		--inset-spacing: var(--spacing-m);
+		--max-start-end-length: var(--spacing-s);
+		--min-start-end-length: var(--spacing-s);
 
-		--content-spacing: theme(spacing.m);
-		--inset-spacing: theme(spacing.m);
-		--max-start-end-length: theme(spacing.s);
-		--min-start-end-length: theme(spacing.s);
-
-		&::before {
-			@apply border-b-thin box-border flex flex-grow;
+		&::before,
+		::after {
 			content: '';
-		}
-		&::after {
-			@apply border-b-thin box-border flex flex-grow;
-			content: '';
+			border-bottom-width: var(--border-width-thin);
+			box-sizing: border-box;
+			display: flex;
+			flex-grow: 1;
 		}
 
 		&.brand {
-			@apply text-brand-foreground-1;
+			color: var(--fui-colorBrandForeground1);
 
 			&::before {
-				@apply border-brand-stroke-1;
+				border-color: var(--fui-colorBrandStroke1);
 			}
 
 			&::after {
-				@apply border-brand-stroke-1;
+				border-color: var(--fui-colorBrandStroke1);
 			}
 		}
 		&.default {
-			@apply text-neutral-foreground-2;
+			color: var(--fui-colorNeutralForeground2);
 
 			&::before {
-				@apply border-neutral-stroke-2;
+				border-color: var(--fui-colorNeutralStroke2);
 			}
 
 			&::after {
-				@apply border-neutral-stroke-2;
+				border-color: var(--fui-colorNeutralStroke2);
 			}
 		}
 
 		&.subtle {
-			@apply text-neutral-foreground-2;
+			color: var(--fui-colorNeutralForeground2);
 
 			&::before {
-				@apply border-neutral-stroke-3;
+				border-color: var(--fui-colorNeutralStroke3);
 			}
 
 			&::after {
-				@apply border-neutral-stroke-3;
+				border-color: var(--fui-colorNeutralStroke3);
 			}
 		}
 
 		&.strong {
-			@apply text-neutral-foreground-2;
+			color: var(--fui-colorNeutralForeground2);
 
 			&::before {
-				@apply border-neutral-stroke-1;
+				border-color: var(--fui-colorNeutralStroke1);
 			}
 
 			&::after {
-				@apply border-neutral-stroke-1;
+				border-color: var(--fui-colorNeutralStroke1);
 			}
 		}
 	}
@@ -140,16 +138,16 @@
 	}
 
 	.fui-divider.vertical {
-		@apply flex min-h-[20px] flex-col;
+		min-height: 20px;
+		display: flex;
+		flex-direction: column;
 
-		&::before {
-			@apply border-r-thin border-solid;
-			min-height: var(--min-start-end-length);
-		}
-
+		&::before,
 		&::after {
-			@apply border-r-thin border-solid;
+			/* @apply border-r-thin border-solid; */
 			min-height: var(--min-start-end-length);
+			border-right-width: var(--border-width-thin);
+			border-style: solid;
 		}
 
 		/* Inset styles */

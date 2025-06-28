@@ -18,7 +18,12 @@
 <div
 	use:reference={ref}
 	role="progressbar"
-	class={classnames('fui-spinner', size, appearance, { vertical, reverse })}
+	class={classnames(
+		'fui-spinner flex items-center justify-center gap-[8px] leading-[0]',
+		size,
+		appearance,
+		{ vertical, reverse }
+	)}
 	style:--animation-delay="{delay}ms"
 >
 	{@render children?.()}
@@ -36,17 +41,17 @@
 	}
 
 	.sp-inverted {
-		--fui-spinner-tail-color: theme(colors.neutral-stroke-on-brand-2);
+		--fui-spinner-tail-color: var(--fui-colorNeutralStrokeOnBrand2);
 		--fui-spinner-track-color: rgba(255, 255, 255, 0.2);
 	}
 
 	.sp-primary {
-		--fui-spinner-tail-color: theme(colors.brand-stroke-1);
-		--fui-spinner-track-color: theme(colors.brand-stroke-2);
+		--fui-spinner-tail-color: var(--fui-colorBrandStroke1);
+		--fui-spinner-track-color: var(--fui-colorBrandStroke2);
 
 		@media screen and (forced-colors: active) {
-			--fui-spinner-tail-color: theme(colors.neutral-stroke-on-brand-2);
-			--fui-spinner-track-color: theme(colors.neutral-background-inverted);
+			--fui-spinner-tail-color: var(--fui-colorNeutralStrokeOnBrand2);
+			--fui-spinner-track-color: var(--fui-colorNeutralBackgroundInverted);
 		}
 	}
 
@@ -75,15 +80,12 @@
 		--fui-spinner-width: var(--size-md);
 		--fui-spinner-height: var(--size-md);
 		--fui-spinner-circle-r: var(--r-md);
-		--fui-spinner-circle-stroke-width: theme(strokeWidth.thick) @apply flex items-center
-			justify-center gap-[8px] leading-[0];
+		--fui-spinner-circle-stroke-width: var(--stroke-width-thick);
 
 		@media screen and (prefers-reduced-motion: reduce) {
 			--animation-duration: 0.01ms;
 			--animation-iteration-count: 1;
 		}
-
-		@apply flex items-center gap-2;
 
 		opacity: 0;
 		animation-name: fade;
@@ -96,49 +98,49 @@
 		--fui-spinner-width: var(--size-xt);
 		--fui-spinner-height: var(--size-xt);
 		--fui-spinner-circle-r: var(--r-xt);
-		--fui-spinner-circle-stroke-width: theme(strokeWidth.thick);
+		--fui-spinner-circle-stroke-width: var(--stroke-width-thick);
 	}
 	.fui-spinner.tn {
 		--fui-spinner-width: var(--size-tn);
 		--fui-spinner-height: var(--size-tn);
 		--fui-spinner-circle-r: var(--r-tn);
-		--fui-spinner-circle-stroke-width: theme(strokeWidth.thick);
+		--fui-spinner-circle-stroke-width: var(--stroke-width-thick);
 	}
 	.fui-spinner.xs {
 		--fui-spinner-width: var(--size-xs);
 		--fui-spinner-height: var(--size-xs);
 		--fui-spinner-circle-r: var(--r-xs);
-		--fui-spinner-circle-stroke-width: theme(strokeWidth.thick);
+		--fui-spinner-circle-stroke-width: var(--stroke-width-thick);
 	}
 	.fui-spinner.sm {
 		--fui-spinner-width: var(--size-sm);
 		--fui-spinner-height: var(--size-sm);
 		--fui-spinner-circle-r: var(--r-sm);
-		--fui-spinner-circle-stroke-width: theme(strokeWidth.thick);
+		--fui-spinner-circle-stroke-width: var(--stroke-width-thick);
 	}
 	.fui-spinner.md {
 		--fui-spinner-width: var(--size-md);
 		--fui-spinner-height: var(--size-md);
 		--fui-spinner-circle-r: var(--r-md);
-		--fui-spinner-circle-stroke-width: theme(strokeWidth.thicker);
+		--fui-spinner-circle-stroke-width: var(--stroke-width-thicker);
 	}
 	.fui-spinner.lg {
 		--fui-spinner-width: var(--size-lg);
 		--fui-spinner-height: var(--size-lg);
 		--fui-spinner-circle-r: var(--r-lg);
-		--fui-spinner-circle-stroke-width: theme(strokeWidth.thicker);
+		--fui-spinner-circle-stroke-width: var(--stroke-width-thicker);
 	}
 	.fui-spinner.xl {
 		--fui-spinner-width: var(--size-xl);
 		--fui-spinner-height: var(--size-xl);
 		--fui-spinner-circle-r: var(--r-xl);
-		--fui-spinner-circle-stroke-width: theme(strokeWidth.thicker);
+		--fui-spinner-circle-stroke-width: var(--stroke-width-thicker);
 	}
 	.fui-spinner.hg {
 		--fui-spinner-width: var(--size-hg);
 		--fui-spinner-height: var(--size-hg);
 		--fui-spinner-circle-r: var(--r-hg);
-		--fui-spinner-circle-stroke-width: theme(strokeWidth.thickest);
+		--fui-spinner-circle-stroke-width: var(--stroke-width-thickest);
 	}
 
 	.fui-spinner.inverted {
@@ -150,13 +152,13 @@
 	}
 
 	.fui-spinner.vertical {
-		@apply flex-col;
+		flex-direction: column;
 	}
 	.fui-spinner.reverse {
-		@apply flex-row-reverse;
+		flex-direction: row-reverse;
 
 		&.vertical {
-			@apply flex-col-reverse;
+			flex-direction: column-reverse;
 		}
 	}
 

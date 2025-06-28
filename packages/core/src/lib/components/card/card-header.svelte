@@ -25,23 +25,29 @@
 		flex-shrink: 0;
 
 		> :global(.image) {
-			@apply box-border inline-flex;
-			margin-right: theme(spacing.m);
+			margin-right: var(--spacing-m);
 			grid-column-start: 1;
 			grid-row-start: span 2;
+			box-sizing: border-box;
+			display: inline-flex;
 		}
 		> :global(.header) {
-			@apply font-base text-base-300 font-regular leading-base-300;
+			/* @apply font-base text-base-300 font-regular leading-base-300; */
 			grid-column-start: 2;
 			grid-row-start: 1;
+			font-family: var(--font-base);
+			font-size: var(--font-base-300);
+			font-weight: var(--font-weight);
+			line-height: var(--leading-base-300);
 		}
 		> :global(.description) {
-			@apply font-base;
+			/* @apply font-base; */
 			grid-column-start: 2;
 			grid-row-start: 2;
+			font-family: var(--font-base);
 		}
 		> :global(.action) {
-			margin-left: theme(spacing.m);
+			margin-left: var(--spacing-m);
 			grid-column-start: 3;
 			grid-row-start: span 2;
 		}

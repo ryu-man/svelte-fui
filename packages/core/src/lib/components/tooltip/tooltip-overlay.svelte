@@ -35,7 +35,7 @@
 		border: 1px solid var(--fui-colorTransparentStroke);
 		background-color: var(--fui-colorNeutralBackground1);
 		color: var(--fui-colorNeutralForeground1);
-		padding: theme(spacing.xs) theme(spacing.m) theme(spacing.sNudge) theme(spacing.m);
+		padding: var(--spacing-xs) var(--spacing-m) var(--spacing-sNudge) var(--spacing-m);
 		filter: drop-shadow(0 0 2px var(--fui-colorNeutralShadowAmbient))
 			drop-shadow(0 4px 8px var(--fui-colorNeutralShadowKey));
 

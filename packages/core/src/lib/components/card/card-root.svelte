@@ -42,7 +42,7 @@
 	bind:this={element}
 	use:reference={ref}
 	class={classnames(
-		'fui-card',
+		'fui-card p-m shadow-4 relative box-border flex overflow-hidden rounded-md',
 		{ interactive, alternative, selected },
 		appearance,
 		orientation,
@@ -56,10 +56,8 @@
 
 <style lang="postcss">
 	.fui-card {
-		@apply p-m shadow-4 relative box-border flex overflow-hidden rounded-md;
-
-		--fui-card-border-radius: theme(borderRadius.md);
-		--fui-card-size: theme(spacing.m);
+		--fui-card-border-radius: var(--border-radius-md);
+		--fui-card-size: var(--spacing-m);
 
 		gap: var(--fui-card-size);
 		background-color: var(--fui-colorNeutralBackground1);
@@ -68,11 +66,16 @@
 
 		/* Border setting using after pseudo element to allow CardPreview to render behind it. */
 		&::after {
-			@apply border-thin pointer-events-none absolute inset-0 border-solid;
+			/* @apply border-thin pointer-events-none absolute inset-0 border-solid; */
 
 			content: '';
 			border-radius: inherit;
 			border-color: var(--fui-colorTransparentStroke);
+			border-width: var(--border-width-thin);
+			pointer-events: none;
+			position: absolute;
+			inset: 0;
+			border-style: solid;
 			/* pointerEvents: none;
 
 			...shorthands.borderStyle('solid');
@@ -92,7 +95,7 @@
 		}
 
 		&.selectable:focus-within {
-			outline-width: theme(borderWidth.thin);
+			outline-width: var(--border-width-thin);
 		}
 
 		&.horizontal {
@@ -152,36 +155,44 @@
 		}
 
 		&.size-sm {
-			--fui-card-size: theme(spacing.s);
-			--fui-card-border-radius: theme(borderRadius.sm);
+			--fui-card-size: var(--spacing-s);
+			--fui-card-border-radius: var(border-radius-sm);
 		}
 
 		&.size-md {
-			--fui-card-size: theme(spacing.m);
-			--fui-card-border-radius: theme(borderRadius.md);
+			--fui-card-size: var(--spacing-m);
+			--fui-card-border-radius: var(--border-radius-md);
 		}
 
 		&.size-lg {
-			--fui-card-size: theme(spacing.l);
-			--fui-card-border-radius: theme(borderRadius.lg);
+			--fui-card-size: var(--spacing-l);
+			--fui-card-border-radius: var(--border-radius-lg);
 		}
 
 		&.filled {
-			@apply shadow-4;
+			/* @apply shadow-4; */
 			background-color: var(--fui-colorNeutralBackground1);
+			box-shadow: var(--fui-shadow4);
 
 			&::after {
 				border-color: var(--fui-colorTransparentStroke);
 			}
 
 			&.interactive {
-				@apply cursor-pointer;
+				/* @apply cursor-pointer; */
+				cursor: pointer;
 
 				&:hover {
-					@apply shadow-8;
+					/* @apply shadow-8; */
 					background-color: var(--fui-colorNeutralBackground1Hover);
+
+					--tw-shadow: var(--fui-shadow8);
+					--tw-shadow-colored: var(--fui-shadow8);
+					box-shadow:
+						var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000),
+						var(--tw-shadow);
 				}
-				,
+
 				&:active {
 					background-color: var(--fui-colorNeutralBackground1Pressed);
 				}
@@ -200,24 +211,43 @@
 			}
 
 			&.alternative {
-				@apply shadow-4;
+				/* @apply shadow-4; */
 				background-color: var(--fui-colorNeutralBackground2);
+
+				--tw-shadow: var(--fui-shadow4);
+				--tw-shadow-colored: var(--fui-shadow4);
+				box-shadow:
+					var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000),
+					var(--tw-shadow);
 
 				&::after {
 					border-color: var(--fui-colorTransparentStroke);
 				}
 
 				&.interactive {
-					@apply shadow-4 cursor-pointer;
+					/* @apply shadow-4 cursor-pointer; */
+					cursor: pointer;
 					background-color: var(--fui-colorNeutralBackground2);
+
+					--tw-shadow: var(--fui-shadow4);
+					--tw-shadow-colored: var(--fui-shadow4);
+					box-shadow:
+						var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000),
+						var(--tw-shadow);
 
 					&::after {
 						border-color: var(--fui-colorTransparentStroke);
 					}
 
 					&:hover {
-						@apply shadow-8;
+						/* @apply shadow-8; */
 						background-color: var(--fui-colorNeutralBackground2Hover);
+
+						--tw-shadow: var(--fui-shadow8);
+						--tw-shadow-colored: var(--fui-shadow8);
+						box-shadow:
+							var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000),
+							var(--tw-shadow);
 					}
 					&:active {
 						background-color: var(--fui-colorNeutralBackground2Pressed);
@@ -227,8 +257,13 @@
 		}
 
 		&.filled-alternative {
-			@apply shadow-4;
+			/* @apply shadow-4; */
 			background-color: var(--fui-colorNeutralBackground2);
+
+			--tw-shadow: var(--fui-shadow4);
+			--tw-shadow-colored: var(--fui-shadow4);
+			box-shadow:
+				var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
 
 			&::after {
 				border-color: var(--fui-colorTransparentStroke);
@@ -236,9 +271,11 @@
 		}
 
 		&.outline {
-			@apply outline-none;
+			/* @apply outline-none; */
 			background-color: var(--fui-colorTransparentBackground);
 			box-shadow: none;
+
+			outline: none;
 
 			&::after {
 				border-color: var(--fui-colorNeutralStroke1);

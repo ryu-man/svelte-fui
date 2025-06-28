@@ -54,7 +54,10 @@
 		{required}
 		{onchange}
 	/>
-	<div aria-hidden="true" class="fui-radio-indicator">
+	<div
+		aria-hidden="true"
+		class="fui-radio-indicator border-thin my-s mx-s pointer-events-none box-border flex flex-shrink-0 items-center justify-center overflow-hidden rounded-full border-solid fill-current text-xs"
+	>
 		<svg
 			fill="currentColor"
 			class=""
@@ -74,31 +77,37 @@
 	}
 
 	.fui-radio-indicator {
-		@apply border-thin my-s mx-s pointer-events-none box-border flex flex-shrink-0 items-center justify-center overflow-hidden rounded-full  border-solid fill-current text-xs;
 		width: var(--indicator-size);
 		height: var(--indicator-size);
 	}
 
 	.fui-radio > :global(.fui-radio-label) {
-		@apply py-s px-s cursor-pointer self-center;
+		padding-block: var(--spacing-s);
+		padding-inline: var(--spacing-s);
+		cursor: pointer;
+		align-self: center;
 	}
 	.fui-radio > :global(.fui-radio-label.after) {
-		@apply pl-xs;
+		padding-left: var(--spacing-xs);
 		/* Use a (negative) margin to account for the difference between the indicator's height and the label's line height. */
 		/* This prevents the label from expanding the height of the Radio, but preserves line height if the label wraps. */
-		margin-top: calc((var(--indicator-size) - theme(lineHeight.base-300)) / 2);
-		margin-bottom: calc((var(--indicator-size) - theme(lineHeight.base-300)) / 2);
+		margin-top: calc((var(--indicator-size) - var(--line-height-base-300)) / 2);
+		margin-bottom: calc((var(--indicator-size) - var(--line-height-base-300)) / 2);
 	}
 	.fui-radio > :global(.fui-radio-label.below) {
-		@apply pt-xs text-center;
+		padding-top: var(--spacing-xs);
+		text-align: center;
 	}
 
 	.fui-radio-input {
-		@apply absolute m-0 box-border h-full opacity-0;
+		/* @apply absolute m-0 box-border h-full opacity-0; */
 		position: absolute;
 		left: 0;
 		top: 0;
-		width: calc(var(--indicator-size) + 2 * theme(spacing.s));
+		margin: 0;
+		opacity: 0;
+		box-sizing: border-box;
+		width: calc(var(--indicator-size) + 2 * var(--spacing-s));
 
 		&:enabled {
 			cursor: pointer;
@@ -115,27 +124,33 @@
 		/* Colors for the unchecked state */
 		&:enabled:not(:checked) {
 			& ~ :global(.fui-radio-label) {
-				@apply text-neutral-foreground-3;
+				/* @apply text-neutral-foreground-3; */
+				color: var(--fui-colorNeutralForeground3);
 			}
 			& ~ .fui-radio-indicator {
-				@apply border-neutral-stroke-accessible;
+				/* @apply border-neutral-stroke-accessible; */
+				border-color: var(--fui-colorNeutralStrokeAccessible);
 			}
 
 			&:hover {
 				& ~ :global(.fui-radio-label) {
-					@apply text-neutral-foreground-2;
+					/* @apply text-neutral-foreground-2; */
+					color: var(--fui-colorNeutralForeground2);
 				}
 				& ~ .fui-radio-indicator {
-					@apply text-neutral-stroke-accessible-hover;
+					/* @apply text-neutral-stroke-accessible-hover; */
+					color: var(--fui-colorNeutralStrokeAccessibleHover);
 				}
 			}
 
 			&:hover:active {
 				& ~ :global(.fui-radio-label) {
-					@apply text-neutral-foreground-1;
+					/* @apply text-neutral-foreground-1; */
+					color: var(--fui-colorNeutralForeground1);
 				}
 				& ~ .fui-radio-indicator {
-					@apply text-neutral-stroke-accessible-pressed;
+					/* @apply text-neutral-stroke-accessible-pressed; */
+					color: var(--fui-colorNeutralStrokeAccessiblePressed);
 				}
 			}
 		}
@@ -143,21 +158,28 @@
 		/* Colors for the checked state */
 		&:enabled:checked {
 			& ~ :global(.fui-radio-label) {
-				@apply text-neutral-foreground-1;
+				/* @apply text-neutral-foreground-1; */
+				color: var(--fui-colorNeutralForeground1);
 			}
 			& ~ .fui-radio-indicator {
-				@apply text-compound-brand-foreground-1 border-compound-brand-stroke;
+				/* @apply text-compound-brand-foreground-1 border-compound-brand-stroke; */
+				color: var(--fui-colorCompoundBrandForeground1);
+				border-color: var(--fui-colorCompoundBrandStroke);
 			}
 
 			&:hover {
 				& ~ .fui-radio-indicator {
-					@apply text-compound-brand-foreground-1-hover border-compound-brand-stroke-hover;
+					/* @apply text-compound-brand-foreground-1-hover border-compound-brand-stroke-hover; */
+					color: var(--fui-colorCompoundBrandForeground1Hover);
+					border-color: var(--fui-colorCompoundBrandStrokeHover);
 				}
 			}
 
 			&:hover:active {
 				& ~ .fui-radio-indicator {
-					@apply text-compound-brand-foreground-1-pressed border-compound-brand-stroke-pressed;
+					/* @apply text-compound-brand-foreground-1-pressed border-compound-brand-stroke-pressed; */
+					color: var(--fui-colorCompoundBrandForeground1Pressed);
+					border-color: var(--fui-colorCompoundBrandStrokePressed);
 				}
 			}
 		}
@@ -165,16 +187,20 @@
 		/* Colors for the disabled state */
 		&:disabled {
 			& ~ :global(.fui-radio-label) {
-				@apply text-neutral-foreground-disabled cursor-default;
+				/* @apply text-neutral-foreground-disabled cursor-default; */
+				color: var(--fui-colorNeutralForegroundDisabled);
+				cursor: default;
 			}
 			& ~ .fui-radio-indicator {
-				@apply border-neutral-stroke-disabled text-neutral-foreground-disabled;
+				/* @apply border-neutral-stroke-disabled text-neutral-foreground-disabled; */
+				border-color: var(--fui-colorNeutralStrokeDisabled);
+				color: var(--fui-colorNeutralForegroundDisabled);
 			}
 		}
 	}
 
 	.fui-radui-input.below {
 		width: 100%;
-		width: calc(var(--indicator-size) + 2 * theme(spacing.s));
+		width: calc(var(--indicator-size) + 2 * var(--spacing-s));
 	}
 </style>

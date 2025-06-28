@@ -26,7 +26,24 @@
 	bind:this={element}
 	use:reference={ref}
 	class={classnames(
-		'fui-text',
+		'fui-text visible inline overflow-clip whitespace-normal text-start font-base text-base-300 font-regular leading-base-300',
+		size === '100' && 'text-base-100 leading-base-100',
+		size === '200' && 'text-base-200 leading-base-200',
+		size === '400' && 'text-base-400 leading-base-400',
+		size === '500' && 'text-base-500 leading-base-500',
+		size === '600' && 'text-base-600 leading-base-600',
+		size === '700' && 'text-base-700 leading-base-700',
+		size === '800' && 'text-base-800 leading-base-800',
+		size === '900' && 'text-base-900 leading-base-900',
+		size === '1000' && 'text-base-1000 leading-base-1000',
+		font === 'monospace' && 'font-monospace',
+		font === 'numeric' && 'font-numeric',
+		weight === 'meduim' && 'font-medium',
+		weight === 'semibold' && 'font-semibold',
+		weight === 'bold' && 'font-bold',
+		align === 'start' && 'text-start',
+		align === 'center' && 'text-center',
+		align === 'end' && 'text-end',
 		{ size, align, block, italic, strikethrough, truncate, weight, wrap },
 		font,
 		klass
@@ -37,10 +54,9 @@
 
 <style lang="postcss">
 	.fui-text {
-		@apply visible inline overflow-clip whitespace-normal text-start font-base text-base-300 font-regular leading-base-300;
-
 		&.nowrap {
-			@apply overflow-hidden whitespace-nowrap;
+			overflow: hidden;
+			white-space: nowrap;
 		}
 		&.truncate {
 			text-overflow: ellipsis;
@@ -59,57 +75,6 @@
 		}
 		&.strikethrough-underline {
 			text-decoration-line: line-through underline;
-		}
-		&.size-100 {
-			@apply text-base-100 leading-base-100;
-		}
-		&.size-200 {
-			@apply text-base-200 leading-base-200;
-		}
-		&.size-400 {
-			@apply text-base-400 leading-base-400;
-		}
-		&.size-500 {
-			@apply text-base-500 leading-base-500;
-		}
-		&.size-600 {
-			@apply text-base-600 leading-base-600;
-		}
-		&.size-700 {
-			@apply text-hero-700 leading-hero-700;
-		}
-		&.size-800 {
-			@apply text-hero-800 leading-hero-800;
-		}
-		&.size-900 {
-			@apply text-hero-900 leading-hero-900;
-		}
-		&.size-1000 {
-			@apply text-hero-1000 leading-hero-1000;
-		}
-		&.monospace {
-			@apply font-monospace;
-		}
-		&.numeric {
-			@apply font-numeric;
-		}
-		&.weight-medium {
-			@apply font-medium;
-		}
-		&.weight-semibold {
-			@apply font-semibold;
-		}
-		&.weight-bold {
-			@apply font-bold;
-		}
-		&.align-center {
-			@apply text-center;
-		}
-		&.align-end {
-			@apply text-end;
-		}
-		&.align-justify {
-			@apply text-justify;
 		}
 	}
 </style>

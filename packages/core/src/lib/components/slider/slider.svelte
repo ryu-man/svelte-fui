@@ -46,26 +46,34 @@
 
 <style lang="postcss">
 	.fui-slider {
-		@apply relative inline-grid touch-none items-center justify-center;
+		position: relative;
+
+		display: inline-grid;
+
+		touch-action: none;
+
+		align-items: center;
+
+		justify-content: center;
 
 		--fui-slider-thumb-size: var(---thumb-size, 20px);
 		--fui-slider-rail-size: var(--rail-size, 4px);
 
-		--fui-slider-rail-color: theme(colors.neutral-stroke-accessible);
-		--fui-slider-progress-color: theme(colors.compound-brand-background);
-		--fui-slider-thumb-color: theme(colors.compound-brand-background);
+		--fui-slider-rail-color: var(--fui-colorNeutralStrokeAccessible);
+		--fui-slider-progress-color: var(--fui-colorCompoundBrandBackground);
+		--fui-slider-thumb-color: var(--fui-colorCompoundBrandBackground);
 
 		--fui-slider-slider-direction: var(--direction, 90deg);
 		--fui-slider-slider-progress: var(--progress, 20%);
 		--fui-slider-steps-percent: var(--steps-percent, 0);
 
 		&:hover {
-			--fui-slider-thumb-color: theme(colors.compound-brand-background-hover);
-			--fui-slider-progress-color: theme(colors.compound-brand-background-hover);
+			--fui-slider-thumb-color: var(--fui-colorCompoundBrandBackgroundHover);
+			--fui-slider-progress-color: var(--fui-colorCompoundBrandBackgroundHover);
 		}
 		&:active {
-			--fui-slider-thumb-color: theme(colors.compound-brand-background-pressed);
-			--fui-slider-progress-color: theme(colors.compound-brand-background-pressed);
+			--fui-slider-thumb-color: var(--fui-colorCompoundBrandBackgroundPressed);
+			--fui-slider-progress-color: var(--fui-colorCompoundBrandBackgroundPressed);
 		}
 		@media (forced-colors: active) {
 			--fui-slider-rail-color: CanvasText;
@@ -98,7 +106,9 @@
 		}
 
 		&.vertical {
-			@apply items-center justify-items-center;
+			align-items: center;
+
+			justify-items: center;
 			min-height: 120px;
 			/* 3x3 grid with the rail and thumb in the center cell [2,2] and the hidden input stretching across all cells */
 			grid-template-rows: 1fr calc(100% - var(--fui-slider-thumb-size)) 1fr;
@@ -109,9 +119,10 @@
 		}
 
 		&.disabled {
-			--fui-slider-thumb-color: theme(colors.neutral-foreground-disabled);
-			--fui-slider-rail-color: theme(colors.neutral-background-disabled);
-			--fui-slider-progress-color: theme(colors.neutral-foreground-disabled);
+			--fui-slider-thumb-color: var(--fui-colorNeutralForegroundDisabled);
+			--fui-slider-rail-color: var(--fui-colorNeutralBackgroundDisabled);
+			--fui-slider-progress-color: var(--fui-colorNeutralForegroundDisabled);
+
 			@media (forced-colors: active) {
 				--fui-slider-rail-color: GrayText;
 				--fui-slider-thumb-color: GrayText;
@@ -157,7 +168,11 @@
 	}
 
 	.fui-slider-rail {
-		@apply pointer-events-none relative rounded-xl;
+		pointer-events: none;
+
+		position: relative;
+
+		border-radius: 8px;
 		/* ...shorthands.borderRadius(colors.borderRadiusXLarge), */
 		/* pointerEvents: 'none; */
 		grid-row-start: 2;
@@ -176,7 +191,7 @@
 		);
 		outline-width: 1px;
 		outline-style: solid;
-		outline-color: theme(colors.transparent-stroke);
+		outline-color: var(--fui-colorTransparentStroke);
 
 		&::before {
 			content: '';
@@ -184,10 +199,10 @@
 			/* Repeating gradient represents the steps if provided */
 			background-image: repeating-linear-gradient(
 				var(--fui-slider-slider-direction),
-				#0000 0%,
-				#0000 calc(var(--fui-slider-steps-percent) - 1px),
-				theme(colors.neutral-background-1) calc(var(--fui-slider-steps-percent) - 1px),
-				theme(colors.neutral-background-1) var(--fui-slider-steps-percent)
+				rgba(0, 0, 0, 0) 0%,
+				rgba(0, 0, 0, 0) calc(var(--fui-slider-steps-percent) - 1px),
+				var(--fui-colorNeutralBackground1) calc(var(--fui-slider-steps-percent) - 1px),
+				var(--fui-colorNeutralBackground1) var(--fui-slider-steps-percent)
 			);
 			/* force steps to use HighlightText for high contrast mode */
 			@media (forced-colors: active) {
@@ -223,7 +238,7 @@
 	}
 
 	.fui-slider-thumb {
-		@apply rounded-circular;
+		border-radius: 9999px;
 		grid-row-start: 2;
 		grid-row-end: 2;
 		grid-column-start: 2;
@@ -234,19 +249,25 @@
 		pointer-events: none;
 		outline-style: none;
 		forced-color-adjust: none;
-		box-shadow: 0 0 0 calc(var(--fui-slider-thumb-size) * 0.2) theme(colors.neutral-background-1)
+		box-shadow: 0 0 0 calc(var(--fui-slider-thumb-size) * 0.2) var(--fui-colorNeutralBackground1)
 			inset;
 		background-color: var(--fui-slider-thumb-color);
 
 		&::before {
-			@apply rounded-circular absolute inset-0 box-border;
+			position: absolute;
+			top: 0px;
+			right: 0px;
+			bottom: 0px;
+			left: 0px;
+			box-sizing: border-box;
+			border-radius: 9999px;
 			content: '';
-			border: calc(var(--fui-slider-thumb-size) * 0.05) solid theme(colors.neutral-stroke-1);
+			border: calc(var(--fui-slider-thumb-size) * 0.05) solid var(--fui-colorNeutralStroke1);
 		}
 		&.disabled {
 			&::before {
 				border: calc(var(--fui-slider-thumb-size) * 0.05) solid
-					theme(colors.neutral-foreground-disabled);
+					var(--fui-colorNeutralForegroundDisabled);
 			}
 		}
 		&.horizontal {
@@ -260,7 +281,10 @@
 	}
 
 	.fui-slider-input {
-		@apply m-0 cursor-pointer p-0 opacity-0;
+		margin: 0px;
+		cursor: pointer;
+		padding: 0px;
+		opacity: 0;
 		grid-row-start: 1;
 		grid-row-end: -1;
 		grid-column-start: 1;

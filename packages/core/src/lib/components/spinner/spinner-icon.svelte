@@ -37,7 +37,7 @@
 	}
 
 	svg {
-		@apply bg-transparent;
+		background-color: transparent;
 		animation-duration: var(--animation-duration, 3s);
 		animation-iteration-count: var(--animation-iteration-count, infinite);
 		animation-timing-function: linear;
@@ -55,8 +55,7 @@
 	}
 
 	.fui-spinner-tail {
-		@apply ease-easy-ease;
-
+		transition-timing-function: var(--timing-function-ease);
 		animation-name: fui-spinner-tail-animation;
 		animation-duration: 1.5s;
 		animation-iteration-count: infinite;

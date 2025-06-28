@@ -56,8 +56,8 @@
 
 <style lang="postcss">
 	.fui-button-shell {
-		--min-height: calc(theme(lineHeight.base-300) + 5px * 2 + theme(borderWidth.thin) * 2);
-		--fui-icon-size: theme(lineHeight.base-300);
+		--min-height: calc(var(--leading-base-300) + 5px * 2 + var(--spacing-thin) * 2);
+		--fui-icon-size: var(--leading-base-300);
 
 		text-decoration: none;
 		outline: none;

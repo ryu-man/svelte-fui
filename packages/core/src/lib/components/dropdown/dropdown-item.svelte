@@ -115,7 +115,8 @@
 		'fui-dropdown-item text-neutral-foreground-1 first:rounded-t-inherit last:rounded-b-inherit flex gap-2 px-4 py-1.5 before:transition-opacity before:duration-100 before:bg-brand-background before:opacity-0',
 		!disabled && 'cursor-pointer hover:before:opacity-20 active:before:opacity-25',
 		disabled && 'opacity-50',
-		isSelected && 'before:opacity-50 hover:before:opacity-55 active:before:opacity-60',
+		isSelected &&
+			'before:opacity-50 hover:before:opacity-55 active:before:opacity-60 text-neutral-foreground-on-brand',
 		klass
 	)}
 	data-active={isSelected}
@@ -128,15 +129,15 @@
 
 <style lang="postcss">
 	.fui-dropdown-item {
-		@apply relative;
+		position: relative;
 
 		&::before {
-			@apply rounded-inherit pointer-events-none absolute inset-0 z-[-1];
 			content: '';
+			border-radius: inherit;
+			pointer-events: none;
+			position: absolute;
+			inset: 0;
+			z: 1;
 		}
-	}
-
-	.fui-dropdown-item[data-active='true'] {
-		@apply text-neutral-foreground-on-brand;
 	}
 </style>

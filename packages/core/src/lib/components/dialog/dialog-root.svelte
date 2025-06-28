@@ -134,7 +134,7 @@
 			<div
 				use:reference={ref}
 				class={classnames(
-					'fui-dialog-surface bg-neutral-background-1 text-neutral-foreground-1 border-transparent-stroke border-thin shadow-64 m-auto box-border gap-2 rounded-xl',
+					'fui-dialog-surface bg-neutral-background-1 text-neutral-foreground-1 border-transparent-stroke border-thin shadow-64 m-auto box-border gap-2 rounded-xl absolute inset-0  flex flex-col',
 					klass
 				)}
 				{...restProps}
@@ -167,8 +167,6 @@
 
 <style lang="postcss">
 	.fui-dialog-surface {
-		@apply absolute inset-0  flex flex-col;
-
 		--dialog-height: 98vh;
 
 		height: fit-content;

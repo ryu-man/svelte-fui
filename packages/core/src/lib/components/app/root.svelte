@@ -106,7 +106,14 @@
 	}
 </script>
 
-<div class={classnames('fui-root', klass)} bind:this={contextState.dom.root} use:theming={theme}>
+<div
+	class={classnames(
+		'fui-root body-1 bg-neutral-background-1 text-neutral-foreground-1 relative text-left w-full h-full m-0 p-0',
+		klass
+	)}
+	bind:this={contextState.dom.root}
+	use:theming={theme}
+>
 	<Layer.Outer id="overlay" class="z-10">
 		<Layer.Inner></Layer.Inner>
 	</Layer.Outer>
@@ -135,14 +142,6 @@
 	:global(html, body) {
 		width: 100%;
 		height: 100%;
-	}
-	.fui-root {
-		@apply body-1 bg-neutral-background-1 text-neutral-foreground-1 relative text-left;
-
-		width: 100%;
-		height: 100%;
-		margin: 0;
-		padding: 0;
 	}
 
 	/* Reduced Motion Support */

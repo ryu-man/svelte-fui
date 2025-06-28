@@ -11,14 +11,10 @@
 	}: CardFooterProps = $props();
 </script>
 
-<div bind:this={element} use:reference={ref} class={classnames('fui-card-footer', klass)}>
+<div
+	bind:this={element}
+	use:reference={ref}
+	class={classnames('fui-card-footer flex gap-m shrink-0', klass)}
+>
 	{@render children?.()}
 </div>
-
-<style lang="postcss">
-	.fui-card-footer {
-		@apply flex gap-m;
-
-		flex-shrink: 0;
-	}
-</style>

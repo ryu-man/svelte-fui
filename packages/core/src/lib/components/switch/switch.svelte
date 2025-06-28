@@ -20,20 +20,31 @@
 <div
 	bind:this={element}
 	use:reference={ref}
-	class={classnames('fui-switch', { vertical: position === 'above' }, position, klass)}
+	class={classnames(
+		'fui-switch relative box-border inline-flex items-start',
+		{ vertical: position === 'above' },
+		position,
+		klass
+	)}
 >
 	<input
 		{id}
 		role="switch"
 		type="checkbox"
-		class={classnames('fui-switch-input', position)}
+		class={classnames(
+			'fui-switch-input absolute box-border cursor-pointer w-full opacity-0 m-0',
+			position
+		)}
 		bind:checked
 		{required}
 		{disabled}
 		{readonly}
 		{onchange}
 	/>
-	<div aria-hidden="true" class="fui-switch-indicator">
+	<div
+		aria-hidden="true"
+		class="fui-switch-indicator pointer-events-none m-s box-border flex-shrink-0 rounded-full fill-current text-lg duration-normal ease-easy-ease"
+	>
 		<svg
 			fill="currentColor"
 			class=""
@@ -50,43 +61,47 @@
 
 <style lang="postcss">
 	.fui-switch {
-		@apply relative box-border inline-flex items-start;
-
 		--space-between-thumb-and-track: 2px;
 		--track-height: 20px;
 		--track-width: 40px;
 		--thumb-size: calc(var(--track-height) - var(--space-between-thumb-and-track));
 
 		&.vertical {
-			@apply flex-col-reverse;
+			flex-direction: column-reverse;
 		}
 
 		&.before {
-			@apply inline-flex flex-row-reverse;
+			display: inline-flex;
+			flex-direction: row-reverse;
 		}
 	}
 
 	.fui-switch > :global(.fui-label) {
-		@apply cursor-pointer p-s;
+		cursor: pointer;
+		padding: var(--spacing-s);
 
 		/* Use a (negative) margin to account for the difference between the track's height and the label's line height.
 		This prevents the label from expanding the height of the switch, but preserves line height if the label wraps. */
-		margin-bottom: calc((var(--track-height) - theme(lineHeight.base-300)) / 2);
-		margin-top: calc((var(--track-height) - theme(lineHeight.base-300)) / 2);
+		margin-bottom: calc((var(--track-height) - var(--line-height-base-300)) / 2);
+		margin-top: calc((var(--track-height) - var(--line-height-base-300)) / 2);
 	}
 
 	.fui-switch.above > :global(.fui-label) {
-		@apply w-full pb-xs pt-xs;
+		/* @apply w-full pb-xs pt-xs; */
+
+		width: 100%;
+		padding-block: var(--spacing-xs);
 	}
 	.fui-switch.after > :global(.fui-label) {
-		@apply pr-xs;
+		/* @apply pr-xs; */
+		padding-right: var(--spacing-xs);
 	}
 	.fui-switch.before > :global(.fui-label) {
-		@apply pr-xs;
+		/* @apply pr-xs; */
+		padding-right: var(--spacing-xs);
 	}
 
 	.fui-switch-indicator {
-		@apply pointer-events-none m-s box-border flex-shrink-0 rounded-full fill-current text-lg duration-normal ease-easy-ease;
 		/* border-radius: tokens.borderRadiusCircular; */
 		border: 1px solid;
 		line-height: 0;
@@ -107,7 +122,9 @@
 		}
 
 		& > * {
-			@apply duration-normal ease-easy-ease;
+			transition-duration: var(--transition-duration-normal);
+			transition-timing-function: var(--transition-timing-function-ease);
+
 			/* transition-duration: tokens.durationNormal; */
 			/* transition-timingFunction: tokens.curveEasyEase; */
 			transition-property: transform;
@@ -119,18 +136,13 @@
 	}
 
 	.fui-switch-indicator.above {
-		@apply mt-0;
+		margin-top: 0;
 	}
 
 	.fui-switch-input {
-		@apply absolute box-border cursor-pointer;
-		height: 100%;
-		margin: 0;
-		opacity: 0;
-
 		/* Calculate the width of the hidden input by taking into account the size of the indicator + the padding around it.
     	This is done so that clicking on that "empty space" still toggles the switch. */
-		width: calc(var(--track-width) + 2 * theme(spacing.s));
+		width: calc(var(--track-width) + 2 * var(--spacing-s));
 
 		/* Checked (both enabled and disabled) */
 		&:checked {
@@ -148,33 +160,37 @@
 			cursor: default;
 
 			& ~ .fui-switch-indicator {
-				@apply text-neutral-foreground-disabled;
+				color: var(--fui-colorNeutralForegroundDisabled);
 			}
 
 			& ~ :global(.fui-label) {
-				@apply cursor-default text-neutral-foreground-disabled;
+				cursor: default;
+				color: var(--fui-colorNeutralForegroundDisabled);
 			}
 		}
 
 		/* Enabled and unchecked */
 		&:enabled:not(:checked) {
 			& ~ .fui-switch-indicator {
-				@apply border-neutral-stroke-accessible text-neutral-stroke-accessible;
+				border-color: var(--fui-colorNeutralStrokeAccessible);
+				color: var(--fui-colorNeutralStrokeAccessible);
 			}
 
 			& ~ :global(.fui-label) {
-				@apply text-neutral-foreground-1;
+				color: var(--fui-colorNeutralForeground1);
 			}
 
 			&:hover {
 				& ~ .fui-switch-indicator {
-					@apply border-neutral-stroke-accessible-hover text-neutral-stroke-accessible-hover;
+					border-color: var(--fui-colorNeutralStrokeAccessibleHover);
+					color: var(--fui-colorNeutralStrokeAccessibleHover);
 				}
 			}
 
 			&:hover:active {
 				& ~ .fui-switch-indicator {
-					@apply border-neutral-stroke-accessible-pressed text-neutral-stroke-accessible-pressed;
+					border-color: var(--fui-colorNeutralStrokeAccessiblePressed);
+					color: var(--fui-colorNeutralStrokeAccessiblePressed);
 				}
 			}
 		}
@@ -182,21 +198,28 @@
 		/* Enabled and checked */
 		&:enabled:checked {
 			& ~ .fui-switch-indicator {
-				@apply border-transparent-stroke bg-compound-brand-background text-neutral-foreground-inverted;
+				/* @apply border-transparent-stroke bg-compound-brand-background text-neutral-foreground-inverted; */
 				/* background-color: tokens.colorCompoundBrandBackground,
-           color: tokens.colorNeutralForegroundInverted,
-           border-color: tokens.colorTransparentStroke, */
+           		   color: tokens.colorNeutralForegroundInverted,
+                   border-color: tokens.colorTransparentStroke, */
+				border-color: var(--fui-colorTransparentStroke);
+				background-color: var(--fui-colorCompoundBrandBackground);
+				color: var(--fui-colorNeutralForegroundInverted);
 			}
 
 			&:hover {
 				& ~ .fui-switch-indicator {
-					@apply border-transparent-stroke-interactive bg-compound-brand-background-hover;
+					/* @apply border-transparent-stroke-interactive bg-compound-brand-background-hover; */
+					border-color: var(--fui-colorTransparentStrokeInteractive);
+					background-color: var(--fui-colorCompoundBrandBackgroundHover);
 				}
 			}
 
 			&:hover:active {
 				& ~ .fui-switch-indicator {
-					@apply border-transparent-stroke-interactive text-compound-brand-background-pressed;
+					/* @apply border-transparent-stroke-interactive text-compound-brand-background-pressed; */
+					border-color: var(--fui-colorTransparentStrokeInteractive);
+					color: var(--fui-colorCompoundBrandBackgroundPressed);
 				}
 			}
 		}
@@ -204,14 +227,17 @@
 		/* Disabled and unchecked */
 		&:disabled:not(:checked) {
 			& ~ .fui-switch-indicator {
-				@apply text-neutral-stroke-disabled;
+				/* @apply text-neutral-stroke-disabled; */
+				color: var(--fui-colorNeutralStrokeDisabled);
 			}
 		}
 
 		/* Disabled and checked */
 		&:disabled:checked {
 			& ~ .fui-switch-indicator {
-				@apply border-transparent-stroke-disabled text-neutral-background-disabled;
+				/* @apply border-transparent-stroke-disabled text-neutral-background-disabled; */
+				border-color: var(--fui-colorTransparentStrokeDisabled);
+				color: var(--fui-colorNeutralBackgroundDisabled);
 			}
 		}
 
@@ -253,7 +279,7 @@
 		}
 		&.above {
 			bottom: 0;
-			height: calc(var(--track-height) + theme(spacing.s));
+			height: calc(var(--track-height) + var(--spacing-s));
 			width: 100%;
 		}
 	}

@@ -149,9 +149,10 @@
 <style lang="postcss">
 	.fui-menu-item {
 		&:before {
-			@apply rounded-inherit absolute inset-0;
-
 			content: '';
+			inset: 0;
+			position: absolute;
+			border-radius: inherit;
 		}
 	}
 </style>

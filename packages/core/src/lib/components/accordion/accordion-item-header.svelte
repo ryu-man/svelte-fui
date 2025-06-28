@@ -75,11 +75,15 @@
 
 <style lang="postcss">
 	.fui-accordion-header {
-		@apply text-neutral-foreground-1 bg-transparent-background m-0 rounded-md;
-
+		/* @apply text-neutral-foreground-1 bg-transparent-background m-0 rounded-md; */
+		color: var(--fui-colorNeutralForeground1);
+		background-color: var(--fui-colorTransparentBackground);
+		border-radius: var(--rounded-md);
+		margin: 0px;
 		&.disabled {
-			@apply text-neutral-foreground-disabled;
+			/* @apply text-neutral-foreground-disabled; */
 			background-image: none;
+			color: var(--fui-colorNeutralForegroundDisabled);
 		}
 	}
 </style>

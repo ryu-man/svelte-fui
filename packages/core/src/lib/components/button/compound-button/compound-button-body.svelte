@@ -11,11 +11,14 @@
 
 <style lang="postcss">
 	.fui-compound-button-body {
-		@apply font-regular leading-none;
+		/* @apply font-regular leading-none; */
+
+		font-size: normal;
+		line-height: 0;
 
 		grid-area: body;
 
-		color: var(--fui-compound-body-secondary-color, theme('colors.neutral-foreground-2'));
+		color: var(--fui-compound-body-secondary-color, var(--colors-neutral-foreground-2));
 		font-size: var(--fui-compound-body-secondary-font-size, 1em);
 	}
 </style>

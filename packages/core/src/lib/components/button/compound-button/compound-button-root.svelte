@@ -46,21 +46,22 @@
 
 <style lang="postcss">
 	.fui-compound-button-inner {
-		@apply grid justify-items-start;
+		display: grid;
+		justify-items: start;
 
 		grid-template-columns: auto 1fr;
 		grid-template-rows: auto auto;
 
 		grid-template-areas: 'icon header' 'icon body';
 
-		--fui-compound-body-secondary-color: theme('colors.neutral-foreground-2');
+		--fui-compound-body-secondary-color: var(--colors-neutral-foreground-2);
 
 		&:hover {
-			--fui-compound-body-secondary-color: theme('colors.neutral-foreground-2-hover');
+			--fui-compound-body-secondary-color: var(--colors-neutral-foreground-2-hover);
 		}
 
 		&:hover:active {
-			--fui-compound-body-secondary-color: theme('colors.neutral-foreground-2-pressed');
+			--fui-compound-body-secondary-color: var(--colors-neutral-foreground-2-pressed);
 		}
 	}
 
@@ -77,14 +78,14 @@
 	}
 
 	.primary {
-		--fui-compound-body-secondary-color: theme('colors.neutral-foreground-on-brand');
+		--fui-compound-body-secondary-color: var(--colors-neutral-foreground-on-brand);
 
 		&:hover {
-			--fui-compound-body-secondary-color: theme('colors.neutral-foreground-on-brand');
+			--fui-compound-body-secondary-color: var(--colors-neutral-foreground-on-brand);
 		}
 
 		&:hover:active {
-			--fui-compound-body-secondary-color: theme('colors.neutral-foreground-on-brand');
+			--fui-compound-body-secondary-color: var(--colors-neutral-foreground-on-brand);
 		}
 
 		@media (forced-colors: active) {
@@ -97,14 +98,14 @@
 	}
 
 	.subtle {
-		--fui-compound-body-secondary-color: theme('colors.neutral-foreground-2');
+		--fui-compound-body-secondary-color: var(--colors-neutral-foreground-2);
 
 		&:hover {
-			--fui-compound-body-secondary-color: theme('colors.neutral-foreground-2-hover');
+			--fui-compound-body-secondary-color: var(--colors-neutral-foreground-2-hover);
 		}
 
 		&:hover:active {
-			--fui-compound-body-secondary-color: theme('colors.neutral-foreground-2-pressed');
+			--fui-compound-body-secondary-color: var(--colors-neutral-foreground-2-pressed);
 		}
 
 		@media (forced-colors: active) {
@@ -118,43 +119,57 @@
 	}
 
 	.transparent {
-		--fui-compound-body-secondary-color: theme('colors.neutral-foreground-2');
+		--fui-compound-body-secondary-color: var(--colors-neutral-foreground-2);
 
 		&:hover {
-			--fui-compound-body-secondary-color: theme('colors.neutral-foreground-2-brand-hover');
+			--fui-compound-body-secondary-color: var(--colors-neutral-foreground-2-brand-hover);
 		}
 
 		&:hover:active {
-			--fui-compound-body-secondary-color: theme('colors.neutral-foreground-2-brand-pressed');
+			--fui-compound-body-secondary-color: var(--colors-neutral-foreground-2-brand-pressed);
 		}
 	}
 
 	.sm {
-		@apply p-s pb-mNudge text-base-300 leading-base-300;
+		/* @apply p-s pb-mNudge text-base-300 leading-base-300; */
 
-		--fui-compound-body-secondary-font-size: theme('fontSize.base-200');
+		--fui-compound-body-secondary-font-size: var(--text-base-200);
+		padding: var(--spacing-s);
+		padding-bottom: var(--spacing-mNudge);
+		font-size: var(--text-base-300);
+		line-height: var(--leading-base-300);
 	}
 
 	.md {
-		@apply px-m pb-l text-base-300 leading-base-300 p-[14px];
-		--fui-compound-body-secondary-font-size: theme('fontSize.base-200');
+		/* @apply px-m pb-l text-base-300 leading-base-300 p-[14px]; */
+		--fui-compound-body-secondary-font-size: var(--text-base-200);
+		padding-inline: var(--spacing-m);
+		padding-block: 14px;
+		padding-bottom: var(--spacing-l);
+		font-size: var(--text-base-300);
+		line-height: var(--leading-base-300);
 	}
 
 	.lg {
-		@apply px-l pb-xl text-base-400 leading-base-400 p-[18px];
-		--fui-compound-body-secondary-font-size: theme('fontSize.base-300');
+		/* @apply px-l pb-xl text-base-400 leading-base-400 p-[18px]; */
+		--fui-compound-body-secondary-font-size: var(--text-base-300);
+		padding-inline: var(--spacing-l);
+		padding-block: 18px;
+		padding-bottom: var(--spacing-xl);
+		font-size: var(--text-base-400);
+		line-height: var(--leading-base-400);
 	}
 
 	/* Disabled styles */
 	:disabled {
-		--fui-compound-body-secondary-color: theme('colors.neutral-foreground-disabled');
+		--fui-compound-body-secondary-color: var(--colors-neutral-foreground-disabled);
 
 		&:hover {
-			--fui-compound-body-secondary-color: theme('colors.neutral-foreground-disabled');
+			--fui-compound-body-secondary-color: var(--colors-neutral-foreground-disabled);
 		}
 
 		&:hover:active {
-			--fui-compound-body-secondary-color: theme('colors.neutral-foreground-disabled');
+			--fui-compound-body-secondary-color: var(--colors-neutral-foreground-disabled);
 		}
 	}
 
